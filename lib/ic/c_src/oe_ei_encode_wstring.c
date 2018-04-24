@@ -23,7 +23,7 @@
 
 int oe_ei_encode_wstring(CORBA_Environment *ev, CORBA_wchar *p) {
 
-  int len,wchar,size,tmp,error_code;
+  int len,size,tmp,error_code;
 
   len = ic_wstrlen(p);
   size = ev->_iout + __OE_LISTHDRSZ__ +(len * __OE_WCHARSZ__); 
