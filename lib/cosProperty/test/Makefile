@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSPROPERTY_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -70,24 +73,24 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # PROGRAMS
 # ----------------------------------------------------
-LOCAL_CLASSPATH = $(ERL_TOP)lib/cosProperty/priv:$(ERL_TOP)lib/cosProperty/test
+LOCAL_CLASSPATH = $(CORBA_TOP)lib/cosProperty/priv:$(CORBA_TOP)lib/cosProperty/test
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/cosProperty/ebin \
-	-pa $(ERL_TOP)/lib/cosProperty/src \
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/cosProperty/ebin \
+	-pa $(CORBA_TOP)/lib/cosProperty/src \
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS +=  \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/include \
-	-pa $(ERL_TOP)/lib/cosProperty/ebin \
-	-pa $(ERL_TOP)/lib/cosProperty/test/idl_output \
-	-I$(ERL_TOP)/lib/orber/include \
-	-I$(ERL_TOP)/lib/cosProperty/src \
-	-I$(ERL_TOP)/lib/cosProperty \
-	-I$(ERL_TOP)/lib/cosProperty/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/cosProperty/ebin \
+	-pa $(CORBA_TOP)/lib/cosProperty/test/idl_output \
+	-I$(CORBA_TOP)/lib/orber/include \
+	-I$(CORBA_TOP)/lib/cosProperty/src \
+	-I$(CORBA_TOP)/lib/cosProperty \
+	-I$(CORBA_TOP)/lib/cosProperty/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

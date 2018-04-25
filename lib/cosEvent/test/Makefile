@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSEVENT_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -93,13 +96,13 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin -pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/cosEvent/ebin \
-	-pa $(ERL_TOP)/lib/cosEvent/test/idl_output \
-	-I$(ERL_TOP)/lib/cosEvent \
-	-I$(ERL_TOP)/lib/cosEvent/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/cosEvent/ebin \
+	-pa $(CORBA_TOP)/lib/cosEvent/test/idl_output \
+	-I$(CORBA_TOP)/lib/cosEvent \
+	-I$(CORBA_TOP)/lib/cosEvent/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

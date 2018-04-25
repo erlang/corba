@@ -21,11 +21,13 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(IC_VSN)
+include $(CORBA_TOP)/vsn.mk
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -129,21 +131,21 @@ C_CLIENT_ERL_SERVER_TEST_FILES = \
 	c_client_erl_server_SUITE_data/c_erl_test.idl \
 	c_client_erl_server_SUITE_data/c_client.c \
 	c_client_erl_server_SUITE_data/m_i_impl.erl
-  
+
 C_CLIENT_ERL_SERVER_PROTO_TEST_FILES = \
 	c_client_erl_server_proto_SUITE_data/Makefile.src \
 	c_client_erl_server_proto_SUITE_data/c_erl_test.idl \
 	c_client_erl_server_proto_SUITE_data/c_client.c \
 	c_client_erl_server_proto_SUITE_data/my.c \
 	c_client_erl_server_proto_SUITE_data/m_i_impl.erl
-  
+
 C_CLIENT_ERL_SERVER_PROTO_TMO_TEST_FILES = \
 	c_client_erl_server_proto_tmo_SUITE_data/Makefile.src \
 	c_client_erl_server_proto_tmo_SUITE_data/c_erl_test.idl \
 	c_client_erl_server_proto_tmo_SUITE_data/c_client.c \
 	c_client_erl_server_proto_tmo_SUITE_data/my.c \
 	c_client_erl_server_proto_tmo_SUITE_data/m_i_impl.erl
-  
+
 ERL_CLIENT_C_SERVER_TEST_FILES = \
 	erl_client_c_server_SUITE_data/Makefile.src \
 	erl_client_c_server_SUITE_data/erl_c_test.idl \
@@ -163,7 +165,7 @@ JAVA_CLIENT_ERL_SERVER_TEST_FILES = \
 	java_client_erl_server_SUITE_data/java_erl_test.idl \
 	java_client_erl_server_SUITE_data/JavaClient.java \
 	java_client_erl_server_SUITE_data/m_i_impl.erl
-  
+
 MODULES = \
 	ic_SUITE  \
 	ic_register_SUITE \
@@ -205,12 +207,11 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_LOCAL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin -pa $(ERL_TOP)/lib/ic/ebin
+ERL_LOCAL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS += \
 	$(ERL_LOCAL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-I$(ERL_TOP)/lib/orber
+	-I$(CORBA_TOP)/lib/orber/include
 
 # ----------------------------------------------------
 # Targets

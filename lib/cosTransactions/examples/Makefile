@@ -24,11 +24,13 @@ EBIN= ../ebin
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSTRANSACTIONS_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -80,7 +82,7 @@ endif
 # PROGRAMS
 # ----------------------------------------------------
 JAVA_IDL = idl
-LOCAL_CLASSPATH = $(ERL_TOP)/lib/cosTransactions/priv:$(ERL_TOP)/lib/cosTransactions/examples/java_output:$(ERL_TOP)/lib/cosTransactions/src:$(ERL_TOP)/lib/cosTransactions/examples:$(ERL_TOP)/lib/cosTransactions/examples/java_output/hotel
+LOCAL_CLASSPATH = $(CORBA_TOP)/lib/cosTransactions/priv:$(CORBA_TOP)/lib/cosTransactions/examples/java_output:$(CORBA_TOP)/lib/cosTransactions/src:$(CORBA_TOP)/lib/cosTransactions/examples:$(CORBA_TOP)/lib/cosTransactions/examples/java_output/hotel
 
 # ----------------------------------------------------
 # FLAGS

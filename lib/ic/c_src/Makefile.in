@@ -21,21 +21,26 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
-CC = @CC@
-LIBS = @LIBS@
+include $(ERL_TOP)/make/$(TARGET)/otp_ded.mk
 
-LIBDIR = ../priv/lib/$(TARGET)
-OBJDIR = ../priv/obj/$(TARGET)
+CORBA_TOP=../../..
+
+CC = $(DED_CC)
+
+PRIVDIR = ../priv
+OBJDIR = $(PRIVDIR)/obj/$(TARGET)
+LIBDIR = $(PRIVDIR)/lib/$(TARGET)
+
 INCDIR = ../include
+
 ERL_INTERFACE_FLAGS = \
-	-I$(ERL_TOP)/lib/erl_interface/include \
-	-I$(ERL_TOP)/lib/erl_interface/src
+	-I$(ERL_TOP)/lib/erl_interface/include
 
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(IC_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -73,7 +78,7 @@ AR_OUT = rc
 else
 AR_OUT = rcv
 endif
-CC_FLAGS = @DED_CFLAGS@
+CC_FLAGS = $(DED_CFLAGS)
 LIBRARY = $(LIBDIR)/libic.a
 SKIP_BUILDING_BINARIES := false
 endif
@@ -108,7 +113,7 @@ H_FILES = $(INCDIR)/ic.h
 
 OBJ_FILES= $(C_FILES:%.c=$(OBJDIR)/%.o) 
 
-ALL_CFLAGS = @CFLAGS@ @DEFS@ -I$(INCDIR) $(ERL_INTERFACE_FLAGS) $(CFLAGS) 
+ALL_CFLAGS = @CFLAGS@ @DEFS@ -I$(INCDIR) $(ERL_INTERFACE_FLAGS)
 
 # ----------------------------------------------------
 # Targets

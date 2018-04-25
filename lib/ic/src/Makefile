@@ -26,16 +26,17 @@ endif
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(IC_VSN)
+include $(CORBA_TOP)/vsn.mk
 
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/ic-$(VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/ic-$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Target Specs
@@ -153,14 +154,14 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_LOCAL_FLAGS += -pa ../../ic/ebin 
+ERL_LOCAL_FLAGS += -pa $(CORBA_TOP)/lib/ic/ebin 
 # The -pa option is just used temporary until erlc can handle 
 # includes from other directories than ../include .
 ERL_COMPILE_FLAGS += \
 	$(ERL_LOCAL_FLAGS) \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"ic_$(VSN)"}' \
-	-D'COMPILERVSN="$(VSN)"'
+	+'{attribute,insert,app_vsn,"ic_$(CORBA_VSN)"}' \
+	-D'COMPILERVSN="$(CORBA_VSN)"'
 YRL_FLAGS = -Iicyeccpre.hrl
 
 # ----------------------------------------------------
@@ -175,8 +176,8 @@ clean:
 	rm -f $(TARGET_FILES) $(GEN_FILES) $(APP_TARGET)
 	rm -f errs core *~
 
-$(APP_TARGET): $(APP_SRC) ../vsn.mk
-	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $< > $@
+$(APP_TARGET): $(APP_SRC) $(CORBA_TOP)/vsn.mk
+	$(vsn_verbose)sed -e 's;%VSN%;$(CORBA_VSN);' $< > $@
 
 docs:
 

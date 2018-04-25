@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSEVENTDOMAIN_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -57,17 +60,17 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin -pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/cosEventDomain/ebin \
-	-pa $(ERL_TOP)/lib/cosEventDomain/include \
-	-pa $(ERL_TOP)/lib/cosNotification/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosEventDomain/include \
-	-I$(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosNotification/ebin
+	-pa $(CORBA_TOP)/lib/cosEventDomain/ebin \
+	-pa $(CORBA_TOP)/lib/cosEventDomain/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosEventDomain/include \
+	-I$(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosNotification/ebin
 
 # ----------------------------------------------------
 # Targets

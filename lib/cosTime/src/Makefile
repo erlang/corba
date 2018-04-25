@@ -26,11 +26,13 @@ endif
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSTIME_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -133,21 +135,21 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/cosTime/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin\
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-I$(ERL_TOP)/lib/cosEvent/src
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/cosTime/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin\
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-I$(CORBA_TOP)/lib/cosEvent/src
 
 # The -pa option is just used temporary until erlc can handle 
 # includes from other directories than ../include .
 ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/include \
-	-pa $(ERL_TOP)/lib/cosTime/include \
-	-I$(ERL_TOP)/lib/cosTime/include \
-	-I$(ERL_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/cosTime/include \
+	-I$(CORBA_TOP)/lib/cosTime/include \
+	-I$(CORBA_TOP)/lib/orber/include \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"cosTime_$(COSTIME_VSN)"}' 
+	+'{attribute,insert,app_vsn,"cosTime_$(VSN)"}' 
 
 
 # ----------------------------------------------------
@@ -166,10 +168,10 @@ clean:
 	rm -f $(TARGET_FILES) $(GEN_FILES) $(APP_TARGET) $(APPUP_TARGET) IDL-GENERATED
 	rm -f errs core *~
 
-$(APP_TARGET): $(APP_SRC)
+$(APP_TARGET): $(APP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $< > $@
 
-$(APPUP_TARGET): $(APPUP_SRC) ../vsn.mk
+$(APPUP_TARGET): $(APPUP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $< > $@
 
 docs:

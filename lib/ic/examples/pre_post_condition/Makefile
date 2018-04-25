@@ -42,11 +42,13 @@ EBIN= ./
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../../vsn.mk
-VSN=$(IC_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -87,12 +89,10 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_LOCAL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin -pa $(ERL_TOP)/lib/ic/ebin
-# The -pa option is just used temporary until erlc can handle 
-# includes from other directories than ../include .
+ERL_LOCAL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 ERL_COMPILE_FLAGS += \
 	$(ERL_LOCAL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber -I$(ERL_TOP)/lib/orber
+	-pa $(CORBA_TOP)/lib/orber -I$(CORBA_TOP)/lib/orber
 YRL_FLAGS = 
 
 

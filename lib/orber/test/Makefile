@@ -21,11 +21,13 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(ORBER_VSN)
+include $(CORBA_TOP)/vsn.mk
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -159,13 +161,13 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin -pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/ic/ebin \
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-I$(ERL_TOP)/lib/orber \
-	-I$(ERL_TOP)/lib/orber/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/ic/ebin \
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-I$(CORBA_TOP)/lib/orber \
+	-I$(CORBA_TOP)/lib/orber/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

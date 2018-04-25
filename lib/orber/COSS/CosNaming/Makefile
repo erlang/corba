@@ -23,16 +23,17 @@ EBIN=../../ebin
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../../vsn.mk
-VSN=$(ORBER_VSN)
+include $(CORBA_TOP)/vsn.mk
 
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(CORBA_VSN)
 # ----------------------------------------------------
 # Target Specs
 # ----------------------------------------------------
@@ -94,14 +95,14 @@ APP_FILE =
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin
 # The -pa option is just used temporary until erlc can handle 
 # includes from other directories than ../include .
 ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
-	-I$(ERL_TOP)/lib/orber/include \
+	-I../include \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"orber_$(ORBER_VSN)"}' 
+	+'{attribute,insert,app_vsn,"orber_$(CORBA_VSN)"}' 
 
 YRL_FLAGS = 
 
@@ -118,7 +119,7 @@ clean:
 	rm -f errs core *~
 
 $(APP_TARGET): $(APP_SRC)
-	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $(APP_SRC) > $(APP_TARGET)
+	$(vsn_verbose)sed -e 's;%VSN%;$(CORBA_VSN);' $(APP_SRC) > $(APP_TARGET)
 
 docs:
 

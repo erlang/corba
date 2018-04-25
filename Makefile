@@ -1,7 +1,7 @@
 #
 # %CopyrightBegin%
 # 
-# Copyright Ericsson AB 1998-2016. All Rights Reserved.
+# Copyright Ericsson AB 1997-2016. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,19 +21,13 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
-CORBA_TOP=../..
-
-# ----------------------------------------------------
-# Application version
-# ----------------------------------------------------
-include $(CORBA_TOP)/vsn.mk
-VSN=$(CORBA_VSN)
-
 # ----------------------------------------------------
 # Common Macros
 # ----------------------------------------------------
 
-SUB_DIRECTORIES = src c_src java_src doc/src examples/pre_post_condition
+SUB_DIRECTORIES = lib/orber lib/ic lib/cosEvent \
+	lib/cosTime lib/cosNotification lib/cosEventDomain \
+	lib/cosProperty lib/cosFileTransfer lib/cosTransactions
 
 SPECIAL_TARGETS = 
 
@@ -42,3 +36,22 @@ SPECIAL_TARGETS =
 # ----------------------------------------------------
 include $(ERL_TOP)/make/otp_subdir.mk
 
+# ----------------------------------------------------
+# Configure Targets
+# ----------------------------------------------------
+autoconf:
+	@if [ -d "autom4te.cache" ]; then \
+		echo "=== cleaning autom4te.cache"; \
+		rm -f autom4te.cache/*; \
+	fi; \
+	echo "=== running autoconf"; \
+	autoconf; \
+	chmod 755 configure; \
+	chdr=`cat "configure.in" | sed -n "s|.*\(AC_CONFIG_HEADER\).*|\1|p"`;\
+	if [ "$chdr" = "AC_CONFIG_HEADER" ]; then \
+		echo "=== running autoheader"; \
+		autoheader; \
+	fi
+
+configure: autoconf
+	./configure

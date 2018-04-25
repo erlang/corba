@@ -20,9 +20,10 @@
 #
 include $(ERL_TOP)/make/target.mk
 
+CORBA_TOP=../../../../../../..
 
-JAVA_DEST_ROOT = $(ERL_TOP)/lib/ic/priv/
-JAVA_SRC_ROOT = $(ERL_TOP)/lib/ic/java_src/
+JAVA_DEST_ROOT = $(CORBA_TOP)/lib/ic/priv/
+JAVA_SRC_ROOT = $(CORBA_TOP)/lib/ic/java_src/
 JAVA_CLASS_SUBDIR = com/ericsson/otp/ic/
 JAVA_INCL_ROOT = $(ERL_TOP)/lib/jinterface/priv/
 
@@ -31,13 +32,12 @@ include $(ERL_TOP)/make/$(TARGET)/otp.mk
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include  $(ERL_TOP)/lib/ic/vsn.mk
-VSN=$(IC_VSN)
+include  $(CORBA_TOP)/vsn.mk
 
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/ic-$(VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/ic-$(CORBA_VSN)
 
 #
 # JAVA macros

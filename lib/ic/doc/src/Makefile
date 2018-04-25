@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../../vsn.mk
-VSN=$(IC_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 APPLICATION=ic
 
 # ----------------------------------------------------
@@ -33,7 +36,7 @@ APPLICATION=ic
 # ----------------------------------------------------
 JAVADOC=javadoc
 JAVA_INCL_ROOT = $(ERL_TOP)/lib/jinterface/priv/
-JAVA_SRC_ROOT = $(ERL_TOP)/lib/ic/java_src/
+JAVA_SRC_ROOT = $(CORBA_TOP)/lib/ic/java_src/
 JAVA_CLASS_SUBDIR = com/ericsson/otp/ic/
 
 # ----------------------------------------------------
@@ -46,8 +49,8 @@ RELSYSDIR = $(RELEASE_PATH)/lib/$(APPLICATION)-$(VSN)
 # ----------------------------------------------------
 XML_APPLICATION_FILES = ref_man.xml
 XML_REF3_FILES = ic.xml \
-	 	  ic_clib.xml \
-		  ic_c_protocol.xml
+	 	 ic_clib.xml \
+		 ic_c_protocol.xml
 
 XML_PART_FILES = part.xml
 
@@ -165,9 +168,9 @@ DVIPS_FLAGS +=
 JAVADOCFLAGS = \
 	-classpath $(CLASSPATH) \
 	-d ../doc/html/java \
-	-windowtitle "Package com.ericsson.otp.ic version $(IC_VSN)" \
+	-windowtitle "Package com.ericsson.otp.ic version $(VSN)" \
 	-public \
-	-footer "<CENTER><FONT SIZE=-1>Copyright &copy; 1991-2007 Ericsson AB<BR> </FONT> </CENTER>"
+	-footer "<CENTER><FONT SIZE=-1>Copyright &copy; 1996-2018 Ericsson AB<BR> </FONT> </CENTER>"
 
 
 # ----------------------------------------------------
@@ -204,7 +207,7 @@ man: $(MAN3_FILES)
 
 gifs: $(GIF_FILES:%=$(HTMLDIR)/%)
 
-$(INDEX_TARGET): $(INDEX_SRC) ../../vsn.mk
+$(INDEX_TARGET): $(INDEX_SRC) $(CORBA_TOP)/vsn.mk
 	sed -e 's;%VSN%;$(VSN);' $< > $@
 
 debug opt:

@@ -25,11 +25,13 @@ endif
 EBIN=../ebin
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSEVENTDOMAIN_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -100,32 +102,30 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # FLAGS
 # ----------------------------------------------------
 ERL_IDL_FLAGS += \
-	-pa $(ERL_TOP)/lib/cosEventDomain/ebin \
-	-pa $(ERL_TOP)/lib/cosEventDomain/include \
-	-pa $(ERL_TOP)/lib/cosNotification/include \
-	-pa $(ERL_TOP)/lib/cosNotification/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin \
-	-I$(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosNotification/ebin \
-	-I$(ERL_TOP)/lib/cosNotification/src \
-	-I$(ERL_TOP)/lib/cosEvent/src \
-	-I$(ERL_TOP)/lib/cosEventDomain/include
-# The -pa option is just used temporary until erlc can handle 
-# includes from other directories than ../include .
+	-pa $(CORBA_TOP)/lib/cosEventDomain/ebin \
+	-pa $(CORBA_TOP)/lib/cosEventDomain/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin \
+	-I$(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosNotification/ebin \
+	-I$(CORBA_TOP)/lib/cosNotification/src \
+	-I$(CORBA_TOP)/lib/cosEvent/src \
+	-I$(CORBA_TOP)/lib/cosEventDomain/include
 ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/cosEventDomain/include \
-	-pa $(ERL_TOP)/lib/cosNotification/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/include \
-	-pa $(ERL_TOP)/lib/cosNotification/src \
-	-I$(ERL_TOP)/lib/cosEventDomain/include \
-	-I$(ERL_TOP)/lib/cosNotification/ebin \
-	-I$(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosNotification/src \
-	-I$(ERL_TOP)/lib/cosEvent/src \
-	-I$(ERL_TOP)/lib/cosEvent/include \
+	-pa $(CORBA_TOP)/lib/cosEventDomain/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/src \
+	-I$(CORBA_TOP)/lib/cosEventDomain/include \
+	-I$(CORBA_TOP)/lib/cosNotification/ebin \
+	-I$(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosNotification/src \
+	-I$(CORBA_TOP)/lib/cosEvent/src \
+	-I$(CORBA_TOP)/lib/cosEvent/include \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"cosEventDomain_$(COSEVENTDOMAIN_VSN)"}' 
+	+'{attribute,insert,app_vsn,"cosEventDomain_$(VSN)"}' 
 
 YRL_FLAGS = 
 
@@ -141,9 +141,9 @@ clean:
 	rm -f $(TARGET_FILES) $(GEN_FILES) $(APP_TARGET) $(APPUP_TARGET) IDL-GENERATED
 	rm -f errs core *~
 
-$(APP_TARGET): $(APP_SRC)
+$(APP_TARGET): $(APP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $(APP_SRC) > $(APP_TARGET)
-$(APPUP_TARGET): $(APPUP_SRC)
+$(APPUP_TARGET): $(APPUP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $(APPUP_SRC) > $(APPUP_TARGET)
 
 docs:

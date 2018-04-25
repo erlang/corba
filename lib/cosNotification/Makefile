@@ -21,17 +21,16 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../..
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include vsn.mk
-VSN=$(COSNOTIFICATION_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Common Macros
 # ----------------------------------------------------
-# SUB_DIRECTORIES = src test examples doc/src
-# At the moment we don't have any example programs.
 SUB_DIRECTORIES = src doc/src
 
 SPECIAL_TARGETS = 

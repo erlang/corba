@@ -25,11 +25,14 @@ include $(ERL_TOP)/make/$(TARGET)/otp.mk
 #ERL_COMPILE_FLAGS += -Ddebug -W
 #endif
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSTRANSACTIONS_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -82,22 +85,22 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # PROGRAMS
 # ----------------------------------------------------
-LOCAL_CLASSPATH = $(ERL_TOP)/lib/cosTransactions/priv:$(ERL_TOP)/lib/cosTransactions/test
+LOCAL_CLASSPATH = $(CORBA_TOP)/lib/cosTransactions/priv:$(CORBA_TOP)/lib/cosTransactions/test
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/cosTransactions/ebin\
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/cosTransactions/ebin\
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS +=  \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/include \
-	-pa $(ERL_TOP)/lib/cosTransactions/ebin \
-	-pa $(ERL_TOP)/lib/cosTransactions/test/idl_output \
-	-I$(ERL_TOP)/lib/orber/include \
-	-I$(ERL_TOP)/lib/cosTransactions \
-	-I$(ERL_TOP)/lib/cosTransactions/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/cosTransactions/ebin \
+	-pa $(CORBA_TOP)/lib/cosTransactions/test/idl_output \
+	-I$(CORBA_TOP)/lib/orber/include \
+	-I$(CORBA_TOP)/lib/cosTransactions \
+	-I$(CORBA_TOP)/lib/cosTransactions/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

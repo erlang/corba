@@ -1,4 +1,4 @@
-#
+	#
 # %CopyrightBegin%
 # 
 # Copyright Ericsson AB 2001-2016. All Rights Reserved.
@@ -21,13 +21,17 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
-include ../vsn.mk
-VSN = $(ORBER_VSN)
+CORBA_TOP=../../..
+
+# ----------------------------------------------------
+# Application version
+# ----------------------------------------------------
+include $(CORBA_TOP)/vsn.mk
 
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(CORBA_VSN)
 
 #
 # Macros
@@ -51,7 +55,6 @@ debug opt:
 docs:
 
 clean:
-
 
 # ----------------------------------------------------
 # Release Target

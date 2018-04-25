@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSFILETRANSFER_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -69,31 +72,31 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # PROGRAMS
 # ----------------------------------------------------
-LOCAL_CLASSPATH = $(ERL_TOP)lib/cosFileTransfer/priv:$(ERL_TOP)lib/cosFileTransfer/test
+LOCAL_CLASSPATH = $(CORBA_TOP)lib/cosFileTransfer/priv:$(CORBA_TOP)lib/cosFileTransfer/test
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/cosFileTransfer/ebin \
-	-pa $(ERL_TOP)/lib/cosFileTransfer/src \
-	-pa $(ERL_TOP)/lib/cosFileTransfer/include \
-	-pa $(ERL_TOP)/lib/cosProperty/ebin \
-	-pa $(ERL_TOP)/lib/cosProperty/include \
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/cosFileTransfer/ebin \
+	-pa $(CORBA_TOP)/lib/cosFileTransfer/src \
+	-pa $(CORBA_TOP)/lib/cosFileTransfer/include \
+	-pa $(CORBA_TOP)/lib/cosProperty/ebin \
+	-pa $(CORBA_TOP)/lib/cosProperty/include \
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin
 
 ERL_COMPILE_FLAGS +=  \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/include \
-	-pa $(ERL_TOP)/lib/cosProperty/include \
-	-pa $(ERL_TOP)/lib/cosFileTransfer/ebin \
-	-pa $(ERL_TOP)/lib/cosFileTransfer/include \
-	-pa $(ERL_TOP)/lib/cosFileTransfer/test/idl_output \
-	-I$(ERL_TOP)/lib/orber/include \
-	-I$(ERL_TOP)/lib/cosProperty/include \
-	-I$(ERL_TOP)/lib/cosFileTransfer/src \
-	-I$(ERL_TOP)/lib/cosFileTransfer/include \
-	-I$(ERL_TOP)/lib/cosFileTransfer \
-	-I$(ERL_TOP)/lib/cosFileTransfer/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/cosProperty/include \
+	-pa $(CORBA_TOP)/lib/cosFileTransfer/ebin \
+	-pa $(CORBA_TOP)/lib/cosFileTransfer/include \
+	-pa $(CORBA_TOP)/lib/cosFileTransfer/test/idl_output \
+	-I$(CORBA_TOP)/lib/orber/include \
+	-I$(CORBA_TOP)/lib/cosProperty/include \
+	-I$(CORBA_TOP)/lib/cosFileTransfer/src \
+	-I$(CORBA_TOP)/lib/cosFileTransfer/include \
+	-I$(CORBA_TOP)/lib/cosFileTransfer \
+	-I$(CORBA_TOP)/lib/cosFileTransfer/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

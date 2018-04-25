@@ -21,11 +21,14 @@
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSNOTIFICATION_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
+
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
@@ -110,38 +113,38 @@ TARGET_FILES = \
 # ----------------------------------------------------
 # PROGRAMS
 # ----------------------------------------------------
-LOCAL_CLASSPATH = $(ERL_TOP)lib/cosNotification/priv:$(ERL_TOP)lib/cosNotification/test
+LOCAL_CLASSPATH = $(CORBA_TOP)lib/cosNotification/priv:$(CORBA_TOP)lib/cosNotification/test
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
 ERL_IDL_FLAGS += \
-	-pa $(ERL_TOP)/lib/cosNotification/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/src \
-	-pa $(ERL_TOP)/lib/cosTime/ebin \
-	-pa $(ERL_TOP)/lib/cosTime/include \
-	-pa $(ERL_TOP)/lib/orber/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosEvent/src \
-	-I$(ERL_TOP)/lib/cosNotification/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/src \
+	-pa $(CORBA_TOP)/lib/cosTime/ebin \
+	-pa $(CORBA_TOP)/lib/cosTime/include \
+	-pa $(CORBA_TOP)/lib/orber/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosEvent/src \
+	-I$(CORBA_TOP)/lib/cosNotification/include \
 
 ERL_COMPILE_FLAGS +=  \
 	$(ERL_IDL_FLAGS) \
-	-pa $(ERL_TOP)/lib/orber/include \
-	-pa $(ERL_TOP)/lib/cosEvent/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/ebin \
-	-pa $(ERL_TOP)/lib/cosNotification/test/idl_output \
-	-pa $(ERL_TOP)/lib/cosTime/ebin \
-	-pa $(ERL_TOP)/lib/cosTime/include \
-	-pa $(ERL_TOP)/lib/cosNotification/include \
-	-pa $(ERL_TOP)/lib/ic/ebin \
-	-I$(ERL_TOP)/lib/cosTime/ebin \
-	-I$(ERL_TOP)/lib/cosTime/include \
-	-I$(ERL_TOP)/lib/orber/include \
-	-I$(ERL_TOP)/lib/cosNotification/src \
-	-I$(ERL_TOP)/lib/cosNotification/include \
-	-I$(ERL_TOP)/lib/cosNotification \
-	-I$(ERL_TOP)/lib/cosNotification/test/$(IDLOUTDIR)
+	-pa $(CORBA_TOP)/lib/orber/include \
+	-pa $(CORBA_TOP)/lib/cosEvent/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/cosNotification/test/idl_output \
+	-pa $(CORBA_TOP)/lib/cosTime/ebin \
+	-pa $(CORBA_TOP)/lib/cosTime/include \
+	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	-pa $(CORBA_TOP)/lib/ic/ebin \
+	-I$(CORBA_TOP)/lib/cosTime/ebin \
+	-I$(CORBA_TOP)/lib/cosTime/include \
+	-I$(CORBA_TOP)/lib/orber/include \
+	-I$(CORBA_TOP)/lib/cosNotification/src \
+	-I$(CORBA_TOP)/lib/cosNotification/include \
+	-I$(CORBA_TOP)/lib/cosNotification \
+	-I$(CORBA_TOP)/lib/cosNotification/test/$(IDLOUTDIR)
 
 # ----------------------------------------------------
 # Targets

@@ -27,11 +27,13 @@ endif
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-VSN=$(COSTRANSACTIONS_VSN)
+include $(CORBA_TOP)/vsn.mk
+VSN=$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Release directory specification
@@ -119,18 +121,18 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/cosTransactions/ebin \
-	-pa $(ERL_TOP)/lib/ic/ebin\
-	-pa $(ERL_TOP)/lib/orber/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/cosTransactions/ebin \
+	-pa $(CORBA_TOP)/lib/ic/ebin\
+	-pa $(CORBA_TOP)/lib/orber/ebin
 
 # The -pa option is just used temporary until erlc can handle 
 # includes from other directories than ../include .
 ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
-	-I$(ERL_TOP)/lib/cosTransactions/include \
-	-I$(ERL_TOP)/lib/orber/include \
+	-I$(CORBA_TOP)/lib/cosTransactions/include \
+	-I$(CORBA_TOP)/lib/orber/include \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"cosTransactions_$(COSTRANSACTIONS_VSN)"}' 
+	+'{attribute,insert,app_vsn,"cosTransactions_$(VSN)"}' 
 
 
 # ----------------------------------------------------
@@ -145,10 +147,10 @@ clean:
 	rm -f $(TARGET_FILES) $(GEN_FILES) $(APP_TARGET) $(APPUP_TARGET) IDL-GENERATED
 	rm -f errs core *~
 
-$(APP_TARGET): $(APP_SRC)
+$(APP_TARGET): $(APP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $(APP_SRC) > $(APP_TARGET)
 
-$(APPUP_TARGET): $(APPUP_SRC) ../vsn.mk
+$(APPUP_TARGET): $(APPUP_SRC) $(CORBA_TOP)/vsn.mk
 	$(vsn_verbose)sed -e 's;%VSN%;$(VSN);' $< > $@
 
 docs:

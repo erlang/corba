@@ -22,16 +22,17 @@ include $(ERL_TOP)/make/target.mk
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
+CORBA_TOP=../../..
+
 # ----------------------------------------------------
 # Application version
 # ----------------------------------------------------
-include ../vsn.mk
-
+include $(CORBA_TOP)/vsn.mk
 
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(ORBER_VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/orber-$(CORBA_VSN)
 
 # ----------------------------------------------------
 # Target Specs
@@ -189,13 +190,11 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(ERL_TOP)/lib/orber/ebin
-# The -pa option is just used temporary until erlc can handle 
-# includes from other directories than ../include .
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin
 ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
-	-I$(ERL_TOP)/lib/orber/include \
+	-I../include \
 	+'{parse_transform,sys_pre_attributes}' \
-	+'{attribute,insert,app_vsn,"orber_$(ORBER_VSN)"}'
+	+'{attribute,insert,app_vsn,"orber_$(CORBA_VSN)"}'
 
 ASN_FLAGS = -bber +der +compact_bit_string +nowarn_unused_record
 
@@ -211,11 +210,11 @@ clean:
 	rm -f $(TARGET_FILES) $(GEN_FILES) $(APP_TARGET) $(APPUP_TARGET) IDL-GENERATED
 	rm -f errs core *~
 
-$(APP_TARGET): $(APP_SRC) ../vsn.mk
-	$(vsn_verbose)sed -e 's;%VSN%;$(ORBER_VSN);' $< > $@
+$(APP_TARGET): $(APP_SRC) $(CORBA_TOP)/vsn.mk
+	$(vsn_verbose)sed -e 's;%VSN%;$(CORBA_VSN);' $< > $@
 
-$(APPUP_TARGET): $(APPUP_SRC) ../vsn.mk
-	$(vsn_verbose)sed -e 's;%VSN%;$(ORBER_VSN);' $< > $@
+$(APPUP_TARGET): $(APPUP_SRC) $(CORBA_TOP)/vsn.mk
+	$(vsn_verbose)sed -e 's;%VSN%;$(CORBA_VSN);' $< > $@
 
 docs:
 
@@ -223,8 +222,8 @@ docs:
 # Special Build Targets
 # ----------------------------------------------------
 
-IDL-GENERATED:  $(ERL_TOP)/lib/ic/include/erlang.idl CORBA.idl OrberIFR.idl
-	$(gen_verbose)erlc $(ERL_IDL_FLAGS) $(ERL_TOP)/lib/ic/include/erlang.idl
+IDL-GENERATED:  $(CORBA_TOP)/lib/ic/include/erlang.idl CORBA.idl OrberIFR.idl
+	$(gen_verbose)erlc $(ERL_IDL_FLAGS) $(CORBA_TOP)/lib/ic/include/erlang.idl
 	$(V_at)erlc $(ERL_IDL_FLAGS) CORBA.idl
 	$(V_at)erlc $(ERL_IDL_FLAGS) +'{this,"Orber::IFR"}' OrberIFR.idl
 	$(V_at)>IDL-GENERATED
@@ -235,13 +234,6 @@ $(TARGET_FILES): IDL-GENERATED
 $(GEN_ASN_ERL) $(GEN_ASN_HRL): OrberCSIv2.asn1 OrberCSIv2.set.asn
 	$(asn_verbose)erlc $(ERL_COMPILE_FLAGS) $(ASN_FLAGS) +'{inline,"OrberCSIv2"}' OrberCSIv2.set.asn
 	$(V_at)rm -f $(GEN_ASN_ERL:%.erl=%.beam)
-
-#	erlc $(ERL_COMPILE_FLAGS) $(ASN_FLAGS) OrberCSIv2.asn1 ;\
-#	erlc $(GEN_ASN_ERL) 
-# Use the following when we safely can inline the ASN1 runtime code.
-# Requires igor (part of syntax_tools (introduced in R10B
-#	erlc $(ERL_COMPILE_FLAGS) $(ASN_FLAGS) +'{inline,"OrberCSIv2"}' OrberCSIv2.set.asn ; \
-
 
 # ----------------------------------------------------
 # Release Target
