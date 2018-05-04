@@ -34,7 +34,24 @@ SPECIAL_TARGETS =
 # ----------------------------------------------------
 # Default Subdir Targets
 # ----------------------------------------------------
-include $(ERL_TOP)/make/otp_subdir.mk
+.PHONY: debug opt lcnt release docs release_docs tests release_tests \
+	clean depend valgrind static_lib
+
+opt debug lcnt release docs release_docs tests release_tests clean depend valgrind static_lib xmllint:
+	@set -e ;							\
+	for d in $(SUB_DIRECTORIES); do					\
+	    if test -f $$d/SKIP ; then					\
+		echo "=== Skipping subdir $$d, reason:" ;		\
+		cat $$d/SKIP ;						\
+		echo "===" ;						\
+	    else							\
+		if test ! -d $$d ; then					\
+		    echo "=== Skipping subdir $$d, it is missing" ;	\
+		else							\
+		    (cd $$d && $(MAKE) $@) || exit $$? ;		\
+		fi ;							\
+	    fi ;							\
+	done ;
 
 # ----------------------------------------------------
 # Configure Targets
