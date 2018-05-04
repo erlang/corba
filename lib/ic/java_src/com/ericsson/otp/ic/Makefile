@@ -25,7 +25,9 @@ CORBA_TOP=../../../../../../..
 JAVA_DEST_ROOT = $(CORBA_TOP)/lib/ic/priv/
 JAVA_SRC_ROOT = $(CORBA_TOP)/lib/ic/java_src/
 JAVA_CLASS_SUBDIR = com/ericsson/otp/ic/
-JAVA_INCL_ROOT = $(ERL_TOP)/lib/jinterface/priv/
+
+FRD = 'io:fwrite("~n=:~s~n",[code:priv_dir(jinterface)]),init:stop().'
+JAVA_INCL_ROOT  := $(shell echo $(FRD) | erl | sed -n '/^=:/s/^=://p')
 
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
@@ -80,7 +82,7 @@ JARFILE= ic.jar
 # ----------------------------------------------------
 # Programs and Flags
 # ----------------------------------------------------
-CLASSPATH = $(JAVA_SRC_ROOT):$(JAVA_INCL_ROOT)
+CLASSPATH = $(JAVA_SRC_ROOT):$(JAVA_INCL_ROOT)/OtpErlang.jar
 
 JAR= jar
 

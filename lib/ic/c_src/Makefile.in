@@ -25,6 +25,9 @@ include $(ERL_TOP)/make/$(TARGET)/otp_ded.mk
 
 CORBA_TOP=../../..
 
+FRD = 'io:fwrite("~n=:~s~n",[code:lib_dir(erl_interface)]),init:stop().'
+EI_DIR := $(shell echo $(FRD) | erl | sed -n '/^=:/s/^=://p')
+
 CC = $(DED_CC)
 
 PRIVDIR = ../priv
@@ -34,7 +37,7 @@ LIBDIR = $(PRIVDIR)/lib/$(TARGET)
 INCDIR = ../include
 
 ERL_INTERFACE_FLAGS = \
-	-I$(ERL_TOP)/lib/erl_interface/include
+	-I$(EI_DIR)/include
 
 # ----------------------------------------------------
 # Application version
