@@ -140,8 +140,7 @@ JD_GIF_FILES = \
 	../html/java/resources/inherit.gif
 
 
-PACK_DIR = com/ericsson/otp/ic
-JAVA_SOURCE_DIR = ../../java_src/$(PACK_DIR)
+JAVA_SOURCE_DIR = $(JAVA_SRC_ROOT)/$(JAVA_CLASS_SUBDIR)
 JAVA_OUT_DIR = ../html/java
 
 JD_PACK_HTML_FILES = \
@@ -150,8 +149,8 @@ JD_PACK_HTML_FILES = \
 	package-tree.html
 
 JAVADOC_PACK_HTML_FILES = \
-	$(JAVA_SOURCE_FILES:%.java=$(JAVA_OUT_DIR)/$(PACK_DIR)/%.html) \
-	$(JD_PACK_HTML_FILES:%=$(JAVA_OUT_DIR)/$(PACK_DIR)/%)
+	$(JAVA_SOURCE_FILES:%.java=$(JAVA_OUT_DIR)/$(JAVA_CLASS_SUBDIR)/%.html) \
+	$(JD_PACK_HTML_FILES:%=$(JAVA_OUT_DIR)/$(JAVA_CLASS_SUBDIR)/%)
 
 JAVADOC_INDEX_HTML_FILES = $(JD_INDEX_HTML_FILES:%=$(JAVA_OUT_DIR)/%)
 
@@ -161,7 +160,7 @@ JAVADOC_GENERATED_FILES = $(JAVADOC_PACK_HTML_FILES) $(JAVADOC_INDEX_HTML_FILES)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-CLASSPATH = $(JAVA_SRC_ROOT):$(JAVA_INCL_ROOT)
+CLASSPATH = ../java_src:$(JAVA_INCL_ROOT)
 
 XML_FLAGS +=
 DVIPS_FLAGS +=
