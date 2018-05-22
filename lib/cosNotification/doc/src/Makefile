@@ -146,9 +146,6 @@ man: $(MAN3_FILES)
 
 gifs: $(GIF_FILES:%=$(HTMLDIR)/%)
 
-$(INDEX_TARGET): $(INDEX_SRC)
-	sed -e 's;%VSN%;$(VSN);' $(INDEX_SRC) > $(INDEX_TARGET)
-
 debug opt:
 
 # ----------------------------------------------------

@@ -27,7 +27,7 @@ CORBA_TOP=../../../..
 # Application version
 # ----------------------------------------------------
 include $(CORBA_TOP)/vsn.mk
-VSN=$(ORBER_VSN)
+VSN=$(CORBA_VSN)
 APPLICATION=orber
 
 # ----------------------------------------------------

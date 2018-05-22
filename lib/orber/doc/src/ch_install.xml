@@ -397,13 +397,13 @@ nodeB@hostB> orber:start().
       <row>
         <cell align="left" valign="middle">ssl_server_options</cell>
         <cell align="left" valign="middle">list()</cell>
-        <cell align="left" valign="middle">See the <seealso marker="ssl:ssl">SSL application</seealso> 
+        <cell align="left" valign="middle">See the <url href="http://erlang.org/doc/man/ssl.html">SSL application</url> 
 	for valid options.</cell>
       </row>
       <row>
         <cell align="left" valign="middle">ssl_client_options</cell>
         <cell align="left" valign="middle">list()</cell>
-        <cell align="left" valign="middle">See the <seealso marker="ssl:ssl">SSL application</seealso> 
+        <cell align="left" valign="middle">See the <url href="http://erlang.org/doc/man/ssl.html">SSL application</url> 
 	for valid options.</cell>
       </row>
       <row>
@@ -635,14 +635,14 @@ nodeB@hostB> orber:start().
       <item>A list of the SSL options when Orber is the server. 
         In general it's just to remove the 'ssl_server_' prefix from the old options,
 	i.e. <c>ssl_server_verify</c> will just be <c>verify</c> in this option list.
-        See the <seealso marker="ssl:ssl">SSL application</seealso> for the correct list of possible 
+        See the <url href="http://erlang.org/doc/man/ssl.html">SSL application</url> for the correct list of possible 
         options and their values.
       </item>
       <tag><em>ssl_client_options</em></tag>
       <item>A list of the SSL options when Orber is the client. 
         In general it's just to remove the <c>ssl_client_</c> prefix from the old options,
 	i.e. <c>ssl_client_depth</c> will just be <c>depth</c> in this option list.
-        See the <seealso marker="ssl:ssl">SSL application</seealso> for the correct list of possible 
+        See the <url href="http://erlang.org/doc/man/ssl.html">SSL application</url> for the correct list of possible 
         options and their values.
       </item>
       <tag><em>iiop_ssl_out_keepalive</em></tag>

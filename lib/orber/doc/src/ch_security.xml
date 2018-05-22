@@ -4,7 +4,7 @@
 <chapter>
   <header>
     <copyright>
-      <year>1999</year><year>2016</year>
+      <year>1999</year><year>2018</year>
       <holder>Ericsson AB. All Rights Reserved.</holder>
     </copyright>
     <legalnotice>
@@ -59,7 +59,7 @@
       <p>There is a variable to conficure Orber's SSL behavior on the server side.</p>
       <list type="bulleted">
         <item><em>ssl_server_options</em> - which is a list of options to ssl. 
-        See the <seealso marker="ssl:ssl">SSL</seealso> application for further 
+        See the <url href="http://erlang.org/doc/man/ssl.html">SSL</url> application for further 
 	descriptions on these options.</item>
       </list>
       <p>There also exist an API function for accessing the value of this variable:</p>
@@ -77,7 +77,7 @@
         per client process.</p>
       <list type="bulleted">
         <item><em>ssl_client_options</em> - which is a list of options to ssl.
-        See the <seealso marker="ssl:ssl">SSL</seealso> application for further 
+        See the <url href="http://erlang.org/doc/man/ssl.html">SSL</url> application for further 
 	descriptions on these options.</item>
       </list>
       <p>There also exist two API functions for accessing and changing the values of this 

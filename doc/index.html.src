@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+%CopyrightBegin%
+
+Copyright Ericsson AB 2009-2018. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+ 
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+%CopyrightEnd%
+-->
+
+<html>
+<head>
+  <link rel="stylesheet" href="otp_doc.css" type="text/css"/>
+  <title>CORBA #corba_base_vsn#</title>
+
+<script id="js" type="text/javascript" language="JavaScript" src="js/flipmenu/flipmenu.js">
+
+</script>
+</head> 
+
+<body>
+
+<div id="container">
+<div id="leftnav">
+<div class="innertube">
+<div class="erlang-logo-wrapper">
+ <img alt="Erlang logo" src="erlang-logo.png" class="erlang-logo"/ >
+</div>
+
+<ul class="expand-collapse-items">
+ <li><a href="javascript:openAllFlips()">Expand All</a></li>
+ <li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+
+
+<h3>Applications</h3>
+
+<ul class="flipMenu">
+<li><a href="../lib/cosEvent-#corba_base_vsn#/doc/html/index.html">cosEvent</a></li>
+<li><a href="../lib/cosEventDomain-#corba_base_vsn#/doc/html/index.html">cosEventDomain</a></li>
+<li><a href="../lib/cosFileTransfer-#corba_base_vsn#/doc/html/index.html">cosFileTransfer</a></li>
+<li><a href="../lib/cosNotification-#corba_base_vsn#/doc/html/index.html">cosNotification</a></li>
+<li><a href="../lib/cosProperty-#corba_base_vsn#/doc/html/index.html">cosProperty</a></li>
+<li><a href="../lib/cosTime-#corba_base_vsn#/doc/html/index.html">cosTime</a></li>
+<li><a href="../lib/cosTransactions-#corba_base_vsn#/doc/html/index.html">cosTransactions</a></li>
+<li><a href="../lib/ic-#corba_base_vsn#/doc/html/index.html">ic</a></li>
+<li><a href="../lib/orber-#corba_base_vsn#/doc/html/index.html">orber</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<div id="content">
+<div class="innertube">
+    <h1 class="main-title">CORBA #corba_base_vsn#</h1>
+    <p class="main-description">
+    Welcome to Erlang CORBA Applications
+    </p>
+
+<center>
+<small>
+Copyright &copy; 1999-2018
+<a href="http://www.ericsson.com">Ericsson AB</a>
+</small>
+</center>
+</div>
+</div>
+</div>
+</body>
+</html>
