@@ -40,7 +40,9 @@ export TESTROOT=<install path>
 make release
 ```
 
-And you will get the following structure there.
+And you will get the following structure there so for exmaple the 
+environment variable `ERL_LIBS`can be used to get the application into the 
+code path (`export ERL_LIBS=<my corba release path>/lib`).
 
 ```
 lib/
@@ -52,7 +54,39 @@ lib/
      :
 ```
 
-### The documentation build is not ready yet!!
+### The documentation build 
+
+The dokumentation is build with the following commands.
+
+```
+cd corba
+make docs
+```
+
+To release it set the *TESTROOT* to a directory of choice and 
+the run the following commands.
+
+```
+export TESTROOT=<install path>
+
+make release_docs
+```
+
+This gives the following structure on the release path, where 
+the top index is `doc/index.html`.
+
+```
+COPYRIGHT.md
+doc/
+lib/
+    orber-<vsn>/
+    cosEvent-<vsn>/
+    cosEventDomain-<vsn>/
+     :
+     :
+     :
+README.md
+```
 
 ## Versions and tags
 
