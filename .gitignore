@@ -56,6 +56,7 @@ IDL-GENERATED
 /lib/*/ebin/*.app
 /lib/*/ebin/*.appup
 
+/doc/index.html
 /lib/*/doc/html/*.html
 /lib/*/doc/html/*.css
 /lib/*/doc/html/js
