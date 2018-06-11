@@ -190,7 +190,7 @@ APP_TARGET = $(EBIN)/$(APP_FILE)
 # ----------------------------------------------------
 # FLAGS
 # ----------------------------------------------------
-ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin
+ERL_IDL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin  -pa $(CORBA_TOP)/lib/ic/ebin
 ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
 	-I../include \
 	+'{parse_transform,sys_pre_attributes}' \

@@ -106,6 +106,7 @@ ERL_IDL_FLAGS += \
 	-pa $(CORBA_TOP)/lib/cosEventDomain/include \
 	-pa $(CORBA_TOP)/lib/cosNotification/include \
 	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
+	-pa $(CORBA_TOP)/lib/orber/ebin \
 	-pa $(CORBA_TOP)/lib/ic/ebin \
 	-I$(CORBA_TOP)/lib/cosNotification/include \
 	-I$(CORBA_TOP)/lib/cosNotification/ebin \

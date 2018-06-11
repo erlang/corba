@@ -25,7 +25,7 @@ include $(ERL_TOP)/make/$(TARGET)/otp.mk
 # Common Macros
 # ----------------------------------------------------
 
-SUB_DIRECTORIES = lib/orber lib/ic lib/cosEvent \
+SUB_DIRECTORIES = lib/ic lib/orber lib/cosEvent \
 	lib/cosTime lib/cosNotification lib/cosEventDomain \
 	lib/cosProperty lib/cosFileTransfer lib/cosTransactions \
 	doc
