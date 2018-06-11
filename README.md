@@ -76,7 +76,7 @@ This gives the following structure on the release path, where
 the top index is `doc/index.html`.
 
 ```
-COPYRIGHT.md
+COPYRIGHT
 doc/
 lib/
     orber-<vsn>/
