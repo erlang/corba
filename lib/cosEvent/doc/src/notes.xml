@@ -4,7 +4,7 @@
 <chapter>
   <header>
     <copyright>
-      <year>1999</year><year>2016</year>
+      <year>1999</year><year>2018</year>
       <holder>Ericsson AB. All Rights Reserved.</holder>
     </copyright>
     <legalnotice>
@@ -33,6 +33,21 @@
     <file>notes.xml</file>
   </header>
 
+
+  <section><title>cosEvent 4.5</title>
+
+    <section><title>Improvements and New Features</title>
+      <list>
+        <item>
+	    <p>All corba applications are from version 4.5 handled as one entity 
+	    and there are common release notes on the Corba level.
+	    </p>
+        </item>
+      </list>
+    </section>
+
+  </section>
+
   <section><title>cosEvent 2.2.2</title>
 
     <section><title>Fixed Bugs and Malfunctions</title>
@@ -46,9 +61,9 @@
       </list>
     </section>
 
-</section>
+  </section>
 
-<section><title>cosEvent 2.2.1</title>
+  <section><title>cosEvent 2.2.1</title>
 
     <section><title>Improvements and New Features</title>
       <list>

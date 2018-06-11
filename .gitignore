@@ -57,6 +57,8 @@ IDL-GENERATED
 /lib/*/ebin/*.appup
 
 /doc/index.html
+/doc/release_notes.html
+/doc/notes.html
 /lib/*/doc/html/*.html
 /lib/*/doc/html/*.css
 /lib/*/doc/html/js

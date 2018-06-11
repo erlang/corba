@@ -91,8 +91,8 @@ README.md
 ## Versions and tags
 
 There is only one version for all applications included in the corba repository.
-This means that if one uses the tag *corba-4.0* then all the included applications
-have that version, e.g. orber-4.0, cosEvent-4.0 etc.
+This means that if one uses the tag *corba-4.5* then all the included applications
+have that version, e.g. orber-4.5, cosEvent-4.5 etc.
 
 ## Bug Reports
 

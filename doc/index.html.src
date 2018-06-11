@@ -38,6 +38,10 @@ limitations under the License.
  <img alt="Erlang logo" src="erlang-logo.png" class="erlang-logo"/ >
 </div>
 
+<ul class="panel-sections">
+<li><a href="release_notes.html">Release Notes</a></li>
+</ul>
+
 <ul class="expand-collapse-items">
  <li><a href="javascript:openAllFlips()">Expand All</a></li>
  <li><a href="javascript:closeAllFlips()">Contract All</a></li>
