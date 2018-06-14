@@ -1,7 +1,21 @@
 # [Erlang Corba](https://www.erlang.org)
 
-The corba repository contains a set of Erlang components, that implements a CORBA compliant 
-Object Request Broker (ORB) and a number of standard services.
+The corba repository contains a set of Erlang applications, that implements a CORBA compliant
+Object Request Broker (ORB) and a number of Object Managemnt Group (OMG) standard services.
+
+## Applications
+
+The following applications are a part of the corba package.
+
+* Orber           - the Object Request Broker and the naming service (CosNaming)
+* Ic              - IDL compiler
+* CosEvent        - event service
+* CosEventDomain  - event domain service (management of clusters of information channels)
+* CosNotification - notification service
+* CosTime         - time service
+* CosTransaction  - transaction service
+* CosProperty     - property service
+* CosFileTransfer - file transfer service
 
 ## Build
 ### Prerequisites
@@ -18,8 +32,8 @@ cd otp
 
 ### Compiling the source
 
-The environment variable *ERL_TOP* should be set to the OTP source path 
-and then it's possible to compile corba from the source with the following 
+The environment variable *ERL_TOP* should be set to the OTP source path
+and then it's possible to compile corba from the source with the following
 commands.
 
 ```
@@ -31,7 +45,7 @@ make configure
 make
 ```
 
-To release the applications set the *TESTROOT* to a directory of choice and 
+To release the applications set the *TESTROOT* to a directory of choice and
 the run the following commands.
 
 ```
@@ -40,8 +54,8 @@ export TESTROOT=<install path>
 make release
 ```
 
-And you will get the following structure there so for exmaple the 
-environment variable `ERL_LIBS`can be used to get the application into the 
+And you will get the following structure there so for exmaple the
+environment variable `ERL_LIBS`can be used to get the application into the
 code path (`export ERL_LIBS=<my corba release path>/lib`).
 
 ```
@@ -54,7 +68,7 @@ lib/
      :
 ```
 
-### The documentation build 
+### The documentation build
 
 The dokumentation is build with the following commands.
 
@@ -63,7 +77,7 @@ cd corba
 make docs
 ```
 
-To release it set the *TESTROOT* to a directory of choice and 
+To release it set the *TESTROOT* to a directory of choice and
 the run the following commands.
 
 ```
@@ -72,7 +86,7 @@ export TESTROOT=<install path>
 make release_docs
 ```
 
-This gives the following structure on the release path, where 
+This gives the following structure on the release path, where
 the top index is `doc/index.html`.
 
 ```
@@ -96,19 +110,19 @@ have that version, e.g. orber-4.5, cosEvent-4.5 etc.
 
 ## Bug Reports
 
-Please visit [bugs.erlang.org](https://bugs.erlang.org/issues/?jql=project%20%3D%20ERL) for 
+Please visit [bugs.erlang.org](https://bugs.erlang.org/issues/?jql=project%20%3D%20ERL) for
 reporting bugs. The instructions for submitting bugs reports [can be found here](https://git
 hub.com/erlang/otp/wiki/Bug-reports).
 
 ### Security Disclosure
 
-We take security bugs in our applications seriously. Please disclose the issues regarding 
-security by sending an email to **erlang-security [at] erlang [dot] org** and not by creating a 
+We take security bugs in our applications seriously. Please disclose the issues regarding
+security by sending an email to **erlang-security [at] erlang [dot] org** and not by creating a
 public issue.
 
 ## Contributing
 
-We are grateful to the community for contributing bug fixes and improvements. 
+We are grateful to the community for contributing bug fixes and improvements.
 Contribution to the corba applications follow the same process as for Erlang/OTP.
 We appreciate your help!
 
