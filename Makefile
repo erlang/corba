@@ -32,13 +32,15 @@ SUB_DIRECTORIES = lib/ic lib/orber lib/cosEvent \
 
 SPECIAL_TARGETS = 
 
+TEST_SUB_DIRECTORIES = \
+	$(wildcard lib/*/test)
 # ----------------------------------------------------
 # Default Subdir Targets
 # ----------------------------------------------------
-.PHONY: debug opt lcnt release docs release_docs tests release_tests \
+.PHONY: debug opt lcnt release docs release_docs \
 	clean depend valgrind static_lib
 
-opt debug lcnt release docs release_docs tests release_tests clean depend valgrind static_lib xmllint:
+opt debug lcnt release docs release_docs clean depend valgrind static_lib xmllint:
 	@set -e ;							\
 	for d in $(SUB_DIRECTORIES); do					\
 	    if test -f $$d/SKIP ; then					\
@@ -52,6 +54,14 @@ opt debug lcnt release docs release_docs tests release_tests clean depend valgri
 		    (cd $$d && $(MAKE) $@) || exit $$? ;		\
 		fi ;							\
 	    fi ;							\
+	done ;
+
+.PHONY: tests release_tests
+
+tests release_tests:
+	@set -e ;							\
+	for d in $(TEST_SUB_DIRECTORIES); do				\
+	    (cd $$d && $(MAKE) $@) || exit $$? ;			\
 	done ;
 
 # ----------------------------------------------------
