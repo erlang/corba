@@ -30,11 +30,11 @@ cd otp
 ./configure
 ```
 
-### Compiling the source
+### Compiling the source 
 
 The environment variable *ERL_TOP* should be set to the OTP source path
 and then it's possible to compile corba from the source with the following
-commands.
+commands. (The configure is only for native build)
 
 ```
 export ERL_TOP=<OTP source path>
