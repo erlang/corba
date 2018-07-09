@@ -1,53 +1,29 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE chapter SYSTEM "chapter.dtd">
 
-<chapter>
-  <header>
-    <copyright>
-      <year>1999</year><year>2018</year>
-      <holder>Ericsson AB. All Rights Reserved.</holder>
-    </copyright>
-    <legalnotice>
-      Licensed under the Apache License, Version 2.0 (the "License");
-      you may not use this file except in compliance with the License.
-      You may obtain a copy of the License at
- 
-          http://www.apache.org/licenses/LICENSE-2.0
 
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
+<!--
+  %CopyrightBegin%
+  
+  Copyright Ericsson AB 2000-2018. All Rights Reserved.
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  %CopyrightEnd%
 
-    </legalnotice>
+*** Old release notes since cosTime was part of OTP follow ***
 
-    <title>cosTransactions Release Notes</title>
-    <prepared>Niclas Eklund</prepared>
-    <responsible>Niclas Eklund</responsible>
-    <docno></docno>
-    <approved></approved>
-    <checked></checked>
-    <date>99-04-14</date>
-    <rev>A</rev>
-    <file>notes.xml</file>
-  </header>
+-->
 
-  <section><title>cosTransactions 4.5</title>
-
-    <section><title>Improvements and New Features</title>
-      <list>
-        <item>
-	    <p>All corba applications are from version 4.5 handled as one entity 
-	    and there are common release notes on the Corba level.
-	    </p>
-        </item>
-      </list>
-    </section>
-
-  </section>
-
-  <section><title>cosTransactions 1.3.3</title>
+  <section><title>cosTime 1.2.3</title>
 
     <section><title>Fixed Bugs and Malfunctions</title>
       <list>
@@ -62,7 +38,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.3.2</title>
+<section><title>cosTime 1.2.2</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -77,7 +53,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.3.1</title>
+<section><title>cosTime 1.2.1</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -91,7 +67,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.3</title>
+<section><title>cosTime 1.2</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -107,7 +83,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.2.14</title>
+<section><title>cosTime 1.1.14</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -123,7 +99,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.2.13</title>
+<section><title>cosTime 1.1.13</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -138,7 +114,7 @@
 
 </section>
 
-<section><title>cosTransactions 1.2.12</title>
+<section><title>cosTime 1.1.12</title>
 
     <section><title>Improvements and New Features</title>
       <list>
@@ -157,7 +133,8 @@
 </section>
 
 <section>
-    <title>cosTransactions 1.2.11</title>
+    <title>cosTime 1.1.11</title>
+
     <section>
       <title>Improvements and New Features</title>
       <list type="bulleted">
@@ -173,7 +150,24 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.10</title>
+    <title>cosTime 1.1.10</title>
+
+    <section>
+      <title>Improvements and New Features</title>
+      <list type="bulleted">
+        <item>
+          <p>
+            Eliminated Dialyzer warnings when using exit or throw.</p>
+          <p>
+            Own Id: OTP-9050 Aux Id:</p>
+        </item>
+      </list>
+    </section>
+  </section>
+
+  <section>
+    <title>cosTime 1.1.9</title>
+
     <section>
       <title>Improvements and New Features</title>
       <list type="bulleted">
@@ -185,19 +179,10 @@
         </item>
       </list>
     </section>
-    <section>
-      <title>Fixed Bugs and Malfunctions</title>
-      <list type="bulleted">
-        <item>
-          <p>Added missing trailing bracket to define in hrl-file.</p>
-          <p>Own id: OTP-8489 Aux Id:</p>
-        </item>
-      </list>
-    </section>
   </section>
 
   <section>
-    <title>cosTransactions 1.2.9</title>
+    <title>cosTime 1.1.8</title>
 
     <section>
       <title>Fixed Bugs and Malfunctions</title>
@@ -211,7 +196,7 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.8</title>
+    <title>cosTime 1.1.7</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -228,7 +213,7 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.7</title>
+    <title>cosTime 1.1.6</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -243,7 +228,7 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.6</title>
+    <title>cosTime 1.1.5</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -257,7 +242,7 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.5</title>
+    <title>cosTime 1.1.4</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -271,7 +256,7 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.4</title>
+    <title>cosTime 1.1.3</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -285,49 +270,35 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.2.3</title>
+    <title>cosTime 1.1.2</title>
 
     <section>
       <title>Improvements and New Features</title>
       <list type="bulleted">
         <item>
           <p>The documentation source has been converted from SGML to XML.</p>
-          <p>Own id: OTP-6754 Aux Id: </p>
+          <p>Own id: OTP-6754</p>
         </item>
       </list>
     </section>
   </section>
 
   <section>
-    <title>cosTransactions 1.2.2</title>
+    <title>cosTime 1.1.1</title>
 
     <section>
       <title>Improvements and New Features</title>
       <list type="bulleted">
         <item>
           <p>Minor Makefile changes.</p>
-          <p>Own id: OTP-6701 Aux Id: </p>
+          <p>Own id: OTP-6701</p>
         </item>
       </list>
     </section>
   </section>
 
   <section>
-    <title>cosTransactions 1.2.1</title>
-
-    <section>
-      <title>Improvements and New Features</title>
-      <list type="bulleted">
-        <item>
-          <p>Removed some unused code.</p>
-          <p>Own id: OTP-6527 Aux Id: </p>
-        </item>
-      </list>
-    </section>
-  </section>
-
-  <section>
-    <title>cosTransactions 1.2</title>
+    <title>cosTime 1.1</title>
 
     <section>
       <title>Improvements and New Features</title>
@@ -346,73 +317,31 @@
   </section>
 
   <section>
-    <title>cosTransactions 1.1.2</title>
-
-    <section>
-      <title>Improvements and New Features</title>
-      <list type="bulleted">
-        <item>
-          <p>To avoid un-necessary Heuristic decisions cosTransactions now
-            recognize more systems exceptions.</p>
-          <p>Own Id: OTP-4485</p>
-        </item>
-      </list>
-    </section>
-  </section>
-
-  <section>
-    <title>cosTransactions 1.1.1.1</title>
-
-    <section>
-      <title>Improvements and New Features</title>
-      <list type="bulleted">
-        <item>
-          <p>Updated internal documentation.</p>
-        </item>
-      </list>
-    </section>
-  </section>
-
-  <section>
-    <title>cosTransactions 1.1.1</title>
-
-    <section>
-      <title>Improvements and New Features</title>
-      <list type="bulleted">
-        <item>
-          <p>cosTransactions is now able to handle upgrade properly.</p>
-          <p>Own Id: -</p>
-        </item>
-        <item>
-          <p>The cosTransactions factory now accepts <c>maxRetries</c> and 
-            <c>comFailWait</c> options, which overrides the configuration parameters.</p>
-          <p>Own Id: -</p>
-        </item>
-      </list>
-    </section>
+    <title>cosTime 1.0.1.1</title>
 
     <section>
       <title>Incompatibilities</title>
       <list type="bulleted">
         <item>
-          <p>The configuration parameters <c>comm_failure_wait</c> and <c>max_retries</c>
-            changed to <c>maxRetries</c> and <c>comFailWait</c>. The default value for 
-            <c>maxRetries</c> have been raised from 20 to 40.</p>
-          <p>Own Id: -</p>
+          <p>An includepath in <c>CosTimerEvent.idl</c> have been
+            changed. Hence, if you include this file you should check
+            your include paths for your IDL-file(s), i.e., add 
+            the path to CosEventComm.idl.</p>
+          <p>Own Id: OTP-4093</p>
         </item>
       </list>
     </section>
   </section>
 
   <section>
-    <title>cosTransactions 1.1</title>
+    <title>cosTime 1.0.1</title>
 
     <section>
       <title>Improvements and New Features</title>
       <list type="bulleted">
         <item>
-          <p>First release of the cosTransactions application.</p>
-          <p>Own Id: OTP-1741</p>
+          <p>First release of the cosTime application.</p>
+          <p>Own Id: -</p>
         </item>
       </list>
     </section>

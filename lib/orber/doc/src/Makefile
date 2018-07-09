@@ -132,11 +132,15 @@ DVIPS_FLAGS +=
 # ----------------------------------------------------
 # Targets
 # ----------------------------------------------------
+
+notes.xml: ../../../../doc/notes_head.xml.src notes_tail.xml.src
+	$(gen_verbose)cat $< > $@ && cat notes_tail.xml.src >> $@
+
 $(HTMLDIR)/%.gif: %.gif
 	$(INSTALL_DATA) $< $@
 
 
-docs: pdf html man
+docs: notes.xml pdf html man
 
 $(TOP_PDF_FILE): $(XML_FILES)
 
@@ -148,7 +152,7 @@ clean clean_docs:
 	rm -rf $(HTMLDIR)/*
 	rm -f $(MAN3DIR)/*
 	rm -f $(TOP_PDF_FILE) $(TOP_PDF_FILE:%.pdf=%.fo)
-	rm -f errs core *~
+	rm -f errs core *~ notes.xml
 	rm -f $(JD_HTML) $(JD_PACK)
 
 man: $(MAN3_FILES)

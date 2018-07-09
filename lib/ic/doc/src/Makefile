@@ -176,13 +176,17 @@ JAVADOCFLAGS = \
 # ----------------------------------------------------
 # Targets
 # ----------------------------------------------------
+
+notes.xml: ../../../../doc/notes_head.xml.src notes_tail.xml.src
+	$(gen_verbose)cat $< > $@ && cat notes_tail.xml.src >> $@
+
 $(HTMLDIR)/%.gif: %.gif
 	$(INSTALL_DATA) $< $@
 
 ifneq (,$(JAVA))
-docs: pdf html man $(JAVADOC_GENERATED_FILES)
+docs: notes.xml pdf html man $(JAVADOC_GENERATED_FILES)
 else
-docs: pdf html man
+docs: notes.xml pdf html man
 endif
 
 $(TOP_PDF_FILE): $(XML_FILES)

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE chapter SYSTEM "chapter.dtd">
+
+<chapter>
+  <header>
+    <copyright>
+      <year>2018</year>
+      <holder>Ericsson AB. All Rights Reserved.</holder>
+    </copyright>
+    <legalnotice>
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+ 
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+    </legalnotice>
+
+    <title>CORBA Release Notes</title>
+    <file>notes.xml</file>
+  </header>
+
+   <section><title>CORBA 4.5.1</title>
+
+    <section><title>Fixed Bugs and Malfunctions</title>
+      <list>
+        <item>
+	  <p>
+	    Optimize encoding/decoding for pure 7-bit ascii atoms in IC.
+	    </p>
+          <p>
+	    Own Id: OTP-15023 Aux Id(s): ERIERL-150</p>
+        </item>
+        <item>
+	  <p>
+	    Fixed various build issues. Note that you need to build the
+	    <c>corba</c> repo against an OTP of at least version 21.0.3. See
+	    the <c>README.md</c> file for updated build instructions.
+	    </p>
+          <p>
+	    Own Id: OTP-15177 Aux Id(s): OTP-14283, OTP-15176, ERIERL-198, ERIERL-202, ERL-640</p>
+        </item>
+        <item>
+	  <p>  Fixed potential buffer overflow bugs in IC
+               <c>oe_ei_encode_long/ulong/longlong/ulonglong</c> functions
+               on 64-bit architectures. These functions expect 32 bit
+               integers as the IDL type <c>long</c> is defined as 32 bits.
+               But there is nothing preventing user code from
+               "breaking" the interface and pass larger values on
+               64-bit architectures where the C type <c>long</c> is 64
+               bits.
+	    </p>
+          <p>
+	    Own Id: OTP-15179 Aux Id(s): ERIERL-208</p>
+        </item>
+      </list>
+    </section>
+
+  </section>
+
+  <section><title>CORBA 4.5</title>
+
+    <section><title>Improvements and New Features</title>
+      <list>
+        <item>
+	    <p>
+	      First version of the standalone repository for the corba applications.
+	    </p>
+	    <p>
+	      All corba applications are from version 4.5 handled as one entity.
+	      and all the release notes are handled on the Corba level.
+	    </p>
+          <p>
+	    Own Id: OTP-14283</p>
+        </item>
+      </list>
+    </section>
+
+  </section>
