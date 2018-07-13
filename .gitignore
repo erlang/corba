@@ -59,6 +59,7 @@ IDL-GENERATED
 /doc/index.html
 /doc/release_notes.html
 /doc/notes.html
+/doc/notes.xml
 /lib/*/doc/html/*.html
 /lib/*/doc/html/*.css
 /lib/*/doc/html/js
@@ -70,6 +71,7 @@ IDL-GENERATED
 /lib/*/doc/pdf/*.fo
 /lib/*/doc/pdf/*.pdf
 /lib/*/doc/xml/*.xml
+/lib/*/doc/src/notes.xml
 
 /lib/configure
 /lib/config.log

@@ -1,50 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE chapter SYSTEM "chapter.dtd">
 
-<chapter>
-  <header>
-    <copyright>
-      <year>2000</year><year>2018</year>
-      <holder>Ericsson AB. All Rights Reserved.</holder>
-    </copyright>
-    <legalnotice>
-      Licensed under the Apache License, Version 2.0 (the "License");
-      you may not use this file except in compliance with the License.
-      You may obtain a copy of the License at
- 
-          http://www.apache.org/licenses/LICENSE-2.0
 
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
+<!--
+  %CopyrightBegin%
+  
+  Copyright Ericsson AB 2000-2018. All Rights Reserved.
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  %CopyrightEnd%
 
-    </legalnotice>
+*** Old release notes since cosNotification was part of OTP follow ***
 
-    <title>cosNotification Release Notes</title>
-    <prepared></prepared>
-    <docno></docno>
-    <approved></approved>
-    <checked></checked>
-    <date>2000-01-31</date>
-    <rev>A</rev>
-    <file>notes.xml</file>
-  </header>
-
-  <section><title>cosNotification 4.5</title>
-
-    <section><title>Improvements and New Features</title>
-      <list>
-        <item>
-	    <p>All corba applications are from version 4.5 handled as one entity 
-	    and there are common release notes on the Corba level.
-	    </p>
-        </item>
-      </list>
-    </section>
-
-  </section>
+-->
 
   <section><title>cosNotification 1.2.3</title>
 

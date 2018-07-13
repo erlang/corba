@@ -20,38 +20,46 @@ The following applications are a part of the corba package.
 ## Build
 ### Prerequisites
 
-To build the *corba* repository one need a built version of OTP (e.g. erlc) and a
-configured OTP source tree because the corba make files uses the OTP make system.
+In order to build the `corba` applications, an OTP source tree of at least
+version 21.0.3 is needed. This since `corba` utilize the OTP build system.
 
 ```
 git clone https://github.com/erlang/otp.git
 cd otp
 ./otp_build autoconf
 ./configure
+make # Can be skipped if you have a prebuilt OTP (see below)
 ```
+
+If you already have an installed OTP installation of the same release, you can
+use that one instead of building OTP in the source tree. Note that you still
+*need* to `configure` the source tree. Ensure that the already installed OTP
+is available in the `PATH`. The recommended approach is however to build the
+OTP source tree.
+
+In order to cross compile `corba` the OTP source tree should be configured for
+the cross compilation. For more info on cross compilation of Erlang/OTP see
+the document [Cross Compiling Erlang/OTP](http://erlang.org/doc/installation_guide/INSTALL-CROSS.html).
 
 ### Compiling the source 
 
-The environment variable *ERL_TOP* should be set to the OTP source path
+The environment variable `ERL_TOP` *need* to be set to the OTP source path
 and then it's possible to compile corba from the source with the following
-commands. (The configure is only for native build)
+commands.
 
 ```
 export ERL_TOP=<OTP source path>
 
 git clone https://github.com/erlang/corba.git
 cd corba
-make configure
 make
 ```
 
-To release the applications set the *TESTROOT* to a directory of choice and
-the run the following commands.
+To release the applications set the `RELEASE_ROOT` to a directory of choice and
+the run the following command.
 
 ```
-export TESTROOT=<install path>
-
-make release
+make release RELEASE_ROOT=<install path>
 ```
 
 And you will get the following structure there so for exmaple the
@@ -68,22 +76,25 @@ lib/
      :
 ```
 
+You can also install the `corba` applications directly into an existing
+OTP installation either by using the `release` target or the `install`
+target. When using the `install` target the `corba` installation will
+use the same installation directory as configured in the OTP source tree.
+
 ### The documentation build
 
-The dokumentation is build with the following commands.
+The documentation is build with the following commands.
 
 ```
 cd corba
 make docs
 ```
 
-To release it set the *TESTROOT* to a directory of choice and
+To release it, set the `RELEASE_ROOT` to a directory of choice and
 the run the following commands.
 
 ```
-export TESTROOT=<install path>
-
-make release_docs
+make release_docs RELEASE_ROOT=<install path>
 ```
 
 This gives the following structure on the release path, where
@@ -102,17 +113,24 @@ lib/
 README.md
 ```
 
+If you want to install the documentation into an existing OTP installation
+you first have to build the documentation in the OTP source tree used
+for building. After that, you can install the `corba` applications docs directly
+into the OTP installation either by using the `release_docs` target or the
+`install-docs` target. When using the `install-docs` target the `corba`
+installation will use the same installation directory as configured in the
+OTP source tree.
+
 ## Versions and tags
 
 There is only one version for all applications included in the corba repository.
-This means that if one uses the tag *corba-4.5* then all the included applications
-have that version, e.g. orber-4.5, cosEvent-4.5 etc.
+This means that if one uses the tag `4.5` then all the included applications
+have that version, e.g. `orber-4.5`, `cosEvent-4.5` etc.
 
 ## Bug Reports
 
 Please visit [bugs.erlang.org](https://bugs.erlang.org/issues/?jql=project%20%3D%20ERL) for
-reporting bugs. The instructions for submitting bugs reports [can be found here](https://git
-hub.com/erlang/otp/wiki/Bug-reports).
+reporting bugs. The instructions for submitting bugs reports [can be found here](https://github.com/erlang/otp/wiki/Bug-reports).
 
 ### Security Disclosure
 
@@ -128,12 +146,11 @@ We appreciate your help!
 
 ## License
 
-Erlang/OTP is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE
--2.0).
+Erlang/Corba is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 > %CopyrightBegin%
 >
-> Copyright Ericsson AB 2010-2017. All Rights Reserved.
+> Copyright Ericsson AB 2018. All Rights Reserved.
 >
 > Licensed under the Apache License, Version 2.0 (the "License");
 > you may not use this file except in compliance with the License.

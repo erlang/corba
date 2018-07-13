@@ -126,10 +126,14 @@ DVIPS_FLAGS +=
 # ----------------------------------------------------
 # Targets
 # ----------------------------------------------------
+
+notes.xml: ../../../../doc/notes_head.xml.src notes_tail.xml.src
+	$(gen_verbose)cat $< > $@ && cat notes_tail.xml.src >> $@
+
 $(HTMLDIR)/%.gif: %.gif
 	$(INSTALL_DATA) $< $@
 
-docs: pdf html man
+docs: notes.xml pdf html man
 
 $(TOP_PDF_FILE): $(XML_FILES)
 

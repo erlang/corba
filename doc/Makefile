@@ -83,7 +83,7 @@ DVIPS_FLAGS +=
 # ----------------------------------------------------
 # Targets
 # ----------------------------------------------------
-$(RELEASE_NOTES): $(BOOK_FILE) $(NOTES_FILE)
+$(RELEASE_NOTES) $(NOTES_GEN): $(BOOK_FILE) $(NOTES_FILE)
 	$(gen_verbose)date=`date +"%B %e, %Y"`; \
 	$(XSLTPROC) --noout  \
 		--stringparam outdir  .  \
@@ -104,6 +104,10 @@ $(RELEASE_NOTES): $(BOOK_FILE) $(NOTES_FILE)
 	        -path $(DOCGEN)/priv/dtd_html_entities \
 	        $(DOCGEN)/priv/xsl/db_html.xsl $(BOOK_FILE)
 
+notes.xml: notes_head.xml.src notes_tail.xml.src
+	$(gen_verbose)cat notes_head.xml.src > $@ \
+	&& cat notes_tail.xml.src >> $@
+
 $(HTMLDIR)/%.gif: %.gif
 	$(INSTALL_DATA) $< $@
 
@@ -117,7 +121,7 @@ $(INDEX_FILE): $(INDEX_FILE).src
 	$(vsn_verbose)sed 's/#corba_base_vsn#/$(VSN)/g' $< > $@
 
 clean clean_docs:
-	$(RM) $(INDEX_FILE) $(RELEASE_NOTES) $(NOTES_GEN)
+	$(RM) $(INDEX_FILE) $(RELEASE_NOTES) $(NOTES_GEN) $(NOTES_FILE)
 man:
 
 gifs:
@@ -129,6 +133,14 @@ debug opt:
 # ----------------------------------------------------
 include $(ERL_TOP)/make/otp_release_targets.mk
 
+ifeq ($(IS_OTP_INSTALL),yes)
+
+release_docs_spec: docs
+	@(cd $(ERL_TOP)/system/doc/top && $(MAKE) clean)
+	@(cd $(ERL_TOP)/system/doc/top && $(MAKE) RELEASE_ROOT=$(TESTROOT) RELEASE_PATH=$(TESTROOT) TESTROOT=$(TESTROOT) release_docs)
+
+else
+
 release_docs_spec: docs
 	$(INSTALL_DIR) "$(RELDOC_DIR)"
 	$(INSTALL_DATA) $(INDEX_FILE) $(RELEASE_NOTES) $(NOTES_GEN) "$(RELDOC_DIR)"
@@ -138,5 +150,7 @@ release_docs_spec: docs
 	$(INSTALL_DATA) $(HIGHLIGHT_FILES) "$(RELDOC_DIR)/js"
 	$(INSTALL_DATA) $(FLIPMENU_FILES) "$(RELDOC_DIR)/js/flipmenu"
 	$(INSTALL_DATA) $(INFO_FILES) "$(RELEASE_PATH)"
+
+endif
 
 release_spec:
