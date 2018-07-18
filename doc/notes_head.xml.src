@@ -26,6 +26,24 @@
     <file>notes.xml</file>
   </header>
 
+   <section><title>CORBA 4.5.2</title>
+
+    <section><title>Fixed Bugs and Malfunctions</title>
+      <list>
+        <item>
+	  <p>
+	    Fixed install for IC. Headers, libraries, and IDL files
+	    are now installed under <c>$RELEASE_ROOT/usr</c>
+	    regardless of type of install.
+	    </p>
+          <p>
+	    Own Id: OTP-15197 Aux Id(s): ERIERL-202</p>
+        </item>
+      </list>
+    </section>
+
+  </section>
+
    <section><title>CORBA 4.5.1</title>
 
     <section><title>Fixed Bugs and Malfunctions</title>
