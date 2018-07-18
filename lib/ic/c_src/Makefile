@@ -161,12 +161,10 @@ release_spec: opt
 	$(INSTALL_DATA) ic.c ic_tmo.c "$(RELSYSDIR)/c_src"
 	$(INSTALL_DATA) $(IDL_FILES) $(H_FILES) "$(RELSYSDIR)/include"
 	$(INSTALL_DATA) $(LIBRARY) "$(RELSYSDIR)/priv/lib"
-ifeq ($(IS_OTP_INSTALL),yes)
 	$(INSTALL_DIR) "$(RELEASE_PATH)/usr/include"
 	$(INSTALL_DIR) "$(RELEASE_PATH)/usr/lib"
 	$(INSTALL_DATA) $(IDL_FILES) $(H_FILES) "$(RELEASE_PATH)/usr/include"
 	$(INSTALL_DATA) $(LIBRARY) "$(RELEASE_PATH)/usr/lib"
-endif
 
 release_docs_spec:
 
