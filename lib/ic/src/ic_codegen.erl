@@ -222,6 +222,7 @@ emit_stub_head(G, F1, Name, erlang) ->
     nl(F1),
     emit(F1, "-module(~p).\n", [list_to_atom(Name)]),
     emit(F1, "-ic_compiled(~p).\n", [compiler_vsn(?COMPILERVSN)]),
+    emit(F1, "-compile([nowarn_unused_function]).\n",[]),
     emit(F1, "\n\n"), F1;
 emit_stub_head(G, F1, Name, erlang_template) ->
     comment(F1, " coding: latin-1", []),
