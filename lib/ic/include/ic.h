@@ -22,7 +22,25 @@
 #include <string.h>
 #include <assert.h>
 #include <ei.h>
-#include <erl_interface.h>
+
+//#ifdef NEW_ERL_INTERFACE
+#define erl_connect_init(a,b,c) legacy_erl_connect_init(a, b,c)
+#define erl_connect_xinit(a,b,c,d,e,f) legacy_erl_connect_xinit(a,b,c,d,e,f)
+#define erl_connect(a) legacy_erl_connect(a)
+#define erl_xconnect(a,b) legacy_erl_xconnect(a,b)
+#define erl_thiscreation() ei_thiscreation(&erl_if_ec)
+#define erl_thisnodename() ei_thisnodename(&erl_if_ec)
+const char *legacy_erl_thisnodename(void);
+short       legacy_erl_thiscreation(void);
+ 
+int    legacy_erl_connect_init(int, char*,short);
+int    legacy_erl_connect_xinit(char*,char*,char*,struct in_addr*,char*,short);
+int    legacy_erl_connect(char*); 
+int    legacy_erl_xconnect(struct in_addr*,char *);
+const char *legacy_erl_thisnodename(void);
+short       legacy_erl_thiscreation(void);
+short ei_thiscreation(const ei_cnode* ec);
+//#endif
 
 #ifdef __WIN32__
 /* Windows.h #defines interface to struct, get rid of it! */

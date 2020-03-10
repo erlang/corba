@@ -55,7 +55,6 @@
 -include_lib("stdlib/include/erl_compile.hrl").
 
 -define(IC_HEADER, "ic.h").
--define(ERL_INTERFACEHEADER, "erl_interface.h").
 -define(EICONVHEADER, "ei.h").
 -define(ERLANGATOMLENGTH, "256").
 
@@ -256,7 +255,6 @@ gen_headers(G, N, X) when is_record(X, interface) ->
 		    ok
 	    end,
 	    emit(Fd, "#include \"~s\"\n", [?IC_HEADER]), 
-	    emit(Fd, "#include \"~s\"\n", [?ERL_INTERFACEHEADER]), 
 	    emit(Fd, "#include \"~s\"\n", [?EICONVHEADER]), 
 	    emit(Fd, "#include \"~s\"\n", 
 		 [filename:basename(ic_genobj:include_file(G))]), 
@@ -291,7 +289,6 @@ gen_headers(G, [], _X) ->
 		    ok
 	    end,
 	    emit(HFd, "#include \"~s\"\n", [?IC_HEADER]), 
-	    emit(HFd, "#include \"~s\"\n", [?ERL_INTERFACEHEADER]), 
 	    emit(HFd, "#include \"~s\"\n", [?EICONVHEADER]), 
 	    ic_code:gen_includes(HFd, G, c_client);
 	false -> ok

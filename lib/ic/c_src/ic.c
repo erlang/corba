@@ -19,6 +19,68 @@
  *
  */
 #include <ic.h>
+/* This is the global state of the old erl_* API */
+
+static ei_cnode erl_if_ec;
+int erl_connect_init(int this_node_number, char *cookie, short creation)
+{
+    char nn[MAXATOMLEN];
+
+    sprintf(nn, "c%d", this_node_number);
+
+    return ei_connect_init(&erl_if_ec, nn, cookie, creation) == 0;
+}
+
+/* FIXME documented to use struct in_addr as addr */
+
+int erl_connect_xinit(char *thishostname,
+		      char *thisalivename,
+		      char *thisnodename,
+		      struct in_addr *thisipaddr,
+		      char *cookie,
+		      short creation)
+{
+    return ei_connect_xinit(&erl_if_ec, thishostname, thisalivename,
+			    thisnodename, thisipaddr, cookie, creation) >= 0;
+}
+
+/***************************************************************************
+ *
+ *  API: erl_connect()
+ *  API: erl_xconnect()
+ *
+ *  Set up a connection to a given Node, and interchange hand shake
+ *  messages with it.
+ *
+ *  Returns valid file descriptor on success and < 0 on failure.
+ *  Set erl_errno to EHOSTUNREACH, ENOMEM, EIO or errno from socket(2)
+ *  or connect(2).
+ *
+ ***************************************************************************/
+
+int erl_connect(char *nodename)
+{
+  int res = ei_connect(&erl_if_ec, nodename);
+  if (res < 0) erl_errno = EIO;
+  return res;
+}
+
+/* FIXME documented to use struct in_addr as addr */
+
+int erl_xconnect(Erl_IpAddr addr, char *alivename)
+{
+    return ei_xconnect(&erl_if_ec, addr, alivename);
+}
+
+const char *legacy_erl_thisnodename(void)
+{
+    return ei_thisnodename(&erl_if_ec);
+}
+
+short legacy_erl_thiscreation(void)
+{
+    return ei_thiscreation(&erl_if_ec);
+}
 
 static int oe_send(CORBA_Environment *env);
 

@@ -45,7 +45,6 @@
 -include_lib("stdlib/include/erl_compile.hrl").
 
 -define(IC_HEADER, "ic.h").
--define(ERL_INTERFACEHEADER, "erl_interface.h").
 -define(EICONVHEADER, "ei.h").
 -define(OE_MSGBUFSIZE, "OE_MSGBUFSIZE").
 -define(ERLANGATOMLENGTH, "256").
@@ -181,7 +180,6 @@ gen_headers(G, [], _X) ->
 		    ok
 	    end,
 	    emit(HFd, "#include \"~s\"\n", [?IC_HEADER]), 
-	    emit(HFd, "#include \"~s\"\n", [?ERL_INTERFACEHEADER]), 
 	    emit(HFd, "#include \"~s\"\n", [?EICONVHEADER]), 
 	    ic_code:gen_includes(HFd, G, c_server);
 	false -> ok
@@ -623,7 +621,6 @@ emit_switch(G, Fd, N, _X) ->
     end,
     StartCode =
 	"#include \"ic.h\"\n"
-	"#include \"erl_interface.h\"\n"
 	"#include \"ei.h\"\n"
 	"#include \"~s__s.h\"\n\n"
 	"/*\n"
