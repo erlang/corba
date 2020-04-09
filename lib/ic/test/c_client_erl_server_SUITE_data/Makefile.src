@@ -41,7 +41,6 @@ IC_INCLUDE_PATH = @ic_include_path@
 IC_LIB = @ic_lib@
 
 ERL_INTERFACE_INCLUDE = @erl_interface_include@
-ERL_INTERFACE_LIB = @erl_interface_lib@
 ERL_INTERFACE_EILIB = @erl_interface_eilib@
 ERL_INTERFACE_THREADLIB = @erl_interface_threadlib@
 ERL_INTERFACE_SOCK_LIBS = @erl_interface_sock_libs@
@@ -53,7 +52,7 @@ CFLAGS = @CFLAGS@ @DEFS@ -I@erl_include@ \
 
 LD = @LD@
 LDFLAGS = @CROSSLDFLAGS@
-LIBS =	$(IC_LIB) $(ERL_INTERFACE_LIB) $(ERL_INTERFACE_EILIB) \
+LIBS =	$(IC_LIB) $(ERL_INTERFACE_EILIB) \
 	$(ERL_INTERFACE_THREADLIB) @LIBS@ $(ERL_INTERFACE_SOCK_LIBS)
 ERLC = erlc
 

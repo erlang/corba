@@ -91,6 +91,11 @@ endif
 C_FILES = \
 	ic.c \
 	ic_tmo.c \
+	ic_get_type.c \
+	ic_encode_term.c \
+	ic_decode_term.c \
+	ic_erlang_term.c \
+	oe_ic_encode_term.c         \
 	oe_ei_encode_version.c      \
 	oe_ei_encode_long.c         \
 	oe_ei_encode_ulong.c        \
@@ -101,7 +106,6 @@ C_FILES = \
 	oe_ei_encode_pid.c          \
 	oe_ei_encode_port.c         \
 	oe_ei_encode_ref.c          \
-	oe_ei_encode_term.c         \
 	oe_ei_encode_tuple_header.c \
 	oe_ei_encode_list_header.c  \
 	oe_ei_encode_longlong.c     \

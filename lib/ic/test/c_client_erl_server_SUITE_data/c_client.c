@@ -1,8 +1,8 @@
 /*
  * %CopyrightBegin%
- * 
- * Copyright Ericsson AB 2001-2016. All Rights Reserved.
- * 
+ *
+ * Copyright Ericsson AB 2001-2020. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,12 +14,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * %CopyrightEnd%
  *
  */
-/* C-client for test of IC.  
- * 
+/* C-client for test of IC.
+ *
  */
 
 #include <stdio.h>
@@ -54,8 +54,8 @@
 #  include <netdb.h>
 #endif
 
+#include "ic.h"
 #include "ei.h"
-#include "erl_interface.h"
 #include "m_i.h"
 
 #define HOSTNAMESZ 255
@@ -74,13 +74,6 @@
 	return -1; \
     } \
 
-/* XXX Should free things here too! */
-#define RETURN_IF_OK(x) \
-    if ((x)) {\
-	fprintf(stdout, "ok\n");\
-	return 0;\
-    }\
-
 #define cmp_str(x,y) (!strcmp((x),(y)))
 #define cmp_wstr(x,y) (!ic_wstrcmp((x),(y)))
 
@@ -88,11 +81,11 @@ typedef CORBA_Environment IC_Env;
 
 typedef int (*TestFunc)(IC_Env *);
 typedef struct {
-    char *name; 
-    TestFunc func; 
+    char *name;
+    TestFunc func;
 } TestCase;
 
-static char longtext[] = 
+static char longtext[] =
 "Introduction The IC application is an IDL compiler implemented in Erlang."
 " The IDL compiler generates client stubs and server skeletons."
 " Several back-ends are supported, and they fall into three main groups."
@@ -196,6 +189,7 @@ static TestCase test_cases[] = {
 };
 
 /* Other prototypes */
+static void create_ic_term(ic_erlang_term** term, char* atom_name);
 static int cmp_aseq(m_aseq *a1, m_aseq *a2);
 static int cmp_a(m_a *a1, m_a *a2);
 static int cmp_bseq(m_bseq *b1, m_bseq *b2);
@@ -232,7 +226,7 @@ static void print_sseq(m_sseq *b);
 static void print_pid(erlang_pid *p);
 static void print_port(erlang_port *p);
 static void print_ref(erlang_ref *p);
-static void print_term(ETERM *t);
+static void print_term(ic_erlang_term *t);
 static void print_s(m_s *p);
 static void print_ssstr3(m_ssstr3 *b1);
 static void print_ssarr3(m_ssarr3 *b1);
@@ -280,25 +274,25 @@ int main(int argc, char **argv)
     TestFunc test_func = NULL;
     TestCase *test_case;
     char *test_case_name = NULL;
-    
+
 #ifdef __WIN32__
     WORD wVersionRequested;
     WSADATA wsaData;
-    
+
     wVersionRequested = MAKEWORD(2, 0);
-    
+
     if (WSAStartup(wVersionRequested, &wsaData) != 0) {
 	fprintf(stderr, "Could not load winsock2 v2.0 compatible DLL");
 	exit(1);
     }
 #endif
-    
+
     progname = argv[0];
     host[HOSTNAMESZ] = '\0';
     if (gethostname(host, HOSTNAMESZ + 1) < 0) {
 	fprintf(stderr, "Can't find own hostname\n");
 	done(1);
-    } 
+    }
     if ((hp = gethostbyname(host)) == 0) {
 	fprintf(stderr, "Can't get ip address for host %s\n", host);
 	done(1);
@@ -329,7 +323,7 @@ int main(int argc, char **argv)
 	}
     }
 
-    if (this_node_name == NULL || peer_node == NULL || test_case_name == NULL 
+    if (this_node_name == NULL || peer_node == NULL || test_case_name == NULL
 	|| peer_process_name == NULL || cookie == NULL) {
 	fprintf(stderr, "Error: missing option\n");
 	usage();
@@ -348,7 +342,7 @@ int main(int argc, char **argv)
 	fprintf(stderr, "Error: illegal test case: \"%s\"\n", test_case_name);
 	done(1);
     }
-    
+
     /* Behead hostname at first dot */
     for (i=0; host[i] != '\0'; i++) {
 	if (host[i] == '.') { host[i] = '\0'; break; }
@@ -361,22 +355,22 @@ int main(int argc, char **argv)
     fprintf(stderr, "c_client: starting\n");
 
     /* initialize erl_interface */
-    erl_init(NULL, 0);
+    ei_init();
 
     for (tries = 0; tries < MAXTRIES; tries++) {
 
-	/* connect to erlang node */ 
+	/* connect to erlang node */
 
-    	ires = erl_connect_xinit(host, this_node_name, this_node, 
-				 (struct in_addr *)*hp->h_addr_list, 
+    	ires = erl_connect_xinit(host, this_node_name, this_node,
+				 (struct in_addr *)*hp->h_addr_list,
 				 cookie, 0);
 
 	fprintf(stderr, "c_client: erl_connect_xinit(): %d\n", ires);
-    
+
 	fd = erl_connect(peer_node);
 	fprintf(stderr, "c_client: erl_connect(): %d\n", fd);
-    
-	if (fd >= 0) 
+
+	if (fd >= 0)
 	    break;
 	fprintf(stderr, "c_client: cannot connect, retrying\n");
     }
@@ -385,12 +379,12 @@ int main(int argc, char **argv)
 	done(1);
     }
     env = CORBA_Environment_alloc(INBUFSZ, OUTBUFSZ);
-    env->_fd = fd; 
+    env->_fd = fd;
     strcpy(env->_regname, peer_process_name);
     env->_to_pid = NULL;
     env->_from_pid = &pid;
     env->_memchunk = 32;
-    
+
     strcpy(pid.node, this_node);
     pid.num = fd;
     pid.serial = 0;
@@ -400,7 +394,7 @@ int main(int argc, char **argv)
     tres = test_func(env);	/* Call test case */
     my_gettimeofday(&stop);
     showtime(&start, &stop);
-    erl_close_connection(fd);
+    ei_close_connection(fd);
 
     printf("c_client: env->_inbuf before : %d\n", INBUFSZ);
     printf("c_client: env->_outbuf before : %d\n", OUTBUFSZ);
@@ -413,7 +407,7 @@ int main(int argc, char **argv)
     done(tres);
 }
 
-static void usage() 
+static void usage()
 {
     fprintf(stderr, "Usage: %s [-help] -this-node-name <name> "
 	    "-peer-node <nodename> -peer-process-name <name> "
@@ -423,7 +417,7 @@ static void usage()
 	    "-cookie oa678er -test-case octet_test\n", progname);
 }
 
-static void done(int r) 
+static void done(int r)
 {
 #ifdef __WIN32__
     WSACleanup();
@@ -436,824 +430,1008 @@ static void done(int r)
 
 static int void_test(IC_Env *env)
 {
-    fprintf(stdout, "\n======== m_i_void test ======\n\n");
-    m_i_void_test(NULL,env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(1);
+   int retVal = 0;
+   fprintf(stdout, "\n======== m_i_void test ======\n\n");
+   m_i_void_test(NULL,env);
+   CHECK_EXCEPTION(env);
+
+   return retVal;
 }
 
 static int long_test(IC_Env *env)
 {
-    long l = 4711, lo, lr;
+   int retVal = 0;
+   long l = 4711, lo, lr;
 
-    fprintf(stdout, "\n======== m_i_long test ======\n\n");
-    lr = m_i_long_test(NULL, l, &lo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(l == lo && l == lr);
-    if (l != lo)
-	fprintf(stdout, " out parameter error, sent: %ld, got: %ld\n", l, lo);
-    if (l != lr)
-	fprintf(stdout, " result error, sent: %ld, got: %ld\n", l, lr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_long test ======\n\n");
+   lr = m_i_long_test(NULL, l, &lo, env);
+   CHECK_EXCEPTION(env);
+   if(l == lo && l == lr) goto ok;
+   if (l != lo)
+      fprintf(stdout, " out parameter error, sent: %ld, got: %ld\n", l, lo);
+   if (l != lr)
+      fprintf(stdout, " result error, sent: %ld, got: %ld\n", l, lr);
+   retVal = -1;
+
+ ok:
+    return retVal;
 }
 
 static int long_long_test(IC_Env *env)
 {
-    CORBA_long_long ll = 4711, llo, llr;
+   int retVal = 0;
+   CORBA_long_long ll = 4711, llo, llr;
 
-    fprintf(stdout, "\n======== m_i_longlong test ======\n\n");
-    llr = m_i_longlong_test(NULL, ll, &llo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(ll == llo && ll == llr);
-    if (ll != llo)
-	fprintf(stdout, " out parameter error, sent: %ld, got: %ld\n", 
-		ll, llo);
-    if (ll != llr)
-	fprintf(stdout, " result error, sent: %ld, got: %ld\n", ll, llr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_longlong test ======\n\n");
+   llr = m_i_longlong_test(NULL, ll, &llo, env);
+   CHECK_EXCEPTION(env);
+   if(ll == llo && ll == llr) goto ok;
+   if (ll != llo)
+      fprintf(stdout, " out parameter error, sent: %ld, got: %ld\n",
+	      ll, llo);
+   if (ll != llr)
+      fprintf(stdout, " result error, sent: %ld, got: %ld\n", ll, llr);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int unsigned_short_test(IC_Env *env)
 {
-    unsigned short x, y = 2, z;
+   int retVal = 0;
+   unsigned short x, y = 2, z;
 
-    fprintf(stdout, "\n======== m_i_ushort test ======\n\n");
-    x = m_i_ushort_test(NULL, y, &z, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(y == z && y == x);
-    if (y != z) 
+   fprintf(stdout, "\n======== m_i_ushort test ======\n\n");
+   x = m_i_ushort_test(NULL, y, &z, env);
+   CHECK_EXCEPTION(env);
+   if(y == z && y == x) goto ok;
+   if (y != z)
 	fprintf(stdout, " out parameter error, sent: %d, got: %d\n", y, z);
     if (y != x)
 	fprintf(stdout, " result error, sent: %d, got: %d\n", y, x);
-    return -1;
+    retVal = -1;
+
+ ok:
+    return retVal;
 }
 
 
 static int unsigned_long_test(IC_Env *env)
 {
-    unsigned long ul = 5050, ulo, ulr;
+   int retVal = 0;
+   unsigned long ul = 5050, ulo, ulr;
 
-    fprintf(stdout, "\n======== m_i_ulong test ======\n\n");
-    ulr = m_i_ulong_test(NULL, ul, &ulo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(ul == ulo && ul == ulr);
-    if (ul != ulo) 
-	fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n", 
-		ul, ulo);
-    if (ul != ulr)
-	fprintf(stdout, " result error, sent: %lu, got: %lu\n", ul, ulr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_ulong test ======\n\n");
+   ulr = m_i_ulong_test(NULL, ul, &ulo, env);
+   CHECK_EXCEPTION(env);
+   if(ul == ulo && ul == ulr) goto ok;
+   if (ul != ulo)
+      fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n",
+	      ul, ulo);
+   if (ul != ulr)
+      fprintf(stdout, " result error, sent: %lu, got: %lu\n", ul, ulr);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
-/* 
+/*
  * Note: CORBA_unsigned_long_long is in fact a plain long.
  */
 static int unsigned_long_long_test(IC_Env *env)
 {
-    CORBA_unsigned_long_long ull = 5050, ullo, ullr;
+   int retVal = 0;
+   CORBA_unsigned_long_long ull = 5050, ullo, ullr;
 
-    fprintf(stdout, "\n======== m_i_ulonglong test ======\n\n");
-    ullr = m_i_ulonglong_test(NULL, ull, &ullo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(ull == ullo && ull == ullr);
-    if (ull != ullo)
-	fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n", 
-		ull, ullo); 
-    if (ull != ullr)
-	fprintf(stdout, " result error, sent: %lu, got: %lu\n", 
-		ull, ullr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_ulonglong test ======\n\n");
+   ullr = m_i_ulonglong_test(NULL, ull, &ullo, env);
+   CHECK_EXCEPTION(env);
+   if(ull == ullo && ull == ullr) goto ok;
+   if (ull != ullo)
+      fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n",
+	      ull, ullo);
+   if (ull != ullr)
+      fprintf(stdout, " result error, sent: %lu, got: %lu\n",
+	      ull, ullr);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int double_test(IC_Env *env)
 {
-    double d = 12.1212, db, dr;
+   int retVal = 0;
+   double d = 12.1212, db, dr;
 
-    fprintf(stdout, "\n======== m_i_double test ======\n\n");
-    dr = m_i_double_test(NULL, d, &db, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(d == db && d == dr);
-    if (d != db)
-	fprintf(stdout, " out parameter error, sent: %f, got: %f\n", d, db);
-    if (d != dr)
-	fprintf(stdout, " result error, sent: %f, got: %f\n", d, dr);
-    return -1;
-}    
+   fprintf(stdout, "\n======== m_i_double test ======\n\n");
+   dr = m_i_double_test(NULL, d, &db, env);
+   CHECK_EXCEPTION(env);
+   if(d == db && d == dr) goto ok;
+   if (d != db)
+      fprintf(stdout, " out parameter error, sent: %f, got: %f\n", d, db);
+   if (d != dr)
+      fprintf(stdout, " result error, sent: %f, got: %f\n", d, dr);
+   retVal = -1;
+
+ ok:
+   return retVal;
+}
 
 static int char_test(IC_Env *env)
 {
-    char c = 'g', co, cr;
+   int retVal = 0;
+   char c = 'g', co, cr;
 
-    /* char test */
-    fprintf(stdout, "\n======== m_i_char test ======\n\n");
-    cr = m_i_char_test(NULL, c, &co, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(c == co && c == cr);
-    if (c !=co) 
-	fprintf(stdout, " out parameter error, sent: %c, got: %c\n", c, co);
-    if (c != cr)
-	fprintf(stdout, " result error, sent: %c, got: %c\n", c, cr);
-    return -1;
+   /* char test */
+   fprintf(stdout, "\n======== m_i_char test ======\n\n");
+   cr = m_i_char_test(NULL, c, &co, env);
+   CHECK_EXCEPTION(env);
+   if(c == co && c == cr) goto ok;
+   if (c !=co)
+      fprintf(stdout, " out parameter error, sent: %c, got: %c\n", c, co);
+   if (c != cr)
+      fprintf(stdout, " result error, sent: %c, got: %c\n", c, cr);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int wchar_test(IC_Env *env)
 {
-    CORBA_wchar wc = 103, wco, wcr;
+   int retVal = 0;
+   CORBA_wchar wc = 103, wco, wcr;
 
-    fprintf(stdout, "\n======== m_i_wchar test ======\n\n");
-    wcr = m_i_wchar_test(NULL, wc, &wco, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(wc == wco && wc == wcr);
-    if (wc != wco)
-	fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n", 
-		wc, wco);
-    if (wc != wcr)
-	fprintf(stdout, " result error, sent: %lu, got: %lu\n", 
-		wc, wcr);
-    return -1;
-}    
+   fprintf(stdout, "\n======== m_i_wchar test ======\n\n");
+   wcr = m_i_wchar_test(NULL, wc, &wco, env);
+   CHECK_EXCEPTION(env);
+   if(wc == wco && wc == wcr) goto ok;
+   if (wc != wco)
+      fprintf(stdout, " out parameter error, sent: %lu, got: %lu\n",
+	      wc, wco);
+   if (wc != wcr)
+      fprintf(stdout, " result error, sent: %lu, got: %lu\n",
+	      wc, wcr);
+   retVal = -1;
+
+ ok:
+   return retVal;
+}
 
 static int octet_test(IC_Env *env)
 {
-    char o ='r', oo, or;
- 
-    fprintf(stdout, "\n======== m_i_octet test ======\n\n");
-    or = m_i_octet_test(NULL, o, &oo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(o == oo && o == or);
-    if (o != oo)
-	fprintf(stdout, " out parameter error, sent: %c, got: %c\n", o, oo);
-    if (o != or)
-	fprintf(stdout, " result error, sent: %c, got: %c\n", o, or);
-    return -1;
-}    
+   int retVal = 0;
+   char o ='r', oo, or;
+
+   fprintf(stdout, "\n======== m_i_octet test ======\n\n");
+   or = m_i_octet_test(NULL, o, &oo, env);
+   CHECK_EXCEPTION(env);
+   if(o == oo && o == or) goto ok;
+   if (o != oo)
+      fprintf(stdout, " out parameter error, sent: %c, got: %c\n", o, oo);
+   if (o != or)
+      fprintf(stdout, " result error, sent: %c, got: %c\n", o, or);
+   retVal = -1;
+
+ ok:
+   return retVal;
+}
 
 static int bool_test(IC_Env *env)
 {
-    unsigned char i = 0, io, ir;	
+   int retVal = 0;
+   unsigned char i = 0, io, ir;
 
-    fprintf(stdout, "\n======== m_i_bool test ======\n\n");
-    ir = m_i_bool_test(NULL, i, &io, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(i == io && i == ir);
-    if (i != io)
-	fprintf(stdout, " out parameter error, sent: %d, got: %d\n", i, io);
-    if (i != ir)
-	fprintf(stdout, " result error, sent: %d, got: %d\n", i, ir);
-    return -1;
+   fprintf(stdout, "\n======== m_i_bool test ======\n\n");
+   ir = m_i_bool_test(NULL, i, &io, env);
+   CHECK_EXCEPTION(env);
+   if(i == io && i == ir) goto ok;
+   if (i != io)
+      fprintf(stdout, " out parameter error, sent: %d, got: %d\n", i, io);
+   if (i != ir)
+      fprintf(stdout, " result error, sent: %d, got: %d\n", i, ir);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int struct_test(IC_Env *env)
 {
-    m_b b = {4711, 'a'}, bo, br;
+   int retVal = 0;
+   m_b b = {4711, 'a'}, bo, br;
 
-    fprintf(stdout, "\n======== m_i_struct test ======\n\n");
-    br = m_i_struct_test(NULL, &b, &bo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_b(&b, &bo) && cmp_b(&b, &br));
-    if (!cmp_b(&b, &bo)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_b(&b);
-	fprintf(stdout, " got:\n");
-	print_b(&bo);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_b(&b, &br)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_b(&b);
-	fprintf(stdout, " got:\n");
-	print_b(&br);
-	fprintf(stdout, "\n");
-    }
-    return -1;
+   fprintf(stdout, "\n======== m_i_struct test ======\n\n");
+   br = m_i_struct_test(NULL, &b, &bo, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_b(&b, &bo) && cmp_b(&b, &br)) goto ok;
+   if (!cmp_b(&b, &bo)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_b(&b);
+      fprintf(stdout, " got:\n");
+      print_b(&bo);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_b(&b, &br)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_b(&b);
+      fprintf(stdout, " got:\n");
+      print_b(&br);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int struct2_test(IC_Env *env)
 {
-    m_es esi = {m_peach, 5050}, eso, esr;
+   int retVal = 0;
+   m_es esi = {m_peach, 5050}, eso, esr;
 
-    fprintf(stdout, "\n======== m_i_struct2 test ======\n\n");
-    esr = m_i_struct2_test(NULL, &esi, &eso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_es(&esi, &eso) && cmp_es(&esi, &esr));
-    if (!cmp_es(&esi, &eso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_es(&esi);
-	fprintf(stdout, " got:\n");
-	print_es(&eso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_es(&esi, &esr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_es(&esi);
-	fprintf(stdout, " got:\n");
-	print_es(&esr);
-	fprintf(stdout, "\n");
-    }
-    return -1;
+   fprintf(stdout, "\n======== m_i_struct2 test ======\n\n");
+   esr = m_i_struct2_test(NULL, &esi, &eso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_es(&esi, &eso) && cmp_es(&esi, &esr)) goto ok;
+   if (!cmp_es(&esi, &eso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_es(&esi);
+      fprintf(stdout, " got:\n");
+      print_es(&eso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_es(&esi, &esr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_es(&esi);
+      fprintf(stdout, " got:\n");
+      print_es(&esr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 
 static int seq1_test(IC_Env *env)
 {
-    m_bseq bs, *bso, *bsr;
+   int retVal = 0;
+   m_bseq bs, *bso, *bsr;
 
-    m_b ba[3] = {{4711, 'a'}, {4712, 'b'}, {4713, 'c'}};
-    bs._length = 3;
-    bs._buffer = ba;
+   m_b ba[3] = {{4711, 'a'}, {4712, 'b'}, {4713, 'c'}};
+   bs._length = 3;
+   bs._buffer = ba;
 
-    fprintf(stdout, "\n======== m_i_seq1 test ======\n\n");
-    bsr = m_i_seq1_test(NULL, &bs, &bso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_bseq(&bs, bso) && cmp_bseq(&bs, bsr));
-    if (!cmp_bseq(&bs, bso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_bseq(&bs);
-	fprintf(stdout, " got:\n");
-	print_bseq(bso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_bseq(&bs, bsr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_bseq(&bs);
-	fprintf(stdout, " got:\n");
-	print_bseq(bsr);
-	fprintf(stdout, "\n");
-    }
-    CORBA_free(bso);
-    CORBA_free(bsr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_seq1 test ======\n\n");
+   bsr = m_i_seq1_test(NULL, &bs, &bso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_bseq(&bs, bso) && cmp_bseq(&bs, bsr)) goto ok;
+   if (!cmp_bseq(&bs, bso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_bseq(&bs);
+      fprintf(stdout, " got:\n");
+      print_bseq(bso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_bseq(&bs, bsr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_bseq(&bs);
+      fprintf(stdout, " got:\n");
+      print_bseq(bsr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(bso);
+   CORBA_free(bsr);
+   return retVal;
 }
 
 static int seq2_test(IC_Env *env)
 {
-    m_b ba[3] = {{4711, 'a'}, {4712, 'b'}, {4713, 'c'}};
-    m_a a;
-    m_a aa[2];
-    m_aseq as, *aso, *asr;
+   int retVal = 0;
+   m_b ba[3] = {{4711, 'a'}, {4712, 'b'}, {4713, 'c'}};
+   m_a a;
+   m_a aa[2];
+   m_aseq as, *aso, *asr;
 
-    a.l = 9999;
-    a.y._length = 3;
-    a.y._buffer = ba;
-    a.d = 66.89898989;
+   a.l = 9999;
+   a.y._length = 3;
+   a.y._buffer = ba;
+   a.d = 66.89898989;
 
-    aa[0] = a;
-    aa[1] = a;
-    as._length = 2;
-    as._buffer = aa;
+   aa[0] = a;
+   aa[1] = a;
+   as._length = 2;
+   as._buffer = aa;
 
-    fprintf(stdout, "\n======== m_i_seq2 test ======\n\n");
-    asr = m_i_seq2_test(NULL, &as, &aso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_aseq(&as, aso) && cmp_aseq(&as, asr));
-    if (!cmp_aseq(&as, aso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_aseq(&as);
-	fprintf(stdout, " got:\n");
-	print_aseq(aso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_aseq(&as, asr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_aseq(&as);
-	fprintf(stdout, " got:\n");
-	print_aseq(asr);
-	fprintf(stdout, "\n");
-    }
-    CORBA_free(aso);
-    CORBA_free(asr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_seq2 test ======\n\n");
+   asr = m_i_seq2_test(NULL, &as, &aso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_aseq(&as, aso) && cmp_aseq(&as, asr)) goto ok;
+   if (!cmp_aseq(&as, aso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_aseq(&as);
+      fprintf(stdout, " got:\n");
+      print_aseq(aso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_aseq(&as, asr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_aseq(&as);
+      fprintf(stdout, " got:\n");
+      print_aseq(asr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(aso);
+   CORBA_free(asr);
+   return retVal;
 }
 
 static int seq3_test(IC_Env *env)
 {
-    m_lseq lsi, *lso, *lsr;
-    long al[500];
-    int i=0;
-    
-    for (i = 0; i < 500; i++)
-	al[i]=i;
-    lsi._length = 500;
-    lsi._buffer = al;
+   int retVal = 0;
+   m_lseq lsi, *lso, *lsr;
+   long al[500];
+   int i=0;
 
-    fprintf(stdout, "\n======== m_i_seq3 test ======\n\n");
-    lsr = m_i_seq3_test(NULL, &lsi, &lso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_lseq(&lsi, lso) && cmp_lseq(&lsi, lsr));
-    if (!cmp_lseq(&lsi, lso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_lseq(&lsi);
-	fprintf(stdout, " got:\n");
-	print_lseq(lso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_lseq(&lsi, lsr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_lseq(&lsi);
-	fprintf(stdout, " got:\n");
-	print_lseq(lsr);
-	fprintf(stdout, "\n");
-    }
+   for (i = 0; i < 500; i++)
+      al[i]=i;
+   lsi._length = 500;
+   lsi._buffer = al;
+
+   fprintf(stdout, "\n======== m_i_seq3 test ======\n\n");
+   lsr = m_i_seq3_test(NULL, &lsi, &lso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_lseq(&lsi, lso) && cmp_lseq(&lsi, lsr)) goto ok;
+   if (!cmp_lseq(&lsi, lso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_lseq(&lsi);
+      fprintf(stdout, " got:\n");
+      print_lseq(lso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_lseq(&lsi, lsr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_lseq(&lsi);
+      fprintf(stdout, " got:\n");
+      print_lseq(lsr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
     CORBA_free(lso);
     CORBA_free(lsr);
-    return -1;
+    return retVal;
 }
 
 static int seq4_test(IC_Env *env)
 {
-    char *stra0[3] = {"a", "long", "time"}; 
-    char *stra1[3] = {"ago", "there", "was"}; 
-    char *stra2[3] = {"a", "buggy", "compiler"}; 
-    m_sstr3 str3s[3] = {{3, 3, stra0}, {3, 3, stra1}, {3, 3, stra2}};
-    m_ssstr3 str3ssi = {3, 3, str3s}; 
-    m_ssstr3 *str3sso, *str3ssr;
+   int retVal = 0;
+   char *stra0[3] = {"a", "long", "time"};
+   char *stra1[3] = {"ago", "there", "was"};
+   char *stra2[3] = {"a", "buggy", "compiler"};
+   m_sstr3 str3s[3] = {{3, 3, stra0}, {3, 3, stra1}, {3, 3, stra2}};
+   m_ssstr3 str3ssi = {3, 3, str3s};
+   m_ssstr3 *str3sso, *str3ssr;
 
-    fprintf(stdout, "\n======== m_i_seq4 test ======\n\n");
-    str3ssr = m_i_seq4_test(NULL, &str3ssi, &str3sso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_ssstr3(&str3ssi, str3sso) && 
-		 cmp_ssstr3(&str3ssi, str3ssr));
-    if (!cmp_ssstr3(&str3ssi, str3sso)){
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_ssstr3(&str3ssi);
-	fprintf(stdout, " got:\n");
-	print_ssstr3(str3sso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_ssstr3(&str3ssi, str3ssr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_ssstr3(&str3ssi);
-	fprintf(stdout, " got:\n");
-	print_ssstr3(str3ssr);
-	fprintf(stdout, "\n");
-    }
+   fprintf(stdout, "\n======== m_i_seq4 test ======\n\n");
+   str3ssr = m_i_seq4_test(NULL, &str3ssi, &str3sso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_ssstr3(&str3ssi, str3sso) &&
+      cmp_ssstr3(&str3ssi, str3ssr)) goto ok;
+   if (!cmp_ssstr3(&str3ssi, str3sso)){
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_ssstr3(&str3ssi);
+      fprintf(stdout, " got:\n");
+      print_ssstr3(str3sso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_ssstr3(&str3ssi, str3ssr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_ssstr3(&str3ssi);
+      fprintf(stdout, " got:\n");
+      print_ssstr3(str3ssr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
     CORBA_free(str3sso);
     CORBA_free(str3ssr);
-    return -1;
+    return retVal;
 }
 
 static int seq5_test(IC_Env *env)
 {
-    m_arr3 arr3a[3] = {
-	{4711, 18931947, 3}, 
-	{4711, 18931947, 3},
-	{4711, 18931947, 3}};
-    m_sarr3 arr3sa[3] = {{3, 3, arr3a}, {3, 3, arr3a}, {3, 3, arr3a}};
-    m_ssarr3 arr3ssi = {3, 3, arr3sa};
-    m_ssarr3 *arr3sso;
-    m_ssarr3 *arr3ssr;
+   int retVal = 0;
+   m_arr3 arr3a[3] = {
+      {4711, 18931947, 3},
+      {4711, 18931947, 3},
+      {4711, 18931947, 3}};
+   m_sarr3 arr3sa[3] = {{3, 3, arr3a}, {3, 3, arr3a}, {3, 3, arr3a}};
+   m_ssarr3 arr3ssi = {3, 3, arr3sa};
+   m_ssarr3 *arr3sso;
+   m_ssarr3 *arr3ssr;
 
-    fprintf(stdout, "\n======== m_i_seq5 test ======\n\n");
-    arr3ssr = m_i_seq5_test(NULL, &arr3ssi, &arr3sso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_ssarr3(&arr3ssi, arr3sso) &&
-		 cmp_ssarr3(&arr3ssi, arr3ssr));
-    if (!cmp_ssarr3(&arr3ssi, arr3sso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_ssarr3(&arr3ssi);
-	fprintf(stdout, " got:\n");
-	print_ssarr3(arr3sso);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_ssarr3(&arr3ssi, arr3ssr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_ssarr3(&arr3ssi);
-	fprintf(stdout, " got:\n");
-	print_ssarr3(arr3ssr);
-	fprintf(stdout, "\n");
-    }
-    CORBA_free(arr3sso);
-    CORBA_free(arr3ssr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_seq5 test ======\n\n");
+   arr3ssr = m_i_seq5_test(NULL, &arr3ssi, &arr3sso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_ssarr3(&arr3ssi, arr3sso) &&
+      cmp_ssarr3(&arr3ssi, arr3ssr)) goto ok;
+   if (!cmp_ssarr3(&arr3ssi, arr3sso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_ssarr3(&arr3ssi);
+      fprintf(stdout, " got:\n");
+      print_ssarr3(arr3sso);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_ssarr3(&arr3ssi, arr3ssr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_ssarr3(&arr3ssi);
+      fprintf(stdout, " got:\n");
+      print_ssarr3(arr3ssr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(arr3sso);
+   CORBA_free(arr3ssr);
+   return retVal;
 }
 
 static int array1_test(IC_Env *env)
 {
-    int i;
-    long al[500];
-    m_arr1 alo;
-    m_arr1_slice* alr;
-    
-    for (i = 0; i < 500; i++)
-	al[i]=i;
+   int retVal = 0;
+   int i;
+   long al[500];
+   m_arr1 alo;
+   m_arr1_slice* alr;
 
-    fprintf(stdout, "\n======== m_i_array1 test ======\n\n");
-    alr = m_i_array1_test(NULL, al, alo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_arr1(al, alo) && cmp_arr1(al, alr));
-    if (!cmp_arr1(al, alo)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_arr1(al);
-	fprintf(stdout, " got:\n");
-	print_arr1(alo);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_arr1(al,alr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_arr1(al);
-	fprintf(stdout, " got:\n");
-	print_arr1(alr);
-	fprintf(stdout, "\n");
-    }
-    free(alr);
-    return -1;
-}   
+   for (i = 0; i < 500; i++)
+      al[i]=i;
+
+   fprintf(stdout, "\n======== m_i_array1 test ======\n\n");
+   alr = m_i_array1_test(NULL, al, alo, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_arr1(al, alo) && cmp_arr1(al, alr)) goto ok;
+   if (!cmp_arr1(al, alo)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_arr1(al);
+      fprintf(stdout, " got:\n");
+      print_arr1(alo);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_arr1(al,alr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_arr1(al);
+      fprintf(stdout, " got:\n");
+      print_arr1(alr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   free(alr);
+   return retVal;
+}
 
 static int array2_test(IC_Env *env)
 {
-    long dl[2][3] = {{11, 2, 7}, {22, 8 ,13}};
-    m_dd dlo;
-    m_dd_slice* dlr;
+   int retVal = 0;
+   long dl[2][3] = {{11, 2, 7}, {22, 8 ,13}};
+   m_dd dlo;
+   m_dd_slice* dlr;
 
-    fprintf(stdout, "\n======== m_i_array2 test ======\n\n");
-    dlr = m_i_array2_test(NULL, dl, dlo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_dd(dl,dlo) && cmp_dd(dl,dlr));
-    if (!cmp_dd(dl,dlo)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_dd(dl);
-	fprintf(stdout, " got:\n");
-	print_dd(dlo);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_dd(dl,dlr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_dd(dl);
-	fprintf(stdout, " got:\n");
-	print_dd(dlr);
-	fprintf(stdout, "\n");
-    }
-    free(*dlr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_array2 test ======\n\n");
+   dlr = m_i_array2_test(NULL, dl, dlo, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_dd(dl,dlo) && cmp_dd(dl,dlr)) goto ok;
+   if (!cmp_dd(dl,dlo)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_dd(dl);
+      fprintf(stdout, " got:\n");
+      print_dd(dlo);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_dd(dl,dlr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_dd(dl);
+      fprintf(stdout, " got:\n");
+      print_dd(dlr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   free(*dlr);
+   return retVal;
 }
 
 static int enum_test(IC_Env *env)
 {
-    m_fruit ei = m_banana, eo, er;
+   int retVal = 0;
+   m_fruit ei = m_banana, eo, er;
 
-    fprintf(stdout, "\n======== m_i_enum test ======\n\n");
-    er = m_i_enum_test(NULL, ei, &eo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(ei == eo && ei == er);
-    if (ei != eo)
-	fprintf(stdout, " out parameter error, sent: %d, got: %d\n", ei, eo);
-    if (ei != er)
-	fprintf(stdout, " result error, sent: %d, got: %d\n", ei, er);
-    return -1;
+   fprintf(stdout, "\n======== m_i_enum test ======\n\n");
+   er = m_i_enum_test(NULL, ei, &eo, env);
+   CHECK_EXCEPTION(env);
+   if(ei == eo && ei == er) goto ok;
+   if (ei != eo)
+      fprintf(stdout, " out parameter error, sent: %d, got: %d\n", ei, eo);
+   if (ei != er)
+      fprintf(stdout, " result error, sent: %d, got: %d\n", ei, er);
+   retVal = -1;
+
+ ok:
+   return retVal;
 }
 
 static int string1_test(IC_Env *env)
 {
-    char* si = longtext;
-    char* so;
-    char* sr;
+   int retVal = 0;
+   char* si = longtext;
+   char* so;
+   char* sr;
 
-    fprintf(stdout, "\n======== m_i_string1 test ======\n\n");
-    sr = m_i_string1_test(NULL, si, &so, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_str(si, so) && cmp_str(si, sr));
-    if (!cmp_str(si, so))
-	fprintf(stdout, " out parameter error, sent: %s, got: %s\n", si, so);
-    if (!cmp_str(si, sr))
-	fprintf(stdout, " result error, sent: %s, got: %s\n", si, sr);
-    CORBA_free(so);
-    CORBA_free(sr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_string1 test ======\n\n");
+   sr = m_i_string1_test(NULL, si, &so, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_str(si, so) && cmp_str(si, sr)) goto ok;
+   if (!cmp_str(si, so))
+      fprintf(stdout, " out parameter error, sent: %s, got: %s\n", si, so);
+   if (!cmp_str(si, sr))
+      fprintf(stdout, " result error, sent: %s, got: %s\n", si, sr);
+   retVal = -1;
+
+ ok:
+   CORBA_free(so);
+   CORBA_free(sr);
+   return retVal;
 }
-  
+
 static int string2_test(IC_Env *env)
 {
-    char* sa[3] = {"hello", "foo", "bar"};
-    m_sseq ssi = {3, 3, sa};
-    m_sseq *sso, *ssr;
+   int retVal = 0;
+   char* sa[3] = {"hello", "foo", "bar"};
+   m_sseq ssi = {3, 3, sa};
+   m_sseq *sso, *ssr;
 
-    fprintf(stdout, "\n======== m_i_string2 test ======\n\n");
-    ssr = m_i_string2_test(NULL, &ssi, &sso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_sseq(&ssi, sso) && cmp_sseq(&ssi, sso));
-    if (!cmp_sseq(&ssi, sso)) {
-	fprintf(stdout, " out parameter error, sent:\n"); 
-	print_sseq(&ssi); 
-	fprintf(stdout, "got:\n");
-	print_sseq(sso); 
-    } 
-    if (!cmp_sseq(&ssi, ssr)) {
-	fprintf(stdout, " result error, sent:\n"); 
-	print_sseq(&ssi); 
-	fprintf(stdout, "got:\n"); 
-	print_sseq(ssr); 
-    }    
-    CORBA_free(sso);
-    CORBA_free(ssr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_string2 test ======\n\n");
+   ssr = m_i_string2_test(NULL, &ssi, &sso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_sseq(&ssi, sso) && cmp_sseq(&ssi, sso)) goto ok;
+   if (!cmp_sseq(&ssi, sso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_sseq(&ssi);
+      fprintf(stdout, "got:\n");
+      print_sseq(sso);
+   }
+   if (!cmp_sseq(&ssi, ssr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_sseq(&ssi);
+      fprintf(stdout, "got:\n");
+      print_sseq(ssr);
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(sso);
+   CORBA_free(ssr);
+   return retVal;
 }
- 
+
 static int string3_test(IC_Env *env)
 {
-    char* si = longtext;
-    char* so;
-    char* sr;
+   int retVal = 0;
+   char* si = longtext;
+   char* so;
+   char* sr;
 
-    fprintf(stdout, "\n======== m_i_string3 test ======\n\n");
-    sr = m_i_string3_test(NULL, si, &so, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_str(si, so) && cmp_str(si, so));
-    if (!cmp_str(si, so))
-	fprintf(stdout, " out parameter error, sent: %s, got: %s\n", si, so);
-    if (!cmp_str(si, sr))
-	fprintf(stdout, " result error, sent: %s, got: %s\n", si, sr);
+   fprintf(stdout, "\n======== m_i_string3 test ======\n\n");
+   sr = m_i_string3_test(NULL, si, &so, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_str(si, so) && cmp_str(si, so)) goto ok;
+   if (!cmp_str(si, so))
+      fprintf(stdout, " out parameter error, sent: %s, got: %s\n", si, so);
+   if (!cmp_str(si, sr))
+      fprintf(stdout, " result error, sent: %s, got: %s\n", si, sr);
+   retVal = -1;
+
+ ok:
     CORBA_free(so);
     CORBA_free(sr);
-    return -1;
+    return retVal;
 }
 
 static int string4_test(IC_Env *env)
 {
-    char as1[100] = "a string", as2[200] = "help", as3[200] = "hello there";
-    m_strRec stri = { 1,	/* dd */
-		      as1,	/* str4 */
-		      {{'a', 'k'}, {'z', 'g'}, {'n', 'q'}}, /* str7 */
-		      {3, 3, "buf"}, /* str5 */
-		      as2,	/* str6 */
-		      {'m', 'f', 'o'}, /* str8 */
-		      as3,	/* str9 */
-		      {3, 3, "stu"} /* str10 */
-    };
-    m_strRec *stro, *strr;
+   int retVal = 0;
+   char as1[100] = "a string", as2[200] = "help", as3[200] = "hello there";
+   m_strRec stri = { 1,	/* dd */
+		     as1,	/* str4 */
+		     {{'a', 'k'}, {'z', 'g'}, {'n', 'q'}}, /* str7 */
+		     {3, 3, "buf"}, /* str5 */
+		     as2,	/* str6 */
+		     {'m', 'f', 'o'}, /* str8 */
+		     as3,	/* str9 */
+		     {3, 3, "stu"} /* str10 */
+   };
+   m_strRec *stro, *strr;
 
-    fprintf(stdout, "\n======== m_i_string4 test ======\n\n");
-    strr = m_i_string4_test(NULL, &stri, &stro, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_strRec(&stri,stro) && cmp_strRec(&stri,strr));
-    if (!cmp_strRec(&stri,stro)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_strRec(&stri);
-	fprintf(stdout, " got:\n");
-	print_strRec(stro);
-	fprintf(stdout, "\n");
-    }
-    if (!cmp_strRec(&stri,strr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_strRec(&stri);
-	fprintf(stdout, " got:\n");
-	print_strRec(strr);
-	fprintf(stdout, "\n");
-    }
-    CORBA_free(stro);
-    CORBA_free(strr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_string4 test ======\n\n");
+   strr = m_i_string4_test(NULL, &stri, &stro, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_strRec(&stri,stro) && cmp_strRec(&stri,strr)) goto ok;
+   if (!cmp_strRec(&stri,stro)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_strRec(&stri);
+      fprintf(stdout, " got:\n");
+      print_strRec(stro);
+      fprintf(stdout, "\n");
+   }
+   if (!cmp_strRec(&stri,strr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_strRec(&stri);
+      fprintf(stdout, " got:\n");
+      print_strRec(strr);
+      fprintf(stdout, "\n");
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(stro);
+   CORBA_free(strr);
+   return retVal;
 }
 
 
 static int pid_test(IC_Env *env)
 {
-    erlang_pid pid = {"", 7, 0, 0}, pido, pidr;
+   int retVal = 0;
+   erlang_pid pid = {"", 7, 0, 0}, pido, pidr;
 
-    strcpy(pid.node, this_node), /* this currently running node */
-    fprintf(stdout, "\n======== m_i_pid test ======\n\n");
-    pidr = m_i_pid_test(NULL, &pid, &pido, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_pid(&pid, &pido) && cmp_pid(&pid, &pidr));
-    if (!cmp_pid(&pid, &pido)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_pid(&pid);
-	fprintf(stdout, "got:\n");
-	print_pid(&pido);
-    }
-    if (!cmp_pid(&pid, &pidr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_pid(&pid);
-	fprintf(stdout, "got:\n");
-	print_pid(&pidr);
-    }
-    return -1;
+   strcpy(pid.node, this_node); /* this currently running node */
+   fprintf(stdout, "\n======== m_i_pid test ======\n\n");
+   pidr = m_i_pid_test(NULL, &pid, &pido, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_pid(&pid, &pido) && cmp_pid(&pid, &pidr)) goto ok;
+   if (!cmp_pid(&pid, &pido)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_pid(&pid);
+      fprintf(stdout, "got:\n");
+      print_pid(&pido);
+   }
+   if (!cmp_pid(&pid, &pidr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_pid(&pid);
+      fprintf(stdout, "got:\n");
+      print_pid(&pidr);
+   }
+   retVal = -1;
+
+ ok:
+    return retVal;
 }
 
 static int port_test(IC_Env *env)
 {
-    erlang_port porti = {"node", 5, 1}, porto, portr;
+   int retVal = 0;
+   erlang_port porti = {"node", 5, 1}, porto, portr;
 
-    fprintf(stdout, "\n======== m_i_port test ======\n\n");
-    portr = m_i_port_test(NULL, &porti, &porto, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_port(&porti, &porto) && cmp_port(&porti, &portr));
-    if (!cmp_port(&porti, &porto)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_port(&porti);
-	fprintf(stdout, "got:\n");
-	print_port(&porto);
-    }
-    if (!cmp_port(&porti, &portr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_port(&porti);
-	fprintf(stdout, "got:\n");
-	print_port(&portr);
-    }
-    return -1;
+   fprintf(stdout, "\n======== m_i_port test ======\n\n");
+   portr = m_i_port_test(NULL, &porti, &porto, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_port(&porti, &porto) && cmp_port(&porti, &portr)) goto ok;
+   if (!cmp_port(&porti, &porto)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_port(&porti);
+      fprintf(stdout, "got:\n");
+      print_port(&porto);
+   }
+   if (!cmp_port(&porti, &portr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_port(&porti);
+      fprintf(stdout, "got:\n");
+      print_port(&portr);
+   }
+   retVal = -1;
+
+ ok:
+    return retVal;
 }
 
 static int ref_test(IC_Env *env)
 {
-    erlang_ref refi = { "node1", 3, {1, 2, 3}, 1},  
-	refo, refr;
+   int retVal = 0;
+   erlang_ref refi = { "node1", 3, {1, 2, 3}, 1},
+      refo, refr;
 
-    fprintf(stdout, "\n======== m_i_ref test ======\n\n");
-    refr = m_i_ref_test(NULL, &refi, &refo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_ref(&refi, &refo) && cmp_ref(&refi, &refr));
-    if (!cmp_ref(&refi, &refo)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_ref(&refi);
-	fprintf(stdout, "got:\n");
-	print_ref(&refo);
-    }
-    if (!cmp_ref(&refi, &refr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_ref(&refi);
-	fprintf(stdout, "got:\n");
-	print_ref(&refr);
-    }
-    return -1;
+   fprintf(stdout, "\n======== m_i_ref test ======\n\n");
+   refr = m_i_ref_test(NULL, &refi, &refo, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_ref(&refi, &refo) && cmp_ref(&refi, &refr)) goto ok;
+   if (!cmp_ref(&refi, &refo)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_ref(&refi);
+      fprintf(stdout, "got:\n");
+      print_ref(&refo);
+   }
+   if (!cmp_ref(&refi, &refr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_ref(&refi);
+      fprintf(stdout, "got:\n");
+      print_ref(&refr);
+   }
+   retVal = -1;
+
+ ok:
+    return retVal;
 }
 
 static int term_test(IC_Env *env)
 {
-    ETERM *ti, *to, *tr;
+   int retVal = 0;
+   ic_erlang_term *ti, *to, *tr;
 
-    ti = erl_format("[{hej, 1, 23}, \"string\", {1.23, 45}]");
+   // [{hej, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&ti, "hej");
 
-    fprintf(stdout, "\n======== m_i_term test ======\n\n");
-    tr = m_i_term_test(NULL, ti, &to, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(erl_match(ti, to) && erl_match(ti, tr));
-    if (!erl_match(ti, to)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_term(ti);
-	fprintf(stdout, "got:\n");
-	print_term(to);
+   fprintf(stdout, "\n======== m_i_term test ======\n\n");
+   tr = m_i_term_test(NULL, ti, &to, env);
+   CHECK_EXCEPTION(env);
+   if(ic_erlang_term_is_equal(ti, to) &&
+      ic_erlang_term_is_equal(ti, tr)) goto ok;
+   if (!ic_erlang_term_is_equal(ti, to)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_term(ti);
+      fprintf(stdout, "got:\n");
+      print_term(to);
+   }
+   if (!ic_erlang_term_is_equal(ti, tr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_term(ti);
+      fprintf(stdout, "got:\n");
+      print_term(tr);
     }
-    if (!erl_match(ti, tr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_term(ti);
-	fprintf(stdout, "got:\n");
-	print_term(tr);
-    }
-    erl_free_term(ti);
-    erl_free_term(to);
-    erl_free_term(tr);
-    return -1;
+   retVal = -1;
+
+ ok:
+   ic_free_erlang_term(ti);
+   ic_free_erlang_term(to);
+   ic_free_erlang_term(tr);
+
+   return retVal;
 }
 
 static int typedef_test(IC_Env *env)
 {
-    m_banan mbi, mbo;		/* erlang_port */
-    m_apa mai;			/* ETERM* */
-    m_apa mao = NULL;
-    long tl;
+   int retVal = 0;
+   m_banan mbi, mbo;		/* erlang_port */
+   m_apa mai;			/* ic_erlang_term */
+   m_apa mao = NULL;
+   long tl;
 
-    strcpy(mbi.node,"node");
-    mbi.id = 15;
-    mbi.creation = 1;
+   strcpy(mbi.node,"node");
+   mbi.id = 15;
+   mbi.creation = 1;
 
-    fprintf(stdout, "\n======== m_i_typedef test ======\n\n");
-    mai = erl_format("[{hej, 1, 23}, \"string\", {1.23, 45}]");
-    tl = m_i_typedef_test(NULL, mai, &mbi, &mao, &mbo, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(erl_match(mai, mao) && cmp_port(&mbi, &mbo) && tl == 4711);
-    if (!erl_match(mai, mao)) {
-	fprintf(stdout, " out parameter error (term), sent:\n");
-	print_term(mai);
-	fprintf(stdout, "got:\n");
-	print_term(mao);
-    }
-    if (!cmp_port(&mbi, &mbo)) {
-	fprintf(stdout, " out parameter error (port), sent:\n");
-	print_port(&mbi);
-	fprintf(stdout, "got:\n");
-	print_port(&mbo);
-    }
-    if (tl != 4711) {
-	fprintf(stdout, " result error, sent: 4711, got %ld\n", tl);
-    }
-    erl_free_term(mai);
-    erl_free_term(mao);
-    return -1;
-} 
-  
+   fprintf(stdout, "\n======== m_i_typedef test ======\n\n");
+   //[{hej, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&mai, "hej");
+
+   tl = m_i_typedef_test(NULL, mai, &mbi, &mao, &mbo, env);
+   CHECK_EXCEPTION(env);
+   if(ic_erlang_term_is_equal(mai, mao) && cmp_port(&mbi, &mbo) &&
+      tl == 4711) goto ok;
+   if (!ic_erlang_term_is_equal(mai, mao)) {
+      fprintf(stdout, " out parameter error (term), sent:\n");
+      print_term(mai);
+      fprintf(stdout, "got:\n");
+      print_term(mao);
+   }
+   if (!cmp_port(&mbi, &mbo)) {
+      fprintf(stdout, " out parameter error (port), sent:\n");
+      print_port(&mbi);
+      fprintf(stdout, "got:\n");
+      print_port(&mbo);
+   }
+   if (tl != 4711) {
+      fprintf(stdout, " result error, sent: 4711, got %ld\n", tl);
+   }
+   retVal = -1;
+
+ ok:
+   ic_free_erlang_term(mai);
+   ic_free_erlang_term(mao);
+   return retVal;
+}
+
 static int inline_sequence_test(IC_Env *env)
 {
-    int i;
-    long al[500];
-    m_s isi = {4711, {500, 10, al}},  
-	*iso, *isr;
+   int retVal = 0;
+   int i;
+   long al[500];
+   m_s isi = {4711, {500, 10, al}},
+      *iso, *isr;
 
-    for (i = 0; i < 500; i++)
-	al[i]=i;
-    fprintf(stdout, "\n======== m_i_inline_sequence test ======\n\n");
-    isr = m_i_inline_sequence_test(NULL, &isi, &iso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_s(&isi, iso) && cmp_s(&isi, isr));
-    if (!cmp_s(&isi, iso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_s(&isi);
-	fprintf(stdout, "got:\n");
-	print_s(iso);
-    }
-    if (!cmp_s(&isi, isr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_s(&isi);
-	fprintf(stdout, "got:\n");
-	print_s(isr);
-    }
-    CORBA_free(iso);
-    CORBA_free(isr);
-    return -1;
+   for (i = 0; i < 500; i++)
+      al[i]=i;
+   fprintf(stdout, "\n======== m_i_inline_sequence test ======\n\n");
+   isr = m_i_inline_sequence_test(NULL, &isi, &iso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_s(&isi, iso) && cmp_s(&isi, isr)) goto ok;
+   if (!cmp_s(&isi, iso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_s(&isi);
+      fprintf(stdout, "got:\n");
+      print_s(iso);
+   }
+   if (!cmp_s(&isi, isr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_s(&isi);
+      fprintf(stdout, "got:\n");
+      print_s(isr);
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(iso);
+   CORBA_free(isr);
+   return retVal;
 }
 
 static int term_sequence_test(IC_Env *env)
 {
-    ETERM* et_array[4] = {
-	erl_format("[{apa, 1, 23}, \"string\", {1.23, 45}]"),
-	erl_format("[{banan, 1, 23}, \"string\", {1.23, 45}]"),
-	erl_format("[{apelsin, 1, 23}, \"string\", {1.23, 45}]"),
-	erl_format("[{mango, 1, 23}, \"string\", {1.23, 45}]")};
-    m_etseq etsi = {4, 4, et_array}, *etso, *etsr;
+   int retVal = 0;
+   ic_erlang_term* et_array[4];
+   m_etseq etsi = {4, 4, et_array}, *etso, *etsr;
 
-    fprintf(stdout, "\n======== m_i_term_sequence test ======\n\n");
-    etsr = m_i_term_sequence_test(NULL, &etsi, &etso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_etseq(&etsi, etso) && cmp_etseq(&etsi, etsr));
-    if (!cmp_etseq(&etsi, etso)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_etseq(&etsi);
-	fprintf(stdout, "got:\n");
-	print_etseq(etso);
-    }
-    if (!cmp_etseq(&etsi, etsr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_etseq(&etsi);
-	fprintf(stdout, "got:\n");
-	print_etseq(etsr);
-    }
-    free_etseq_buf(&etsi);
-    free_etseq_buf(etso);
-    free_etseq_buf(etsr);
-    CORBA_free(etso);
-    CORBA_free(etsr);
-    return -1;
+   // [{apa, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&et_array[0], "apa");
+   // [{banan, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&et_array[1], "banan");
+   // [{apelsin, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&et_array[2], "apelsin");
+   // [{mango, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&et_array[3], "mango");
+
+   fprintf(stdout, "\n======== m_i_term_sequence test ======\n\n");
+   etsr = m_i_term_sequence_test(NULL, &etsi, &etso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_etseq(&etsi, etso) && cmp_etseq(&etsi, etsr)) goto ok;
+   if (!cmp_etseq(&etsi, etso)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_etseq(&etsi);
+      fprintf(stdout, "got:\n");
+      print_etseq(etso);
+   }
+   if (!cmp_etseq(&etsi, etsr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_etseq(&etsi);
+      fprintf(stdout, "got:\n");
+      print_etseq(etsr);
+   }
+   retVal = -1;
+
+ ok:
+   free_etseq_buf(&etsi);
+   free_etseq_buf(etso);
+   free_etseq_buf(etsr);
+   CORBA_free(etso);
+   CORBA_free(etsr);
+   return retVal;
 }
 
 static int term_struct_test(IC_Env *env)
 {
-    m_et eti = { erl_format("[{hej, 1, 23}, \"string\", {1.23, 45}]"), 
-		 121212 };
-    m_et eto, etr;
+   int retVal = 0;
+   ic_erlang_term *eti_term;
+   m_et eti;
+   m_et eto, etr;
 
-    fprintf(stdout, "\n======== m_i_term_struct test ======\n\n");
-    etr = m_i_term_struct_test(NULL, &eti, &eto, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_et(&eti, &eto) && cmp_et(&eti, &etr));
-    if (!cmp_et(&eti, &eto)) {
-	fprintf(stdout, " out parameter error, sent:\n");
-	print_et(&eti);
-	fprintf(stdout, "got:\n");
-	print_et(&eto);
-    }
-    if (!cmp_et(&eti, &etr)) {
-	fprintf(stdout, " result error, sent:\n");
-	print_et(&eti);
-	fprintf(stdout, "got:\n");
-	print_et(&etr);
-    }
-    free_et(&eti);
-    free_et(&eto);
-    free_et(&etr);
-    return -1;
+   // [{hej, 1, 23}, \"string\", {1.23, 45}]
+   create_ic_term(&eti_term, "hej");
+   eti.e = eti_term;
+   eti.l = 121212;
+
+   fprintf(stdout, "\n======== m_i_term_struct test ======\n\n");
+   etr = m_i_term_struct_test(NULL, &eti, &eto, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_et(&eti, &eto) && cmp_et(&eti, &etr)) goto ok;
+   if (!cmp_et(&eti, &eto)) {
+      fprintf(stdout, " out parameter error, sent:\n");
+      print_et(&eti);
+      fprintf(stdout, "got:\n");
+      print_et(&eto);
+   }
+   if (!cmp_et(&eti, &etr)) {
+      fprintf(stdout, " result error, sent:\n");
+      print_et(&eti);
+      fprintf(stdout, "got:\n");
+      print_et(&etr);
+   }
+   retVal = -1;
+
+ ok:
+   free_et(&eti);
+   free_et(&eto);
+   free_et(&etr);
+   return retVal;
 }
 
 static int wstring1_test(IC_Env *env)
 {
-    CORBA_wchar wsi[] = {100, 101, 102, 103, 104, 0}, *wso, *wsr;
+   int retVal = 0;
+   CORBA_wchar wsi[] = {100, 101, 102, 103, 104, 0}, *wso, *wsr;
 
-    fprintf(stdout, "\n======== m_i_wstring1 test ======\n\n");
-    wsr = m_i_wstring1_test(NULL, wsi, &wso, env);
-    CHECK_EXCEPTION(env);
-    RETURN_IF_OK(cmp_wstr(wsi, wso) && cmp_wstr(wsi, wsr));
-    if (!cmp_wstr(wsi, wso)) {
-	fprintf(stdout, " out parameter error, sent: \n");
-	print_wstr(wsi);
-	fprintf(stdout, "got:\n");
-	print_wstr(wso);
-    }
-    if (!cmp_wstr(wsi, wsr)) {
-	fprintf(stdout, " result error, sent: \n");
-	print_wstr(wsi);
-	fprintf(stdout, "got:\n");
-	print_wstr(wsr);
-    }
-    CORBA_free(wso);
-    CORBA_free(wsr);
-    return -1;
+   fprintf(stdout, "\n======== m_i_wstring1 test ======\n\n");
+   wsr = m_i_wstring1_test(NULL, wsi, &wso, env);
+   CHECK_EXCEPTION(env);
+   if(cmp_wstr(wsi, wso) && cmp_wstr(wsi, wsr)) goto ok;
+   if (!cmp_wstr(wsi, wso)) {
+      fprintf(stdout, " out parameter error, sent: \n");
+      print_wstr(wsi);
+      fprintf(stdout, "got:\n");
+      print_wstr(wso);
+   }
+   if (!cmp_wstr(wsi, wsr)) {
+      fprintf(stdout, " result error, sent: \n");
+      print_wstr(wsi);
+      fprintf(stdout, "got:\n");
+      print_wstr(wsr);
+   }
+   retVal = -1;
+
+ ok:
+   CORBA_free(wso);
+   CORBA_free(wsr);
+   return retVal;
+}
+
+
+/* Create test term */
+void create_ic_term(ic_erlang_term** term, char* atom_name)
+{
+   ic_erlang_term* temp_term;
+   ic_erlang_term *tuple, *elem;
+
+   temp_term = ic_mk_list_term();
+
+   tuple = ic_mk_tuple_term(3);
+   elem = ic_mk_atom_term(atom_name);
+   ic_tuple_add_elem(tuple, elem, 0);
+   elem = ic_mk_int_term(1);
+   ic_tuple_add_elem(tuple, elem, 1);
+   elem = ic_mk_int_term(23);
+   ic_tuple_add_elem(tuple, elem, 2);
+
+   ic_list_add_elem(temp_term, tuple);
+
+   elem = ic_mk_list_term_from_string("string");
+   ic_list_add_elem(temp_term, elem);
+
+   tuple = ic_mk_tuple_term(2);
+   elem = ic_mk_float_term(1.23);
+   ic_tuple_add_elem(tuple, elem, 0);
+   elem = ic_mk_int_term(45);
+   ic_tuple_add_elem(tuple, elem, 1);
+
+   ic_list_add_elem(temp_term, tuple);
+
+   *term = temp_term;
+   return;
 }
 
 /* Compare functions */
@@ -1271,8 +1449,8 @@ static int cmp_aseq(m_aseq *a1, m_aseq *a2)
 
 static int cmp_a(m_a *a1, m_a *a2)
 {
-    return a1->l == a2->l && 
-	a1->d == a2->d && 
+    return a1->l == a2->l &&
+	a1->d == a2->d &&
 	cmp_bseq(&a1->y, &a2->y);
 }
 
@@ -1310,16 +1488,16 @@ static int cmp_etseq(m_etseq *b1, m_etseq *b2)
     int i;
 
     if (b1->_length != b2->_length)
-	return 0;
+    	return 0;
     for (i = 0; i < b1->_length; i++)
-	if (!erl_match(b1->_buffer[i], b2->_buffer[i]))
-	    return 0;
+    	if (!ic_erlang_term_is_equal(b1->_buffer[i], b2->_buffer[i]))
+    	    return 0;
     return 1;
 }
 
 static int cmp_et(m_et* b1, m_et *b2)
 {
-    return erl_match(b1->e, b2->e) && b1->l == b2->l;
+    return ic_erlang_term_is_equal(b1->e, b2->e) && b1->l == b2->l;
 }
 
 static int cmp_es(m_es *b1, m_es *b2)
@@ -1334,7 +1512,7 @@ static int cmp_arr1(m_arr1 b1, m_arr1 b2)
     for (i = 0; i < 500; i++)
 	if (b1[i] != b2[i])
 	    return 0;
-    return 1; 
+    return 1;
 }
 
 static int cmp_dd(m_dd b1, m_dd b2)
@@ -1346,7 +1524,7 @@ static int cmp_dd(m_dd b1, m_dd b2)
 	for (j = 0; j < 3; j++)
 	    if (b1[i][j] != b2[i][j])
 		return 0;
-    return 1; 
+    return 1;
 }
 
 
@@ -1355,7 +1533,7 @@ static int cmp_strRec(m_strRec *b1, m_strRec *b2)
 {
     int i, j;
 
-    if (b1->bb != b2->bb) 
+    if (b1->bb != b2->bb)
 	return 0;
     if (!cmp_str(b1->str4,b2->str4))
 	return 0;
@@ -1380,7 +1558,7 @@ static int cmp_strRec(m_strRec *b1, m_strRec *b2)
     for (j = 0; j < b1->str10._length; j++)
 	if (b1->str10._buffer[j] != b2->str10._buffer[j])
 	    return 0;
-    return 1; 
+    return 1;
 }
 
 
@@ -1399,8 +1577,8 @@ static int cmp_sseq(m_sseq *b1, m_sseq *b2)
 
 static int cmp_pid(erlang_pid *p1, erlang_pid *p2)
 {
-    return cmp_str(p1->node,p2-> node) && 
-	p1->num == p2->num && 
+    return cmp_str(p1->node,p2-> node) &&
+	p1->num == p2->num &&
 	p1->serial == p2->serial &&
 	p1->creation == p2->creation;
 }
@@ -1412,7 +1590,7 @@ static int cmp_port(erlang_port *p1, erlang_port *p2)
 
 static int cmp_ref(erlang_ref *p1, erlang_ref *p2)
 {
-    return cmp_str(p1->node, p2->node) && 
+    return cmp_str(p1->node, p2->node) &&
 	p1->len == p2->len &&
 	(p1->len < 1 || p1->n[0] == p2->n[0]) &&
 	(p1->len < 2 || p1->n[1] == p2->n[1]) &&
@@ -1444,7 +1622,7 @@ static int cmp_ssstr3(m_ssstr3 *b1, m_ssstr3 *b2)
 	if (b1->_buffer[i]._length != b2->_buffer[i]._length)
 	    return 0;
 	for (j = 0; j < b1->_buffer[i]._length; j++)
-	    if (!cmp_str(b1->_buffer[i]._buffer[j], 
+	    if (!cmp_str(b1->_buffer[i]._buffer[j],
 		      b2->_buffer[i]._buffer[j]))
 		return 0;
     }
@@ -1535,7 +1713,7 @@ static void print_etseq(m_etseq *b)
 
     for (i = 0; i < b->_length; i++) {
 	fprintf(stdout, "[%d]:\n", i);
-	erl_print_term(stdout, b->_buffer[i]);
+	ic_print_erlang_term(b->_buffer[i]);
     }
 }
 
@@ -1543,7 +1721,7 @@ static void print_etseq(m_etseq *b)
 static void print_et(m_et* b)
 {
     fprintf(stdout, "\net struct --------\n");
-    erl_print_term(stdout, b->e);
+    ic_print_erlang_term(b->e);
     fprintf(stdout, "long: %ld\n", b->l);
     fprintf(stdout, "\n--------\n");
 }
@@ -1610,7 +1788,7 @@ static void print_sseq(m_sseq *b)
 static void print_pid(erlang_pid *p)
 {
     fprintf(stdout, "\nerlang_pid --------\n node: %s\n num: %d\n "
-	    "serial: %d\n creation: %d\n", 
+	    "serial: %d\n creation: %d\n",
 	    p->node, p->num, p->serial, p->creation);
 }
 
@@ -1623,14 +1801,14 @@ static void print_port(erlang_port *p)
 static void print_ref(erlang_ref *p)
 {
     fprintf(stdout, "\nerlang_ref --------\n node: %s\n len: %d\n "
-	    "n[0]: %d\n n[1]: %d\n n[2]: %d\n creation: %d\n", 
+	    "n[0]: %d\n n[1]: %d\n n[2]: %d\n creation: %d\n",
 	    p->node, p->len, p->n[0], p->n[1], p->n[2], p->creation);
 }
 
-static void print_term(ETERM *t)
+static void print_term(ic_erlang_term *t)
 {
-    fprintf(stdout, "\nETERM --------\n");
-    erl_print_term(stdout, t);
+    fprintf(stdout, "\nic_erlang_term --------\n");
+    ic_print_erlang_term(t);
     fprintf(stdout, "\n--------\n");
 }
 
@@ -1680,8 +1858,8 @@ static void print_ssarr3(m_ssarr3 *b1)
     fprintf(stdout, "\nssarr3 --------\n");
     fprintf(stdout,"length: %ld\n",b1->_length);
     fprintf(stdout, "buffer:\n");
-    for (i = 0; i < b1->_length; i++) 
-	print_sarr3(&b1->_buffer[i]); 
+    for (i = 0; i < b1->_length; i++)
+	print_sarr3(&b1->_buffer[i]);
     fprintf(stdout, "\n--------\n");
 }
 
@@ -1692,8 +1870,8 @@ static void print_sarr3(m_sarr3 *b1)
     fprintf(stdout, "\nsarr3 --------\n");
     fprintf(stdout,"length: %ld\n",b1->_length);
     fprintf(stdout, "buffer:\n");
-    for (i = 0; i < b1->_length; i++) 
-	print_arr3(b1->_buffer[i]); 
+    for (i = 0; i < b1->_length; i++)
+	print_arr3(b1->_buffer[i]);
     fprintf(stdout, "\n--------\n");
 }
 
@@ -1702,8 +1880,8 @@ static void print_arr3(m_arr3 b1)
     int i;
 
     fprintf(stdout, "\narr3 --------\n");
-    for (i = 0; i < sizeof(m_arr3)/sizeof(CORBA_long); i++) 
-	fprintf(stdout, "%ld ", b1[i]); 
+    for (i = 0; i < sizeof(m_arr3)/sizeof(CORBA_long); i++)
+	fprintf(stdout, "%ld ", b1[i]);
     fprintf(stdout, "\n--------\n");
 }
 
@@ -1712,12 +1890,12 @@ static void free_etseq_buf(m_etseq *b)
     int i;
 
     for (i = 0; i < b->_length; i++)
-	erl_free_term(b->_buffer[i]);
+       ic_free_erlang_term(b->_buffer[i]);
 }
 
 static void free_et(m_et* b)
 {
-    erl_free_term(b->e);
+   ic_free_erlang_term(b->e);
 }
 
 static void showtime(MyTimeval *start, MyTimeval *stop)

@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2020. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -301,7 +301,7 @@ isEterm(G, N, S) when element(1, S) == scoped_id ->
     case ic_code:get_basetype(G, ic_util:to_undersc(FullScopedName)) of
 	"erlang_term" ->
 	    true;
-	"ETERM*" ->
+	"ic_erlang_term*" ->
 	    true;
 	_X ->
 	    false

@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 2002-2016. All Rights Reserved.
+ * Copyright Ericsson AB 2002-2020. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,6 @@
 
 #include "ic.h"
 #include "ei.h"
-#include "erl_interface.h"
 #include "eicode.h"
 #include "m_i__s.h"
 #include "m__s.h"
@@ -166,7 +165,7 @@ int main(int argc, char **argv)
     fprintf(stderr, "c_server: peer node: \"%s\"\n", peer_node);
 
     /* initialize erl_interface */
-    erl_init(NULL, 0);
+    ei_init();
 
     for (tries = 0; tries < MAXTRIES; tries++) {
 	/* connect to peer node */ 
@@ -231,7 +230,7 @@ int main(int argc, char **argv)
     my_gettimeofday(&stop);
     showtime(&start, &stop);
 
-    erl_close_connection(fd);
+    ei_close_connection(fd);
 
     CORBA_free(env->_inbuf);
     CORBA_free(env->_outbuf);

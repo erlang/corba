@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 2002-2016. All Rights Reserved.
+ * Copyright Ericsson AB 2002-2020. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <ic.h>
-#include <erl_interface.h>
 #include <ei.h>
 #include "m_i__s.h"
 
@@ -276,74 +275,109 @@ m_i_struct3_test__rs* m_i_struct3_test__cb(CORBA_Object oe_obj,
 */
 
 /* OK */
+void m_i_seq1_test_clean(CORBA_Object oe_obj,
+			 m_bseq** a,
+			 m_bseq* b,
+			 m_bseq** c,
+			 CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_seq1_test__rs* m_i_seq1_test__cb(CORBA_Object oe_obj,
 				     m_bseq** a,
 				     m_bseq* b,
 				     m_bseq** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_seq1_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_seq1_test__rs*) (m_i_seq1_test_clean);
 }
 
 
 /* OK */
+void m_i_seq2_test_clean(CORBA_Object oe_obj,
+			 m_aseq** a,
+			 m_aseq* b,
+			 m_aseq** c,
+			 CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_seq2_test__rs* m_i_seq2_test__cb(CORBA_Object oe_obj,
 				     m_aseq** a,
 				     m_aseq* b,
 				     m_aseq** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_seq2_test__rs* rs = NULL; 
-  
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_seq2_test__rs*) (m_i_seq2_test_clean);
 }
 
 /* OK */
+void m_i_seq3_test_clean(CORBA_Object oe_obj,
+			 m_lseq** a,
+			 m_lseq* b,
+			 m_lseq** c,
+			 CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_seq3_test__rs* m_i_seq3_test__cb(CORBA_Object oe_obj,
 				     m_lseq** a,
 				     m_lseq* b,
 				     m_lseq** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_seq3_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_seq3_test__rs*) (m_i_seq3_test_clean);
 }
 
 /* OK */
+void m_i_seq4_test_clean(CORBA_Object oe_obj,
+			 m_ssstr3** a,
+			 m_ssstr3* b,
+			 m_ssstr3** c,
+			 CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_seq4_test__rs* m_i_seq4_test__cb(CORBA_Object oe_obj,
 				     m_ssstr3** a,
 				     m_ssstr3* b,
 				     m_ssstr3** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_seq4_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_seq4_test__rs*) (m_i_seq4_test_clean);
 }
 
 /* OK */
+void m_i_seq5_test_clean(CORBA_Object oe_obj,
+			 m_ssarr3** a,
+			 m_ssarr3* b,
+			 m_ssarr3** c,
+			 CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_seq5_test__rs* m_i_seq5_test__cb(CORBA_Object oe_obj,
 				     m_ssarr3** a,
 				     m_ssarr3* b,
 				     m_ssarr3** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_seq5_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_seq5_test__rs*) (m_i_seq5_test_clean);
 }
 
 /* OK */
@@ -397,46 +431,75 @@ m_i_enum_test__rs* m_i_enum_test__cb(CORBA_Object oe_obj,
 }
 
 /* OK */
+void m_i_string1_test_clean(CORBA_Object oe_obj,
+			    char ** a,
+			    char * b,
+			    char ** c,
+			    CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_string1_test__rs* m_i_string1_test__cb(CORBA_Object oe_obj,
 					   char ** a,
 					   char * b,
 					   char ** c,
 					   CORBA_Environment *oe_env)
 {
-    m_i_string1_test__rs* rs = NULL; 
-
-    /*printf("\nString in ------> %s\n\n",b);*/
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_string1_test__rs*) (m_i_string1_test_clean);
 }
 
 /* OK */
+void m_i_string2_test_clean(CORBA_Object oe_obj,
+			     m_sseq** a,
+			     m_sseq* b,
+			     m_sseq** c,
+			     CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_string2_test__rs* m_i_string2_test__cb(CORBA_Object oe_obj,
 					   m_sseq** a,
 					   m_sseq* b,
 					   m_sseq** c,
 					   CORBA_Environment *oe_env)
 {
-    m_i_string2_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_string2_test__rs*) (m_i_string2_test_clean);
 }
 
 /* OK */
+void m_i_string3_test_clean(CORBA_Object oe_obj,
+			     char ** a,
+			     char * b,
+			     char ** c,
+			     CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_string3_test__rs* m_i_string3_test__cb(CORBA_Object oe_obj,
 					   char ** a,
 					   char * b,
 					   char ** c,
 					   CORBA_Environment *oe_env)
 {
-    m_i_string3_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_string3_test__rs*) (m_i_string3_test_clean);
+}
+
+void m_i_string4_test_clean(CORBA_Object oe_obj,
+			    m_strRec** a,
+			    m_strRec* b,
+			    m_strRec** c,
+			    CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
 }
 
 m_i_string4_test__rs* m_i_string4_test__cb(CORBA_Object oe_obj,
@@ -447,11 +510,19 @@ m_i_string4_test__rs* m_i_string4_test__cb(CORBA_Object oe_obj,
 {
     *a = b;
     *c = b;
- 
-    return (m_i_string4_test__rs*) NULL; 
+    return (m_i_string4_test__rs*) (m_i_string4_test_clean);
 }
 
 /* OK */
+void m_i_wstring1_test_clean(CORBA_Object oe_obj,
+			     CORBA_wchar ** a,
+			     CORBA_wchar * b,
+			     CORBA_wchar ** c,
+			     CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
 m_i_wstring1_test__rs* m_i_wstring1_test__cb(CORBA_Object oe_obj,
 					     CORBA_wchar ** a,
 					     CORBA_wchar * b,
@@ -459,7 +530,6 @@ m_i_wstring1_test__rs* m_i_wstring1_test__cb(CORBA_Object oe_obj,
 					     CORBA_Environment *oe_env)
 {
     int tmp;
-    m_i_wstring1_test__rs* rs = NULL; 
 
     /*printf("\nString in ------> %s\n\n",b);*/
 
@@ -467,7 +537,7 @@ m_i_wstring1_test__rs* m_i_wstring1_test__cb(CORBA_Object oe_obj,
 	fprintf(stderr,"\np[%d] = %ld\n", tmp, b[tmp]);
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_wstring1_test__rs*) (m_i_wstring1_test_clean);
 }
 
 
@@ -533,38 +603,69 @@ m_i_ref_test__rs* m_i_ref_test__cb(CORBA_Object oe_obj,
 }
 
 /* OK */
+
+void m_i_term_test_clean(CORBA_Object oe_obj,
+			 ic_erlang_term** a,
+			 ic_erlang_term** b,
+			 ic_erlang_term** c,
+			 CORBA_Environment *oe_env)
+{
+   ic_free_erlang_term(*b);
+   return;
+}
+
 m_i_term_test__rs* m_i_term_test__cb(CORBA_Object oe_obj,
-				     ETERM** a,
-				     ETERM** b,
-				     ETERM** c,
+				     ic_erlang_term** a,
+				     ic_erlang_term** b,
+				     ic_erlang_term** c,
 				     CORBA_Environment *oe_env)
 {
-    m_i_term_test__rs* rs = NULL; 
-
     *a = *b;
     *c = *b;
-    return rs;
+    return (m_i_term_test__rs*) (m_i_term_test_clean); 
+}
+
+/* OK */;
+void m_i_typedef_test_clean(CORBA_Object oe_obj,
+			    long* a,
+			    ic_erlang_term** b,
+			    erlang_port* c,
+			    ic_erlang_term** d ,
+			    erlang_port* e,
+			    CORBA_Environment *oe_env)
+{
+   ic_free_erlang_term(*b);
+   
+   return;
 }
 
 m_i_typedef_test__rs* m_i_typedef_test__cb(CORBA_Object oe_obj,
 					   long* a,
-					   ETERM** b,
+					   ic_erlang_term** b,
 					   erlang_port* c,
-					   ETERM** d ,
+					   ic_erlang_term** d ,
 					   erlang_port* e,
 					   CORBA_Environment *oe_env)
-{
-    m_i_typedef_test__rs* rs = NULL; 
-  
+{  
     *d = *b;
     strcpy((*e).node,(*c).node);
     (*e).id = (*c).id;
     (*e).creation = 0;
     *a = 4711;
-    return rs;
+    return (m_i_typedef_test__rs*) (m_i_typedef_test_clean);
 }
 
 /* OK */
+void m_i_inline_sequence_test_clean(CORBA_Object oe_obj,
+				    m_s** a,
+				    m_s* b,
+				    m_s** c,
+				    CORBA_Environment *oe_env)
+{
+   CORBA_free(b);
+}
+
+
 m_i_inline_sequence_test__rs* m_i_inline_sequence_test__cb(
     CORBA_Object oe_obj,
     m_s** a,
@@ -572,14 +673,27 @@ m_i_inline_sequence_test__rs* m_i_inline_sequence_test__cb(
     m_s** c,
     CORBA_Environment *oe_env)
 {
-    m_i_inline_sequence_test__rs* rs = NULL; 
-
     *a = b;
     *c = b;
-    return rs;
+    return (m_i_inline_sequence_test__rs*) (m_i_inline_sequence_test_clean);
 }
 
 /* OK */
+void m_i_term_sequence_test_clean(CORBA_Object oe_obj,
+				  m_etseq** a,
+				  m_etseq* b,
+				  m_etseq** c,
+				  CORBA_Environment *oe_env)
+{
+   int i;
+   
+   for (i = 0; i < b->_length; i++) {
+      ic_free_erlang_term(b->_buffer[i]);
+   }
+   CORBA_free(b); 
+   return;
+}
+
 m_i_term_sequence_test__rs* m_i_term_sequence_test__cb(
     CORBA_Object oe_obj,
     m_etseq** a,
@@ -587,25 +701,31 @@ m_i_term_sequence_test__rs* m_i_term_sequence_test__cb(
     m_etseq** c,
     CORBA_Environment *oe_env)
 {
-    m_i_term_sequence_test__rs* rs = NULL; 
-
     *a = b;
     *c = b; 
-    return rs;
+    return (m_i_term_sequence_test__rs*) (m_i_term_sequence_test_clean);
 }
 
 
 /* OK */
+void m_i_term_struct_test_clean(CORBA_Object oe_obj,
+			      m_et* a,
+			      m_et* b,
+			      m_et* c,
+			      CORBA_Environment *oe_env)
+{
+   ic_free_erlang_term(b->e);
+   return;
+}
+
 m_i_term_struct_test__rs* m_i_term_struct_test__cb(CORBA_Object oe_obj,
 						   m_et* a,
 						   m_et* b,
 						   m_et* c,
 						   CORBA_Environment *oe_env)
 {
-    m_i_term_struct_test__rs* rs = NULL; 
-  
     *a = *b;
     *c = *b;
-    return rs;
-}
+    return (m_i_term_struct_test__rs*) (m_i_term_struct_test_clean);
 
+}

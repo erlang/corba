@@ -68,7 +68,7 @@ end_per_testcase(_Case, Config) ->
 
 suite() -> [{ct_hooks,[ts_install_cth]}].
 
-all() -> 
+all() ->% [term_test].
     [void_test, long_test, long_long_test,
      unsigned_short_test, unsigned_long_test,
      unsigned_long_long_test, double_test, char_test,
@@ -217,6 +217,7 @@ do_test(Case, Config) ->
 	" -peer-process-name " ++ atom_to_list(?ERLANG_SERVER_NAME) ++
 	" -cookie " ++ Cookie ++ 
 	" -test-case " ++ atom_to_list(Case),
+    %%io:format("Cmd: ~p\n", [Cmd]),
     Port = open_port({spawn, Cmd}, [exit_status, eof, stderr_to_stdout]),
     Res = wait_for_completion(Port),
     %% Kill off node if there was timeout

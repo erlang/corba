@@ -257,9 +257,15 @@ ref_test(Node, Timeout) ->
 
 %%b
 term_test(Node, Timeout) ->
-    In = {[a, b], 17, kalle},
-    {Ret, Out} = m_i:term_test({olsson, Node}, Timeout, In),
-    (Ret == In) and (Out == In).
+    In1 = "4711",
+    {Ret1, Out1} = m_i:term_test({olsson, Node}, Timeout, In1),
+    (Ret1 == In1) and (Out1 == In1).
+    %% In2 = self(),
+    %% {Ret2, Out2} = m_i:term_test({olsson, Node}, Timeout, In1),
+    %% (Ret2 == In2) and (Out2 == In2),
+    %% In3 = {17, self()}, %%{[a, b], 17, kalle},
+    %% {Ret3, Out3} = m_i:term_test({olsson, Node}, Timeout, In3),
+    %% (Ret3 == In3) and (Out3 == In3).
 %%e
 
 %%b

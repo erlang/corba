@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1998-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1998-2020. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -1649,7 +1649,7 @@ mk_c_type(G, N, S, evaluate) when element(1, S) == scoped_id ->
 	"erlang_ref" ->
 	    "erlang_ref";
 	"erlang_term" ->
-	    "ETERM*";
+	    "ic_erlang_term*";
 	{enum, Type} ->
 	    mk_c_type(G, N, Type, evaluate);
 	Type ->
@@ -1668,7 +1668,7 @@ mk_c_type(G, N, S, evaluate_not) when element(1, S) == scoped_id ->
 	"erlang_ref" ->
 	    "erlang_ref";
 	"erlang_term" ->
-	    "ETERM*";
+	    "ic_erlang_term*";
 	Type ->
 	    Type
     end;
@@ -1727,11 +1727,11 @@ emit_encoding_stmt(G, N, X, Fd, T, LName) when element(1, T) == scoped_id ->
 		 [LName]), 
 	    emit_c_enc_rpt(Fd, "    ", "oe_ei_encode_ref", []),
 	    emit(Fd, "    return oe_error_code;\n  }\n");
-	"ETERM*" ->
+	"ic_erlang_term*" ->
 	    emit(Fd, "  if ((oe_error_code = "
-		 "oe_ei_encode_term(oe_env, ~s)) < 0) {\n", 
+		 "oe_ic_encode_term(oe_env, ~s)) < 0) {\n", 
 		 [LName]), 
-	    emit_c_enc_rpt(Fd, "    ", "oe_ei_encode_term", []),
+	    emit_c_enc_rpt(Fd, "    ", "oe_ic_encode_term", []),
 	    emit(Fd, "    return oe_error_code;\n  }\n");
 	{enum, FSN} ->
 	    emit_encoding_stmt(G, N, X, Fd, FSN, LName);
@@ -2184,9 +2184,9 @@ emit_decoding_stmt(G, N, Fd, T, LName, IndOp, InBuffer, Align, NextPos,
 	    ?emit_c_dec_rpt(Fd, "    ", "", []),
 	    emit(Fd, "    return oe_error_code;\n"),
 	    emit(Fd, "  }\n\n");
-	"ETERM*" ->
-	    emit(Fd, "  if ((oe_error_code = ei_decode_term(~s, "
-		 "&oe_env->_iin, (void**)~s~s)) < 0) {\n", 
+	"ic_erlang_term*" ->
+	    emit(Fd, "  if ((oe_error_code = ic_decode_term(~s, "
+		 "&oe_env->_iin, ~s~s)) < 0) {\n", 
 		 [InBuffer, IndOp, LName]), 
 	    ic_cbe:emit_dealloc_stmts(Fd, "    ", AllocedPars),
 	    ?emit_c_dec_rpt(Fd, "    ", "", []),

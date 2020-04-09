@@ -126,39 +126,64 @@ PREPROCESSOR_TEST_FILES = \
 	ic_pp_SUITE_data/swallow_sc.idl \
 	ic_pp_SUITE_data/unintended_grp.idl
 
+
+COMMON_C_CLIENT_ERL_SERVER_FILES = \
+	c_erl_test.idl \
+	c_client.c \
+	m_i_impl.erl
+
+# exist a file erl_server.erl in all c_client directories that is not used
+
 C_CLIENT_ERL_SERVER_TEST_FILES = \
 	c_client_erl_server_SUITE_data/Makefile.src \
-	c_client_erl_server_SUITE_data/c_erl_test.idl \
-	c_client_erl_server_SUITE_data/c_client.c \
-	c_client_erl_server_SUITE_data/m_i_impl.erl
+	$(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_SUITE_data/%)
+
+# c_client_erl_server_SUITE_data/c_erl_test.idl \
+# c_client_erl_server_SUITE_data/c_client.c \
+# c_client_erl_server_SUITE_data/m_i_impl.erl
 
 C_CLIENT_ERL_SERVER_PROTO_TEST_FILES = \
 	c_client_erl_server_proto_SUITE_data/Makefile.src \
-	c_client_erl_server_proto_SUITE_data/c_erl_test.idl \
-	c_client_erl_server_proto_SUITE_data/c_client.c \
 	c_client_erl_server_proto_SUITE_data/my.c \
-	c_client_erl_server_proto_SUITE_data/m_i_impl.erl
+	$(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_proto_SUITE_data/%)
+
+#	c_client_erl_server_proto_SUITE_data/c_erl_test.idl \
+#	c_client_erl_server_proto_SUITE_data/c_client.c \
+#	c_client_erl_server_proto_SUITE_data/my.c \server
 
 C_CLIENT_ERL_SERVER_PROTO_TMO_TEST_FILES = \
 	c_client_erl_server_proto_tmo_SUITE_data/Makefile.src \
-	c_client_erl_server_proto_tmo_SUITE_data/c_erl_test.idl \
-	c_client_erl_server_proto_tmo_SUITE_data/c_client.c \
 	c_client_erl_server_proto_tmo_SUITE_data/my.c \
-	c_client_erl_server_proto_tmo_SUITE_data/m_i_impl.erl
+	$(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_proto_tmo_SUITE_data/%)
+
+#	c_client_erl_server_proto_tmo_SUITE_data/c_erl_test.idl \
+#	c_client_erl_server_proto_tmo_SUITE_data/c_client.c \
+#	c_client_erl_server_proto_tmo_SUITE_data/m_i_impl.erl
+
+COMMON_ERL_CLIENT_C_SERVER_FILES = \
+	Makefile.src \
+	erl_c_test.idl \
+	erl_client.erl \
+	c_server.c \
+	callbacks.c
 
 ERL_CLIENT_C_SERVER_TEST_FILES = \
-	erl_client_c_server_SUITE_data/Makefile.src \
-	erl_client_c_server_SUITE_data/erl_c_test.idl \
-	erl_client_c_server_SUITE_data/erl_client.erl \
-	erl_client_c_server_SUITE_data/c_server.c \
-	erl_client_c_server_SUITE_data/callbacks.c
+	$(COMMON_ERL_CLIENT_C_SERVER_FILES:%=erl_client_c_server_SUITE_data/%)
+
+# 	erl_client_c_server_SUITE_data/Makefile.src \
+# 	erl_client_c_server_SUITE_data/erl_c_test.idl \
+# 	erl_client_c_server_SUITE_data/erl_client.erl \
+# 	erl_client_c_server_SUITE_data/c_server.c \
+# 	erl_client_c_server_SUITE_data/callbacks.c
 
 ERL_CLIENT_C_SERVER_PROTO_TEST_FILES = \
-	erl_client_c_server_proto_SUITE_data/Makefile.src \
-	erl_client_c_server_proto_SUITE_data/erl_c_test.idl \
-	erl_client_c_server_proto_SUITE_data/erl_client.erl \
-	erl_client_c_server_proto_SUITE_data/c_server.c \
-	erl_client_c_server_proto_SUITE_data/callbacks.c
+	$(COMMON_ERL_CLIENT_C_SERVER_FILES:%=erl_client_c_server_proto_SUITE_data/%)
+
+# erl_client_c_server_proto_SUITE_data/Makefile.src \
+# erl_client_c_server_proto_SUITE_data/erl_c_test.idl \
+# erl_client_c_server_proto_SUITE_data/erl_client.erl \
+# erl_client_c_server_proto_SUITE_data/c_server.c \
+# erl_client_c_server_proto_SUITE_data/callbacks.c
 
 JAVA_CLIENT_ERL_SERVER_TEST_FILES = \
 	java_client_erl_server_SUITE_data/Makefile.src \
@@ -216,10 +241,18 @@ ERL_COMPILE_FLAGS += \
 # ----------------------------------------------------
 # Targets
 # ----------------------------------------------------
-tests debug opt: $(TARGET_FILES)
+tests debug opt: copy_common_files $(TARGET_FILES)
+
+copy_common_files:
+	$(INSTALL_DATA) $(ERL_CLIENT_C_SERVER_TEST_FILES) erl_client_c_server_proto_SUITE_data
+	$(INSTALL_DATA) $(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_SUITE_data/%) c_client_erl_server_proto_SUITE_data
+	$(INSTALL_DATA) $(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_SUITE_data/%) c_client_erl_server_proto_tmo_SUITE_data
 
 clean:
 	rm -f $(TARGET_FILES) 
+	rm -f $(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_proto_SUITE_data/%)
+	rm -f $(COMMON_C_CLIENT_ERL_SERVER_FILES:%=c_client_erl_server_proto_tmo_SUITE_data/%)
+	rm -f $(ERL_CLIENT_C_SERVER_PROTO_TEST_FILES)
 	rm -f errs core *~
 
 docs:
