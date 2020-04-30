@@ -42,8 +42,8 @@
 extern "C" {
 #endif
 
- /* LATH: Just temporary until Rickards ne functiona available */
-   short ei_thiscreation(const ei_cnode* ec);
+/* This declaration is just used in pre OTP 23 code */
+short ei_thiscreation(const ei_cnode* ec);
 
 /* -------------------------------------------------------------------- */
 /* Type definitions of Erlang terms in C                                */
@@ -124,7 +124,7 @@ int ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term);
 ic_erlang_term* ic_mk_list_term_from_string(char *str);
 ic_erlang_term* ic_mk_binary_term(int size, char *b);
 
-int ic_free_erlang_term(ic_erlang_term *term);
+void ic_free_erlang_term(ic_erlang_term *term);
 void ic_print_erlang_term(ic_erlang_term *term);
 
 /* Standard type mapping */

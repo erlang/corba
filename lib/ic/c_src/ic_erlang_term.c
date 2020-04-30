@@ -19,31 +19,103 @@
  */
 #include "ic.h"
 
-int ic_free_tuple(ic_erlang_tuple *tuple);
-int ic_free_list(ic_erlang_list *list);
+void ic_free_tuple(ic_erlang_tuple *tuple);
+void ic_free_list(ic_erlang_list *list);
 void ic_print_tuple(ic_erlang_tuple *tuple);
 void ic_print_list(ic_erlang_list *list);
+int ic_compare_list(ic_erlang_list *list1, ic_erlang_list *list2);
 
 /* Compare function */
 int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2) {
-   int retVal = -1;
+   int retVal = 1;
+   int i;
 
    switch(t1->type) {
    case ic_integer:
-      retVal = t2->type == ic_integer && t1->value.i_val == t2->value.i_val;
+      retVal = t2->type == ic_integer &&
+	 t1->value.i_val == t2->value.i_val;
       break;
    case ic_float:
-      retVal = t2->type == ic_float && t1->value.d_val == t2->value.d_val;
+      retVal = t2->type == ic_float &&
+	 t1->value.d_val == t2->value.d_val;
       break;
    case ic_atom:
-      retVal = t2->type == ic_integer && strcmp(t1->value.atom_name, t2->value.atom_name);
+      retVal = t2->type == ic_atom &&
+	 !strcmp(t1->value.atom_name,
+		 t2->value.atom_name);
       break;
    case ic_pid:
+#ifndef __OTP_PRE_23__
+      retVal = t2->type == ic_pid &&
+	 !ei_cmp_pids(&(t1->value.pid), &(t2->value.pid));
+#else
+      retVal = t2->type == ic_pid &&
+	 t1->value.pid.num == t2->value.pid.num &&
+	 t1->value.pid.serial == t2->value.pid.serial &&
+	 t1->value.pid.creation == t2->value.pid.creation &&
+	 !strcmp(t1->value.pid.node,
+		 t2->value.pid.node);
+#endif
+      break;
    case ic_port:
+#ifndef __OTP_PRE_23__
+      retVal = t2->type == ic_port &&
+	 !ei_cmp_ports(&(t1->value.port), &(t2->value.port));
+#else
+      retVal = t2->type == ic_port &&
+	 t1->value.port.id == t2->value.port.id &&
+	 t1->value.port.creation == t2->value.port.creation &&
+	 !strcmp(t1->value.port.node,
+		 t2->value.port.node);
+#endif
+      break;
    case ic_ref:
+#ifndef __OTP_PRE_23__
+      retVal = t2->type == ic_ref &&
+	 !ei_cmp_refs(&(t1->value.ref), &(t2->value.ref));
+#else
+      retVal = t2->type == ic_ref &&
+	 t1->value.ref.len == t2->value.ref.len &&
+	 t1->value.pid.creation == t2->value.pid.creation &&
+	 !strcmp(t1->value.pid.node,
+		 t2->value.pid.node);
+      if(retVal) {
+	 for (i = 0; i < t1->value.ref.len; i++)
+	    if (t1->value.ref.n[i] != t2->value.ref.n[i])
+	       return 0;
+      }
+#endif
+      break;
    case ic_tuple:
+      if(t2->type == ic_tuple &&
+	 t1->value.tuple->arity == t2->value.tuple->arity)
+      {
+	 for(i = 0; i < t1->value.tuple->arity; i++) {
+	    retVal = ic_erlang_term_is_equal(t1->value.tuple->elements[i],
+					     t2->value.tuple->elements[i]);
+	    if(retVal == 0)
+	       break;
+	 }
+      } else
+	 retVal = 0;
+      break;
    case ic_list:
+      if(t2->type == ic_list &&
+	 t1->value.list->arity == t2->value.list->arity) {
+	 if(t1->value.list->arity)
+	    retVal = ic_compare_list(t1->value.list, t2->value.list);
+      } else
+	 retVal = 0;
+      break;
    case ic_binary:
+      if(t2->type == ic_binary &&
+	 t1->value.bin->size == t2->value.bin->size &&
+	 !memcmp(t1->value.bin->bytes,
+		 t2->value.bin->bytes,
+		 t1->value.bin->size))
+	 retVal = 1;
+      else
+	 retVal = 0;
       break;
    default:
       break;
@@ -51,6 +123,24 @@ int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2) {
 
    return retVal;
 }
+
+int ic_compare_list(ic_erlang_list *list1, ic_erlang_list *list2)
+{
+   int retVal = 1;
+   ic_erlang_list_elem *p1 = NULL;
+   ic_erlang_list_elem *p2 = NULL;
+
+   /* Already checked that the arity is the same */
+   for(p1 = list1->head, p2 = list2->head;
+       p1;
+       p1 = p1->next, p2 = p2->next) {
+      retVal = ic_erlang_term_is_equal(p1->element, p2->element);
+      if(retVal == 0)
+	 break;
+   }
+   return retVal;
+}
+
 
 /* Create functions */
 ic_erlang_term* ic_mk_int_term(long l)
@@ -106,7 +196,7 @@ ic_erlang_term* ic_mk_atom_term(char *atom_name)
 ic_erlang_term* ic_mk_pid_term(erlang_pid* pid)
 {
    ic_erlang_term *term = NULL;
-   
+
    if(pid) {
       term = (ic_erlang_term*) malloc(sizeof(ic_erlang_term));
       if(term) {
@@ -162,7 +252,7 @@ ic_erlang_term* ic_mk_tuple_term(int arity)
 	    if(!tuple->elements) {
 	       CORBA_free(term);
 	       term = NULL;
-	    }	    
+	    }
 	 } else
 	    tuple->elements = NULL;
       } else {
@@ -291,10 +381,8 @@ ic_erlang_term* ic_mk_binary_term(int size, char *b)
 }
 
 /* Free functions */
-int ic_free_erlang_term(ic_erlang_term* term)
+void ic_free_erlang_term(ic_erlang_term* term)
 {
-   int retVal = 0;
-
    if(term) {
       switch(term->type) {
 
@@ -305,16 +393,14 @@ int ic_free_erlang_term(ic_erlang_term* term)
 	 CORBA_free(term->value.atom_name);
 	 break;
       case ic_pid:
-	 break;
       case ic_port:
-	 break;
       case ic_ref:
 	 break;
       case ic_tuple:
-	 retVal = ic_free_tuple(term->value.tuple);
+	 ic_free_tuple(term->value.tuple);
 	 break;
       case ic_list:
-	 retVal = ic_free_list(term->value.list);
+	 ic_free_list(term->value.list);
 	 break;
       case ic_binary:
 	 CORBA_free(term->value.bin->bytes);
@@ -326,41 +412,38 @@ int ic_free_erlang_term(ic_erlang_term* term)
 
       CORBA_free(term);
    }
-   return retVal;
+   return;
 }
 
-int ic_free_tuple(ic_erlang_tuple *tuple)
+void ic_free_tuple(ic_erlang_tuple *tuple)
 {
-   int retVal = 0;
    int i;
 
    if(tuple) {
       for(i = 0; i < tuple->arity; i++)
-	 retVal = ic_free_erlang_term(tuple->elements[i]);
+	 ic_free_erlang_term(tuple->elements[i]);
 
       CORBA_free(tuple->elements);
       CORBA_free(tuple);
    }
-   return retVal;
+   return;
 }
 
-int ic_free_list(ic_erlang_list *list)
+void ic_free_list(ic_erlang_list *list)
 {
-   int retVal = 0;
    ic_erlang_list_elem *p = NULL,
       *q = NULL;
 
    if(list) {
       for(p = list->head; p; p = q) {
 	 q = p->next;
-	 /* LATH: What to do if one free of a term fail */
-	 retVal = ic_free_erlang_term(p->element);
+	 ic_free_erlang_term(p->element);
 	 CORBA_free(p);
       }
       CORBA_free(list);
    }
 
-   return retVal;
+   return;
 }
 
 /* Print functions */
