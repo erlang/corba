@@ -28,7 +28,20 @@
 #include <assert.h>
 #include <ei.h>
 
-//#ifdef NEW_ERL_INTERFACE
+#ifdef __WIN32__
+/* Windows.h #defines interface to struct, get rid of it! */
+#ifdef interface
+#undef interface
+#endif
+#endif
+
+#ifndef __IC_H__
+#define __IC_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 const char *legacy_erl_thisnodename(void);
 short       legacy_erl_thiscreation(void);
 
@@ -49,7 +62,6 @@ short ei_thiscreation(const ei_cnode* ec);
 /* -------------------------------------------------------------------- */
 /*              Type definitions of Erlang terms in C                   */
 /* -------------------------------------------------------------------- */
-
 
 // ic_string is just used internally during decoding when checking next type
 // It's not used in ic_erlang_term.
@@ -129,22 +141,6 @@ ic_erlang_term* ic_mk_binary_term(int size, char *b);
 int ic_free_erlang_term(ic_erlang_term *term);
 
 void ic_print_erlang_term(ic_erlang_term *term);
-
-//#endif
-
-#ifdef __WIN32__
-/* Windows.h #defines interface to struct, get rid of it! */
-#ifdef interface
-#undef interface
-#endif
-#endif
-
-#ifndef __IC_H__
-#define __IC_H__
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Standard type mapping */
 
