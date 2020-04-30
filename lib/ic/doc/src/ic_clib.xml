@@ -106,7 +106,7 @@
       <fsummary>Get exception identity.</fsummary>
       <desc>
         <p>Returns the exception identity if an exception is set, otherwise
-          it returns <c>NULL</c>.</p>
+        it returns <c>NULL</c>.</p>
       </desc>
     </func>
     <func>
@@ -129,7 +129,7 @@
 
   <section>
     <title>Server Reception</title>
-    <p>The following function is provided for convenience. </p>
+    <p>The following function is provided for convenience.</p>
   </section>
   <funcs>
     <func>
@@ -168,7 +168,112 @@
       </desc>
     </func>
   </funcs>
-
+  
+  <section>
+    <title>Help functions for the type ic_erlang_term</title>
+    <p>Functions for creating ic_erlang_terms.</p>
+  </section>
+  <funcs>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_int_term(long l)</nametext></name>
+      <fsummary>Create an erlang integer term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_float_term(double d)</nametext></name>
+      <fsummary>Create an erlang float term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_atom_term(char *atom_name)</nametext></name>
+      <fsummary>Create an erlang atom term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_pid_term(char *node, int num, int serial, int creation)</nametext></name>
+      <fsummary>Create an erlang pid term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_port_term(char *node, int id, int creation)</nametext></name>
+      <fsummary>Create an erlang port term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_ref_term(char *node, int len, int n[3], int creation)</nametext></name>
+      <fsummary>Create an erlang reference term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_tuple_term(int arity)</nametext></name>
+      <fsummary>Create an erlang tuple term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>int</ret><nametext>ic_tuple_add_elem(ic_erlang_term *tuple, ic_erlang_term *elem, int pos)</nametext></name>
+      <fsummary>Add an erlang term to a tuple</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_list_term(long l)</nametext></name>
+      <fsummary>Create an erlang list term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>int</ret><nametext>ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term)</nametext></name>
+      <fsummary>Append an erlang integer term to a list</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_list_term_from_string(char *str)</nametext></name>
+      <fsummary>Create an erlang integer term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>ic_erlang_term*</ret><nametext>ic_mk_binary_term(int size, char *b)</nametext></name>
+      <fsummary>Create an erlang binary term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>int</ret><nametext>ic_free_erlang_term(ic_erlang_term *term)</nametext></name>
+      <fsummary>Create an erlang binary term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+    <func>
+      <name><ret>void</ret><nametext>ic_print_erlang_term(ic_erlang_term *term)</nametext></name>
+      <fsummary>Create an erlang binary term</fsummary>
+      <desc>
+        <p></p>
+      </desc>
+    </func>
+  </funcs>
+  
   <section>
     <title>The CORBA_Environment structure</title>
     <p>Here is the complete definition of the CORBA_Environment structure,

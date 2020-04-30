@@ -33,27 +33,27 @@ int ic_encode_term(char *buf, int *index, const ic_erlang_term *term)
 
    case ic_integer:
       retVal = ei_encode_long(buf, index, term->value.i_val);
-      //fprintf(stdout, "Encoded ic_integer value: %ld\n", term->value.i_val);
+      /* fprintf(stdout, "Encoded ic_integer value: %ld\n", term->value.i_val); */
      break;
    case ic_float:
       retVal = ei_encode_double(buf, index, term->value.d_val);
-      //fprintf(stdout, "Encoded ic_float value: %f\n", term->value.d_val);
+      /* fprintf(stdout, "Encoded ic_float value: %f\n", term->value.d_val); */
       break;
    case ic_atom:
       retVal = ei_encode_atom(buf, index, term->value.atom_name);
-      //fprintf(stdout, "Encoded ic_atom value: %s\n", term->value.atom_name);
+      /* fprintf(stdout, "Encoded ic_atom value: %s\n", term->value.atom_name); */
       break;
    case ic_pid:
-      retVal = ei_encode_pid(buf, index, term->value.pid);
-      //fprintf(stdout, "Encoded ic_pid\n");
+      retVal = ei_encode_pid(buf, index, &(term->value.pid));
+      /* fprintf(stdout, "Encoded ic_pid\n"); */
       break;
    case ic_port:
-      retVal = ei_encode_port(buf, index, term->value.port);
-      //fprintf(stdout, "Encoded ic_port\n");
+      retVal = ei_encode_port(buf, index, &(term->value.port));
+      /* fprintf(stdout, "Encoded ic_port\n"); */
       break;
    case ic_ref:
-      retVal = ei_encode_ref(buf, index, term->value.ref);
-      //fprintf(stdout, "Encoded ic_ref\n");
+      retVal = ei_encode_ref(buf, index, &(term->value.ref));
+      /* fprintf(stdout, "Encoded ic_ref\n"); */
       break;
    case ic_tuple:
       retVal = ic_encode_tuple(buf, index, term);
@@ -65,7 +65,7 @@ int ic_encode_term(char *buf, int *index, const ic_erlang_term *term)
       retVal = ei_encode_binary(buf, index,
 				term->value.bin->bytes,
 				term->value.bin->size);
-      //fprintf(stdout, "Encoded ic_binary\n");
+      /* fprintf(stdout, "Encoded ic_binary\n"); */
       break;
    default:
       retVal = -1;
@@ -83,7 +83,7 @@ int ic_encode_tuple(char *buf, int *index, const ic_erlang_term *term)
 
    if((retVal = ei_encode_tuple_header(buf, index, arity)))
       goto error;
-   //fprintf(stdout, "Encoded ic_tuple arity: %d\n", arity);
+   /* fprintf(stdout, "Encoded ic_tuple arity: %d\n", arity); */
 
    for(i = 0; i < arity; i++)
       if((retVal = ic_encode_term(buf, index, term->value.tuple->elements[i])))
@@ -106,7 +106,7 @@ int ic_encode_list(char *buf, int *index, const ic_erlang_term *term)
    if(arity) {
       if((retVal = ei_encode_list_header(buf, index, arity)))
 	    goto error;
-      //fprintf(stdout, "Encoded ic_list arity: %d\n", arity);
+      /* fprintf(stdout, "Encoded ic_list arity: %d\n", arity); */
 
       for(i = 0; i < arity; i++) {
 	 elem = p->element;
@@ -139,13 +139,13 @@ int ic_size_of_encoded_term(int *index, const ic_erlang_term *term)
       retVal = ei_encode_atom(NULL, index, term->value.atom_name);
       break;
    case ic_pid:
-      retVal = ei_encode_pid(NULL, index, term->value.pid);
+      retVal = ei_encode_pid(NULL, index, &(term->value.pid));
       break;
    case ic_port:
-      retVal = ei_encode_port(NULL, index, term->value.port);
+      retVal = ei_encode_port(NULL, index, &(term->value.port));
       break;
    case ic_ref:
-      retVal = ei_encode_ref(NULL, index, term->value.ref);
+      retVal = ei_encode_ref(NULL, index, &(term->value.ref));
       break;
    case ic_tuple:
       retVal = ic_calculate_tuple_size(index, term);

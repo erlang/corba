@@ -67,7 +67,7 @@ int ic_get_type(const char *buf, const int *index, ic_erlang_type *ictype, int *
       *ictype = ic_tuple;
       break;
       
-   case ERL_NIL_EXT: // List of length 0
+   case ERL_NIL_EXT: /* List of length 0 */
    case ERL_LIST_EXT:
       *ictype = ic_list;
       break;
@@ -76,7 +76,7 @@ int ic_get_type(const char *buf, const int *index, ic_erlang_type *ictype, int *
       *ictype = ic_binary;
       break;
 
-   default: // ic term doesn't handle maps, bit binaries, funs ...
+   default: /* ic term doesn't handle maps, bit binaries, funs ... */
       retVal = -1;
       break;
    }

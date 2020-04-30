@@ -59,20 +59,21 @@ int main(int argc, char **argv)
   int sd;
   int portnr;
   int epmd_fd;
+  ei_cnode ec;
   
   /* crate file descriptors */
-  if (init(&sd, &portnr, &epmd_fd) < 0)
+  if (init(&ec, &sd, &portnr, &epmd_fd) < 0)
     return -1;
 
   /* start server loop */
-  server_loop(sd,epmd_fd);
+  server_loop(&ec, sd, epmd_fd);
 
   return 0;
 }
 
 
 
-static void server_loop(int sd, int epmd_fd)
+static void server_loop(ei_cnode *ec, int sd, int epmd_fd)
 {
   ErlConnect conn;
   erlang_msg msg;
@@ -81,12 +82,13 @@ static void server_loop(int sd, int epmd_fd)
   
   /* Create and init CORBA_Environment */
   env = CORBA_Environment_alloc(INBUFSZ,OUTBUFSZ);
+  env->_ec = ec;
   
   while (status >= 0) {
     
     status = 1;
     
-    if ((env->_fd = erl_accept(sd,&conn)) < 0) {       
+    if ((env->_fd = ei_accept(ec, sd, &conn)) < 0) {       
       /* error */
       fprintf(stderr,"Accept failed: %s\n",strerror(errno));
     }
@@ -143,7 +145,7 @@ static void server_loop(int sd, int epmd_fd)
 
 
 
-static int init(int *sd, int *portnr, int *epmd_fd)
+static int init(ei_cnode *ec, int *sd, int *portnr, int *epmd_fd)
 {
   char host[HOSTNAMESZ];
   char servernode[NODENAMESZ];
@@ -170,7 +172,7 @@ static int init(int *sd, int *portnr, int *epmd_fd)
   }
   else {
     /* identify host */
-    if (!(h = erl_gethostbyname(host)))
+    if (!(h = ei_gethostbyname(host)))
       fprintf(stdout,"can't find own ip address\n");
     else {
 
@@ -185,13 +187,13 @@ static int init(int *sd, int *portnr, int *epmd_fd)
       sprintf(servernode,"%s@%s",SERVER,host);
       
       /* initiate */
-      erl_init(NULL,0);
+      ei_init();
 
       /* host, alive, alive@host, addr, cookie, creation */
-      erl_connect_xinit(host,SERVER,servernode,(Erl_IpAddr)(h->h_addr_list[0]),COOKIE,0);
+      ei_connect_xinit(ec, host,SERVER,servernode,(Erl_IpAddr)(h->h_addr_list[0]),COOKIE,0);
       
       /* let epmd know we are here */
-      *epmd_fd = erl_publish(*portnr);
+      *epmd_fd = ei_publish(ec, *portnr);
 
       return 0;
     } 

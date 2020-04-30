@@ -274,7 +274,8 @@ int main(int argc, char **argv)
     TestFunc test_func = NULL;
     TestCase *test_case;
     char *test_case_name = NULL;
-
+    ei_cnode ec;
+    
 #ifdef __WIN32__
     WORD wVersionRequested;
     WSADATA wsaData;
@@ -361,14 +362,14 @@ int main(int argc, char **argv)
 
 	/* connect to erlang node */
 
-    	ires = erl_connect_xinit(host, this_node_name, this_node,
-				 (struct in_addr *)*hp->h_addr_list,
-				 cookie, 0);
+       ires = ei_connect_xinit(&ec, host, this_node_name, this_node,
+			       (struct in_addr *)*hp->h_addr_list,
+			       cookie, 0);
 
-	fprintf(stderr, "c_client: erl_connect_xinit(): %d\n", ires);
+	fprintf(stderr, "c_client: ei_connect_xinit(): %d\n", ires);
 
-	fd = erl_connect(peer_node);
-	fprintf(stderr, "c_client: erl_connect(): %d\n", fd);
+	fd = ei_connect(&ec, peer_node);
+	fprintf(stderr, "c_client: ei_connect(): %d\n", fd);
 
 	if (fd >= 0)
 	    break;
@@ -380,6 +381,7 @@ int main(int argc, char **argv)
     }
     env = CORBA_Environment_alloc(INBUFSZ, OUTBUFSZ);
     env->_fd = fd;
+    env->_ec = &ec;
     strcpy(env->_regname, peer_process_name);
     env->_to_pid = NULL;
     env->_from_pid = &pid;

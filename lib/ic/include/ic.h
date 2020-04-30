@@ -42,29 +42,15 @@
 extern "C" {
 #endif
 
-const char *legacy_erl_thisnodename(void);
-short       legacy_erl_thiscreation(void);
-
-int    legacy_erl_connect_init(int, char*,short);
-int    legacy_erl_connect_xinit(char*,char*,char*,struct in_addr*,char*,short);
-int    legacy_erl_connect(char*);
-int    legacy_erl_xconnect(struct in_addr*,char *);
-const char *legacy_erl_thisnodename(void);
-short       legacy_erl_thiscreation(void);
-short ei_thiscreation(const ei_cnode* ec);
-#define erl_connect_init(a,b,c) legacy_erl_connect_init(a, b,c)
-#define erl_connect_xinit(a,b,c,d,e,f) legacy_erl_connect_xinit(a,b,c,d,e,f)
-#define erl_connect(a) legacy_erl_connect(a)
-#define erl_xconnect(a,b) legacy_erl_xconnect(a,b)
-#define erl_thiscreation() ei_thiscreation(&erl_if_ec)
-#define erl_thisnodename() ei_thisnodename(&erl_if_ec)
+ /* LATH: Just temporary until Rickards ne functiona available */
+   short ei_thiscreation(const ei_cnode* ec);
 
 /* -------------------------------------------------------------------- */
-/*              Type definitions of Erlang terms in C                   */
+/* Type definitions of Erlang terms in C                                */
 /* -------------------------------------------------------------------- */
 
-// ic_string is just used internally during decoding when checking next type
-// It's not used in ic_erlang_term.
+/* ic_string is just used internally during decoding when checking      */
+/*    next type. It's not used in ic_erlang_term.                       */
 typedef enum {
    ic_integer,
    ic_float,
@@ -107,30 +93,30 @@ typedef struct _ic_erlang_term {
       long              i_val;
       double            d_val;
       char*             atom_name;
-      erlang_pid*       pid;
-      erlang_port*      port;
-      erlang_ref*       ref;
+      erlang_pid        pid;
+      erlang_port       port;
+      erlang_ref        ref;
       ic_erlang_tuple*  tuple;
       ic_erlang_list*   list;
       ic_erlang_binary* bin;
    } value;
 } ic_erlang_term;
 
-// Decode/Encode of erlang terms
+/* Decode/Encode of erlang terms */
 int ic_encode_term(char *buf, int *index, const ic_erlang_term *term);
 int ic_decode_term(const char *buf, int *index, ic_erlang_term **term);
 int ic_size_of_encoded_term(int *index, const ic_erlang_term *term);
 int ic_get_type(const char *buf, const int *index, ic_erlang_type *type, int *len);
 
-// Help functions for erlang terms
+/* Help functions for erlang terms */
 int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2);
 
 ic_erlang_term* ic_mk_int_term(long l);
 ic_erlang_term* ic_mk_float_term(double d);
 ic_erlang_term* ic_mk_atom_term(char *atom_name);
-ic_erlang_term* ic_mk_pid_term(char *node, int num, int serial, int creation);
-ic_erlang_term* ic_mk_port_term(char *node, int id, int creation);
-ic_erlang_term* ic_mk_ref_term(char *node, int len, int n[3], int creation);
+ic_erlang_term* ic_mk_pid_term(erlang_pid* pid);
+ic_erlang_term* ic_mk_port_term(erlang_port* port);
+ic_erlang_term* ic_mk_ref_term(erlang_ref* ref);
 ic_erlang_term* ic_mk_tuple_term(int arity);
 int ic_tuple_add_elem(ic_erlang_term *tuple, ic_erlang_term *elem, int pos);
 ic_erlang_term* ic_mk_list_term(void);
@@ -139,7 +125,6 @@ ic_erlang_term* ic_mk_list_term_from_string(char *str);
 ic_erlang_term* ic_mk_binary_term(int size, char *b);
 
 int ic_free_erlang_term(ic_erlang_term *term);
-
 void ic_print_erlang_term(ic_erlang_term *term);
 
 /* Standard type mapping */
@@ -329,11 +314,10 @@ void ic_print_erlang_term(ic_erlang_term *term);
 	unsigned int          _ref_counter_1;   /* Counter for reference     */
 	unsigned int          _ref_counter_2;   /* Counter for reference     */
 	unsigned int          _ref_counter_3;   /* Counter for reference     */
-
+        ei_cnode              *_ec;              /* Pointer to the cnode */
     } CORBA_Environment;
 
 #endif
-
 
 /* Corba standard functions */
 
@@ -535,4 +519,4 @@ void ic_print_erlang_term(ic_erlang_term *term);
 
 #endif
 
-#endif // IC_H
+#endif /* IC_H */

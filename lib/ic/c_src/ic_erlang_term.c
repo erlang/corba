@@ -24,7 +24,7 @@ int ic_free_list(ic_erlang_list *list);
 void ic_print_tuple(ic_erlang_tuple *tuple);
 void ic_print_list(ic_erlang_list *list);
 
-// Compare function
+/* Compare function */
 int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2) {
    int retVal = -1;
 
@@ -52,7 +52,7 @@ int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2) {
    return retVal;
 }
 
-// Create functions
+/* Create functions */
 ic_erlang_term* ic_mk_int_term(long l)
 {
    ic_erlang_term *term = NULL;
@@ -103,77 +103,43 @@ ic_erlang_term* ic_mk_atom_term(char *atom_name)
    return term;
 }
 
-ic_erlang_term* ic_mk_pid_term(char *node, int num, int serial, int creation)
+ic_erlang_term* ic_mk_pid_term(erlang_pid* pid)
 {
    ic_erlang_term *term = NULL;
-   erlang_pid* pid;
-
-   if(node) {
+   
+   if(pid) {
       term = (ic_erlang_term*) malloc(sizeof(ic_erlang_term));
       if(term) {
 	 term->type = ic_pid;
-	 pid = (erlang_pid*) malloc(sizeof(erlang_pid));
-	 if(pid) {
-	    strcpy(pid->node, node);
-	    pid->num = num;
-	    pid->serial = serial;
-	    pid->creation = creation;
-	    term->value.pid = pid;
-	 } else {
-	    CORBA_free(term);
-	    term = NULL;
-	 }
+	 term->value.pid = *pid;
       }
    }
    return term;
 }
 
-ic_erlang_term* ic_mk_port_term(char *node, int id, int creation)
+ic_erlang_term* ic_mk_port_term(erlang_port* port)
 {
    ic_erlang_term *term = NULL;
-   erlang_port* port;
 
-   if(node) {
+   if(port) {
       term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
       if(term) {
 	 term->type = ic_port;
-	 port = (erlang_port*) malloc(sizeof(erlang_port));
-	 if(port) {
-	    strcpy(port->node, node);
-	    port->id = id;
-	    port->creation = creation;
-	    term->value.port = port;
-	 } else {
-	    CORBA_free(term);
-	    term = NULL;
-	 }
+	 term->value.port = *port;
       }
    }
    return term;
 }
 
-ic_erlang_term* ic_mk_ref_term(char *node, int len, int n[3], int creation)
+ic_erlang_term* ic_mk_ref_term(erlang_ref* ref)
 {
    ic_erlang_term *term = NULL;
-   int i;
-   erlang_ref* ref;
 
-   if(node) {
+   if(ref) {
       term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
       if(term) {
 	 term->type = ic_ref;
-	 ref = (erlang_ref*) malloc(sizeof(erlang_ref));
-	 if(ref) {
-	    strcpy(ref->node, node);
-	    ref->len = len;
-	    for(i = 0; i < 3; i++)
-	       ref->n[i] = n[i];
-	    ref->creation = creation;
-	    term->value.ref = ref;
-	 } else {
-	    CORBA_free(term);
-	    term = NULL;
-	 }
+	 term->value.ref = *ref;
       }
    }
    return term;
@@ -193,8 +159,10 @@ ic_erlang_term* ic_mk_tuple_term(int arity)
 	 tuple->arity = arity;
 	 if(arity) {
 	    tuple->elements = (ic_erlang_term**) malloc(sizeof(ic_erlang_term*) * arity);
-	    //if(tuple->elements)
-
+	    if(!tuple->elements) {
+	       CORBA_free(term);
+	       term = NULL;
+	    }	    
 	 } else
 	    tuple->elements = NULL;
       } else {
@@ -251,14 +219,14 @@ int ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term)
 	 elem->next = NULL;
 
 	 list->value.list->arity += 1;
-	 //fprintf(stderr, "New length: %ld\n", list->value.list.arity);
+	 /* fprintf(stderr, "New length: %ld\n", list->value.list.arity); */
 
 	 if(list->value.list->head) {
-	    //fprintf(stderr, "Add elem\n");
+	    /* fprintf(stderr, "Add elem\n"); */
 	    list->value.list->tail->next = elem;
 	    list->value.list->tail = elem;
 	 } else {
-	    //fprintf(stderr, "First elem\n");
+	    /* fprintf(stderr, "First elem\n"); */
 	    list->value.list->head = elem;
 	    list->value.list->tail = elem;
 	 }
@@ -322,7 +290,7 @@ ic_erlang_term* ic_mk_binary_term(int size, char *b)
    return term;
 }
 
-// Free functions
+/* Free functions */
 int ic_free_erlang_term(ic_erlang_term* term)
 {
    int retVal = 0;
@@ -337,13 +305,10 @@ int ic_free_erlang_term(ic_erlang_term* term)
 	 CORBA_free(term->value.atom_name);
 	 break;
       case ic_pid:
-	 CORBA_free(term->value.pid);
 	 break;
       case ic_port:
-	 CORBA_free(term->value.port);
 	 break;
       case ic_ref:
-	 CORBA_free(term->value.ref);
 	 break;
       case ic_tuple:
 	 retVal = ic_free_tuple(term->value.tuple);
@@ -388,7 +353,7 @@ int ic_free_list(ic_erlang_list *list)
    if(list) {
       for(p = list->head; p; p = q) {
 	 q = p->next;
-	 //LATH: What to do if one free of a term fail
+	 /* LATH: What to do if one free of a term fail */
 	 retVal = ic_free_erlang_term(p->element);
 	 CORBA_free(p);
       }
@@ -398,7 +363,7 @@ int ic_free_list(ic_erlang_list *list)
    return retVal;
 }
 
-// Print functionsvalue
+/* Print functions */
 void ic_print_erlang_term(ic_erlang_term *term)
 {
 
@@ -420,25 +385,25 @@ void ic_print_erlang_term(ic_erlang_term *term)
       break;
    case ic_pid:
       fprintf(stdout, "Type: ic_pid, Value: %s %d %d %d\n",
-	      term->value.pid->node,
-	      term->value.pid->num,
-	      term->value.pid->serial,
-	      term->value.pid->creation);
+	      term->value.pid.node,
+	      term->value.pid.num,
+	      term->value.pid.serial,
+	      term->value.pid.creation);
       break;
    case ic_port:
       fprintf(stdout, "Type: ic_port, Value: %s %d %d\n",
-	      term->value.port->node,
-	      term->value.port->id,
-	      term->value.port->creation);
+	      term->value.port.node,
+	      term->value.port.id,
+	      term->value.port.creation);
       break;
    case ic_ref:
       fprintf(stdout, "Type: ic_ref, Value: %s %d [%d,%d,%d] %d\n",
-	      term->value.ref->node,
-	      term->value.ref->len,
-	      term->value.ref->n[0],
-	      term->value.ref->n[1],
-	      term->value.ref->n[2],
-	      term->value.ref->creation);
+	      term->value.ref.node,
+	      term->value.ref.len,
+	      term->value.ref.n[0],
+	      term->value.ref.n[1],
+	      term->value.ref.n[2],
+	      term->value.ref.creation);
       break;
    case ic_tuple:
       ic_print_tuple(term->value.tuple);
