@@ -43,7 +43,9 @@ extern "C" {
 #endif
 
 /* This declaration is just used in pre OTP 23 code */
+#ifdef __OTP_PRE_23__
 short ei_thiscreation(const ei_cnode* ec);
+#endif
 
 /* -------------------------------------------------------------------- */
 /* Type definitions of Erlang terms in C                                */
