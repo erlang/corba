@@ -95,9 +95,9 @@ typedef struct _ic_erlang_term {
       long              i_val;
       double            d_val;
       char*             atom_name;
-      erlang_pid        pid;
-      erlang_port       port;
-      erlang_ref        ref;
+      erlang_pid*       pid;
+      erlang_port*      port;
+      erlang_ref*       ref;
       ic_erlang_tuple*  tuple;
       ic_erlang_list*   list;
       ic_erlang_binary* bin;

@@ -47,41 +47,41 @@ int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2) {
    case ic_pid:
 #ifndef __OTP_PRE_23__
       retVal = t2->type == ic_pid &&
-	 !ei_cmp_pids(&(t1->value.pid), &(t2->value.pid));
+	 !ei_cmp_pids(t1->value.pid, t2->value.pid);
 #else
       retVal = t2->type == ic_pid &&
-	 t1->value.pid.num == t2->value.pid.num &&
-	 t1->value.pid.serial == t2->value.pid.serial &&
-	 t1->value.pid.creation == t2->value.pid.creation &&
-	 !strcmp(t1->value.pid.node,
-		 t2->value.pid.node);
+	 t1->value.pid->num == t2->value.pid->num &&
+	 t1->value.pid->serial == t2->value.pid->serial &&
+	 t1->value.pid->creation == t2->value.pid->creation &&
+	 !strcmp(t1->value.pid->node,
+		 t2->value.pid->node);
 #endif
       break;
    case ic_port:
 #ifndef __OTP_PRE_23__
       retVal = t2->type == ic_port &&
-	 !ei_cmp_ports(&(t1->value.port), &(t2->value.port));
+	 !ei_cmp_ports(t1->value.port, t2->value.port);
 #else
       retVal = t2->type == ic_port &&
-	 t1->value.port.id == t2->value.port.id &&
-	 t1->value.port.creation == t2->value.port.creation &&
-	 !strcmp(t1->value.port.node,
-		 t2->value.port.node);
+	 t1->value.port->id == t2->value.port->id &&
+	 t1->value.port->creation == t2->value.port->creation &&
+	 !strcmp(t1->value.port->node,
+		 t2->value.port->node);
 #endif
       break;
    case ic_ref:
 #ifndef __OTP_PRE_23__
       retVal = t2->type == ic_ref &&
-	 !ei_cmp_refs(&(t1->value.ref), &(t2->value.ref));
+	 !ei_cmp_refs(t1->value.ref, t2->value.ref);
 #else
       retVal = t2->type == ic_ref &&
-	 t1->value.ref.len == t2->value.ref.len &&
-	 t1->value.pid.creation == t2->value.pid.creation &&
-	 !strcmp(t1->value.pid.node,
-		 t2->value.pid.node);
+	 t1->value.ref->len == t2->value.ref->len &&
+	 t1->value.pid->creation == t2->value.pid->creation &&
+	 !strcmp(t1->value.pid->node,
+		 t2->value.pid->node);
       if(retVal) {
-	 for (i = 0; i < t1->value.ref.len; i++)
-	    if (t1->value.ref.n[i] != t2->value.ref.n[i])
+	 for (i = 0; i < t1->value.ref->len; i++)
+	    if (t1->value.ref->n[i] != t2->value.ref->n[i])
 	       return 0;
       }
 #endif
@@ -196,12 +196,18 @@ ic_erlang_term* ic_mk_atom_term(char *atom_name)
 ic_erlang_term* ic_mk_pid_term(erlang_pid* pid)
 {
    ic_erlang_term *term = NULL;
+   erlang_pid *pid_data = NULL;
 
    if(pid) {
-      term = (ic_erlang_term*) malloc(sizeof(ic_erlang_term));
-      if(term) {
-	 term->type = ic_pid;
-	 term->value.pid = *pid;
+      pid_data = (erlang_pid *) malloc(sizeof(erlang_pid));
+      if(pid_data) {
+	 *pid_data = *pid;
+	 term = (ic_erlang_term*) malloc(sizeof(ic_erlang_term));
+	 if(term) {
+	    term->type = ic_pid;
+	    term->value.pid = pid_data;
+	 } else
+	    free(pid_data);
       }
    }
    return term;
@@ -210,12 +216,18 @@ ic_erlang_term* ic_mk_pid_term(erlang_pid* pid)
 ic_erlang_term* ic_mk_port_term(erlang_port* port)
 {
    ic_erlang_term *term = NULL;
+   erlang_port *port_data = NULL;
 
    if(port) {
-      term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
-      if(term) {
-	 term->type = ic_port;
-	 term->value.port = *port;
+      port_data = (erlang_port *) malloc(sizeof(erlang_port));
+      if(port_data) {
+	 *port_data = *port;
+	 term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
+	 if(term) {
+	    term->type = ic_port;
+	    term->value.port = port_data;
+	 } else
+	    free(port_data);
       }
    }
    return term;
@@ -224,12 +236,18 @@ ic_erlang_term* ic_mk_port_term(erlang_port* port)
 ic_erlang_term* ic_mk_ref_term(erlang_ref* ref)
 {
    ic_erlang_term *term = NULL;
+   erlang_ref *ref_data = NULL;
 
    if(ref) {
-      term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
-      if(term) {
-	 term->type = ic_ref;
-	 term->value.ref = *ref;
+      ref_data = (erlang_ref *) malloc(sizeof(erlang_ref));
+      if(ref_data) {
+	 *ref_data = *ref;
+	 term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
+	 if(term) {
+	    term->type = ic_ref;
+	    term->value.ref = ref_data;
+	 } else
+	    free(ref_data);
       }
    }
    return term;
@@ -393,8 +411,13 @@ void ic_free_erlang_term(ic_erlang_term* term)
 	 CORBA_free(term->value.atom_name);
 	 break;
       case ic_pid:
+	 CORBA_free(term->value.pid);
+	 break;
       case ic_port:
+	 CORBA_free(term->value.port);
+	 break;
       case ic_ref:
+	 CORBA_free(term->value.ref);
 	 break;
       case ic_tuple:
 	 ic_free_tuple(term->value.tuple);
@@ -468,25 +491,25 @@ void ic_print_erlang_term(ic_erlang_term *term)
       break;
    case ic_pid:
       fprintf(stdout, "Type: ic_pid, Value: %s %d %d %d\n",
-	      term->value.pid.node,
-	      term->value.pid.num,
-	      term->value.pid.serial,
-	      term->value.pid.creation);
+	      term->value.pid->node,
+	      term->value.pid->num,
+	      term->value.pid->serial,
+	      term->value.pid->creation);
       break;
    case ic_port:
       fprintf(stdout, "Type: ic_port, Value: %s %d %d\n",
-	      term->value.port.node,
-	      term->value.port.id,
-	      term->value.port.creation);
+	      term->value.port->node,
+	      term->value.port->id,
+	      term->value.port->creation);
       break;
    case ic_ref:
       fprintf(stdout, "Type: ic_ref, Value: %s %d [%d,%d,%d] %d\n",
-	      term->value.ref.node,
-	      term->value.ref.len,
-	      term->value.ref.n[0],
-	      term->value.ref.n[1],
-	      term->value.ref.n[2],
-	      term->value.ref.creation);
+	      term->value.ref->node,
+	      term->value.ref->len,
+	      term->value.ref->n[0],
+	      term->value.ref->n[1],
+	      term->value.ref->n[2],
+	      term->value.ref->creation);
       break;
    case ic_tuple:
       ic_print_tuple(term->value.tuple);

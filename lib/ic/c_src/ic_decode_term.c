@@ -76,25 +76,43 @@ int ic_decode_term(const char *buf, int *index, ic_erlang_term **term)
       case ic_pid:
 	 tmp_term = ic_mk_empty_term(ictype);
 	 if(tmp_term) {
-	    retVal = ei_decode_pid(buf, index, &(tmp_term->value.pid));
-	    /* fprintf(stderr, "Decoded ic_pid\n"); */
+	    tmp_term->value.pid = (erlang_pid*) malloc(sizeof(erlang_pid));
+	    if(tmp_term->value.pid) {
+	       retVal = ei_decode_pid(buf, index, tmp_term->value.pid);
+	       /* fprintf(stderr, "Decoded ic_pid\n"); */
+	    } else {
+	       CORBA_free(tmp_term);
+	       retVal = -1;
+	    }
 	 } else
 	    retVal = -1;
 	 break;
       case ic_port:
 	 tmp_term = ic_mk_empty_term(ictype);
 	 if(tmp_term) {
-	    retVal = ei_decode_port(buf, index,  &(tmp_term->value.port));
-	    /* fprintf(stderr, "Decoded ic_port\n"); */
+	    tmp_term->value.port = (erlang_port*) malloc(sizeof(erlang_port));
+	    if(tmp_term->value.port) {
+	       retVal = ei_decode_port(buf, index,  tmp_term->value.port);
+	       /* fprintf(stderr, "Decoded ic_port\n"); */
+	    } else {
+	       CORBA_free(tmp_term);
+	       retVal = -1;
+	    }
 	 } else
 	    retVal = -1;
 	 break;
       case ic_ref:
 	 tmp_term = ic_mk_empty_term(ictype);
 	 if(tmp_term) {
-	    retVal = ei_decode_ref(buf, index, &(tmp_term->value.ref));
-	    /* fprintf(stderr, "Decoded ic_ref\n"); */
-	 }else
+	    tmp_term->value.ref = (erlang_ref*) malloc(sizeof(erlang_ref));
+	    if(tmp_term->value.ref) {
+	       retVal = ei_decode_ref(buf, index, tmp_term->value.ref);
+	       /* fprintf(stderr, "Decoded ic_ref\n"); */
+	    } else {
+	       CORBA_free(tmp_term);
+	       retVal = -1;
+	    }
+	 } else
 	    retVal = -1;
 	 break;
       case ic_tuple:
