@@ -24,6 +24,118 @@ int ic_decode_string(const char *buf, int *index, int length, ic_erlang_term *te
 int ic_decode_list(const char *buf, int *index, ic_erlang_term *term);
 ic_erlang_term* ic_mk_empty_term(ic_erlang_type type);
 
+int ic_calculate_decoded_tuple_size(const char *buf, int *index, int *size);
+int ic_calculate_decoded_list_size(const char *buf, int *index, int *size);
+/*int ic_size_of_decoded_term(const char *buf, int *index, int *size);*/
+int ic_decode_term_into_mem(const char *buf, int *index, ic_erlang_term **term);
+
+
+int ic_size_of_decoded_term(const char *buf, int *index, int *size)
+{
+   int retVal = 0;
+   int type_size;
+   long tmpsize;
+   ic_erlang_type ictype;
+   int i;
+ 
+   //if(*size == 0) // LATH check needed or always ????
+   *size = OE_ALIGN(*size + sizeof(ic_erlang_term));
+
+   if(ic_get_type(buf, index, &ictype, &type_size))
+      return -1;
+
+   switch(ictype) {
+   case ic_integer:
+      retVal = ei_decode_long(buf, index, NULL);
+      break;
+   case ic_float:
+      retVal = ei_decode_double(buf, index, NULL);
+      break;
+   case ic_atom:
+      *size = OE_ALIGN(*size + type_size + 1);
+      retVal = ei_decode_atom(buf, index, NULL);
+      break;
+   case ic_pid:
+      retVal = ei_decode_pid(buf, index, NULL);
+      break;
+   case ic_port:
+      retVal = ei_decode_port(buf, index, NULL);
+      break;
+   case ic_ref:
+      retVal = ei_decode_ref(buf, index, NULL);
+      break;
+   case ic_tuple:
+      retVal = ic_calculate_decoded_tuple_size(buf, index, size);
+      break;
+   case ic_string:
+      *size = OE_ALIGN(*size + sizeof(ic_erlang_list));
+      for(i = 0; i < type_size; i++) {
+	 *size = OE_ALIGN(*size + sizeof(ic_erlang_list_elem));
+	 *size = OE_ALIGN(*size + sizeof(ic_erlang_term));
+      }
+      retVal = ei_decode_string(buf, index, NULL);
+      break;
+   case ic_list:
+      retVal = ic_calculate_decoded_list_size(buf, index, size);
+      break;
+   case ic_binary:
+      *size = OE_ALIGN(*size + sizeof(ic_erlang_binary));
+      *size = OE_ALIGN(*size + sizeof(char*) * type_size);
+      retVal = ei_decode_binary(buf, index, NULL, &tmpsize);
+      break;
+   }
+   return retVal;
+}
+
+int ic_calculate_decoded_tuple_size(const char *buf, int *index, int *size)
+{
+   int retVal = 0;
+   int arity, i;
+
+   if((retVal = ei_decode_tuple_header(buf, index, &arity)))
+      goto error;
+   
+   *size = OE_ALIGN(*size + sizeof(ic_erlang_tuple));
+   if(arity) {
+      *size = OE_ALIGN(*size + sizeof(ic_erlang_term*) * arity);
+      for(i = 0; i < arity; i++) {
+	 if((retVal = ic_size_of_decoded_term(buf, index, size)))
+	    goto error;
+      }
+   }
+
+ error:
+   return retVal;
+}
+
+int ic_calculate_decoded_list_size(const char *buf, int *index, int *size)
+{
+   int retVal = 0;
+   int i, arity, zero_arity;
+
+   if((retVal = ei_decode_list_header(buf, index, &arity)))
+      goto error;
+   
+   *size = OE_ALIGN(*size + sizeof(ic_erlang_list));
+   if(arity) {
+      for(i = 0; i < arity; i++) {
+	 *size = OE_ALIGN(*size + sizeof(ic_erlang_list_elem));
+	 if((retVal = ic_size_of_decoded_term(buf, index, size)))
+	    goto error;
+      }
+
+      retVal = ei_decode_list_header(buf, index, &zero_arity);
+      if(retVal && (zero_arity != 0)) {
+	 fprintf(stderr, "Not empty list: %d\n", zero_arity);
+	 goto error;
+      }
+   }
+
+ error:
+   return retVal;
+}
+
+
 int ic_decode_term(const char *buf, int *index, ic_erlang_term **term)
 {
    int retVal = 0;

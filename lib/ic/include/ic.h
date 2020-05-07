@@ -125,6 +125,7 @@ ic_erlang_term* ic_mk_list_term(void);
 int ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term);
 ic_erlang_term* ic_mk_list_term_from_string(char *str);
 ic_erlang_term* ic_mk_binary_term(int size, char *b);
+int ic_size_of_decoded_term(const char *buf, int *index, int *size);
 
 void ic_free_erlang_term(ic_erlang_term *term);
 void ic_print_erlang_term(ic_erlang_term *term);
