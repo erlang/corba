@@ -102,17 +102,10 @@ typedef struct _ic_erlang_term {
       ic_erlang_list*   list;
       ic_erlang_binary* bin;
    } value;
+    unsigned char _one_block_alloc;
 } ic_erlang_term;
-
-/* Decode/Encode of erlang terms */
-int ic_encode_term(char *buf, int *index, const ic_erlang_term *term);
-int ic_decode_term(const char *buf, int *index, ic_erlang_term **term);
-int ic_size_of_encoded_term(int *index, const ic_erlang_term *term);
-int ic_get_type(const char *buf, const int *index, ic_erlang_type *type, int *len);
-
+   
 /* Help functions for erlang terms */
-int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2);
-
 ic_erlang_term* ic_mk_int_term(long l);
 ic_erlang_term* ic_mk_float_term(double d);
 ic_erlang_term* ic_mk_atom_term(char *atom_name);
@@ -125,10 +118,17 @@ ic_erlang_term* ic_mk_list_term(void);
 int ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term);
 ic_erlang_term* ic_mk_list_term_from_string(char *str);
 ic_erlang_term* ic_mk_binary_term(int size, char *b);
-int ic_size_of_decoded_term(const char *buf, int *index, int *size);
 
+int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2);
 void ic_free_erlang_term(ic_erlang_term *term);
 void ic_print_erlang_term(ic_erlang_term *term);
+
+/* Decode/Encode of erlang terms */
+int ic_encode_term(char *buf, int *index, const ic_erlang_term *term);
+int ic_decode_term(const char *buf, int *index, ic_erlang_term **term);
+int ic_get_type(const char *buf, const int *index, ic_erlang_type *type, int *len);
+int ic_size_of_encoded_term(int *index, const ic_erlang_term *term);
+int ic_size_of_decoded_term(const char *buf, int *index, int *size);
 
 /* Standard type mapping */
 

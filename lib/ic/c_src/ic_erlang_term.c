@@ -151,7 +151,9 @@ ic_erlang_term* ic_mk_int_term(long l)
    if(term) {
       term->type = ic_integer;
       term->value.i_val = l;
+      term->_one_block_alloc = 0;
    }
+   
    return term;
 }
 
@@ -163,6 +165,7 @@ ic_erlang_term* ic_mk_float_term(double d)
    if(term) {
       term->type = ic_float;
       term->value.d_val = d;
+      term->_one_block_alloc = 0;
    }
    return term;
 }
@@ -179,6 +182,7 @@ ic_erlang_term* ic_mk_atom_term(char *atom_name)
 	 term = (ic_erlang_term*) malloc(sizeof(ic_erlang_term));
 	 if(term) {
 	    term->type = ic_atom;
+	    term->_one_block_alloc = 0;
 	    str = (char*) malloc(len);
 	    if(str) {
 	       strcpy(str, atom_name);
@@ -206,6 +210,7 @@ ic_erlang_term* ic_mk_pid_term(erlang_pid* pid)
 	 if(term) {
 	    term->type = ic_pid;
 	    term->value.pid = pid_data;
+	    term->_one_block_alloc = 0;
 	 } else
 	    free(pid_data);
       }
@@ -226,6 +231,7 @@ ic_erlang_term* ic_mk_port_term(erlang_port* port)
 	 if(term) {
 	    term->type = ic_port;
 	    term->value.port = port_data;
+	    term->_one_block_alloc = 0;
 	 } else
 	    free(port_data);
       }
@@ -246,6 +252,7 @@ ic_erlang_term* ic_mk_ref_term(erlang_ref* ref)
 	 if(term) {
 	    term->type = ic_ref;
 	    term->value.ref = ref_data;
+	    term->_one_block_alloc = 0;
 	 } else
 	    free(ref_data);
       }
@@ -261,6 +268,7 @@ ic_erlang_term* ic_mk_tuple_term(int arity)
    term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
    if(term) {
       term->type = ic_tuple;
+      term->_one_block_alloc = 0;
       tuple = (ic_erlang_tuple*) malloc(sizeof(ic_erlang_tuple));
       if(tuple) {
 	 term->value.tuple = tuple;
@@ -301,6 +309,7 @@ ic_erlang_term* ic_mk_list_term(void)
    term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
    if(term) {
       term->type = ic_list;
+      term->_one_block_alloc = 0;
       list = (ic_erlang_list*) malloc(sizeof(ic_erlang_list));
       if(list) {
 	 term->value.list = list;
@@ -378,6 +387,7 @@ ic_erlang_term* ic_mk_binary_term(int size, char *b)
       term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
       if(term) {
 	 term->type = ic_binary;
+	 term->_one_block_alloc = 0;
 	 bin = (ic_erlang_binary*) malloc(sizeof(ic_erlang_binary));
 	 if(bin) {
 	    term->value.bin = bin;
@@ -402,36 +412,36 @@ ic_erlang_term* ic_mk_binary_term(int size, char *b)
 void ic_free_erlang_term(ic_erlang_term* term)
 {
    if(term) {
-      switch(term->type) {
-
-      case ic_integer:
-      case ic_float:
-	 break;
-      case ic_atom:
-	 CORBA_free(term->value.atom_name);
-	 break;
-      case ic_pid:
-	 CORBA_free(term->value.pid);
-	 break;
-      case ic_port:
-	 CORBA_free(term->value.port);
-	 break;
-      case ic_ref:
-	 CORBA_free(term->value.ref);
-	 break;
-      case ic_tuple:
-	 ic_free_tuple(term->value.tuple);
-	 break;
-      case ic_list:
-	 ic_free_list(term->value.list);
-	 break;
-      case ic_binary:
-	 CORBA_free(term->value.bin->bytes);
-	 CORBA_free(term->value.bin);
-	 break;
-      default:
-	 break;
-      }
+      if(!(term->_one_block_alloc))
+	 switch(term->type) {
+	 case ic_integer:
+	 case ic_float:
+	    break;
+	 case ic_atom:
+	    CORBA_free(term->value.atom_name);
+	    break;
+	 case ic_pid:
+	    CORBA_free(term->value.pid);
+	    break;
+	 case ic_port:
+	    CORBA_free(term->value.port);
+	    break;
+	 case ic_ref:
+	    CORBA_free(term->value.ref);
+	    break;
+	 case ic_tuple:
+	    ic_free_tuple(term->value.tuple);
+	    break;
+	 case ic_list:
+	    ic_free_list(term->value.list);
+	    break;
+	 case ic_binary:
+	    CORBA_free(term->value.bin->bytes);
+	    CORBA_free(term->value.bin);
+	    break;
+	 default:
+	    break;
+	 }
 
       CORBA_free(term);
    }

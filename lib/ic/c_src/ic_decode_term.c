@@ -19,26 +19,24 @@
  */
 #include "ic.h"
 
-int ic_decode_tuple(const char *buf, int *index, ic_erlang_term *term);
-int ic_decode_string(const char *buf, int *index, int length, ic_erlang_term *term);
-int ic_decode_list(const char *buf, int *index, ic_erlang_term *term);
-ic_erlang_term* ic_mk_empty_term(ic_erlang_type type);
+int ic_decode_tuple(const char *buf, int *index, char *outbuf, int *pos);
+int ic_decode_string(const char *buf, int *index, int length, char *outbuf, int *pos);
+int ic_decode_list(const char *buf, int *index, char *outbuf, int *pos);
+/* ic_erlang_term* ic_mk_empty_term(ic_erlang_type type); */
 
 int ic_calculate_decoded_tuple_size(const char *buf, int *index, int *size);
 int ic_calculate_decoded_list_size(const char *buf, int *index, int *size);
-/*int ic_size_of_decoded_term(const char *buf, int *index, int *size);*/
-int ic_decode_term_into_mem(const char *buf, int *index, ic_erlang_term **term);
+int ic_decode_term_into_memory(const char *buf, int *index, char *outbuf, int *pos);
 
-
+/* Size calculation */
 int ic_size_of_decoded_term(const char *buf, int *index, int *size)
 {
-   int retVal = 0;
-   int type_size;
+   int retVal = 0,
+      type_size,
+      i;
    long tmpsize;
    ic_erlang_type ictype;
-   int i;
- 
-   //if(*size == 0) // LATH check needed or always ????
+
    *size = OE_ALIGN(*size + sizeof(ic_erlang_term));
 
    if(ic_get_type(buf, index, &ictype, &type_size))
@@ -56,12 +54,15 @@ int ic_size_of_decoded_term(const char *buf, int *index, int *size)
       retVal = ei_decode_atom(buf, index, NULL);
       break;
    case ic_pid:
+      *size = OE_ALIGN(*size + sizeof(erlang_pid));
       retVal = ei_decode_pid(buf, index, NULL);
       break;
    case ic_port:
+      *size = OE_ALIGN(*size + sizeof(erlang_port));
       retVal = ei_decode_port(buf, index, NULL);
       break;
    case ic_ref:
+      *size = OE_ALIGN(*size + sizeof(erlang_ref));
       retVal = ei_decode_ref(buf, index, NULL);
       break;
    case ic_tuple:
@@ -80,7 +81,7 @@ int ic_size_of_decoded_term(const char *buf, int *index, int *size)
       break;
    case ic_binary:
       *size = OE_ALIGN(*size + sizeof(ic_erlang_binary));
-      *size = OE_ALIGN(*size + sizeof(char*) * type_size);
+      *size = OE_ALIGN(*size + type_size);
       retVal = ei_decode_binary(buf, index, NULL, &tmpsize);
       break;
    }
@@ -94,7 +95,7 @@ int ic_calculate_decoded_tuple_size(const char *buf, int *index, int *size)
 
    if((retVal = ei_decode_tuple_header(buf, index, &arity)))
       goto error;
-   
+
    *size = OE_ALIGN(*size + sizeof(ic_erlang_tuple));
    if(arity) {
       *size = OE_ALIGN(*size + sizeof(ic_erlang_term*) * arity);
@@ -115,7 +116,7 @@ int ic_calculate_decoded_list_size(const char *buf, int *index, int *size)
 
    if((retVal = ei_decode_list_header(buf, index, &arity)))
       goto error;
-   
+
    *size = OE_ALIGN(*size + sizeof(ic_erlang_list));
    if(arity) {
       for(i = 0; i < arity; i++) {
@@ -135,153 +136,147 @@ int ic_calculate_decoded_list_size(const char *buf, int *index, int *size)
    return retVal;
 }
 
-
+/* Decoding */
 int ic_decode_term(const char *buf, int *index, ic_erlang_term **term)
+{
+   int retVal = 0,
+      size_index = *index,
+      size = 0,
+      pos = 0;
+   char *outbuf;
+
+   if(term) {
+      if(!ic_size_of_decoded_term(buf, &size_index, &size)) {
+	 outbuf = (char *) malloc(size);
+	 if(outbuf) {
+	    ((ic_erlang_term *) outbuf)->_one_block_alloc = 1;
+	    if(ic_decode_term_into_memory(buf, index, outbuf, &pos)) {
+	       CORBA_free(outbuf);
+	       *term = NULL;
+	       retVal = -1;
+	    } else
+	       *term = (ic_erlang_term *) outbuf;
+	 } else
+	    retVal = -1;
+      } else
+	 retVal = -1;
+  } else
+      retVal = ic_decode_term_into_memory(buf, index, NULL,  &pos);
+
+   return retVal;
+}
+
+int ic_decode_term_into_memory(const char *buf, int *index, char *outbuf, int *pos)
 {
    int retVal = 0;
    ic_erlang_type ictype;
    int size;
    long tmpsize;
-   ic_erlang_term *tmp_term = NULL;
-   char *atom;
-   ic_erlang_binary *bin;
+   /* char *atom; */
+   /* ic_erlang_binary *bin; */
+   char *write_pos, *tmp_pos;
 
-   /* fprintf(stderr, "DECODE TERM\n"); */
+   fprintf(stderr, "DECODE TERM\n");
    if(ic_get_type(buf, index, &ictype, &size))
       return -1;
-   /* fprintf(stderr, "Type: %d\n", ictype); */
+   fprintf(stderr, "Type: %d\n", ictype);
 
-   if(term) {
+   if(outbuf) {
+      write_pos = outbuf + *pos;
       switch(ictype) {
-
       case ic_integer:
-	 tmp_term = ic_mk_empty_term(ictype);
-	 if(tmp_term) {
-	    retVal = ei_decode_long(buf, index, &(tmp_term->value.i_val));
-	    /* fprintf(stderr, "Decoded ic_integer value: %ld\n", tmp_term->value.i_val); */
-	 } else
-	    retVal = -1;
+	 ((ic_erlang_term *) write_pos)->type = ic_integer;
+	 retVal = ei_decode_long(buf, index, &(((ic_erlang_term *) write_pos)->value.i_val));
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	    fprintf(stderr, "Decoded ic_integer value: %ld\n", ((ic_erlang_term *) write_pos)->value.i_val);
+	 }
 	 break;
       case ic_float:
-	 tmp_term = ic_mk_empty_term(ictype);
-	 if(tmp_term) {
-	    retVal = ei_decode_double(buf, index, &(tmp_term->value.d_val));
-	    /* fprintf(stderr, "Decoded ic_float value: %f\n", tmp_term->value.d_val); */
-	 } else
-	    retVal = -1;
+	 ((ic_erlang_term *) write_pos)->type = ic_float;
+	 retVal = ei_decode_double(buf, index, &(((ic_erlang_term *) write_pos)->value.d_val));
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	    fprintf(stderr, "Decoded ic_float value: %f\n", ((ic_erlang_term *) write_pos)->value.d_val);
+	 }
 	 break;
       case ic_atom:
-	 atom = (char*) malloc(size+1);
-	 if(atom) {
-	    tmp_term = ic_mk_empty_term(ictype);
-	    if(tmp_term) {
-	       tmp_term->value.atom_name = atom;
-	       retVal = ei_decode_atom(buf, index, atom);
-	       /* fprintf(stderr, "Decoded ic_atom value: %s\n", tmp_term->value.atom_name); */
-	    } else {
+	 if(size < MAXATOMLEN_UTF8) {
+	    ((ic_erlang_term *) write_pos)->type = ic_atom;
+	    *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	    ((ic_erlang_term *) write_pos)->value.atom_name = (char *) (outbuf + *pos);
+	    retVal = ei_decode_atom(buf, index, ((ic_erlang_term *) write_pos)->value.atom_name);
+	    if(!retVal) {
+	       *pos = OE_ALIGN(*pos + size + 1);
+	       fprintf(stderr, "Decoded ic_atom: %s\n", ((ic_erlang_term *) write_pos)->value.atom_name);
+	    } else
 	       retVal = -1;
-	       CORBA_free(atom);
-	    }
 	 } else
 	    retVal = -1;
 	 break;
       case ic_pid:
-	 tmp_term = ic_mk_empty_term(ictype);
-	 if(tmp_term) {
-	    tmp_term->value.pid = (erlang_pid*) malloc(sizeof(erlang_pid));
-	    if(tmp_term->value.pid) {
-	       retVal = ei_decode_pid(buf, index, tmp_term->value.pid);
-	       /* fprintf(stderr, "Decoded ic_pid\n"); */
-	    } else {
-	       CORBA_free(tmp_term);
-	       retVal = -1;
-	    }
+	 ((ic_erlang_term *) write_pos)->type = ic_pid;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	 ((ic_erlang_term *) write_pos)->value.pid = (erlang_pid *) (outbuf + *pos);
+	 retVal = ei_decode_pid(buf, index, ((ic_erlang_term *) write_pos)->value.pid);
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + sizeof(erlang_pid));
+	    fprintf(stderr, "Decoded ic_pid\n");
 	 } else
 	    retVal = -1;
 	 break;
       case ic_port:
-	 tmp_term = ic_mk_empty_term(ictype);
-	 if(tmp_term) {
-	    tmp_term->value.port = (erlang_port*) malloc(sizeof(erlang_port));
-	    if(tmp_term->value.port) {
-	       retVal = ei_decode_port(buf, index,  tmp_term->value.port);
-	       /* fprintf(stderr, "Decoded ic_port\n"); */
-	    } else {
-	       CORBA_free(tmp_term);
-	       retVal = -1;
-	    }
+	 ((ic_erlang_term *) write_pos)->type = ic_port;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	 ((ic_erlang_term *) write_pos)->value.port = (erlang_port *) (outbuf + *pos);
+	 retVal = ei_decode_port(buf, index, ((ic_erlang_term *) write_pos)->value.port);
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + sizeof(erlang_port));
+	    fprintf(stderr, "Decoded ic_port\n");
 	 } else
 	    retVal = -1;
 	 break;
       case ic_ref:
-	 tmp_term = ic_mk_empty_term(ictype);
-	 if(tmp_term) {
-	    tmp_term->value.ref = (erlang_ref*) malloc(sizeof(erlang_ref));
-	    if(tmp_term->value.ref) {
-	       retVal = ei_decode_ref(buf, index, tmp_term->value.ref);
-	       /* fprintf(stderr, "Decoded ic_ref\n"); */
-	    } else {
-	       CORBA_free(tmp_term);
-	       retVal = -1;
-	    }
+	 ((ic_erlang_term *) write_pos)->type = ic_ref;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	 ((ic_erlang_term *) write_pos)->value.ref = (erlang_ref *) (outbuf + *pos);
+	 retVal = ei_decode_ref(buf, index, ((ic_erlang_term *) write_pos)->value.ref);
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + sizeof(erlang_ref));
+	    fprintf(stderr, "Decoded ic_ref\n");
 	 } else
 	    retVal = -1;
 	 break;
       case ic_tuple:
-	 tmp_term = ic_mk_tuple_term(size);
-	 if(tmp_term) {
-	    retVal = ic_decode_tuple(buf, index, tmp_term);
-	 } else
-	    retVal = -1;
+	 retVal = ic_decode_tuple(buf, index, outbuf, pos);
 	 break;
       case ic_string:
 	 /* Represented by a list as in old implementation */
-	 tmp_term = ic_mk_list_term();
-	 if(tmp_term) {
-	    retVal = ic_decode_string(buf, index, size, tmp_term);
-	    /* fprintf(stderr, "Start list\n"); */
-	    /* ic_print_erlang_term(tmp_term); */
-	    /* fprintf(stderr, "End list\n"); */
-	 } else
-	    retVal = -1;
+	 retVal = ic_decode_string(buf, index, size, outbuf, pos);
 	 break;
       case ic_list:
-	 tmp_term = ic_mk_list_term();
-	 if(tmp_term) {
-	    retVal = ic_decode_list(buf, index, tmp_term);
-	 } else
-	    retVal = -1;
+	 retVal = ic_decode_list(buf, index,  outbuf, pos);
 	 break;
       case ic_binary:
 	 /* NOTICE: */
 	 /* ic_get_type() returns length as int and ei_decode_binary() */
 	 /* returns length as long so the allocated buffer could be to small */
-	 bin = (ic_erlang_binary*) malloc(sizeof(ic_erlang_binary));
-	 if(bin) {
-	    tmp_term = ic_mk_empty_term(ictype);
-	    if(tmp_term) {
-	       tmp_term->value.bin = bin;
-	       bin->size = size;
-	       bin->bytes = (char*) malloc(size);
-	       if(bin->bytes) {
-		  retVal = ei_decode_binary(buf, index, bin->bytes, &tmpsize);
-		  /* fprintf(stderr, "Decoded ic_binary\n"); */
-	       } else
-		  retVal = -1;
-	    } else {
-	       retVal = -1;
-	       CORBA_free(bin);
-	    }
+	 ((ic_erlang_term *) write_pos)->type = ic_binary;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	 tmp_pos = outbuf + *pos;
+	 ((ic_erlang_term *) write_pos)->value.bin = (ic_erlang_binary *) tmp_pos;
+	 write_pos = tmp_pos;
+	 ((ic_erlang_binary *) write_pos)->size = size;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_binary));
+	 ((ic_erlang_binary *) write_pos)->bytes = (char *) (outbuf + *pos);
+	 retVal = ei_decode_binary(buf, index, ((ic_erlang_binary *) write_pos)->bytes, &tmpsize);
+	 if(!retVal) {
+	    *pos = OE_ALIGN(*pos + size);
+	    fprintf(stderr, "Decoded ic_binary\n");
 	 } else
 	    retVal = -1;
 	 break;
       }
-
-      if(retVal) {
-	 ic_free_erlang_term(tmp_term);
-	 *term = NULL;
-      } else
-	 *term = tmp_term;
 
    } else
       switch(ictype) {
@@ -305,85 +300,120 @@ int ic_decode_term(const char *buf, int *index, ic_erlang_term **term)
 	 retVal = ei_decode_ref(buf, index, NULL);
 	 break;
       case ic_tuple:
-	 retVal = ic_decode_tuple(buf, index, NULL);
+	 retVal = ic_decode_tuple(buf, index, NULL, pos);
 	 break;
       case ic_string:
-	 retVal = ic_decode_string(buf, index, size, NULL);
+	 retVal = ic_decode_string(buf, index, size, NULL, pos);
 	 break;
       case ic_list:
-	 retVal = ic_decode_list(buf, index, NULL);
+	 retVal = ic_decode_list(buf, index, NULL, pos);
 	 break;
       case ic_binary:
 	 retVal = ei_decode_binary(buf, index, NULL, &tmpsize);
 	 break;
       }
-
    return retVal;
 }
 
-ic_erlang_term* ic_mk_empty_term(ic_erlang_type type)
-{
-   ic_erlang_term *term = NULL;
+/* ic_erlang_term* ic_mk_empty_term(ic_erlang_type type) */
+/* { */
+/*    ic_erlang_term *term = NULL; */
 
-   term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term));
-   if(term)
-      term->type = type;
+/*    term = (ic_erlang_term *) malloc(sizeof(ic_erlang_term)); */
+/*    if(term) */
+/*       term->type = type; */
 
-   return term;
-}
+/*    return term; */
+/* } */
 
-int ic_decode_tuple(const char *buf, int *index, ic_erlang_term *tuple)
+int ic_decode_tuple(const char *buf, int *index, char *outbuf, int *pos)
 {
    int retVal = 0;
    int arity, i;
-   ic_erlang_term *tmp_term;
+   char *write_pos, *tmp_pos;
 
    /* The calling function delete tuple if an error is returned */
    if((retVal = ei_decode_tuple_header(buf, index, &arity)))
       goto error;
 
-   if(arity) {
-      /* fprintf(stderr, "Decoded ic_tuple arity: %d\n", arity); */
-      if(tuple)
-	 for(i = 0; i < arity; i++) {
-	    retVal = ic_decode_term(buf, index, &tmp_term);
-	    if(retVal) goto error;
-	    ic_tuple_add_elem(tuple, tmp_term, i);
-	 }
-      else
-	 for(i = 0; i < arity; i++) {
-	    retVal = ic_decode_term(buf, index, NULL);
-	    if(retVal) goto error;
-	 }
-   }
+   fprintf(stderr, "Decoded ic_tuple arity: %d\n", arity);
+
+   if(outbuf) {
+      write_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->type = ic_tuple;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+      tmp_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->value.tuple = (ic_erlang_tuple *) tmp_pos;
+      write_pos = tmp_pos;
+
+      ((ic_erlang_tuple *) write_pos)->arity = arity;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_tuple));
+      ((ic_erlang_tuple *) write_pos)->elements = (ic_erlang_term **) (outbuf + *pos);
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term*) * arity);
+
+      for(i = 0; i < arity; i++) {
+	 ((ic_erlang_tuple *) write_pos)->elements[i] = (ic_erlang_term *) (outbuf + *pos);
+	 retVal = ic_decode_term_into_memory(buf, index, outbuf, pos);
+	 if(retVal) goto error;
+      }
+   } else
+      for(i = 0; i < arity; i++) {
+	 retVal = ic_decode_term_into_memory(buf, index, NULL, pos);
+	 if(retVal) goto error;
+      }
 
  error:
    return retVal;
 }
 
-int ic_decode_string(const char *buf, int *index, int length, ic_erlang_term *list)
+int ic_decode_string(const char *buf, int *index, int length, char *outbuf, int *pos)
 {
    int retVal = 0;
    int i;
-   ic_erlang_term *tmp_term;
    char *str = NULL;
+   char *write_pos, *elem_pos, *tmp_pos;
 
    /* The calling function delete list if an error is returned */
-   if(list) {
-      /* fprintf(stderr, "String length: %d\n", length); */
+   if(outbuf) {
+      write_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->type = ic_list;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+      tmp_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->value.list = (ic_erlang_list *) tmp_pos;
+      write_pos = tmp_pos;
+
+      fprintf(stderr, "String length: %d\n", length);
+      ((ic_erlang_list *) write_pos)->arity = length;
+      ((ic_erlang_list *) write_pos)->head = NULL;
+      ((ic_erlang_list *) write_pos)->tail = NULL;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_list));
+
       str = (char*) malloc(length+1);
+
       if(str) {
 	 retVal = ei_decode_string(buf, index, str);
 	 if(retVal) goto error;
+	 fprintf(stderr, "Decoded ic_string: %s\n", str);
 
-	 /* fprintf(stderr, "Decoded ic_string: %s\n", str); */
 	 for(i = 0; i < length; i++) {
-	    tmp_term = ic_mk_int_term((long) str[i]);
-	    /* fprintf(stderr, "str[%d]: %d\n", i, str[i]); */
-	    if(ic_list_add_elem(list, tmp_term)) {
-	       retVal = -1;
-	       goto error;
+	    elem_pos = outbuf + *pos;
+	    *pos = OE_ALIGN(*pos + sizeof(ic_erlang_list_elem));
+
+	    tmp_pos = outbuf + *pos;
+	    ((ic_erlang_list_elem *) elem_pos)->element = (ic_erlang_term *) tmp_pos;
+	    ((ic_erlang_term *) tmp_pos)->type = ic_integer;
+	    ((ic_erlang_term *) tmp_pos)->value.i_val = str[i];
+	    *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+	    ((ic_erlang_list_elem *) elem_pos)->next = NULL;
+
+	    if(((ic_erlang_list *) write_pos)->head == NULL) {
+	       ((ic_erlang_list *) write_pos)->head = (ic_erlang_list_elem *) elem_pos;
+	       ((ic_erlang_list *) write_pos)->tail = (ic_erlang_list_elem *) elem_pos;
+	    } else  {
+	       ((ic_erlang_list *) write_pos)->tail->next = (ic_erlang_list_elem *) elem_pos;
+	       ((ic_erlang_list *) write_pos)->tail = (ic_erlang_list_elem *) elem_pos;
 	    }
+
 	 }
 	 /* fprintf(stderr, "List Finished\n"); */
 	 /* ic_print_erlang_term(list); */
@@ -397,45 +427,69 @@ int ic_decode_string(const char *buf, int *index, int length, ic_erlang_term *li
    return retVal;
 }
 
-int ic_decode_list(const char *buf, int *index, ic_erlang_term *list)
+int ic_decode_list(const char *buf, int *index, char *outbuf, int *pos)
 {
    int retVal = 0;
    int arity, zero_arity, i;
-   ic_erlang_term *tmp_term = NULL;
+   char *write_pos, *elem_pos, *tmp_pos;
 
    /* The calling function delete list if an error is returned */
    retVal = ei_decode_list_header(buf, index, &arity);
    if(retVal) goto error;
 
-   /* fprintf(stderr, "Decoded ic_list arity: %d\n", arity); */
-   if(arity) {
-      if(list)
-	 for(i = 0; i < arity; i++) {
-	    retVal = ic_decode_term(buf, index, &tmp_term);
-	    if(retVal) {
-	       retVal = -1;
-	       goto error;
-	    }
-	    if(ic_list_add_elem(list, tmp_term)) {
-	       retVal = -1;
-	       goto error;
-	    }
-	 }
-      else
-	 for(i = 0; i < arity; i++) {
-	    retVal = ic_decode_term(buf, index, NULL);
-	    if(retVal) {
-	       retVal = -1;
-	       goto error;
-	    }
+   if(outbuf) {
+      write_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->type = ic_list;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_term));
+      tmp_pos = outbuf + *pos;
+      ((ic_erlang_term *) write_pos)->value.list = (ic_erlang_list *) tmp_pos;
+      write_pos = tmp_pos;
+
+      fprintf(stderr, "Decoded ic_list arity: %d\n", arity);
+      ((ic_erlang_list *) write_pos)->arity = arity;
+      ((ic_erlang_list *) write_pos)->head = NULL;
+      ((ic_erlang_list *) write_pos)->tail = NULL;
+      *pos = OE_ALIGN(*pos + sizeof(ic_erlang_list));
+
+      for(i = 0; i < arity; i++) {
+	 elem_pos = outbuf + *pos;
+	 *pos = OE_ALIGN(*pos + sizeof(ic_erlang_list_elem));
+
+	 tmp_pos = outbuf + *pos;
+	 ((ic_erlang_list_elem *) elem_pos)->element = (ic_erlang_term *) tmp_pos;
+	 ((ic_erlang_list_elem *) elem_pos)->next = NULL;
+
+	 retVal = ic_decode_term_into_memory(buf, index, outbuf, pos);
+	 if(retVal) {
+	    retVal = -1;
+	    goto error;
 	 }
 
-      retVal = ei_decode_list_header(buf, index, &zero_arity);
-      if(retVal && (zero_arity != 0)) {
-	 /* fprintf(stderr, "Not empty list: %d\n", zero_arity); */
-	 goto error;
+	 if(((ic_erlang_list *) write_pos)->head == NULL) {
+	    ((ic_erlang_list *) write_pos)->head = (ic_erlang_list_elem *) elem_pos;
+	    ((ic_erlang_list *) write_pos)->tail = (ic_erlang_list_elem *) elem_pos;
+	 } else  {
+	    ((ic_erlang_list *) write_pos)->tail->next = (ic_erlang_list_elem *) elem_pos;
+	    ((ic_erlang_list *) write_pos)->tail = (ic_erlang_list_elem *) elem_pos;
+	 }
       }
-   }
+
+      if(arity) {
+	 retVal = ei_decode_list_header(buf, index, &zero_arity);
+	 if(retVal && (zero_arity != 0)) {
+	    /* fprintf(stderr, "Not empty list: %d\n", zero_arity); */
+	    goto error;
+	 }
+      }
+   } else
+      for(i = 0; i < arity; i++) {
+
+	 retVal = ic_decode_term(buf, index, NULL);
+	 if(retVal) {
+	    retVal = -1;
+	    goto error;
+	 }
+      }
 
  error:
    return retVal;
