@@ -681,9 +681,9 @@ ssl_client_peercert_api(_Config) ->
 			port = LPort}}])),
     spawn(orber_test_lib, remote_apply,
 	[ClientNode, corba_object, non_existent, [IOR]]),
-    {ok, Socket} = ?match({ok, _}, ssl:transport_accept(LSock)),
-    ?match(ok, ssl:ssl_accept(Socket)),
-
+    {ok, ASocket} = ?match({ok, _}, ssl:transport_accept(LSock)),
+    {ok, Socket} = ?match({ok, _}, ssl:handshake(ASocket)),
+    
     {ok, _PeerCert} = ?match({ok, _}, orber_socket:peercert(ssl, Socket)),
     %% 	    ?match({ok, {rdnSequence, _}}, orber_socket:peercert(ssl, Socket, [pkix, subject])),
     %% 	    ?match({ok, {rdnSequence, _}}, orber_socket:peercert(ssl, Socket, [ssl, subject])),

@@ -304,8 +304,8 @@ post_accept(Type, Socket) ->
 post_accept(normal, _Socket, _Timeout) ->
     ok;
 post_accept(ssl, Socket, Timeout) ->
-    case catch ssl:ssl_accept(Socket, Timeout) of
-	ok ->
+    case catch ssl:handshake(Socket, Timeout) of
+	{ok, _} ->
 	    ok;
 	Error ->
 	    orber:dbg("[~p] orber_socket:post_accept(ssl, ~p);~n"

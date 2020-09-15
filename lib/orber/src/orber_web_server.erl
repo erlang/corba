@@ -79,51 +79,51 @@ config_data()->
 
 
 menu(Env,Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER,  gen_server:call(?MODULE, {menu, Env, Args}), ?HTML_END].
 
 configure(Env,Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {configure, Env, Args}), ?HTML_END].
 
 nameservice(Env,Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {nameservice, Env, Args}), ?HTML_END].
 
 info(Env,Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {info, Env, Args}), ?HTML_END].
 
 default_selection(Env,Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {default_selection, Env, Args}), ?HTML_END].
 
 flash_msg(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {nameservice, Env, Args}), ?HTML_END].
     
 ifr_select(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {ifr_select, Env, Args}), ?HTML_END].
 
 ifr_data(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {ifr_data, Env, Args}), ?HTML_END].
 
 create(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {create, Env, Args}), ?HTML_END].
 
 delete_ctx(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {delete_ctx, Env, Args}), ?HTML_END].
 
 add_ctx(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {add_ctx, Env, Args}), ?HTML_END].
 
 delete_obj(Env, Input) ->
-    Args = httpd:parse_query(Input),
+    Args = uri_string:dissect_query(Input),
     [?HTML_HEADER, gen_server:call(?MODULE, {delete_obj, Env, Args}), ?HTML_END].
 
 %%----------------------------------------------------------------------
