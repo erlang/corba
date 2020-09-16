@@ -26,8 +26,22 @@
     <file>notes.xml</file>
   </header>
 
-   <section><title>CORBA 4.5.2</title>
+   <section><title>CORBA 5.0</title>
 
+   <section><title>Fixed Bugs and Malfunctions</title>
+      <list>
+        <item>
+	  <p>
+	    Remove old erl_interface dependency and
+            clean up erlang code warnings.
+	    Note this version depends on
+	    erl_interface-4.0 (first satisfied in OTP 23.0)
+          <p>
+	    Own Id: OTP-16855 Aux Id(s): ERIERL-521</p>
+        </item>
+      </list>
+    </section>
+   
     <section><title>Fixed Bugs and Malfunctions</title>
       <list>
         <item>
