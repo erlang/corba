@@ -57,6 +57,7 @@ int main(){
   char server_node[HOSTNAMESZ];
   char client_node[HOSTNAMESZ];
   CORBA_Environment *env;
+  ei_cnode ec;
   
   /* Initiate names */
 #ifdef __WIN32__
@@ -84,8 +85,8 @@ int main(){
   env = CORBA_Environment_alloc(INBUFSZ,OUTBUFSZ);
   
   /* Initiating the connection */
-  erl_init(NULL,0);
-  erl_connect_init(50,COOKIE,0);
+  ei_init();
+  ei_connect_init(&ec, 50,COOKIE,0);
 
   /* Initiating pid*/
   strcpy(pid.node,client_node);
@@ -94,7 +95,7 @@ int main(){
   pid.creation = 0;
 
   /* Fixing environment variable */
-  env->_fd=erl_connect(server_node);
+  env->_fd=ei_connect(&ec, server_node);
   strcpy(env->_regname,SREGNAME);
   env->_to_pid = NULL;
   env->_from_pid = &pid;
@@ -143,7 +144,7 @@ int main(){
   }
 
   /* Closing the connection */
-  erl_close_connection(env->_fd);
+  ei_close_connection(env->_fd);
   
   /* Free env & buffers */
   CORBA_free(env->_inbuf);

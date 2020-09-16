@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2020. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -291,8 +291,8 @@ emit_struct_member(Fd, G, N, _X, Name, {enum, Type}) ->
     emit(Fd, "   ~s ~s;\n",
 	 [ic_cbe:mk_c_type(G, N, Type),
 	  Name]);
-emit_struct_member(Fd, _G, _N, _X, Name, "ETERM*") ->
-    emit(Fd, "   ETERM* ~s;\n",
+emit_struct_member(Fd, _G, _N, _X, Name, "ic_erlang_term*") ->
+    emit(Fd, "  ic_erlang_term* ~s;\n",
 	 [Name]);
 emit_struct_member(Fd, _G, _N, _X, Name, Type) when is_list(Type) ->  
     emit(Fd, "   ~s ~s;\n",
@@ -405,7 +405,7 @@ mk_base_type(G, N, S) when element(1, S) == scoped_id ->
 	"erlang_ref" ->
 	    "erlang_ref";
 	"erlang_term" ->
-	    "ETERM*";
+	    "ic_erlang_term*";
 	Type ->
 	    Type
     end;
@@ -713,15 +713,17 @@ emit_decode(sequence_head, G, N, T, Fd, SeqName, ElType) ->
 	    emit_c_dec_rpt(Fd, "      ", "string1", []),
 	    emit(Fd, "      return oe_error_code;\n    }\n"),
 	    emit(Fd, "    for (oe_seq_count = 0; "
-		 "oe_seq_count < oe_out->_length; oe_seq_count++)\n"), 
+		 "oe_seq_count < oe_out->_length; oe_seq_count++) {\n"), 
 	    case ictype:isBasicType(G, N, ElType) of
 		true -> 
 		    emit(Fd, "      oe_out->_buffer[oe_seq_count] = (unsigned char) "
 			 "~s[oe_seq_count];\n\n", [TmpBuf]);
 		false -> %% Term
-		    emit(Fd, "      oe_out->_buffer[oe_seq_count] = "
-			 "erl_mk_int(~s[oe_seq_count]);\n\n",[TmpBuf]) % XXXX What?
+		    emit(Fd, "      oe_out->_buffer[oe_seq_count]->type = ic_integer;\n", []),
+		    emit(Fd, "      oe_out->_buffer[oe_seq_count]->value.i_val = (long) ~s[oe_seq_count];\n",
+			 [TmpBuf])
 	    end,
+	    emit(Fd, "    }\n\n", []),
 	    emit(Fd, "    CORBA_free(~s);\n\n", [TmpBuf]);
 	false ->
 	    emit(Fd, "    return oe_error_code;\n")

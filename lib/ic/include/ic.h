@@ -1,8 +1,8 @@
 /*
  * %CopyrightBegin%
- * 
- * Copyright Ericsson AB 1998-2016. All Rights Reserved.
- * 
+ *
+ * Copyright Ericsson AB 1998-2020. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,15 +14,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * %CopyrightEnd%
  *
  */
+
+#ifndef _IC_H
+#define _IC_H
+
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <ei.h>
-#include <erl_interface.h>
 
 #ifdef __WIN32__
 /* Windows.h #defines interface to struct, get rid of it! */
@@ -37,6 +41,94 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* This declaration is just used in pre OTP 23 code */
+#ifdef __OTP_PRE_23__
+short ei_thiscreation(const ei_cnode* ec);
+#endif
+
+/* -------------------------------------------------------------------- */
+/* Type definitions of Erlang terms in C                                */
+/* -------------------------------------------------------------------- */
+
+/* ic_string is just used internally during decoding when checking      */
+/*    next type. It's not used in ic_erlang_term.                       */
+typedef enum {
+   ic_integer,
+   ic_float,
+   ic_atom,
+   ic_pid,
+   ic_port,
+   ic_ref,
+   ic_tuple,
+   ic_string,
+   ic_list,
+   ic_binary
+} ic_erlang_type;
+
+struct _ic_erlang_term; /* forward */
+
+typedef struct _ic_erlang_tuple {
+   long arity;
+   struct _ic_erlang_term **elements;
+} ic_erlang_tuple;
+
+typedef struct _ic_erlang_list_elem {
+   struct _ic_erlang_term *element;
+   struct _ic_erlang_list_elem *next;
+} ic_erlang_list_elem;
+
+typedef struct _ic_erlang_list {
+   long arity;
+   struct _ic_erlang_list_elem *head;
+   struct _ic_erlang_list_elem *tail;
+} ic_erlang_list;
+
+typedef struct _ic_erlang_binary {
+   long size;
+   char* bytes;
+} ic_erlang_binary;
+
+typedef struct _ic_erlang_term {
+   ic_erlang_type type;
+   union {
+      long              i_val;
+      double            d_val;
+      char*             atom_name;
+      erlang_pid*       pid;
+      erlang_port*      port;
+      erlang_ref*       ref;
+      ic_erlang_tuple*  tuple;
+      ic_erlang_list*   list;
+      ic_erlang_binary* bin;
+   } value;
+    unsigned char _one_block_alloc;
+} ic_erlang_term;
+   
+/* Help functions for erlang terms */
+ic_erlang_term* ic_mk_int_term(long l);
+ic_erlang_term* ic_mk_float_term(double d);
+ic_erlang_term* ic_mk_atom_term(char *atom_name);
+ic_erlang_term* ic_mk_pid_term(erlang_pid* pid);
+ic_erlang_term* ic_mk_port_term(erlang_port* port);
+ic_erlang_term* ic_mk_ref_term(erlang_ref* ref);
+ic_erlang_term* ic_mk_tuple_term(int arity);
+int ic_tuple_add_elem(ic_erlang_term *tuple, ic_erlang_term *elem, int pos);
+ic_erlang_term* ic_mk_list_term(void);
+int ic_list_add_elem(ic_erlang_term *list, ic_erlang_term *term);
+ic_erlang_term* ic_mk_list_term_from_string(char *str);
+ic_erlang_term* ic_mk_binary_term(int size, char *b);
+
+int ic_erlang_term_is_equal(ic_erlang_term *t1, ic_erlang_term *t2);
+void ic_free_erlang_term(ic_erlang_term *term);
+void ic_print_erlang_term(ic_erlang_term *term);
+
+/* Decode/Encode of erlang terms */
+int ic_encode_term(char *buf, int *index, const ic_erlang_term *term);
+int ic_decode_term(const char *buf, int *index, ic_erlang_term **term);
+int ic_get_type(const char *buf, const int *index, ic_erlang_type *type, int *len);
+int ic_size_of_encoded_term(int *index, const ic_erlang_term *term);
+int ic_size_of_decoded_term(const char *buf, int *index, int *size);
 
 /* Standard type mapping */
 
@@ -173,7 +265,7 @@ extern "C" {
 
 
 /* Exception type */
-    typedef int CORBA_exception_type; 
+    typedef int CORBA_exception_type;
 
 
 #ifndef __CORBA_ENVIRONMENT__
@@ -189,8 +281,8 @@ extern "C" {
 	/*----- External Implementation part - initiated by the user --------*/
 	int                    _fd;             /* File descriptor           */
 	int                    _inbufsz;        /* Size of input buffer      */
-	char                  *_inbuf;          /* Pointer to always 
-						   dynamically allocated 
+	char                  *_inbuf;          /* Pointer to always
+						   dynamically allocated
 						   buffer for input   */
 	int                    _outbufsz;       /* Size of output buffer     */
 	char                  *_outbuf;         /* Pointer to always
@@ -221,15 +313,14 @@ extern "C" {
 	erlang_ref             _unique;         /* Used to identify the call */
 	CORBA_char            *_exc_id;         /* Exception id field        */
 	void                  *_exc_value;      /* Exception value field     */
-  
+
 	unsigned int          _ref_counter_1;   /* Counter for reference     */
 	unsigned int          _ref_counter_2;   /* Counter for reference     */
 	unsigned int          _ref_counter_3;   /* Counter for reference     */
-
-    } CORBA_Environment; 
+        ei_cnode              *_ec;              /* Pointer to the cnode */
+    } CORBA_Environment;
 
 #endif
-
 
 /* Corba standard functions */
 
@@ -301,12 +392,12 @@ extern "C" {
 /* Align macro */
 #define OE_ALIGN(x) (((x) + sizeof(double) - 1) & ~(sizeof(double) - 1))
 
-/* Encoders */ 
+/* Encoders */
     int oe_ei_encode_version(CORBA_Environment *env);
     int oe_ei_encode_long(CORBA_Environment *env, long p);
     int oe_ei_encode_longlong(CORBA_Environment *env, CORBA_long_long p);
     int oe_ei_encode_ulong(CORBA_Environment *env, unsigned long p);
-    int oe_ei_encode_ulonglong(CORBA_Environment *env, 
+    int oe_ei_encode_ulonglong(CORBA_Environment *env,
 			       CORBA_unsigned_long_long p);
     int oe_ei_encode_double(CORBA_Environment *env, double p);
     int oe_ei_encode_char(CORBA_Environment *env, char p);
@@ -317,7 +408,7 @@ extern "C" {
     int oe_ei_encode_pid(CORBA_Environment *env, const erlang_pid *p);
     int oe_ei_encode_port(CORBA_Environment *env, const erlang_port *p);
     int oe_ei_encode_ref(CORBA_Environment *env, const erlang_ref *p);
-    int oe_ei_encode_term(CORBA_Environment *env, void *t); 
+    int oe_ic_encode_term(CORBA_Environment *env, ic_erlang_term *t);
     int oe_ei_encode_tuple_header(CORBA_Environment *env, int arity);
     int oe_ei_encode_list_header(CORBA_Environment *env, int arity);
     int oe_encode_erlang_binary(CORBA_Environment *env, erlang_binary *binary);
@@ -328,9 +419,9 @@ extern "C" {
     int oe_ei_decode_wchar(const char *buf, int *index, CORBA_wchar *p);
     int oe_ei_decode_wstring(const char *buf, int *index, CORBA_wchar *p);
     int oe_ei_decode_longlong(const char *buf, int *index, CORBA_long_long *p);
-    int oe_ei_decode_ulonglong(const char *buf, int *index, 
+    int oe_ei_decode_ulonglong(const char *buf, int *index,
 			       CORBA_unsigned_long_long *p);
-    int oe_decode_erlang_binary(CORBA_Environment *env, char *buf, int *index, 
+    int oe_decode_erlang_binary(CORBA_Environment *env, char *buf, int *index,
 				erlang_binary *binary);
 
 /* Generic client encoders (gen_server protocol) */
@@ -365,13 +456,13 @@ extern "C" {
 /* -------- */
 
 /* Size calculators */
-    int oe_sizecalc_erlang_binary(CORBA_Environment *env, int *index, 
+    int oe_sizecalc_erlang_binary(CORBA_Environment *env, int *index,
 				  int *size);
 /* Print functions */
     int print_erlang_binary(erlang_binary*);
 
 /* Length counter for wide strings */
-    int ic_wstrlen(CORBA_wchar * p); 
+    int ic_wstrlen(CORBA_wchar * p);
 
 /* Wide string comparison */
     int ic_wstrcmp(CORBA_wchar * ws1, CORBA_wchar * ws2);
@@ -410,23 +501,25 @@ extern "C" {
     int ___switch___(CORBA_Object, CORBA_Environment*, oe_map_t*);
 
 /* For backward compatibility -- replaced by oe_prepare_request_decoding() */
-    int ___call_info___(CORBA_Object, CORBA_Environment*); 
+    int ___call_info___(CORBA_Object, CORBA_Environment*);
 
 /* Map merging */
-    oe_map_t* oe_merge_maps(oe_map_t*, int); 
+    oe_map_t* oe_merge_maps(oe_map_t*, int);
 /* For backward compatibility */
-    oe_map_t* ___merge___(oe_map_t*, int); 
+    oe_map_t* ___merge___(oe_map_t*, int);
 
 /* Macro for error reporting */
 
 #ifdef OE_C_REPORT
 #define OE_RPT_ERR(x)  fprintf(stderr, (x))
 #else
-#define OE_RPT_ERR(x)  
+#define OE_RPT_ERR(x)
 #endif
-       
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+
+#endif /* IC_H */

@@ -336,7 +336,7 @@ module M1 {
             </list>
           </item>
           <item>int <em>_fd</em> - a file descriptor returned from
-          <em>erl_connect</em> function.</item>
+          <em>ei_connect</em> function.</item>
           <item>int <em>_inbufsz</em> - size of input buffer.</item>
           <item>char* <em>_inbuf</em> - pointer to a buffer used for
            input.</item>

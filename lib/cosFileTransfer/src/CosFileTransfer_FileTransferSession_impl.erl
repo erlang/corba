@@ -855,13 +855,13 @@ receive_file(ssl, LSock, Timeout, FileName, Type) ->
     %% 'read', 'write' or 'append'
     FD = file_open(FileName, Type),
     case ssl:transport_accept(LSock, Timeout) of
-	{ok, Sock} ->
-	    case ssl:ssl_accept(Sock, Timeout) of
-		ok ->
+	{ok, ASock} ->
+	    case ssl:handshake(ASock, Timeout) of
+		{ok, Sock} ->
 		    receive_file_helper(ssl, Sock, FD);
 		{error, Error} ->
 		    orber:dbg("[~p] CosFileTransfer_FileTransferSession:receive_file();~n"
-			      "ssl:ssl_accept(~p) failed: ~p", 
+			      "ssl:handshake(~p) failed: ~p", 
 			      [?LINE, Timeout, Error], ?DEBUG_LEVEL),
 		    corba:raise(#'CosFileTransfer_RequestFailureException'
 				{reason="TCP accept failed."})

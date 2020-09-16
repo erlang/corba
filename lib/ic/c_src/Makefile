@@ -88,9 +88,20 @@ SKIP_BUILDING_BINARIES := false
 
 endif
 
+ifdef IC_OTP_PRE_23
+USE_OTP_PRE_23 = -D__OTP_PRE_23__
+else
+USE_OTP_PRE_23 =
+endif
+
 C_FILES = \
 	ic.c \
 	ic_tmo.c \
+	ic_get_type.c \
+	ic_encode_term.c \
+	ic_decode_term.c \
+	ic_erlang_term.c \
+	oe_ic_encode_term.c         \
 	oe_ei_encode_version.c      \
 	oe_ei_encode_long.c         \
 	oe_ei_encode_ulong.c        \
@@ -101,7 +112,6 @@ C_FILES = \
 	oe_ei_encode_pid.c          \
 	oe_ei_encode_port.c         \
 	oe_ei_encode_ref.c          \
-	oe_ei_encode_term.c         \
 	oe_ei_encode_tuple_header.c \
 	oe_ei_encode_list_header.c  \
 	oe_ei_encode_longlong.c     \
@@ -118,7 +128,7 @@ H_FILES = $(INCDIR)/ic.h
 
 OBJ_FILES= $(C_FILES:%.c=$(OBJDIR)/%.o) 
 
-ALL_CFLAGS = $(BASIC_CFLAGS) -I$(INCDIR) $(ERL_INTERFACE_FLAGS)
+ALL_CFLAGS = $(BASIC_CFLAGS) -I$(INCDIR) $(ERL_INTERFACE_FLAGS) $(USE_OTP_PRE_23)
 
 # ----------------------------------------------------
 # Targets

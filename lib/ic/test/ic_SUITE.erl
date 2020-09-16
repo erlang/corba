@@ -746,7 +746,7 @@ stdopts(OutDir) ->
     [{outdir, OutDir},{maxerrs, infinity}].
 
 mk_unique(Prefix) ->
-    {A,B,C} = now(),
+    {A,B,C} = os:timestamp(),
     Prefix++"_"++integer_to_list(A)++"_"++integer_to_list(B)++"_"++
 	integer_to_list(C).
 

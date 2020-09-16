@@ -376,7 +376,7 @@ get_template_version(G) ->
 
 
 get_date() ->
-    {{Y,M,D}, _} = calendar:now_to_datetime(now()),
+    {{Y,M,D}, _} = calendar:now_to_datetime(erlang:timestamp()),
     if
 	M < 10, D < 10 ->
 	    lists:concat([Y, "-0", M, "-0",D]);

@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1998-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1998-2020. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -734,9 +734,9 @@ getCaseTypeSizecalc(G, N, X, Fd, I, T) when element(1, T) == scoped_id ->
 		    ?emit_c_dec_rpt(Fd, "    ", "ei_decode_ref", []),
 		    emit(Fd, "    return oe_error_code;\n    }\n");
 		"erlang_term" ->
-		    emit(Fd, "  if ((oe_error_code = ei_decode_term(oe_env->_inbuf, oe_size_count_index, 0)) < 0) {\n",
+		    emit(Fd, "  if ((oe_error_code = ic_decode_term(oe_env->_inbuf, oe_size_count_index, 0)) < 0) {\n",
 			 []),
-		    ?emit_c_dec_rpt(Fd, "    ", "ei_deoce_term", []),
+		    ?emit_c_dec_rpt(Fd, "    ", "ic_decode_term", []),
 		    emit(Fd, "    return oe_error_code;\n    }\n");
 
 		Other ->
@@ -986,10 +986,10 @@ getCaseTypeEncode(G, N, X, Fd, I, T) when element(1, T) == scoped_id ->
 			 [ic_forms:get_id2(I)]),
 		    ?emit_c_enc_rpt(Fd, "    ", "oe_ei_encode_ref", []),
 		    emit(Fd, "    return oe_error_code;\n  }\n");
-		"ETERM*" ->
-		    emit(Fd, "  if ((oe_error_code = oe_ei_encode_term(oe_env, &oe_rec->_u.~s)) < 0) {\n",
+		"ic_erlang_term*" ->
+		    emit(Fd, "  if ((oe_error_code = oe_ic_encode_term(oe_env, &oe_rec->_u.~s)) < 0) {\n",
 			 [ic_forms:get_id2(I)]),
-		    ?emit_c_enc_rpt(Fd, "    ", "oe_ei_encode_term", []),
+		    ?emit_c_enc_rpt(Fd, "    ", "oe_ic_encode_term", []),
 		    emit(Fd, "    return oe_error_code;\n  }\n");
 		_ ->
 		    emit(Fd, "  if ((oe_error_code = oe_encode_~s(oe_env, &oe_rec->_u.~s)) < 0) {\n",
@@ -1318,10 +1318,10 @@ getCaseTypeDecode(G, N, X, Fd, I, T) when element(1, T) == scoped_id ->
 			 [ic_forms:get_id2(I)]),
 		    ?emit_c_dec_rpt(Fd, "    ", "ei_decode_ref", []),
 		    emit(Fd, "    return oe_error_code;\n  }\n");
-		"ETERM*" ->
-		    emit(Fd, "  if ((oe_error_code = ei_decode_term(oe_env->_inbuf, &oe_env->_iin, (void **)&oe_rec->_u.~s)) < 0) {\n",
+		"ic_erlang_term*" ->
+		    emit(Fd, "  if ((oe_error_code = ic_decode_term(oe_env->_inbuf, &oe_env->_iin, &oe_rec->_u.~s)) < 0) {\n",
 			 [ic_forms:get_id2(I)]),
-		    ?emit_c_dec_rpt(Fd, "    ", "ei_decode_term", []),
+		    ?emit_c_dec_rpt(Fd, "    ", "ic_decode_term", []),
 		    emit(Fd, "    return oe_error_code;\n  }\n");
 
 		_ ->

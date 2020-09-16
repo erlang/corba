@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1998-2016. All Rights Reserved.
+ * Copyright Ericsson AB 1998-2020. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,6 +75,7 @@ CORBA_Environment *CORBA_Environment_alloc(int inbufsz, int outbufsz)
 	env->_ref_counter_1 = 0;
 	env->_ref_counter_2 = 0;
 	env->_ref_counter_3 = 0;
+	env->_ec = NULL;
     }
 
     return env;
@@ -148,39 +149,51 @@ void CORBA_exc_set(CORBA_Environment *env,
 /* Initiating message reference */
 void ic_init_ref(CORBA_Environment *env, erlang_ref *ref)
 {
-
-    strcpy(ref->node, erl_thisnodename());
-
+   
+#ifndef __OTP_PRE_23__
+   (void) ei_make_ref(env->_ec, ref);
+#else
+    strcpy(ref->node, ei_thisnodename(env->_ec));
     ref->len = 3;
-
     ++env->_ref_counter_1;
     env->_ref_counter_1 &= ERLANG_REF_MASK;
     if (env->_ref_counter_1 == 0)
-	if (++env->_ref_counter_2 == 0) 
+	if (++env->_ref_counter_2 == 0)
 	    ++env->_ref_counter_3;
     ref->n[0] = env->_ref_counter_1;
     ref->n[1] = env->_ref_counter_2;
     ref->n[2] = env->_ref_counter_3;
     
-    ref->creation = erl_thiscreation();
+    ref->creation = ei_thiscreation(env->_ec);
+#endif
+    
 }
 
 /* Comparing message references */
 int ic_compare_refs(erlang_ref *ref1, erlang_ref *ref2)
 {
+
+#ifndef __OTP_PRE_23__
+   if(ei_cmp_refs(ref1, ref2))
+      return -1;
+   else
+      return 0;
+#else
     int i;
 
-    if(strcmp(ref1->node, ref2->node) != 0) 
-	return -1;
+    if(strcmp(ref1->node, ref2->node) != 0)
+    	return -1;
  
-    if (ref1->len != ref2->len) 
-	return -1;
+    if (ref1->len != ref2->len)
+    	return -1;
 
     for (i = 0; i < ref1->len; i++)
-	if (ref1->n[i] != ref2->n[i])
-	    return -1;
+    	if (ref1->n[i] != ref2->n[i])
+    	    return -1;
     
-    return 0; 
+    return 0;
+#endif
+    
 }
 
 /* Length counter for wide strings */
@@ -610,4 +623,3 @@ int oe_server_receive(CORBA_Environment *env, oe_map_t *map)
 
     return 0;
 }
-

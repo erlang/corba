@@ -1,8 +1,8 @@
 /*
  * %CopyrightBegin%
- * 
- * Copyright Ericsson AB 2002-2016. All Rights Reserved.
- * 
+ *
+ * Copyright Ericsson AB 2002-2020. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,16 +14,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * %CopyrightEnd%
  *
  */
 /* C-server for test of IC.
  *
  * The C-node implemented here connects to its peer node, waits for
- * one message, evaluates the message, returns an result message, and 
+ * one message, evaluates the message, returns an result message, and
  * terminates.
- * 
+ *
  * TODO:
  *
  * 1. XXX #includes for VxWorks, Windows
@@ -63,7 +63,6 @@
 
 #include "ic.h"
 #include "ei.h"
-#include "erl_interface.h"
 #include "eicode.h"
 #include "m_i__s.h"
 #include "m__s.h"
@@ -106,26 +105,27 @@ int main(int argc, char **argv)
     char host[HOSTNAMESZ + 1];
     char this_node[NODENAMESZ + 1];
     erlang_msg msg;
-    int status, loop; 
-    
+    int status, loop;
+    ei_cnode ec;
+
 #ifdef __WIN32__
     WORD wVersionRequested;
     WSADATA wsaData;
-    
+
     wVersionRequested = MAKEWORD(2, 0);
-    
+
     if (WSAStartup(wVersionRequested, &wsaData) != 0) {
 	fprintf(stderr, "Could not load winsock2 v2.0 compatible DLL");
 	exit(1);
     }
 #endif
-    
+
     progname = argv[0];
     host[HOSTNAMESZ] = '\0';
     if (gethostname(host, HOSTNAMESZ + 1) < 0) {
 	fprintf(stderr, "Can't find own hostname\n");
 	done(1);
-    } 
+    }
     if ((hp = gethostbyname(host)) == 0) {
 	fprintf(stderr, "Can't get ip address for host %s\n", host);
 	done(1);
@@ -166,18 +166,18 @@ int main(int argc, char **argv)
     fprintf(stderr, "c_server: peer node: \"%s\"\n", peer_node);
 
     /* initialize erl_interface */
-    erl_init(NULL, 0);
+    ei_init();
 
     for (tries = 0; tries < MAXTRIES; tries++) {
-	/* connect to peer node */ 
-    	ires = erl_connect_xinit(host, this_node_name, this_node, 
-				 (struct in_addr *)*hp->h_addr_list, 
-				 cookie, 0);
-	fprintf(stderr, "c_server: erl_connect_xinit(): %d\n", ires);
-    
-	fd = erl_connect(peer_node);
-	fprintf(stderr, "c_server: erl_connect(): %d\n", fd);
-	if (fd >= 0) 
+	/* connect to peer node */
+       ires = ei_connect_xinit(&ec, host, this_node_name, this_node,
+			       (struct in_addr *)*hp->h_addr_list,
+			       cookie, 0);
+	fprintf(stderr, "c_server: ei_connect_xinit(): %d\n", ires);
+
+	fd = ei_connect(&ec, peer_node);
+	fprintf(stderr, "c_server: ei_connect(): %d\n", fd);
+	if (fd >= 0)
 	    break;
 	fprintf(stderr, "c_server: cannot connect, retrying\n");
     }
@@ -186,15 +186,16 @@ int main(int argc, char **argv)
 	done(1);
     }
     env = CORBA_Environment_alloc(INBUFSZ, OUTBUFSZ);
-    env->_fd = fd; 
+    env->_fd = fd;
     env->_memchunk = 32;
+    env->_ec = &ec;
 
     status = 1;
     loop = 1;
     my_gettimeofday(&start);
     while (status >= 0 && loop > 0) {
-        status = ei_receive_encoded(env->_fd, &env->_inbuf, &env->_inbufsz, 
-				    &msg, &env->_iin); 
+        status = ei_receive_encoded(env->_fd, &env->_inbuf, &env->_inbufsz,
+				    &msg, &env->_iin);
 	switch(status) {
 	case ERL_SEND:
 	case ERL_REG_SEND:
@@ -204,7 +205,7 @@ int main(int argc, char **argv)
 	    case CORBA_NO_EXCEPTION:
 		break;
 	    case CORBA_SYSTEM_EXCEPTION:
-		fprintf(stderr, "Request failure, reason : %s\n", 
+		fprintf(stderr, "Request failure, reason : %s\n",
 			(char *) CORBA_exception_value(env));
 		CORBA_exception_free(env);
 		break;
@@ -213,36 +214,36 @@ int main(int argc, char **argv)
 		break;
 	    }
 	    /* send back result data */
-	    if (env->_iout > 0) 
-		ei_send_encoded(env->_fd, &env->_caller, env->_outbuf, 
+	    if (env->_iout > 0)
+		ei_send_encoded(env->_fd, &env->_caller, env->_outbuf,
 				env->_iout);
 	    loop = 0;
 	    break;
 	case ERL_TICK:
 	    break;
-	default: 
+	default:
 	    if (status < 0) {
 		fprintf(stderr, "Status negative: %d\n", status);
 		loop = 0;
 	    }
 	    break;
 	}
-    }	
+    }
     my_gettimeofday(&stop);
     showtime(&start, &stop);
 
-    erl_close_connection(fd);
+    ei_close_connection(fd);
 
     CORBA_free(env->_inbuf);
     CORBA_free(env->_outbuf);
     CORBA_free(env);
-    if (status < 0) 
+    if (status < 0)
 	done(-status);
-    else 
-	done(0); 
+    else
+	done(0);
 }
 
-static void usage() 
+static void usage()
 {
     fprintf(stderr, "Usage: %s [-help] -this-node-name <name> "
 	    "-peer-node <nodename> -cookie <cookie>\n", progname);
@@ -250,7 +251,7 @@ static void usage()
 	    "-peer-node olle@home -cookie oa678er\n", progname);
 }
 
-static void done(int r) 
+static void done(int r)
 {
 #ifdef __WIN32__
     WSACleanup();
