@@ -58,6 +58,7 @@
             clean up erlang code warnings.
 	    Note this version depends on
 	  erl_interface-4.0 (first satisfied in OTP 23.0)</p>
+	  </p>
           <p>
 	    Own Id: OTP-16855 Aux Id(s): ERIERL-521</p>
     </item>
