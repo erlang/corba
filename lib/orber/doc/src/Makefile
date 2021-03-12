@@ -151,6 +151,7 @@ html: gifs $(HTML_REF_MAN_FILE)
 clean clean_docs:
 	rm -rf $(HTMLDIR)/*
 	rm -f $(MAN3DIR)/*
+	rm -f ../xml/*
 	rm -f $(TOP_PDF_FILE) $(TOP_PDF_FILE:%.pdf=%.fo)
 	rm -f errs core *~ notes.xml
 	rm -f $(JD_HTML) $(JD_PACK)
