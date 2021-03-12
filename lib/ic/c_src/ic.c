@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1998-2020. All Rights Reserved.
+ * Copyright Ericsson AB 1998-2021. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -464,7 +464,8 @@ int oe_prepare_request_encoding(CORBA_Environment *env)
     oe_ei_encode_atom(env, "$gen_call");
     oe_ei_encode_tuple_header(env, 2);
     if ((error = oe_ei_encode_pid(env, env->_from_pid)) < 0)
-	return error; 
+	return error;
+    /* C client still just use an erlang ref as unique reference in a call */
     if ((error = oe_ei_encode_ref(env, &env->_unique)) < 0)
 	return error;
     return 0;
@@ -492,6 +493,7 @@ int oe_prepare_reply_decoding(CORBA_Environment *env)
 			       &env->_iin, 
 			       &unique)) < 0)
         return error;
+    /* C client still just use an erlang ref as unique reference in a call */    
     return ic_compare_refs(&env->_unique, &unique);
 }   
 
@@ -502,7 +504,8 @@ int oe_prepare_request_decoding(CORBA_Environment *env)
     char gencall_atom[10];
     int error = 0;
     int version = 0;
-
+    int pos_before_unique_ref;
+    
     env->_iin = 0;
     env->_received = 0;
     memset(gencall_atom, 0, 10);
@@ -529,16 +532,29 @@ int oe_prepare_request_decoding(CORBA_Environment *env)
 	ei_decode_tuple_header(env->_inbuf, &env->_iin, &env->_received);
 	if ((error = ei_decode_pid(env->_inbuf, &env->_iin, 
 				   &env->_caller)) < 0) {
-	    CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, MARSHAL, 
+	    CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, MARSHAL,
 			  "Bad Message, bad caller identity");
 	    return error;
 	}
-	if ((error = ei_decode_ref(env->_inbuf, &env->_iin, 
-				   &env->_unique)) < 0) {
+	pos_before_unique_ref = env->_iin;
+	fprintf(stderr, "pos_before_unique_ref: %d\n", pos_before_unique_ref);
+	if ((error =  ei_skip_term(env->_inbuf, &env->_iin)) < 0) {
 	    CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, MARSHAL, 
-			  "Bad Message, bad message reference");
+			  "Bad Message, bad reference term");
 	    return error;
 	}
+	fprintf(stderr, "iin: %d\n", env->_iin);
+	env->_unique_bytes_sz = env->_iin - pos_before_unique_ref;
+	fprintf(stderr, "_unique_bytes_sz: %d\n", env->_unique_bytes_sz);
+	if((env->_unique_bytes = malloc(env->_unique_bytes_sz)) == NULL) {
+	   CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, NO_MEMORY, "End of heap memory while encoding");
+	   return -1;  /* OUT OF MEMORY */ 
+	};
+	if(memcpy(env->_unique_bytes, env->_inbuf + pos_before_unique_ref, env->_unique_bytes_sz) == NULL) {
+	   CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, BAD_OPERATION, "Copying of memory failed");
+	   return -1;
+	};
+	     
 	if ((error = ei_decode_atom(env->_inbuf, &env->_iin, 
 				    env->_operation)) < 0) {
 	    
@@ -570,7 +586,7 @@ int oe_prepare_reply_encoding(CORBA_Environment *env)
     env->_iout = 0;
     oe_ei_encode_version(env);
     oe_ei_encode_tuple_header(env, 2);
-    oe_ei_encode_ref(env, &env->_unique);
+    oe_ei_append_unique_bytes(env);
     return 0;
 }
 

@@ -310,7 +310,9 @@ int ic_size_of_decoded_term(const char *buf, int *index, int *size);
 	int                    _received;       /* Used to count parameters */
 	erlang_pid             _caller;         /* Used to identify
                                                    the caller*/
-	erlang_ref             _unique;         /* Used to identify the call */
+	erlang_ref             _unique;         /* Used to identify a call from c */
+	char*                  _unique_bytes;   /* Used to identify a call from erlang */
+	int                    _unique_bytes_sz;/* Size of the _unique_bytes bytestring */
 	CORBA_char            *_exc_id;         /* Exception id field        */
 	void                  *_exc_value;      /* Exception value field     */
 
@@ -412,7 +414,8 @@ int ic_size_of_decoded_term(const char *buf, int *index, int *size);
     int oe_ei_encode_tuple_header(CORBA_Environment *env, int arity);
     int oe_ei_encode_list_header(CORBA_Environment *env, int arity);
     int oe_encode_erlang_binary(CORBA_Environment *env, erlang_binary *binary);
-
+    int oe_ei_append_unique_bytes(CORBA_Environment *env);
+   
 #define oe_ei_encode_empty_list(ev) oe_ei_encode_list_header(ev,0)
 
 /* Decoders */
