@@ -1,0 +1,54 @@
+/*
+ * %CopyrightBegin%
+ * 
+ * Copyright Ericsson AB 2021. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * %CopyrightEnd%
+ *
+ */
+#include <ic.h>
+
+
+int oe_ei_append_unique_bytes(CORBA_Environment *ev) {
+  int size = ev->_iout + ev->_unique_bytes_sz;
+    
+  if (size >= ev->_outbufsz) {
+    char *buf = ev->_outbuf;
+    int bufsz = ev->_outbufsz + ev->_memchunk;
+    
+    while (size >= bufsz)
+      bufsz += ev->_memchunk;
+    
+    if ((buf = realloc(buf, bufsz)) == NULL) {
+      CORBA_exc_set(ev, CORBA_SYSTEM_EXCEPTION, NO_MEMORY, "End of heap memory while encoding");
+      return -1;  /* OUT OF MEMORY */ 
+    }
+    
+    ev->_outbuf = buf;
+    ev->_outbufsz = bufsz;
+  }
+
+  if(memcpy(ev->_outbuf + ev->_iout, ev->_unique_bytes, ev->_unique_bytes_sz) == NULL) {
+     CORBA_exc_set(ev, CORBA_SYSTEM_EXCEPTION, BAD_OPERATION, "Copying of memory failed");
+     return -1;
+  };
+  ev->_iout += ev->_unique_bytes_sz;
+  
+  CORBA_free(ev->_unique_bytes);
+  ev->_unique_bytes_sz = 0;
+  
+  return 0;
+}
+

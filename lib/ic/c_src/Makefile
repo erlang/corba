@@ -122,7 +122,8 @@ C_FILES = \
 	oe_ei_decode_ulonglong.c    \
 	oe_ei_decode_wchar.c        \
 	oe_ei_decode_wstring.c      \
-	oe_ei_code_erlang_binary.c  
+	oe_ei_code_erlang_binary.c  \
+	oe_ei_append_unique_bytes.c
 
 H_FILES = $(INCDIR)/ic.h
 
