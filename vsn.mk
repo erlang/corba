@@ -1,1 +1,1 @@
-CORBA_VSN = 5.0
+CORBA_VSN = 5.0.1

@@ -19,43 +19,67 @@
       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
       See the License for the specific language governing permissions and
       limitations under the License.
-
+      
     </legalnotice>
 
     <title>CORBA Release Notes</title>
     <file>notes.xml</file>
   </header>
 
-   <section><title>CORBA 5.0</title>
+  <section><title>CORBA 5.0.1</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+      <p>
+	Corrected the unique reference handling when using an IC generated
+	erlang client against a c server.
+      </p>
+      <p>
+      Own Id: OTP-17268 Aux Id(s): ERIERL-615</p>
+    </item>
+     <item>
+       <p>
+	 Corrected the encoding of the unique reference encoding in an
+	 IC generated java client.
+      </p>
+      <p>
+      Own Id: OTP-17269</p>
+     </item>
+  </list>
+  </section>
+  </section>
 
-   <section><title>Fixed Bugs and Malfunctions</title>
-      <list>
-        <item>
+  <section><title>CORBA 5.0</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
 	  <p>
 	    Remove old erl_interface dependency and
             clean up erlang code warnings.
 	    Note this version depends on
-	    erl_interface-4.0 (first satisfied in OTP 23.0)
+	  erl_interface-4.0 (first satisfied in OTP 23.0)</p>
           <p>
 	    Own Id: OTP-16855 Aux Id(s): ERIERL-521</p>
-        </item>
-      </list>
-    </section>
-   
-    <section><title>Fixed Bugs and Malfunctions</title>
-      <list>
-        <item>
-	  <p>
-	    Fixed install for IC. Headers, libraries, and IDL files
-	    are now installed under <c>$RELEASE_ROOT/usr</c>
-	    regardless of type of install.
-	    </p>
-          <p>
-	    Own Id: OTP-15197 Aux Id(s): ERIERL-202</p>
-        </item>
-      </list>
-    </section>
+    </item>
+  </list>
+  </section>
+  </section>
 
+
+  <section><title>CORBA 4.5.2</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>	
+    <item>
+      <p>
+	Fixed install for IC. Headers, libraries, and IDL files
+	are now installed under <c>$RELEASE_ROOT/usr</c>
+	regardless of type of install.
+	    </p>
+            <p>
+	    Own Id: OTP-15197 Aux Id(s): ERIERL-202</p>
+    </item>
+  </list>
+  </section>
   </section>
 
    <section><title>CORBA 4.5.1</title>
