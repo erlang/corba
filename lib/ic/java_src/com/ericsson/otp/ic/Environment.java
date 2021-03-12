@@ -250,9 +250,7 @@ public class Environment {
     enclosed client process identity.
     **/
   public void write_client_pid() {
-
-    os.write_pid(clientP.node(),clientP.id(),clientP.serial(),clientP.creation());
-    
+      clientP.encode(os);
   }
 
   /** 
@@ -260,12 +258,8 @@ public class Environment {
     enclosed client message reference.
     **/
   public void write_client_ref() {
-    
-    os.write_ref(send_ref.node(),send_ref.id(),send_ref.creation());
-    
+      send_ref.encode(os);
   }
-
-
 
   /* Field access functions */
 
