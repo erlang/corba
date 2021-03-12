@@ -403,7 +403,7 @@ The option
       </item>
       <tag><em>java</em></tag>
       <item>
-        <p>Will produce Java client stubs and server skeletons with
+        <p>Will produce Java client stubs with
           functionality of a generic Erlang server.</p>
       </item>
       <tag><em>c_genserv</em></tag>
