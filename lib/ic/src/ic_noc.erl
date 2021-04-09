@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1998-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1998-2021. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -229,34 +229,26 @@ extract_info(G, _N, X) when is_record(X, op) ->
 		  },
     {Name, ArgNames, TypeList, OutArgs}.
 
-
-
-
-emit_serv_std(G, N, X) ->
+emit_serv_std(G, _N, _X) ->
     ic_genobj:stubfiled(G).
 
-
-
-
-gen_end_of_call(G, _N, _X) ->
+gen_end_of_call(_G, _N, _X) ->
     ok.
 
-
-gen_end_of_cast(G, _N, _X) ->
+gen_end_of_cast(_G, _N, _X) ->
     ok.
 
-
-emit_skel_footer(G, N, X) ->
+emit_skel_footer(_G, _N, _X) ->
     ok.
 
-
-use_impl_handle_info(G, N, X) ->
-    FullName = ic_util:to_colon([get_id2(X) | N]),
-    case {get_opt(G, {handle_info, true}), get_opt(G, {handle_info, FullName})} of
-	{_, force_false} -> false;
-	{false, false} -> false;
-	_ -> true
-    end.
+%% Not used after cleanup of dialyzer warnings
+%% use_impl_handle_info(G, N, X) ->
+%%     FullName = ic_util:to_colon([get_id2(X) | N]),
+%%     case {get_opt(G, {handle_info, true}), get_opt(G, {handle_info, FullName})} of
+%% 	{_, force_false} -> false;
+%% 	{false, false} -> false;
+%% 	_ -> true
+%%     end.
 
 
 use_timeout(G, N, _X) ->
@@ -268,41 +260,41 @@ use_timeout(G, N, _X) ->
     end.
 
 
-get_if_name(G) -> mk_oe_name(G, "get_interface").
+%% Not used after cleanup of dialyzer warnings
+%get_if_name(G) -> mk_oe_name(G, "get_interface").
 
 
 %% Generates the get_interface function (for Lars)
-get_if_gen(G, N, X) ->
+get_if_gen(_G, _N, _X) ->
     ok.
 
 
-get_if(G,N,[X|Rest]) when is_record(X, op) ->
-    R = ic_forms:get_tk(X),
-    IN = lists:map(fun(P) -> ic_forms:get_tk(P) end,
-		   ic:filter_params([in, inout], X#op.params)),
-    OUT = lists:map(fun(P) -> ic_forms:get_tk(P) end,
-		    ic:filter_params([out, inout], X#op.params)),
-    case print_tk(G,N,X) of
-	true ->
-	    [{get_id2(X), {R, IN, OUT}} | get_if(G,N,Rest)];
-	false ->
-	    get_if(G,N,Rest)
-    end;
-
-get_if(G,N,[X|Rest]) when is_record(X, attr) -> %% Attributes not handled so far <<<<<<<<<<<<<<<<<<<<<<<<
-    {GetT, SetT} = mk_attr_func_types([], X),
-    AList = lists:map(fun(Id) -> 
-			      {Get, Set} = mk_attr_func_names([], get_id(Id)),
-			      case X#attr.readonly of
-				  {readonly, _} -> 
-				      {Get, GetT};
-				  _ -> 
-				      [{Set, SetT}, {Get, GetT}]
-			      end end, ic_forms:get_idlist(X)),
-    lists:flatten(AList) ++ get_if(G,N,Rest);
-
-get_if(G,N,[_X|Rest]) -> get_if(G,N,Rest);
-get_if(_,_,[]) -> [].
+%% Not used after cleanup of dialyzer warnings
+%% get_if(G,N,[X|Rest]) when is_record(X, op) ->
+%%     R = ic_forms:get_tk(X),
+%%     IN = lists:map(fun(P) -> ic_forms:get_tk(P) end,
+%% 		   ic:filter_params([in, inout], X#op.params)),
+%%     OUT = lists:map(fun(P) -> ic_forms:get_tk(P) end,
+%% 		    ic:filter_params([out, inout], X#op.params)),
+%%     case print_tk(G,N,X) of
+%% 	true ->
+%% 	    [{get_id2(X), {R, IN, OUT}} | get_if(G,N,Rest)];
+%% 	false ->
+%% 	    get_if(G,N,Rest)
+%%     end;
+%% get_if(G,N,[X|Rest]) when is_record(X, attr) -> %% Attributes not handled so far <<<<<<<<<<<<<<<<<<<<<<<<
+%%     {GetT, SetT} = mk_attr_func_types([], X),
+%%     AList = lists:map(fun(Id) -> 
+%% 			      {Get, Set} = mk_attr_func_names([], get_id(Id)),
+%% 			      case X#attr.readonly of
+%% 				  {readonly, _} -> 
+%% 				      {Get, GetT};
+%% 				  _ -> 
+%% 				      [{Set, SetT}, {Get, GetT}]
+%% 			      end end, ic_forms:get_idlist(X)),
+%%     lists:flatten(AList) ++ get_if(G,N,Rest);
+%% get_if(G,N,[_X|Rest]) -> get_if(G,N,Rest);
+%% get_if(_,_,[]) -> [].
 
 
 
@@ -489,7 +481,7 @@ emit_transparent_func(G, N, X, Name, ArgNames, _TypeList, _OutArgs) ->
 
 
 
-emit_skel_func(G, N, X, OpName, ArgNames, _TypeList, _OutArgs) ->
+emit_skel_func(_G, _N, _X, _OpName, _ArgNames, _TypeList, _OutArgs) ->
     true.
 
 
@@ -790,14 +782,17 @@ selectTypeFromList([_|_Rest]) ->
 
 
 
-getCallErr() ->    
-    {'ERROR' ,"Bad Operation -- handle call"}.
+%% Not used after cleanup of dialyzer warnings
+%% getCallErr() ->    
+%%     {'ERROR' ,"Bad Operation -- handle call"}.
 
-getCastErr() ->
-    {'ERROR' ,"Bad Operation -- handle cast"}.
+%% Not used after cleanup of dialyzer warnings
+%% getCastErr() ->
+%%     {'ERROR' ,"Bad Operation -- handle cast"}.
 
-getInfoErr() ->
-    {'ERROR' ,"Bad Operation -- handle info"}.
+%% Not used after cleanup of dialyzer warnings
+%% getInfoErr() ->
+%%     {'ERROR' ,"Bad Operation -- handle info"}.
 
 
 
@@ -816,18 +811,19 @@ tk_operation_data(G, N, X, TL) ->
 	    no_tk
     end.
 
-tk_interface_data(G, N, X) ->
-    InfoList = 
-	foldr(fun({_Name, Body}, Acc) ->
-		      get_if(G,N,Body)++Acc end,
-	      get_if(G,N,get_body(X)),
-	      X#interface.inherit_body),
-    case InfoList of
-	[] ->
-	    no_tk;  %%%%%%%% Should be changed to [] <<<<<<<<<<<<<<<<<<<<<<<<<<< Warning !
-	_ ->
-	    InfoList
-    end.
+%% Not used after cleanup of dialyzer warnings
+%% tk_interface_data(G, N, X) ->
+%%     InfoList = 
+%% 	foldr(fun({_Name, Body}, Acc) ->
+%% 		      get_if(G,N,Body)++Acc end,
+%% 	      get_if(G,N,get_body(X)),
+%% 	      X#interface.inherit_body),
+%%     case InfoList of
+%% 	[] ->
+%% 	    no_tk;  %%%%%%%% Should be changed to [] <<<<<<<<<<<<<<<<<<<<<<<<<<< Warning !
+%% 	_ ->
+%% 	    InfoList
+%%     end.
 
 
 print_tk(G, N, X) when is_record(X, op)-> %% operation
@@ -900,10 +896,6 @@ use_tk(OTab,[Scope|Scopes]) ->
 	    {ok,Scope}
     end.
 
-
-
-
-
 mark_not_transparent(G,N) ->
 
     %% Mark that there are multiple 
@@ -911,14 +903,13 @@ mark_not_transparent(G,N) ->
     S = ic_genobj:pragmatab(G),
     ets:insert(S,{no_transparent,N}).
 
-
-transparent(G) ->
-    
-    S = ic_genobj:pragmatab(G),
-    case ets:match_object(S,{no_transparent,'$0'}) of
-	[] ->
-	    true;
-	_ ->
-	    false
-    end.
+%% Not used after cleanup of dialyzer warnings
+%% transparent(G) ->
+%%     S = ic_genobj:pragmatab(G),
+%%     case ets:match_object(S,{no_transparent,'$0'}) of
+%% 	[] ->
+%% 	    true;
+%% 	_ ->
+%% 	    false
+%%     end.
 
