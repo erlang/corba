@@ -233,140 +233,20 @@ extract_info(G, _N, X) when is_record(X, op) ->
 
 
 emit_serv_std(G, N, X) ->
-    Fd = ic_genobj:stubfiled(G),
-    case transparent(G) of
-	true ->
-	    true;
-	_XTupleORMultiple ->
-	    Impl	= getImplMod(G,X,[get_id2(X)|N]),
-	    TypeID = ictk:get_IR_ID(G, N, X),
-	    
-	    nl(Fd), nl(Fd), nl(Fd),
-	    ic_codegen:mcomment(Fd, ["Server implementation."]),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment(Fd, ["Function for fetching the interface type ID."]),
-	    nl(Fd), 
-	    emit(Fd, "typeID() ->\n"),
-	    emit(Fd, "    \"~s\".\n", [TypeID]),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment(Fd, ["Server creation functions."]),
-	    nl(Fd), 
-	    emit(Fd, "oe_create() ->\n"),
-	    emit(Fd, "    start([], []).\n", []),
-	    nl(Fd),
-	    emit(Fd, "oe_create_link() ->\n"),
-	    emit(Fd, "    start_link([], []).\n", []),
-	    nl(Fd),
-	    emit(Fd, "oe_create(Env) ->\n"),
-	    emit(Fd, "    start(Env, []).\n", []),
-	    nl(Fd),
-	    emit(Fd, "oe_create_link(Env) ->\n"),
-	    emit(Fd, "    start_link(Env, []).\n", []),
-	    nl(Fd),
-	    emit(Fd, "oe_create(Env, RegName) ->\n"),
-	    emit(Fd, "    start(RegName, Env, []).\n", []),
-	    nl(Fd),
-	    emit(Fd, "oe_create_link(Env, RegName) ->\n"),
-	    emit(Fd, "    start_link(RegName, Env, []).\n", []),
-	    nl(Fd),
-	    ic_codegen:mcomment(Fd, ["Start functions."]),
-	    nl(Fd), 
-	    emit(Fd, "start(Env, Opt) ->\n"),
-	    emit(Fd, "    gen_server:start(?MODULE, Env, Opt).\n"),
-	    nl(Fd),
-	    emit(Fd, "start_link(Env, Opt) ->\n"),
-	    emit(Fd, "    gen_server:start_link(?MODULE, Env, Opt).\n"),
-	    nl(Fd),
-	    emit(Fd, "start(RegName, Env, Opt) ->\n"),
-	    emit(Fd, "    gen_server:start(RegName, ?MODULE, Env, Opt).\n"),
-	    nl(Fd),
-	    emit(Fd, "start_link(RegName, Env, Opt) ->\n"),
-	    emit(Fd, "    gen_server:start_link(RegName, ?MODULE, Env, Opt).\n"),
-	    nl(Fd),
-	    ic_codegen:comment(Fd, "Call to implementation init"),
-	    emit(Fd, "init(Env) ->\n"),
-	    emit(Fd, "    ~p:~p(Env).\n", [Impl, init]),
-	    nl(Fd),
-	    emit(Fd, "terminate(Reason, State) ->\n"),
-	    emit(Fd, "    ~p:~p(Reason, State).\n", 
-		 [Impl, terminate]),
-            nl(Fd),
-	    emit(Fd, "code_change(_OldVsn, State, _Extra) ->\n"),
-	    emit(Fd, "    {ok, State}.\n"),
-	    nl(Fd), nl(Fd)
-    end,
-    Fd.
+    ic_genobj:stubfiled(G).
 
 
 
 
 gen_end_of_call(G, _N, _X) ->
-    case transparent(G) of
-	true ->
-	    true;
-	_XTuple ->
-	    Fd = ic_genobj:stubfiled(G),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment_light(Fd, ["Standard gen_server call handle"]),
-	    emit(Fd, "handle_call(stop, _From, State) ->\n"),
-	    emit(Fd, "    {stop, normal, ok, State}"),
-	    case get_opt(G, serv_last_call) of
-		exception ->
-		    emit(Fd, ";\n"),
-		    nl(Fd),
-		    emit(Fd, "handle_call(_Req, _From, State) ->\n"),
-		    emit(Fd, "    {reply, ~p, State}.\n",[getCallErr()]);
-		exit ->
-		    emit(Fd, ".\n"),
-		    nl(Fd),
-		    nl(Fd)
-	    end
-    end,
     ok.
 
 
 gen_end_of_cast(G, _N, _X) ->
-    case transparent(G) of
-	true ->
-	    true;
-	_XTuple ->
-	    Fd = ic_genobj:stubfiled(G),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment_light(Fd, ["Standard gen_server cast handle"]),
-	    emit(Fd, "handle_cast(stop, State) ->\n"),
-	    emit(Fd, "    {stop, normal, State}"),
-	    case get_opt(G, serv_last_call) of
-		exception ->
-		    emit(Fd, ";\n"),
-		    nl(Fd),
-		    emit(Fd, "handle_cast(_Req, State) ->\n"),
-		    emit(Fd, "    {reply, ~p, State}.\n",[getCastErr()]);
-		exit ->
-		    emit(Fd, ".\n"),
-		    nl(Fd), nl(Fd)
-	    end
-    end,
     ok.
 
 
 emit_skel_footer(G, N, X) ->
-    case transparent(G) of
-	true ->
-	    true;
-	_XTuple ->
-	    Fd = ic_genobj:stubfiled(G),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment_light(Fd, ["Standard gen_server handles"]),
-	    case use_impl_handle_info(G, N, X) of
-		true ->
-                    emit(Fd, "handle_info(X, State) ->\n"),
-		    emit(Fd, "    ~p:handle_info(X, State).\n\n", 
-			 [list_to_atom(ic_genobj:impl(G))]);
-		false ->
-                    emit(Fd, "handle_info(_X, State) ->\n"),
-		    emit(Fd, "    {reply, ~p, State}.\n\n",[getInfoErr()])
-	    end
-    end,
     ok.
 
 
@@ -393,29 +273,7 @@ get_if_name(G) -> mk_oe_name(G, "get_interface").
 
 %% Generates the get_interface function (for Lars)
 get_if_gen(G, N, X) ->
-    case transparent(G) of
-	true ->
-	    ok;
-	_XTuple ->
-	    case ic_genobj:is_stubfile_open(G) of
-		true ->
-		    IFC_TKS = tk_interface_data(G,N,X),
-		    Fd = ic_genobj:stubfiled(G),
-		    Name = to_atom(get_if_name(G)),
-
-		    ic_codegen:mcomment_light(Fd, 
-					 [io_lib:format("Standard Operation: ~p",
-							[Name])]),
-
-		    emit(Fd, "handle_call({_~s, ~p, []}, _From, State) ->~n",
-			 [mk_name(G, "Ref"), Name]),
-		    emit(Fd, "    {reply, ~p, State};~n", [IFC_TKS]),
-		    nl(Fd),
-		    ok;
-
-		false -> ok
-	    end
-    end.
+    ok.
 
 
 get_if(G,N,[X|Rest]) when is_record(X, op) ->
@@ -469,28 +327,8 @@ gen_head_special(G, N, X) when is_record(X, interface) ->
 		    nl(Fd)
 	    end, X#interface.inherit_body),
 
-    case transparent(G) of
-	true ->
-	    nl(Fd), nl(Fd);
-	_XTuple ->
-	    ic_codegen:comment(Fd, "Type identification function"),
-	    ic_codegen:export(Fd, [{typeID, 0}]), 
-	    nl(Fd),
-	    ic_codegen:comment(Fd, "Used to start server"),
-	    ic_codegen:export(Fd, [{start, 2},{start_link, 3}]),
-	    ic_codegen:export(Fd, [{oe_create, 0}, {oe_create_link, 0}, {oe_create, 1}, 
-			      {oe_create_link, 1},{oe_create, 2}, {oe_create_link, 2}]),
-	    nl(Fd),
-	    ic_codegen:comment(Fd, "gen server export stuff"),
-	    emit(Fd, "-behaviour(gen_server).\n"),
-	    ic_codegen:export(Fd, [{init, 1}, {terminate, 2}, {code_change, 3},
-                                   {handle_call, 3}, {handle_cast, 2}, {handle_info, 2}]),
-	    nl(Fd), nl(Fd),
-	    ic_codegen:mcomment(Fd, ["Object interface functions."]),
-	    nl(Fd), nl(Fd), nl(Fd)
-    end,
+    nl(Fd), nl(Fd),
     Fd;
-	
 
 gen_head_special(_G, _N, _X) -> ok.
 
@@ -652,38 +490,7 @@ emit_transparent_func(G, N, X, Name, ArgNames, _TypeList, _OutArgs) ->
 
 
 emit_skel_func(G, N, X, OpName, ArgNames, _TypeList, _OutArgs) ->
-    case getNocType(G,X,N) of
-	transparent ->
-	    true;
-	multiple ->
-	    true;
-	XTuple ->
-	    case ic_genobj:is_stubfile_open(G) of
-		false -> ok;
-		true ->
-		    Fd = ic_genobj:stubfiled(G),
-		    Name	= list_to_atom(OpName),
-		    This	= mk_name(G, "Ref"),
-		    From	= mk_name(G, "From"),
-		    State	= mk_name(G, "State"),
-		    
-		    %% Type expand handle operation on comments
-		    ic_code:type_expand_handle_op(G,N,X,Fd),
-
-		    case is_oneway(X) of
-			true ->
-			    emit(Fd, "handle_cast({~s, ~p, OE_Module, ~p, [~s]}, ~s) ->\n",
-				 [This, XTuple, Name, mk_list(ArgNames), State]),
-			    emit(Fd, "    ~p:handle_cast({~s, ~p, OE_Module, ~p, [~s]}, ~s);\n\n", 
-				 [getImplMod(G,X,N), This, XTuple, Name, mk_list(ArgNames), State]);
-			false ->
-			    emit(Fd, "handle_call({~s, ~p, OE_Module, ~p, [~s]}, ~s, ~s) ->\n",
-				 [This, XTuple, Name, mk_list(ArgNames), From, State]),
-			    emit(Fd, "    ~p:handle_call({~s, ~p, OE_Module, ~p, [~s]}, ~s, ~s);\n\n", 
-				 [getImplMod(G,X,N), This, XTuple, Name, mk_list(ArgNames), From, State])
-		    end
-	    end
-    end.
+    true.
 
 
 
