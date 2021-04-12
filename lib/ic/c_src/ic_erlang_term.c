@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  *
- * Copyright Ericsson AB 2020-2020. All Rights Reserved.
+ * Copyright Ericsson AB 2020-2021. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -507,9 +507,9 @@ void ic_print_erlang_term(ic_erlang_term *term)
 	      term->value.pid->creation);
       break;
    case ic_port:
-      fprintf(stdout, "Type: ic_port, Value: %s %d %d\n",
+      fprintf(stdout, "Type: ic_port, Value: %s %lld %d\n",
 	      term->value.port->node,
-	      term->value.port->id,
+	      (long long) term->value.port->id,
 	      term->value.port->creation);
       break;
    case ic_ref:
