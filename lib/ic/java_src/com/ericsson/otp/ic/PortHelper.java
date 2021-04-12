@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1999-2016. All Rights Reserved.
+ * Copyright Ericsson AB 1999-2021. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,13 +46,7 @@ public class PortHelper {
     **/
   public static Port unmarshal(com.ericsson.otp.erlang.OtpInputStream _in)
     throws java.lang.Exception {
-      
-      // Double job is done here, there should be 
-      // a function returning a Port instead of an
-      // OtpErlangPort
-      com.ericsson.otp.erlang.OtpErlangPort oep = _in.read_port(); 
-      
-      return new Port(oep.node(),oep.id(),oep.creation());      
+      return new Port(_in);      
   }
   
   /**

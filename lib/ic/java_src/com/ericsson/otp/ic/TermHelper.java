@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1999-2016. All Rights Reserved.
+ * Copyright Ericsson AB 1999-2021. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,16 +90,15 @@ public class TermHelper {
 	if (_eref.isNewRef())
 	  _value.RefV = new Ref(_eref.node(),_eref.ids(),_eref.creation());
 	else
-	  _value.RefV = new Ref(_eref.node(),_eref.id(),_eref.creation());      
-
+	  _value.RefV = new Ref(_eref.node(),_eref.id(),_eref.creation());
+	
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.portTag:
 	_in.reset();
-	com.ericsson.otp.erlang.OtpErlangPort _eport = 
-	  _in.read_port(); 
+
+	_value.PortV = new Port(_in);
 	
-	_value.PortV = new Port(_eport.node(),_eport.id(),_eport.creation());  
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.pidTag:
