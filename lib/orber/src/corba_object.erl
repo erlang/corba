@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2021. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -214,7 +214,7 @@ is_equivalent(_, _) ->
     false.
 
 hash(Obj, Maximum) ->
-    erlang:phash(iop_ior:get_key(Obj), Maximum).
+    erlang:phash2(iop_ior:get_key(Obj), Maximum).
 
 
 create_request(_Obj, _Ctx, _Op, _ArgList, NamedValueResult, _ReqFlags) ->
