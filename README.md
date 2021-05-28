@@ -1,7 +1,7 @@
 # [Erlang Corba](https://www.erlang.org)
 
 The corba repository contains a set of Erlang applications, that implements a CORBA compliant
-Object Request Broker (ORB) and a number of Object Managemnt Group (OMG) standard services.
+Object Request Broker (ORB) and a number of Object Management Group (OMG) standard services.
 
 ## Applications
 
