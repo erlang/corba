@@ -537,15 +537,12 @@ int oe_prepare_request_decoding(CORBA_Environment *env)
 	    return error;
 	}
 	pos_before_unique_ref = env->_iin;
-	fprintf(stderr, "pos_before_unique_ref: %d\n", pos_before_unique_ref);
 	if ((error =  ei_skip_term(env->_inbuf, &env->_iin)) < 0) {
 	    CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, MARSHAL, 
 			  "Bad Message, bad reference term");
 	    return error;
 	}
-	fprintf(stderr, "iin: %d\n", env->_iin);
 	env->_unique_bytes_sz = env->_iin - pos_before_unique_ref;
-	fprintf(stderr, "_unique_bytes_sz: %d\n", env->_unique_bytes_sz);
 	if((env->_unique_bytes = malloc(env->_unique_bytes_sz)) == NULL) {
 	   CORBA_exc_set(env, CORBA_SYSTEM_EXCEPTION, NO_MEMORY, "End of heap memory while encoding");
 	   return -1;  /* OUT OF MEMORY */ 
