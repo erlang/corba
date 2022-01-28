@@ -1070,20 +1070,20 @@ emit_invoke(G, N, X, Fd) ->
 		    case OutParamNr > 0 of
 			true ->
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-			    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.ids(),__ref.creation());  // Call reference\n"),
+			    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(~p);\n",[OutParamNr+1]),
 			    ic_codegen:emit(Fd, "          __os.write_atom(\"ok\");\n"),
 			    emit_server_marshal_loop(G, N, X, ParamTypes,ArgNames,1,Fd);
 			false ->
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-			    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.ids(),__ref.creation());  // Call reference\n"),
+			    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
 			    ic_codegen:emit(Fd, "          __os.write_atom(\"ok\");\n\n")
 		    end;
 		_ ->
 		    case OutParamNr > 0 of
 			true ->
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-			    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.ids(),__ref.creation());  // Call reference\n"),
+			    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(~p);\n",[OutParamNr+1]),
 	     
 			    case ic_java_type:isBasicType(G,N,R) of
@@ -1097,7 +1097,7 @@ emit_invoke(G, N, X, Fd) ->
 			    emit_server_marshal_loop(G, N, X, ParamTypes,ArgNames,1,Fd);
 			false ->
 			    ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-			    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.ids(),__ref.creation());  // Call reference\n"),
+			    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
 
 			    case ic_java_type:isBasicType(G,N,R) of
 				true ->
