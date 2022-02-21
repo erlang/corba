@@ -25,8 +25,7 @@ include $(ERL_TOP)/make/$(TARGET)/otp_ded.mk
 
 CORBA_TOP=../../..
 
-FRD = 'io:fwrite("~n=:~s~n",[code:lib_dir(erl_interface)]),init:stop().'
-EI_DIR := $(shell echo $(FRD) | erl | sed -n '/^=:/s/^=://p')
+EI_DIR := $(ERL_TOP)/lib/erl_interface
 
 CC = $(DED_CC)
 

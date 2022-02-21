@@ -21,14 +21,18 @@ The following applications are a part of the corba package.
 ### Prerequisites
 
 In order to build the `corba` applications, an OTP source tree of at least
-version 21.0.3 is needed. This since `corba` utilize the OTP build system.
+version 22 is needed.
 
 ```
+export ERL_TOP=<OTP source path>
+
 git clone https://github.com/erlang/otp.git
 cd otp
-./otp_build autoconf
-./configure
-make # Can be skipped if you have a prebuilt OTP (see below)
+# The autoconf step is not necessary after OTP 24.0.1,
+# OTP 23.3.4.1 and OTP 22.3.4.19 .
+./otp_build autoconf 
+./otp_build configure
+make
 ```
 
 If you already have an installed OTP installation of the same release, you can
