@@ -77,36 +77,29 @@ public class TermHelper {
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.floatTag:
+      case com.ericsson.otp.erlang.OtpExternal.newFloatTag:
 	_in.reset();
 	_value.doubleV = _in.read_double();
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.refTag:
       case com.ericsson.otp.erlang.OtpExternal.newRefTag:
+      case com.ericsson.otp.erlang.OtpExternal.newerRefTag:
 	_in.reset();
-	com.ericsson.otp.erlang.OtpErlangRef _eref = 
-	  _in.read_ref();  
-	
-	if (_eref.isNewRef())
-	  _value.RefV = new Ref(_eref.node(),_eref.ids(),_eref.creation());
-	else
-	  _value.RefV = new Ref(_eref.node(),_eref.id(),_eref.creation());
-	
+	_value.RefV = new Ref(_in);
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.portTag:
+      case com.ericsson.otp.erlang.OtpExternal.newPortTag:
 	_in.reset();
-
 	_value.PortV = new Port(_in);
 	
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.pidTag:
+      case com.ericsson.otp.erlang.OtpExternal.newPidTag:
 	_in.reset();
-	com.ericsson.otp.erlang.OtpErlangPid _epid = 
-	  _in.read_pid(); 
-	
-	_value.PidV = new Pid(_epid.node(),_epid.id(),_epid.serial(),_epid.creation());  
+	_value.PidV = new Pid(_in);
 	break;
 
       case com.ericsson.otp.erlang.OtpExternal.stringTag:

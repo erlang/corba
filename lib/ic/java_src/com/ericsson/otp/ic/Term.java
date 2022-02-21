@@ -89,8 +89,9 @@ final public class Term extends Any {
     @return true if the Term is an OtpErlangFloat, false otherwize
   **/
   public boolean isFloat() {
-    if (tag == com.ericsson.otp.erlang.OtpExternal.floatTag)
-      return true;
+    if (tag == com.ericsson.otp.erlang.OtpExternal.floatTag ||
+	tag == com.ericsson.otp.erlang.OtpExternal.newFloatTag)
+	  return true;
     
     return false;
   }
@@ -179,6 +180,7 @@ final public class Term extends Any {
     case com.ericsson.otp.erlang.OtpExternal.intTag:
     case com.ericsson.otp.erlang.OtpExternal.smallBigTag:
     case com.ericsson.otp.erlang.OtpExternal.floatTag:
+    case com.ericsson.otp.erlang.OtpExternal.newFloatTag:
 	return true;
     default :
       return false;
@@ -193,7 +195,8 @@ final public class Term extends Any {
   public boolean isPid() {
     
     if (ObjV == null) {
-      if (tag == com.ericsson.otp.erlang.OtpExternal.pidTag)
+      if (tag == com.ericsson.otp.erlang.OtpExternal.pidTag ||
+	  tag == com.ericsson.otp.erlang.OtpExternal.newPidTag)
 	return true;
       
       return false;
@@ -209,7 +212,8 @@ final public class Term extends Any {
   **/
   public boolean isPort() {
     if (ObjV == null) {
-      if (tag == com.ericsson.otp.erlang.OtpExternal.portTag)
+      if (tag == com.ericsson.otp.erlang.OtpExternal.portTag ||
+	  tag == com.ericsson.otp.erlang.OtpExternal.newPortTag)
 	return true;
       
       return false;
@@ -228,6 +232,7 @@ final public class Term extends Any {
       switch(tag) {
       case com.ericsson.otp.erlang.OtpExternal.refTag:
       case com.ericsson.otp.erlang.OtpExternal.newRefTag:
+      case com.ericsson.otp.erlang.OtpExternal.newerRefTag:
 	return true;
       default :
 	return false;

@@ -37,7 +37,7 @@ public class PortHelper {
   public static void marshal(com.ericsson.otp.erlang.OtpOutputStream _out, Port _value)
     throws java.lang.Exception {
       
-      _out.write_port(_value.node(),_value.id(),_value.creation());
+      _out.write_port(_value);
   }
 
   /**

@@ -36,7 +36,7 @@ public class PidHelper {
    public static void marshal(com.ericsson.otp.erlang.OtpOutputStream _out, Pid _value)
      throws java.lang.Exception {
 
-       _out.write_pid(_value.node(),_value.id(),_value.serial(),_value.creation());
+       _out.write_pid(_value);
    }
 
    /**
@@ -46,12 +46,7 @@ public class PidHelper {
    public static Pid unmarshal(com.ericsson.otp.erlang.OtpInputStream _in)
      throws java.lang.Exception {
 
-       // Double job is done here, there should be 
-       // a function returning a Pid instead of an
-       // OtpErlangPid
-       com.ericsson.otp.erlang.OtpErlangPid oep = _in.read_pid(); 
-
-       return new Pid(oep.node(),oep.id(),oep.serial(),oep.creation());      
+       return new Pid(_in);
    }
 
    /**

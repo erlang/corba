@@ -146,7 +146,7 @@ emit_attribute_switch_case1(G, N, X, Fd, "_get_", Name, _Tk, C) ->
     ic_codegen:emit(Fd, "          // Marshalling output\n"),
     ic_codegen:emit(Fd, "          ~sOtpErlangRef __ref = __env.getSref();\n",[?ERLANGPACKAGE]),
     ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.id(),__ref.creation());  // Call reference\n"),
+    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
 
     case ic_java_type:isBasicType(G,N,R) of
 	true ->
@@ -186,7 +186,7 @@ emit_attribute_switch_case1(G, N, X, Fd, "_set_", Name, _Tk, C) ->
     ic_codegen:emit(Fd, "          // Marshalling output\n"),
     ic_codegen:emit(Fd, "          ~sOtpErlangRef __ref = __env.getSref();\n",[?ERLANGPACKAGE]),
     ic_codegen:emit(Fd, "          __os.write_tuple_head(2);\n"),
-    ic_codegen:emit(Fd, "          __os.write_ref(__ref.node(),__ref.id(),__ref.creation());  // Call reference\n"),
+    ic_codegen:emit(Fd, "          __os.write_ref(__ref);  // Call reference\n"),
     ic_codegen:emit(Fd, "          __os.write_atom(\"ok\");\n\n"),
     
     ic_codegen:emit(Fd, "        } break;\n\n").

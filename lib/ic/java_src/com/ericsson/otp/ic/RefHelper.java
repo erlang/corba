@@ -36,7 +36,7 @@ public class RefHelper {
    public static void marshal(com.ericsson.otp.erlang.OtpOutputStream _out, Ref _value)
      throws java.lang.Exception {
 
-     _out.write_ref(_value.node(),_value.id(),_value.creation());
+     _out.write_ref(_value);
    }
   
   /**
@@ -46,15 +46,7 @@ public class RefHelper {
    public static Ref unmarshal(com.ericsson.otp.erlang.OtpInputStream _in)
      throws java.lang.Exception {
 
-       // Double job is done here, there should be 
-       // a function returning a Ref instead of an
-       // OtpErlangRef
-       com.ericsson.otp.erlang.OtpErlangRef oer = _in.read_ref(); 
-       
-       if (oer.isNewRef())
-	 return new Ref(oer.node(),oer.ids(),oer.creation());
-       else
-	 return new Ref(oer.node(),oer.id(),oer.creation());      
+	   return new Ref(_in);
    }
   
   /**
