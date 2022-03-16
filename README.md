@@ -20,26 +20,21 @@ The following applications are a part of the corba package.
 ## Build
 ### Prerequisites
 
-In order to build the `corba` applications, an OTP source tree of at least
-version 22 is needed.
+In order to build the `corba` applications, a built OTP source tree of at least
+version 23 is needed.
 
 ```
 export ERL_TOP=<OTP source path>
 
 git clone https://github.com/erlang/otp.git
 cd otp
-# The autoconf step is not necessary after OTP 24.0.1,
-# OTP 23.3.4.1 and OTP 22.3.4.19 .
-./otp_build autoconf 
+# The autoconf step is not necessary after OTP 24.0.1 and OTP 23.3.4.1
+./otp_build autoconf
 ./otp_build configure
 make
 ```
 
-If you already have an installed OTP installation of the same release, you can
-use that one instead of building OTP in the source tree. Note that you still
-*need* to `configure` the source tree. Ensure that the already installed OTP
-is available in the `PATH`. The recommended approach is however to build the
-OTP source tree.
+Ensure that correct OTP is available in the `PATH`.
 
 In order to cross compile `corba` the OTP source tree should be configured for
 the cross compilation. For more info on cross compilation of Erlang/OTP see
@@ -87,7 +82,7 @@ use the same installation directory as configured in the OTP source tree.
 
 ### The documentation build
 
-The documentation is build with the following commands.
+The documentation is built with the following commands.
 
 ```
 cd corba
@@ -117,13 +112,13 @@ lib/
 README.md
 ```
 
-If you want to install the documentation into an existing OTP installation
-you first have to build the documentation in the OTP source tree used
-for building. After that, you can install the `corba` applications docs directly
-into the OTP installation either by using the `release_docs` target or the
-`install-docs` target. When using the `install-docs` target the `corba`
-installation will use the same installation directory as configured in the
-OTP source tree.
+If you want to install the CORBA documentation to be a part of the OTP documentation installation.
+Install the `corba` applications docs into the OTP documentation installation directory
+either by using the `release_docs` target or the `install-docs` target.
+When using the `install-docs` target the `corba` installation will use the same installation
+directory as configured in the OTP source tree.
+Then you build the OTP documentation and install it into the same directory, the top index will
+then include the corba documentation.
 
 ## Versions and tags
 
@@ -154,7 +149,7 @@ Erlang/Corba is released under the [Apache License 2.0](http://www.apache.org/li
 
 > %CopyrightBegin%
 >
-> Copyright Ericsson AB 2018. All Rights Reserved.
+> Copyright Ericsson AB 2018-2022. All Rights Reserved.
 >
 > Licensed under the Apache License, Version 2.0 (the "License");
 > you may not use this file except in compliance with the License.
