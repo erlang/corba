@@ -47,8 +47,8 @@
   {applications, [stdlib, kernel]},
   {env, []},
   {mod, {ic, []}},
-  {runtime_dependencies, ["stdlib-2.0","kernel-3.0","erts-6.0",
-  			  "erl_interface-4.0"]}
+  {runtime_dependencies, ["stdlib-3.13","kernel-7.0","erts-11.0",
+  			  "erl_interface-4.0", "jinterface-1.11"]}
 ]}.
 
 
