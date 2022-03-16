@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1999-2016. All Rights Reserved.
+ * Copyright Ericsson AB 1999-2022. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -213,7 +213,9 @@ final public class Term extends Any {
   public boolean isPort() {
     if (ObjV == null) {
       if (tag == com.ericsson.otp.erlang.OtpExternal.portTag ||
-	  tag == com.ericsson.otp.erlang.OtpExternal.newPortTag)
+	  tag == com.ericsson.otp.erlang.OtpExternal.newPortTag ||
+	  tag == 120)
+	  // 120 == v4PortTag, uses the integer instead of the static for compatibility with older OTP	  
 	return true;
       
       return false;

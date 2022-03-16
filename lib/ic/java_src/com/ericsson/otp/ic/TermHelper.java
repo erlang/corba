@@ -1,7 +1,7 @@
 /*
  * %CopyrightBegin%
  * 
- * Copyright Ericsson AB 1999-2021. All Rights Reserved.
+ * Copyright Ericsson AB 1999-2022. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,6 +91,7 @@ public class TermHelper {
 
       case com.ericsson.otp.erlang.OtpExternal.portTag:
       case com.ericsson.otp.erlang.OtpExternal.newPortTag:
+      case 120: // v4PortTag, uses the integer instead of the static for compatibility with older OTP
 	_in.reset();
 	_value.PortV = new Port(_in);
 	
