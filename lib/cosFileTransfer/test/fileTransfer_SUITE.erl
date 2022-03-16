@@ -206,7 +206,7 @@ end_per_suite(Config) ->
 %%  aoo-file test
 %%-----------------------------------------------------------------
 app_test(_Config) ->
-    ok=?t:app_test(cosFileTransfer),
+    ok=test_server:app_test(cosFileTransfer),
     ok.
 
 %%-----------------------------------------------------------------
