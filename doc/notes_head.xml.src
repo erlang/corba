@@ -4,7 +4,7 @@
 <chapter>
   <header>
     <copyright>
-      <year>2018</year>
+      <year>2018</year><year>2022</year>
       <holder>Ericsson AB. All Rights Reserved.</holder>
     </copyright>
     <legalnotice>
@@ -25,6 +25,29 @@
     <title>CORBA Release Notes</title>
     <file>notes.xml</file>
   </header>
+
+  <section><title>CORBA 5.1</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+      <p>
+        In the README are the OTP requirements for building Corba updated 
+	and the build instructions for installing Corbas documentation
+	into the OTP documentation tree.
+      </p>  
+      <p>
+      Aux Id(s): ERIERL-766</p>
+    </item>
+    <item>
+      <p>
+	Fix error in the ic java backend that could cause faulty encodings.
+      </p>
+      <p>
+      Own Id: OTP-17887 Aux Id(s): ERIERL-750</p>
+    </item>
+  </list>
+  </section>
+  </section>
 
   <section><title>CORBA 5.0.2</title>
   <section><title>Fixed Bugs and Malfunctions</title>
