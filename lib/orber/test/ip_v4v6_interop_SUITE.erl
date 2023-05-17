@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1999-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -129,12 +129,12 @@ end_per_group(_GroupName, Config) ->
 %% ORB configured for supporting both IPv4 and IPv6
 dual_ipv4v6(_Config) ->
     
-    %% Starting slave node with ipv4 configured ORB
+    %% Starting peer node with ipv4 configured ORB
     {ok, Ipv4Node, _Ipv4Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([{iiop_port, 4001}])),
     Ipv4NS = orber_test_lib:remote_apply(Ipv4Node, corba, resolve_initial_references, ["NameService"]),
 
-    %% Starting slave node with ipv6 configured ORB
+    %% Starting peer node with ipv6 configured ORB
     {ok, Ipv6Node, _Ipv6Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([{iiop_port, 6001}, {flags, 16#0100}])),
     Ipv6NS = orber_test_lib:remote_apply(Ipv6Node, corba, resolve_initial_references, ["NameService"]),

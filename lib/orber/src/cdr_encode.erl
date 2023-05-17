@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2017. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -710,7 +710,7 @@ enc_fixed_2(_Env, Digits, Scale, Value, _Bytes, _Len, Sign) ->
 enc_sequence(_Env, Sequence, MaxLength, 'tk_octet', Bytes, Len)
   when is_binary(Sequence) ->
     {ByteSequence, Len1} = enc_align(Bytes, Len, 4),
-    Size = size(Sequence),
+    Size = byte_size(Sequence),
     if
 	Size > MaxLength, MaxLength > 0 ->
 	    orber:dbg("[~p] cdr_encode:enc_sequnce(~p, ~p). Sequence exceeds max.", 
@@ -751,7 +751,7 @@ enc_sequence1(Env, [Object| Rest], TypeCode, Bytes, Len) ->
 %%-----------------------------------------------------------------
 %% Func: enc_array/4
 %%-----------------------------------------------------------------
-enc_array(Env, Array, Size, TypeCode, Bytes, Len) when size(Array) == Size ->
+enc_array(Env, Array, Size, TypeCode, Bytes, Len) when tuple_size(Array) == Size ->
     Sequence = tuple_to_list(Array),
     enc_sequence1(Env, Sequence, TypeCode, Bytes, Len);
 enc_array(_,Array, Size, _, _, _) ->

@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1999-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@
 
 -record(state, {connections, queue}).
 
--record(connection, {hp, child, interceptors, slave, 
+-record(connection, {hp, child, interceptors, peer, 
 		     flags = 0, alias = 0, socketdata = {"Unavailable", 0}}).
 
 %%-----------------------------------------------------------------
@@ -435,10 +435,10 @@ handle_call({connect, Host, Port, SocketType, SocketOptions, Chars, Wchars, Key}
 	    case catch spawn_link(?MODULE, setup_connection, 
 				  [self(), Host, Port, SocketType, 
 				   SocketOptions, Chars, Wchars, Key]) of
-		Slave when is_pid(Slave) ->
+		Peer when is_pid(Peer) ->
 		    ets:insert(?PM_CONNECTION_DB, 
 			       #connection{hp = Key, child = connecting, 
-					   interceptors = false, slave = Slave}),
+					   interceptors = false, peer = Peer}),
 		    ets:insert(State#state.queue, {Key, From}),
 		    {noreply, State};
 		What ->
@@ -559,7 +559,7 @@ handle_info({'EXIT', Pid, Reason}, State) ->
 	[] ->
 	    %% Wasn't a proxy. Hence, we must test if it was a spawned
 	    %% 'setup_connection' that failed.
-	    case ets:match_object(?PM_CONNECTION_DB, #connection{slave = Pid, _='_'}) of
+	    case ets:match_object(?PM_CONNECTION_DB, #connection{peer = Pid, _='_'}) of
 		[#connection{hp = K, child = connecting, interceptors = I}] ->
 		    ets:delete(?PM_CONNECTION_DB, K),
 		    invoke_connection_closed(I),
@@ -619,12 +619,12 @@ handle_info({setup_successfull, Key, Key, {Child, Ctx, Int}}, State) ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       Connection#connection{hp = Key, child = Child, 
 					     interceptors = Int, 
-					     slave = undefined});
+					     peer = undefined});
 	[] ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       #connection{hp = Key, child = Child, 
 				   interceptors = Int, 
-				   slave = undefined})
+				   peer = undefined})
     end,
     %% Send the Proxy reference to all waiting clients.
     case Key of
@@ -646,24 +646,24 @@ handle_info({setup_successfull, Key, NewKey, {Child, Ctx, Int}}, State) ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       Connection#connection{hp = NewKey, child = Child, 
 					     interceptors = Int, 
-					     slave = undefined});
+					     peer = undefined});
 	[] ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       #connection{hp = NewKey, child = Child, 
 				   interceptors = Int, 
-				   slave = undefined})
+				   peer = undefined})
     end,
     case ets:lookup(?PM_CONNECTION_DB, Key) of
 	[Connection2] ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       Connection2#connection{hp = Key, child = Child, 
 					     interceptors = Int, 
-					     slave = undefined});
+					     peer = undefined});
 	[] ->
 	    ets:insert(?PM_CONNECTION_DB, 
 		       #connection{hp = Key, child = Child, 
 				   interceptors = Int, 
-				   slave = undefined})
+				   peer = undefined})
     end,
     %% Send the Proxy reference to all waiting clients.
     case NewKey of

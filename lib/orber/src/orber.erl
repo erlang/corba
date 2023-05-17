@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2023. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -194,7 +194,7 @@ multi_js_helper(Nodes, Port, InitOptions) when is_list(Nodes) andalso
 	    NewPort = orber_env:iiop_port(),
 	    Domain = orber_env:ip_address() ++ [$:|integer_to_list(NewPort)],
 	    orber_env:configure_override(domain, Domain),
-	    case jump_start_slaves(Nodes, NewPort, 
+	    case jump_start_peers(Nodes, NewPort, 
 				   [{domain, Domain}|Options], [], []) of
 		{ok, NodeData} ->
 		    info(),
@@ -204,27 +204,27 @@ multi_js_helper(Nodes, Port, InitOptions) when is_list(Nodes) andalso
 	    end
     end.
 
-jump_start_slaves([], _, _, [], NodeData) ->
+jump_start_peers([], _, _, [], NodeData) ->
     rpc:multicall([node() | nodes()], global, sync, []),
     {ok, NodeData};
-jump_start_slaves([], _, _, Errors, _) ->
+jump_start_peers([], _, _, Errors, _) ->
     {error, Errors};
-jump_start_slaves([{Host, N}|T], Port, Options, Errors, NodeData) ->
+jump_start_peers([{Host, N}|T], Port, Options, Errors, NodeData) ->
     case create_nodes(Host, N, Port, Options, Errors, NodeData) of
 	{ok, NewNodeData} ->
-	    jump_start_slaves(T, Port, Options, Errors, NewNodeData);
+	    jump_start_peers(T, Port, Options, Errors, NewNodeData);
 	{error, NewErrors} ->
-	    jump_start_slaves(T, Port, Options, NewErrors, NodeData)
+	    jump_start_peers(T, Port, Options, NewErrors, NodeData)
     end;
-jump_start_slaves([Host|T], Port, Options, Errors, NodeData) ->
+jump_start_peers([Host|T], Port, Options, Errors, NodeData) ->
     case catch create_node(Host, Port+1, Options) of
 	{ok, NewNode} ->
-	    jump_start_slaves(T, Port, Options, Errors, [{NewNode, Port+1}|NodeData]);
+	    jump_start_peers(T, Port, Options, Errors, [{NewNode, Port+1}|NodeData]);
 	{error, Reason} ->
-	    jump_start_slaves(T, Port, Options, [{Host, Port, Reason}|Errors], 
+	    jump_start_peers(T, Port, Options, [{Host, Port, Reason}|Errors], 
 			      NodeData);
 	Other ->
-	    jump_start_slaves(T, Port, Options, [{Host, Port, Other}|Errors], 
+	    jump_start_peers(T, Port, Options, [{Host, Port, Other}|Errors], 
 			      NodeData)
     end.
 
@@ -247,8 +247,8 @@ create_nodes(Host, N, Port, Options, Errors, NodeData) ->
     
 
 create_node(Host, Port, Options) ->
-    case slave:start_link(Host, list_to_atom(integer_to_list(Port))) of
-	{ok, NewNode} ->
+    case peer:start_link(#{name => list_to_atom(integer_to_list(Port)), host => Host}) of
+	{ok, _, NewNode} ->
 	    case net_adm:ping(NewNode) of
 		pong ->
 		    ok = rpc:call(NewNode, mnesia, start, []),
@@ -262,7 +262,6 @@ create_node(Host, Port, Options) ->
         {error, Reason} ->
             {error, Reason}
     end.
-
 
 start() ->
     start(temporary).

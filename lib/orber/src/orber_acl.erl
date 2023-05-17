@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 2004-2016. All Rights Reserved.
+%% Copyright Ericsson AB 2004-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -219,7 +219,7 @@ init_acl([Data|T], Family, DB) ->
 	end,
     {MaskStr, Bits, Ports} = tokenize(Filter, Family),
     case inet:getaddr(MaskStr, Family) of
-	{ok, Addr} when size(Addr) == 4 ->
+	{ok, Addr} when tuple_size(Addr) == 4 ->
 	    create_mask(tuple_to_list(Addr), Bits div 8, 
 			get_mask8((Bits rem 8)), DB, Direction, Interfaces, Ports), 
 	    init_acl(T, Family, DB);

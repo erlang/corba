@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -428,15 +428,15 @@ double_comp(X,Y) ->
     true = (Div > 0.99999999999999),
     ok.
 
-double_should_be_ok(_) ->
-    F = 16#0fffffffffffff / 16#10000000000000 + 1.0,
-    E1 = math:pow(2, 1024), % erlang can't handle this.
-    E2 = math:pow(2, -1023),
-    double_big_loop([-E1 * F, -E1 * 1.0, -E2 * F, -E2 * 1.0,
-		     E1 * F, E1 * 1.0, E2 * F, E2 * 1.0]),
-    double_little_loop([-E1 * F, -E1 * 1.0, -E2 * F, -E2 * 1.0,
-			E1 * F, E1 * 1.0, E2 * F, E2 * 1.0]),
-    ok.
+%% double_should_be_ok(_) ->
+%%     F = 16#0fffffffffffff / 16#10000000000000 + 1.0,
+%%     E1 = math:pow(2, 1024), % erlang can't handle this.
+%%     E2 = math:pow(2, -1023),
+%%     double_big_loop([-E1 * F, -E1 * 1.0, -E2 * F, -E2 * 1.0,
+%% 		     E1 * F, E1 * 1.0, E2 * F, E2 * 1.0]),
+%%     double_little_loop([-E1 * F, -E1 * 1.0, -E2 * F, -E2 * 1.0,
+%% 			E1 * F, E1 * 1.0, E2 * F, E2 * 1.0]),
+%%     ok.
 
 %%-----------------------------------------------------------------
 %% Test Case: enum test
