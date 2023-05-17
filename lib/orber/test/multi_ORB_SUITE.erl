@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1999-2017. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -772,7 +772,7 @@ iiop_timeout_added_api(_Config) ->
 %% produce the correct result, i.e., the test_server echos
 %% the input parameter or an exception is raised (MARSHAL)
 multi_pseudo_orber_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, Node, Host} =
 	?match({ok,_,_}, orber_test_lib:js_node()),
     Port = orber_test_lib:remote_apply(Node, orber, iiop_port, []),
@@ -816,7 +816,7 @@ multi_pseudo_orber_api(_Config) ->
 %%-----------------------------------------------------------------
 %% MULTI ORB PSEUDO with local flags definition set
 flags_added_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     IP = orber_test_lib:get_host(),
     {ok, Node, _Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([])),
@@ -854,7 +854,7 @@ flags_added_api(_Config) ->
 %%-----------------------------------------------------------------
 %% MULTI ORB PSEUDO with limited concurrent requests tests
 max_requests_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, Node, Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([{iiop_max_in_requests, 1}])),
     Port = orber_test_lib:remote_apply(Node, orber, iiop_port, []),
@@ -862,7 +862,7 @@ max_requests_api(_Config) ->
 
 %% MULTI ORB PSEUDO with limited concurrent requests tests
 max_requests_added_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     [IP] = ?match([_], orber:host()),
     {ok, Node, _Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([])),
@@ -910,7 +910,7 @@ max_requests(Node, Host, Port) ->
 %%-----------------------------------------------------------------
 %% MULTI ORB PSEUDO with limited concurrent connections tests
 max_connections_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, ServerNode, ServerHost} =
 	?match({ok,_,_}, orber_test_lib:js_node([{iiop_backlog, 0},
 						 {iiop_max_in_connections, 2}])),
@@ -980,7 +980,7 @@ max_connections_api(_Config) ->
 %%-----------------------------------------------------------------
 %% Close outgoing connection
 close_connections_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     IP = orber_test_lib:get_host(),
     Loopback = orber_test_lib:get_loopback_interface(),
     {ok, ServerNode, _ServerHost} =
@@ -1111,7 +1111,7 @@ close_connections_local_interface_ctx_override_api(_Config) ->
 %% This case test if the server ORB use the correct
 %% local interface when connecting to another ORB
 close_connections_alt_iiop_addr_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     Loopback = orber_test_lib:get_loopback_interface(),
     IP = orber_test_lib:get_host(),
     {ok, ServerNode, _ServerHost} =
@@ -1151,7 +1151,7 @@ close_connections_alt_iiop_addr_api(_Config) ->
 close_connections_multiple_profiles_api(_Config) ->
     IP = orber_test_lib:get_host(),
     Loopback = orber_test_lib:get_loopback_interface(),
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, ServerNode, _ServerHost} =
 	?match({ok,_,_}, orber_test_lib:js_node([{ip_address,
 						  {multiple, [Loopback, IP]}}])),
@@ -1191,7 +1191,7 @@ max_packet_size_exceeded_api(_Config) ->
 	    {skipped, "The inet option {packet_size, Max} not supported"};
 	{ok, LS} ->
 	    (catch gen_tcp:close(LS)),
-	    %% --- Create a slave-node ---
+	    %% --- Create a peer-node ---
 	    {ok, ServerNode, ServerHost} =
 		?match({ok,_,_}, orber_test_lib:js_node([{iiop_packet_size, 1}])),
 	    ServerPort = orber_test_lib:remote_apply(ServerNode, orber,
@@ -1211,7 +1211,7 @@ max_packet_size_ok_api(_Config) ->
 	    {skipped, "The inet option {packet_size, Max} not supported"};
 	{ok, LS} ->
 	    (catch gen_tcp:close(LS)),
-	    %% --- Create a slave-node ---
+	    %% --- Create a peer-node ---
 	    {ok, ServerNode, ServerHost} =
 		?match({ok,_,_}, orber_test_lib:js_node([{iiop_packet_size, 5000}])),
 	    ServerPort = orber_test_lib:remote_apply(ServerNode, orber,
@@ -1303,7 +1303,7 @@ light_ifr_api(_Config) ->
 %% This case test if a light Orber can communicate correctly
 %% with an fully installed Orber.
 light_orber_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     LocalHost = net_adm:localhost(),
     {ok, Node, _Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([{lightweight, ["iiop://"++LocalHost++":"++integer_to_list(orber:iiop_port())]}],
@@ -1352,7 +1352,7 @@ light_orber_api(_Config) ->
 %% start as lightweight without first setting the environment
 %% variable
 light_orber2_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     LocalHost = net_adm:localhost(),
     {ok, Node, _Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([],
@@ -1412,7 +1412,7 @@ multi_orber_api(_Config) ->
     catch corba:dispose(NewICObj2),
     catch corba:dispose(NewICObj3),
 
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, Node, Host} =
 	?match({ok,_,_}, orber_test_lib:js_node()),
     Port = orber_test_lib:remote_apply(Node, orber, iiop_port, []),
@@ -1487,7 +1487,7 @@ multi_orber_api(_Config) ->
 basic_PI_api(_Config) ->
     %% Change configuration to use Basic Interceptors.
     orber:configure_override(interceptors, {native, [orber_test_lib]}),
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, Node, Host} =
 	?match({ok,_,_}, orber_test_lib:js_node([{interceptors, {native, [orber_test_lib]}}])),
     Port = orber_test_lib:remote_apply(Node, orber, iiop_port, []),
@@ -1899,7 +1899,7 @@ bad_giop_header_api(_Config) ->
 
 
 fragments_server_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     {ok, Node, Host} =
 	?match({ok,_,_}, orber_test_lib:js_node()),
     Port = orber_test_lib:remote_apply(Node, orber, iiop_port, []),
@@ -1934,7 +1934,7 @@ fragments_server_api(_Config) ->
 		    domain = orber:domain(),
 		    partial_security = orber:partial_security()}),
     NewBody =
-	case size(Body) of
+	case byte_size(Body) of
 	    1 ->
 		<<0,0,0,18,0,0,0,0,0,0,0,4,49>> ;
 	    Size ->
@@ -1943,7 +1943,7 @@ fragments_server_api(_Config) ->
 		list_to_binary([AligmnetData, <<0,0,0,18,0,0,0,0,0,0,0,4,49>> ])
 	end,
 
-    MessSize = HdrLen+size(NewBody),
+    MessSize = HdrLen+byte_size(NewBody),
     ReqFrag = list_to_binary([ <<"GIOP",1:8,2:8,2:8,0:8,
 			       MessSize:32/big-unsigned-integer>> , Hdr |NewBody]),
     ?match(Any, fake_client_ORB(normal, Host, Port, [], fragments,
@@ -1955,7 +1955,7 @@ fragments_server_api(_Config) ->
 %%  Fragmented IIOP tests (Server-side). Exceeding Maximum.
 %%-----------------------------------------------------------------
 fragments_max_server_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     IP = orber_test_lib:get_host(),
     {ok, ServerNode, _ServerHost} =
 	?match({ok,_,_}, orber_test_lib:js_node([{iiop_max_fragments, 2},
@@ -1964,7 +1964,7 @@ fragments_max_server_api(_Config) ->
     fragments_max_server(ServerNode, IP, ServerPort).
 
 fragments_max_server_added_api(_Config) ->
-    %% --- Create a slave-node ---
+    %% --- Create a peer-node ---
     IP = orber_test_lib:get_host(),
     {ok, ServerNode, _ServerHost} =
 	?match({ok,_,_}, orber_test_lib:js_node([])),
@@ -2003,7 +2003,7 @@ fragments_max_server(ServerNode, ServerHost, ServerPort) ->
 		    domain = orber:domain(),
 		    partial_security = orber:partial_security()}),
     NewBody =
-	case size(Body) of
+	case byte_size(Body) of
 	    1 ->
 		<<0,0,0,18,0,0,0,0,0,0,0,4,49>> ;
 	    Size ->
@@ -2012,7 +2012,7 @@ fragments_max_server(ServerNode, ServerHost, ServerPort) ->
 		list_to_binary([AligmnetData, <<0,0,0,18,0,0,0,0,0,0,0,4,49>> ])
 	end,
 
-    MessSize = HdrLen+size(NewBody),
+    MessSize = HdrLen+byte_size(NewBody),
     ReqFrag = list_to_binary([ <<"GIOP",1:8,2:8,2:8,0:8,
 			       MessSize:32/big-unsigned-integer>> , Hdr |NewBody]),
     ?match(#'IMP_LIMIT'{},

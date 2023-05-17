@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1999-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -255,7 +255,7 @@ call_interceptors(SocketType, #giop_env{interceptors = {native, Ref, PIs},
 			  'no_exception') of
 		{ReplyHdr, Reply, HdrL, _BodyL, Flags} ->
 		    NewReply = orber_pi:out_reply_enc(PIs, ReqHdr, Ref, Reply, Ctx),
-		    MessSize = HdrL+size(NewReply),
+		    MessSize = HdrL+byte_size(NewReply),
 		    cdr_encode:enc_giop_message_header(NewEnv, 'reply', Flags, 
 						       MessSize, [ReplyHdr|NewReply]);
 		Other ->
@@ -304,7 +304,7 @@ call_interceptors_out(#giop_env{interceptors = {native, Ref, PIs}, ctx = Ctx} = 
 	    R ->
 		R
 	end,
-    MessSize = HdrL+size(NewReply),
+    MessSize = HdrL+byte_size(NewReply),
     cdr_encode:enc_giop_message_header(Env, 'reply', Flags, MessSize, 
 				       [ReplyHdr|NewReply]);
 call_interceptors_out(#giop_env{interceptors = {portable, _PIs}} = Env,

@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 2000-2016. All Rights Reserved.
+%% Copyright Ericsson AB 2000-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@
 	 end_per_testcase/2,
 	 install_data/2,
 	 uninstall_data/1,
-	 slave_sup/0,
+	 peer_sup/0,
 	 app_test/1]).
 
 %%-----------------------------------------------------------------
@@ -728,7 +728,7 @@ create_name(Type) ->
 %%            Type - if /4 used the types defines the extra arguments
 %%                   to be used.
 %% Returns  : {ok, Node} | {error, _}
-%% Effect   : Starts a new slave-node with given (optinally)
+%% Effect   : Starts a new peer-node with given (optinally)
 %%            extra arguments. If fails it retries 'Retries' times.
 %%------------------------------------------------------------
 create_node(Name, Port, normal) ->
@@ -776,22 +776,23 @@ create_node(Name, Port, Retries, Type, Args, Options) ->
             ?match(ok, rpc:call(NewNode, file, set_cwd, [Cwd])),
             true = rpc:call(NewNode, code, set_path, [Path]),
 	    ?match(ok, start_orber_remote(NewNode, Type, Options, Port)),
-            spawn_link(NewNode, ?MODULE, slave_sup, []),
+            spawn_link(NewNode, ?MODULE, peer_sup, []),
             rpc:multicall([node() | nodes()], global, sync, []),
             {ok, NewNode};
         {error, Reason} when Retries == 0->
             {error, Reason};
         {error, Reason} ->          
-            io:format("Could not start slavenode ~p ~p retrying~n", 
+            io:format("Could not start  peer node ~p ~p retrying~n", 
                       [{Host, Name, Args}, Reason]),
             timer:sleep(500),
             create_node(Name, Port, Retries - 1, Type, Args, Options)
     end.
 
 starter(Host, Name, Args) ->
-    slave:start(Host, Name, Args).
+    {ok, _, Node} = peer:start(#{name => Name, host => Host, args => Args}),
+    {ok, Node}.
 
-slave_sup() ->
+peer_sup() ->
     process_flag(trap_exit, true),
     receive
         {'EXIT', _, _} -> 
@@ -806,14 +807,14 @@ slave_sup() ->
 %% Returns  : 
 %% Effect   : 
 %%------------------------------------------------------------
--ifdef(false).
-destroy_node(Node, Type) ->
-    stopper(Node, Type).
+%% -ifdef(false).
+%% destroy_node(Node, Type) ->
+%%     stopper(Node, Type).
 
-stopper(Node, Type) ->
-    catch stop_orber_remote(Node, Type),
-    slave:stop(Node).
--endif.
+%% stopper(Node, Type) ->
+%%     catch stop_orber_remote(Node, Type),
+%%     peer:stop(Node).
+%% -endif.
   
 %%------------------------------------------------------------
 %% function : remote_apply
@@ -877,35 +878,33 @@ orb_rpc_setup(Node, _, Port) ->
 %%--------------- MISC FUNCTIONS -----------------------------
 basic_args(_Name) ->
     TestLibs = filename:dirname(code:which(?MODULE)),
-    " -orber orber_debug_level 10" ++
-	" -pa " ++
-        TestLibs ++ 
-	" -pa " ++
-        filename:join(TestLibs, "all_SUITE_data") ++ 
-        " -pa " ++ 
-        filename:dirname(code:which(cosFileTransferApp)).
+    ["-orber","orber_debug_level", "10",
+     "-pa", TestLibs,
+     "-pa", filename:join(TestLibs, "all_SUITE_data"),
+     "-pa", filename:dirname(code:which(cosFileTransferApp))].
 
--ifdef(false).
-basic_ssl_args(TestLibs, Args) ->
+%% -ifdef(false).
+%% basic_ssl_args(TestLibs, Args) ->
 %    Args ++
 %	" -cosFileTransfer ssl_client_certfile \\\"" ++
 %	filename:join(TestLibs, "ssl_client_cert.pem") ++
 %	"\\\" -cosFileTransfer ssl_server_certfile \\\""++
 %	filename:join(TestLibs, "ssl_server_cert.pem")++"\\\"".
 
-    io:format("<<<<<< SSL LIBS ~p >>>>>>~n",[TestLibs]),
-    NewArgs = Args ++
-	" -cosFileTransfer ssl_client_certfile \\\"" ++
-	filename:join(TestLibs, "ssl_client_cert.pem") ++
-	"\\\" -cosFileTransfer ssl_server_certfile \\\""++
-	filename:join(TestLibs, "ssl_server_cert.pem")++"\\\"",
-    io:format("<<<<<< SSL LIBS ARGS ~p >>>>>>~n",[NewArgs]),
-    NewArgs.
+    %% io:format("<<<<<< SSL LIBS ~p >>>>>>~n",[TestLibs]),
+    %% NewArgs = Args ++
+    %%     " -cosFileTransfer ssl_client_certfile \\\"" ++
+    %%     filename:join(TestLibs, "ssl_client_cert.pem") ++
+    %%     "\\\" -cosFileTransfer ssl_server_certfile \\\""++
+    %%     filename:join(TestLibs, "ssl_server_cert.pem")++"\\\"",
+    %% io:format("<<<<<< SSL LIBS ARGS ~p >>>>>>~n",[NewArgs]),
+    %% NewArgs.
 
-level_based_ssl(1, _TestLibs, Args) ->
-    Args;
-level_based_ssl(2, _TestLibs, Args) ->
-    Args.% ++
+%% level_based_ssl(1, _TestLibs, Args) ->
+%%     Args;
+%% level_based_ssl(2, _TestLibs, Args) ->
+%%    Args.
+% ++
 %	" -cosFileTransfer ssl_server_depth 2 " ++
 %	" -cosFileTransfer ssl_client_depth 2 " ++
 %	" -cosFileTransfer ssl_server_verify " ++
@@ -913,7 +912,7 @@ level_based_ssl(2, _TestLibs, Args) ->
 %	" -cosFileTransfer ssl_server_cacertfile " ++
 %	" -cosFileTransfer ssl_client_cacertfile " ++
 
--endif.
+%% -endif.
 
 install_data(Protocol, {WhichType, Host, Name}) ->
     io:format("<<<<<< Starting ~p/~p VFS at ~p/~p>>>>>>~n",

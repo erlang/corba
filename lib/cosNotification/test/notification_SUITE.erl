@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1999-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -244,13 +244,13 @@ persistent_max_events_api(_Config) ->
 	'CosNotifyChannelAdmin_EventChannel':new_for_consumers(Ch,'AND_OP')),
 
     %% Create Proxies and clients
-    {SequenceProxyPushSupplier,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushSupplier,_ID1}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_ConsumerAdmin':obtain_notification_push_supplier(AdminConsumer, 'SEQUENCE_EVENT')),
     PushSeqC=?match({_,key,_,_,_,_}, 'notify_test_SeqPushC':oe_create(['PUSH_SEQUENCE',SequenceProxyPushSupplier],
 								      [{local_typecheck, false}])),
     ?match(ok, 'CosNotifyChannelAdmin_SequenceProxyPushSupplier':connect_sequence_push_consumer(SequenceProxyPushSupplier, PushSeqC)),
 
-    {SequenceProxyPushConsumer,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushConsumer,_ID2}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_SupplierAdmin':obtain_notification_push_consumer(AdminSupplier, 'SEQUENCE_EVENT')),
     PushSeqS=?match({_,key,_,_,_,_}, 'notify_test_SeqPushS':oe_create(['PUSH_SEQUENCE',SequenceProxyPushConsumer],
 								      [{local_typecheck, false}])),
@@ -331,13 +331,13 @@ persistent_timeout_events_api(_Config) ->
 	'CosNotifyChannelAdmin_EventChannel':new_for_consumers(Ch,'AND_OP')),
 
     %% Create Proxies and clients
-    {SequenceProxyPushSupplier,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushSupplier,_ID1}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_ConsumerAdmin':obtain_notification_push_supplier(AdminConsumer, 'SEQUENCE_EVENT')),
     PushSeqC=?match({_,key,_,_,_,_}, 'notify_test_SeqPushC':oe_create(['PUSH_SEQUENCE',SequenceProxyPushSupplier],
 								      [{local_typecheck, false}])),
     ?match(ok, 'CosNotifyChannelAdmin_SequenceProxyPushSupplier':connect_sequence_push_consumer(SequenceProxyPushSupplier, PushSeqC)),
 
-    {SequenceProxyPushConsumer,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushConsumer,_ID2}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_SupplierAdmin':obtain_notification_push_consumer(AdminSupplier, 'SEQUENCE_EVENT')),
     PushSeqS=?match({_,key,_,_,_,_}, 'notify_test_SeqPushS':oe_create(['PUSH_SEQUENCE',SequenceProxyPushConsumer],
 								      [{local_typecheck, false}])),
@@ -412,13 +412,13 @@ persistent_recover_events_api(_Config) ->
 	'CosNotifyChannelAdmin_EventChannel':new_for_consumers(Ch,'AND_OP')),
 
     %% Create Proxies and clients
-    {SequenceProxyPushSupplier,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushSupplier,_ID1}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_ConsumerAdmin':obtain_notification_push_supplier(AdminConsumer, 'SEQUENCE_EVENT')),
     PushSeqC=?match({_,key,_,_,_,_}, 'notify_test_SeqPushC':oe_create(['PUSH_SEQUENCE',SequenceProxyPushSupplier],
 								      [{local_typecheck, false}])),
     ?match(ok, 'CosNotifyChannelAdmin_SequenceProxyPushSupplier':connect_sequence_push_consumer(SequenceProxyPushSupplier, PushSeqC)),
 
-    {SequenceProxyPushConsumer,_ID}=?match({{_,key,_,_,_,_},_},
+    {SequenceProxyPushConsumer,_ID2}=?match({{_,key,_,_,_,_},_},
 	'CosNotifyChannelAdmin_SupplierAdmin':obtain_notification_push_consumer(AdminSupplier, 'SEQUENCE_EVENT')),
     PushSeqS=?match({_,key,_,_,_,_}, 'notify_test_SeqPushS':oe_create(['PUSH_SEQUENCE',SequenceProxyPushConsumer],
 								      [{local_typecheck, false}])),

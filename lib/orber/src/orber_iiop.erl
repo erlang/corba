@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2023. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -208,7 +208,7 @@ encode_request(#giop_env{interceptors = {native, Ref, PIs},
 	{Hdr, Body, HdrLen, _, Flags} ->
 	    NewBody = orber_pi:out_request_enc(PIs, ObjKey, Ctx, Op, Ref, Body),
 	    cdr_encode:enc_giop_message_header(Env, 'request', Flags, 
-					       HdrLen+size(NewBody), 
+					       HdrLen+byte_size(NewBody), 
 					       [Hdr|NewBody])
     end;
 encode_request(Env) ->

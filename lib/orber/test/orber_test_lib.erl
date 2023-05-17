@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1999-2017. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2023. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -45,12 +45,12 @@
 -export([js_node/2,
 	 js_node/1,
 	 js_node/0,
-	 slave_sup/0,
+	 peer_sup/0,
 	 remote_apply/4,
 	 install_test_data/1,
 	 light_tests/3,
 	 uninstall_test_data/1,
-	 destroy_node/2,
+	 %% destroy_node/2,
 	 lookup/2,
 	 alternate_iiop_address/2,
 	 create_alternate_iiop_address/2,
@@ -211,7 +211,7 @@ get_loopback_interface(Family) ->
 %%            InitOptions - [{Key, Value}]
 %%            {Type, StartOptions} - {lightweight, [{Key, Value}]}
 %% Returns  : {ok, Node} | {error, _}
-%% Effect   : Starts a new slave-node with given (optinally)
+%% Effect   : Starts a new peer-node with given (optinally)
 %%            extra arguments. If fails it retries 'Retries' times.
 %%------------------------------------------------------------
 js_node() ->
@@ -242,7 +242,7 @@ js_node_helper(Host, Port, Name, Options, Retries, StartOptions) ->
 				  [[{iiop_port, Port},
 				    {orber_debug_level, 10}|Options]]),
 		    start_orber(StartOptions, NewNode),
-		    spawn_link(NewNode, ?MODULE, slave_sup, []),
+		    spawn_link(NewNode, ?MODULE, peer_sup, []),
 		    rpc:multicall([node() | nodes()], global, sync, []),
 		    ok = rpc:call(NewNode, orber, info, [io]),
 		    {ok, NewNode, Host};
@@ -252,7 +252,7 @@ js_node_helper(Host, Port, Name, Options, Retries, StartOptions) ->
         {error, Reason} when Retries == 0 ->
             {error, Reason};
         {error, Reason} ->
-            io:format("Could not start slavenode ~p:~p due to: ~p~n",
+            io:format("Could not start peer node ~p:~p due to: ~p~n",
                       [Host, Port, Reason]),
             timer:sleep(500),
 	    js_node_helper(Host, Port, Name, Options, Retries-1, StartOptions)
@@ -279,10 +279,15 @@ check_options(Options) ->
     end.
 
 starter(Host, Name, Args) ->
-    io:format("slave:start_link(~p,~p,~p).~n",[Host,Name,Args]),
-    slave:start_link(Host, Name, Args).
+    Opts = 
+        #{name => Name,
+          host => Host,
+          args => Args},
+    io:format("peer:start_link(~p).~n",[Opts]),
+    {ok, _, Node} = peer:start_link(Opts),
+    {ok, Node}.
 
-slave_sup() ->
+peer_sup() ->
     process_flag(trap_exit, true),
     receive
         {'EXIT', _, _} -> ignore
@@ -337,12 +342,12 @@ get_options_old(iiop_ssl, _Role, 2, Options) ->
 get_options_old(iiop_ssl, _Role, 1, Options) ->
     Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
     [{ssl_server_depth, 1},
-     {ssl_server_verify, 0},
+     {ssl_server_verify, none},
      {ssl_server_certfile, filename:join([Dir, "server", "cert.pem"])},
      {ssl_server_cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
      {ssl_server_keyfile, filename:join([Dir, "server", "key.pem"])},
      {ssl_client_depth, 1},
-     {ssl_client_verify, 0},
+     {ssl_client_verify, none},
      {ssl_client_certfile, filename:join([Dir, "client", "cert.pem"])},
      {ssl_client_cacertfile, filename:join([Dir, "client", "cacerts.pem"])},
      {ssl_client_keyfile, filename:join([Dir, "client", "key.pem"])},
@@ -370,10 +375,10 @@ get_options(ssl, Role, 2, Options) ->
 get_options(iiop_ssl, _Role, 2, Options) ->
     Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
     [{ssl_server_options, [{depth, 2},
-			{verify, verify_peer},
-			{certfile, filename:join([Dir, "server", "cert.pem"])},
-			{cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
-			{keyfile, filename:join([Dir, "server", "key.pem"])}]},
+                           {verify, verify_peer},
+                           {certfile, filename:join([Dir, "server", "cert.pem"])},
+                           {cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "server", "key.pem"])}]},
      {ssl_client_options, [{depth, 2},
                            {verify, verify_peer},
                            {server_name_indication, disable},
@@ -384,12 +389,12 @@ get_options(iiop_ssl, _Role, 2, Options) ->
 get_options(iiop_ssl, _Role, 1, Options) ->
     Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
     [{ssl_server_options, [{depth, 1},
-			{verify, 0},
-			{certfile, filename:join([Dir, "server", "cert.pem"])},
-			{cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
-			{keyfile, filename:join([Dir, "server", "key.pem"])}]},
+                           {verify, none},
+                           {certfile, filename:join([Dir, "server", "cert.pem"])},
+                           {cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "server", "key.pem"])}]},
      {ssl_client_options, [{depth, 1},
-                           {verify, 0},
+                           {verify, none},
                            {server_name_indication, disable},
                            {certfile, filename:join([Dir, "client", "cert.pem"])},
                            {cacertfile, filename:join([Dir, "client", "cacerts.pem"])},
@@ -398,12 +403,10 @@ get_options(iiop_ssl, _Role, 1, Options) ->
 
 create_paths() ->
     Path = filename:dirname(code:which(?MODULE)),
-    " -pa " ++ Path ++ " -pa " ++
-        filename:join(Path, "idl_output") ++
-	" -pa " ++
-        filename:join(Path, "all_SUITE_data") ++
-        " -pa \"" ++
-        filename:dirname(code:which(orber))++"\"".
+    ["-pa", Path, 
+     "-pa", filename:join(Path, "idl_output"),
+     "-pa", filename:join(Path, "all_SUITE_data"),
+     "-pa", filename:dirname(code:which(orber))].
 
 %%------------------------------------------------------------
 %% function : destroy_node
@@ -412,12 +415,11 @@ create_paths() ->
 %% Returns  :
 %% Effect   :
 %%------------------------------------------------------------
+%% destroy_node(Node, Type) ->
+%%     stopper(Node, Type).
 
-destroy_node(Node, Type) ->
-    stopper(Node, Type).
-
-stopper(Node, _Type) ->
-    slave:stop(Node).
+%% stopper(Node, _Type) ->
+%%     peer:stop(Node).
 
 
 %%------------------------------------------------------------

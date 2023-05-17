@@ -862,12 +862,9 @@ postcond(_Module, _Function, _Args, _Result) ->
 evaluate_state(exit) ->
     exit("exit on purpose");
 evaluate_state(badarith) ->
-    10 * atom;
+    error(badarith);
 evaluate_state(case_clause) ->
-    case 10 of
-	false ->
-	    ok
-    end;
+    error({case_clause, 10});
 evaluate_state(module) ->
     non_existing_module:bar();
 evaluate_state(function) ->
