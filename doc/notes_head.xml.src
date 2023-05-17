@@ -26,6 +26,23 @@
     <file>notes.xml</file>
   </header>
 
+  <section><title>CORBA 5.2</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+      <p>
+        Cleaned up the code and none of the changes affect the API.
+        Replaced size() with the apropriate calls to byte_size() and tuple_size().
+        Replaced the usage of the slave module with peer, which means that CORBA 5.2
+        must be run on OTP-25 or newer.
+      </p>  
+      <p>
+     </p>
+    </item>
+  </list>
+  </section>
+  </section>
+
   <section><title>CORBA 5.1</title>
   <section><title>Fixed Bugs and Malfunctions</title>
   <list>
