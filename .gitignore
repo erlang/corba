@@ -9,6 +9,8 @@ autom4te.cache
 *.beam
 *.asn1db
 
+*.fo
+
 # Compiler derivatives
 #
 # Do not use too creative wildcards.
@@ -479,6 +481,8 @@ IDL-GENERATED
 /lib/ic/examples/pre_post_condition/m_NotAnInteger.erl
 /lib/ic/examples/pre_post_condition/oe_ex.erl
 /lib/ic/examples/pre_post_condition/oe_ex.hrl
+/lib/ic/priv/obj/
+/lib/ic/priv/lib/
 /lib/ic/priv/com/
 /lib/ic/priv/ic.jar
 /lib/ic/src/icparse.erl
