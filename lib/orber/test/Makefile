@@ -48,6 +48,7 @@ IDL_FILES = \
 IDLOUTDIR = idl_output
 
 MODULES =  \
+	cert_gen \
 	cdrcoding_11_SUITE \
 	cdrcoding_10_SUITE \
 	cdrcoding_12_SUITE \
