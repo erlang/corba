@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 2002-2016. All Rights Reserved.
+%% Copyright Ericsson AB 2002-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -521,7 +521,7 @@ do_gen_operation(G, N, X, OpName, ArgNames, RetParTypes) ->
 							  ParTypes, ArgNames),
 				  ", "),
     emit(Fd, 
-	 "  if (~s__client_enc(oe_obj, ~s""oe_env) < 0) {\n", 
+	 "  if (~s__client_enc(oe_obj, ~soe_env) < 0) {\n", 
 	 [OpName, EncParListStr]),
     emit(Fd, 
 	 "    CORBA_exc_set(oe_env, CORBA_SYSTEM_EXCEPTION, "
@@ -569,7 +569,7 @@ do_gen_operation(G, N, X, OpName, ArgNames, RetParTypes) ->
 	    %% YYY Extracting results
 	    emit(Fd, 
 		 "  /* Extracting result value(s) */ \n" 
-		 "  if (~s__client_dec(oe_obj, ~s""oe_env) < 0) {\n", 
+		 "  if (~s__client_dec(oe_obj, ~soe_env) < 0) {\n", 
 		 [OpName, DecParListStr]), 
 	    emit(Fd, 
 		 "    CORBA_exc_set(oe_env, "
