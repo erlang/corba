@@ -1,7 +1,7 @@
 #
 # %CopyrightBegin%
 # 
-# Copyright Ericsson AB 2001-2016. All Rights Reserved.
+# Copyright Ericsson AB 2001-2024. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ ERL_COMPILE_FLAGS += \
 	-pa $(CORBA_TOP)/lib/cosEventDomain/include \
 	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
 	-pa $(CORBA_TOP)/lib/cosNotification/include \
+	+nowarn_missing_doc +nowarn_missing_spec_documented \
 	-I$(CORBA_TOP)/lib/cosEventDomain/include \
 	-I$(CORBA_TOP)/lib/cosNotification/include \
 	-I$(CORBA_TOP)/lib/cosNotification/ebin
