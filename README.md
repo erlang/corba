@@ -82,7 +82,9 @@ use the same installation directory as configured in the OTP source tree.
 
 ### The documentation build
 
-The documentation is built with the following commands.
+The documentation for Corba is not converted to the new format
+introduced in OTP 27. So OTP 26 is needed for building the documentation
+and it is built with the following commands.
 
 ```
 cd corba
