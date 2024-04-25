@@ -71,7 +71,7 @@
 	 get_options/3,
 	 get_options/4,
 	 version_ok/0,
-	 ssl_version/0,
+	 ssl_available/0,
 	 get_loopback_interface/0,
 	 get_loopback_interface/1,
 	 get_host/0,
@@ -98,20 +98,21 @@
 %% Effect   :
 %%
 %%------------------------------------------------------------
-ssl_version() ->
+ssl_available() ->
     try
-	ssl:module_info(),
-	case catch erlang:system_info(otp_release) of
-	    Version when is_list(Version) ->
-		if
-		    "R12B" < Version ->
-			3;
-		    true ->
-			2
-		end;
-	    _ ->
-		2
-	end
+	_ = ssl:module_info(),
+        ok
+	%% case catch erlang:system_info(otp_release) of
+	%%     Version when is_list(Version) ->
+	%% 	if         
+	%% 	    "R12B" < Version ->
+	%% 		3;
+	%% 	    true ->
+	%% 		2
+	%% 	end;
+	%%     _ ->
+	%% 	2
+	%% end
     catch error:undef ->
 	    no_ssl
     end.
@@ -342,12 +343,12 @@ get_options_old(iiop_ssl, _Role, 2, Options) ->
 get_options_old(iiop_ssl, _Role, 1, Options) ->
     Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
     [{ssl_server_depth, 1},
-     {ssl_server_verify, none},
+     {ssl_server_verify, verify_none},
      {ssl_server_certfile, filename:join([Dir, "server", "cert.pem"])},
      {ssl_server_cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
      {ssl_server_keyfile, filename:join([Dir, "server", "key.pem"])},
      {ssl_client_depth, 1},
-     {ssl_client_verify, none},
+     {ssl_client_verify, verify_none},
      {ssl_client_certfile, filename:join([Dir, "client", "cert.pem"])},
      {ssl_client_cacertfile, filename:join([Dir, "client", "cacerts.pem"])},
      {ssl_client_keyfile, filename:join([Dir, "client", "key.pem"])},
@@ -360,12 +361,16 @@ get_options(ssl, Role, Level) ->
     get_options(ssl, Role, Level, []).
 
 get_options(ssl, Role, 2, Options) ->
-    Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    %% Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    Dir = filename:dirname(code:which(?MODULE)),
+    KeyFile = "orbertest_" ++ atom_to_list(Role) ++ "_key.pem",
+    CacertFile = "orbertest_" ++ atom_to_list(Role) ++ "_cacerts.pem",
+    CertFile = "orbertest_" ++ atom_to_list(Role) ++ "_cert.pem",
     Options1 = [{depth, 2},
                 {verify, verify_peer},
-                {keyfile, filename:join([Dir, Role, "key.pem"])},
-                {cacertfile, filename:join([Dir, Role, "cacerts.pem"])},
-                {certfile, filename:join([Dir, Role, "cert.pem"])} |Options],
+                {keyfile, filename:join([Dir, KeyFile])},
+                {cacertfile, filename:join([Dir, CacertFile])},
+                {certfile, filename:join([Dir, CertFile])} |Options],
     case Role of
         client ->
             [{server_name_indication, disable} |Options1];
@@ -373,32 +378,34 @@ get_options(ssl, Role, 2, Options) ->
             Options1
     end;
 get_options(iiop_ssl, _Role, 2, Options) ->
-    Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    %% Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    Dir = filename:dirname(code:which(?MODULE)),
     [{ssl_server_options, [{depth, 2},
                            {verify, verify_peer},
-                           {certfile, filename:join([Dir, "server", "cert.pem"])},
-                           {cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
-                           {keyfile, filename:join([Dir, "server", "key.pem"])}]},
+                           {certfile, filename:join([Dir, "orbertest_server_cert.pem"])},
+                           {cacertfile, filename:join([Dir, "orbertest_server_cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "orbertest_server_key.pem"])}]},
      {ssl_client_options, [{depth, 2},
                            {verify, verify_peer},
                            {server_name_indication, disable},
-                           {certfile, filename:join([Dir, "client", "cert.pem"])},
-                           {cacertfile, filename:join([Dir, "client", "cacerts.pem"])},
-                           {keyfile, filename:join([Dir, "client", "key.pem"])}]},
+                           {certfile, filename:join([Dir, "orbertest_client_cert.pem"])},
+                           {cacertfile, filename:join([Dir, "orbertest_client_cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "orbertest_client_key.pem"])}]},
      {secure, ssl} |Options];
 get_options(iiop_ssl, _Role, 1, Options) ->
-    Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    %% Dir = filename:join([code:lib_dir(ssl), "examples", "certs", "etc"]),
+    Dir = filename:dirname(code:which(?MODULE)),
     [{ssl_server_options, [{depth, 1},
-                           {verify, none},
-                           {certfile, filename:join([Dir, "server", "cert.pem"])},
-                           {cacertfile, filename:join([Dir, "server", "cacerts.pem"])},
-                           {keyfile, filename:join([Dir, "server", "key.pem"])}]},
+                           {verify, verify_none},
+                           {certfile, filename:join([Dir, "orbertest_server_cert.pem"])},
+                           {cacertfile, filename:join([Dir, "orbertest_server_cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "orbertest_server_key.pem"])}]},
      {ssl_client_options, [{depth, 1},
-                           {verify, none},
+                           {verify, verify_none},
                            {server_name_indication, disable},
-                           {certfile, filename:join([Dir, "client", "cert.pem"])},
-                           {cacertfile, filename:join([Dir, "client", "cacerts.pem"])},
-                           {keyfile, filename:join([Dir, "client", "key.pem"])}]},
+                           {certfile, filename:join([Dir, "orbertest_client_cert.pem"])},
+                           {cacertfile, filename:join([Dir, "orbertest_client_cacerts.pem"])},
+                           {keyfile, filename:join([Dir, "orbertest_client_key.pem"])}]},
      {secure, ssl} |Options].
 
 create_paths() ->

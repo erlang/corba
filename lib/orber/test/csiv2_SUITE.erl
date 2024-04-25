@@ -361,9 +361,11 @@ end_per_testcase(_Case, Config) ->
     ok.
 
 init_per_suite(Config) ->
+    Dir = filename:dirname(code:which(?MODULE)),
+    cert_gen:cert_key_gen(Dir), %% Generate cert and keyfiles
     try crypto:start() of
         ok ->
-	    case orber_test_lib:ssl_version() of
+	    case orber_test_lib:ssl_available() of
 		no_ssl ->
 		    {skip, "SSL is not installed!"};
 		_ ->

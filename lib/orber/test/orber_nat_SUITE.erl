@@ -104,7 +104,7 @@ init_per_testcase(TC, Config)
       TC =:= nat_iiop_ssl_port_local ->
       case  proplists:get_value(crypto_started, Config) of
 	  true ->
-	      case orber_test_lib:ssl_version() of
+	      case orber_test_lib:ssl_available() of
 		  no_ssl ->
 		      {skip,"SSL not installed!"};
 		  _ ->
