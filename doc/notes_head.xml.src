@@ -4,7 +4,7 @@
 <chapter>
   <header>
     <copyright>
-      <year>2018</year><year>2022</year>
+      <year>2018</year><year>2024</year>
       <holder>Ericsson AB. All Rights Reserved.</holder>
     </copyright>
     <legalnotice>
@@ -35,9 +35,18 @@
         Replaced size() with the apropriate calls to byte_size() and tuple_size().
         Replaced the usage of the slave module with peer, which means that CORBA 5.2
         must be run on OTP-25 or newer.
+      </p>
+      <p>
+        Own Id: OTP-19083</p>
+    </item>
+    <item>
+      <p>
+        Updated so it can be compiled and used with OTP-27.
+        If one want's to build the documentation, that has to be done with
+        OTP-26 because the doc is not updated to the new format.
       </p>  
       <p>
-     </p>
+        Own Id: OTP-19084</p>
     </item>
   </list>
   </section>
