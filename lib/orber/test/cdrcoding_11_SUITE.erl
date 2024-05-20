@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2024. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -571,17 +571,24 @@ message_error(Config) when is_list(Config) ->
 %%-----------------------------------------------------------------
 corba_fake_mk_objkey(Id, 'key', Pid) when is_pid(Pid) ->
     Key = make_objkey(),
-    {list_to_binary(Id), 'key', Key, term_to_binary(undefined),
-     term_to_binary(undefined), term_to_binary(undefined)};
+    {list_to_binary(Id), 'key', Key,
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}])};
 corba_fake_mk_objkey(Id, 'key', RegName) when is_atom(RegName) ->
-    Key = term_to_binary(RegName),
-    {list_to_binary(Id), 'key', Key, term_to_binary(undefined),
-     term_to_binary(undefined), term_to_binary(undefined)};
+    Key = term_to_binary(RegName, [{minor_version, 1}]),
+    {list_to_binary(Id), 'key', Key,
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}])};
 corba_fake_mk_objkey(Id, 'registered', RegName) when is_atom(RegName) ->
-    {list_to_binary(Id), 'registered', RegName, term_to_binary(undefined),
-     term_to_binary(undefined), term_to_binary(undefined)}.
+    {list_to_binary(Id), 'registered', RegName,
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}]),
+     term_to_binary(undefined, [{minor_version, 1}])}.
 
 make_objkey() ->
     term_to_binary({{erlang:system_time(), 
 		     erlang:unique_integer()}, 
-		    node()}).
+		    node()},
+                   [{minor_version, 1}]).

@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 2000-2017. All Rights Reserved.
+%% Copyright Ericsson AB 2000-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@
 %%              {stop, Reason}
 %%----------------------------------------------------------------------
 init([]) ->
-    {ok, term_to_binary('undefined')};
+    {ok, term_to_binary('undefined', [{minor_version, 1}])};
 
 init(DBKey) ->
     _F = ?write_function(#orber_CosNaming{name_context=DBKey,
@@ -156,7 +156,7 @@ install(Timeout, Options) ->
 	DB_tables_created == {atomic, ok},
 	Wait == ok ->
 	    _F = ?write_function(#orber_CosNaming{name_context=
-						  term_to_binary('undefined'),
+						  term_to_binary('undefined', [{minor_version, 1}]),
 						  nameindex=[]}),
 	    write_result(mnesia:transaction(_F));
 	true -> 
@@ -536,8 +536,10 @@ unbind(_OE_THIS, _OE_State, []) ->
 new_context(_OE_THIS, OE_State) ->
     DBKey = term_to_binary({{erlang:system_time(),
 			     erlang:unique_integer()}, 
-			    node()}),
+			    node()},
+                           [{minor_version, 1}]),
     %% Create a record in the table and set the key to a newly
+    %% generated objectkey.
     {reply, 
      'CosNaming_NamingContextExt':oe_create(DBKey, 
 					    [{pseudo, true}|?CREATE_OPTS]), 
@@ -552,7 +554,8 @@ new_context(_OE_THIS, OE_State) ->
 bind_new_context(OE_THIS, OE_State, N) ->
     DBKey = term_to_binary({{erlang:system_time(),
 			     erlang:unique_integer()}, 
-			    node()}),
+			    node()},
+                           [{minor_version, 1}]),
     %% Create a record in the table and set the key to a newly
     %% generated objectkey.
     %%?PRINTDEBUG("bind_new_context"),

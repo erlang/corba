@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2023. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -269,7 +269,7 @@ enc_used_contexts(Env, [#'IOP_ServiceContext'{context_id=?ORBER_GENERIC_CTX_ID,
     %% Encode ByteOrder
     {Bytes0, Len0} = cdr_encode:enc_type('tk_octet', Env, 0, [], 0),
     {Bytes1, _Len1} = enc_type(?ORBER_GENERIC_CTX, Env, 
-			       binary_to_list(term_to_binary(Ctx)), 
+			       binary_to_list(term_to_binary(Ctx, [{minor_version, 1}])), 
 			       Bytes0, Len0),
     Bytes = list_to_binary(lists:reverse(Bytes1)),
     enc_used_contexts(Env, T, 

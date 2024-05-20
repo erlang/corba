@@ -1,7 +1,7 @@
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1999-2016. All Rights Reserved.
+%% Copyright Ericsson AB 1999-2024. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -170,15 +170,16 @@ create_and_get_ops(_) ->
 %%-----------------------------------------------------------------
 corba_fake_mk_objkey(Id, 'key', Pid) when is_pid(Pid) ->
     Key = make_objkey(),
-    {Id, 'key', Key, term_to_binary(undefined), 0, 0};
+    {Id, 'key', Key, term_to_binary(undefined, [{minor_version, 1}]), 0, 0};
 corba_fake_mk_objkey(Id, 'key', RegName) when is_atom(RegName) ->
-    Key = term_to_binary(RegName),
-    {Id, 'key', Key, term_to_binary(undefined), 0, 0};
+    Key = term_to_binary(RegName, [{minor_version, 1}]),
+    {Id, 'key', Key, term_to_binary(undefined, [{minor_version, 1}]), 0, 0};
 corba_fake_mk_objkey(Id, 'registered', RegName) when is_atom(RegName) ->
-    {Id, 'registered', RegName, term_to_binary(undefined), 0, 0}.
+    {Id, 'registered', RegName, term_to_binary(undefined, [{minor_version, 1}]), 0, 0}.
      
 
 make_objkey() ->
     term_to_binary({{erlang:system_time(), 
 		     erlang:unique_integer()}, 
-		    node()}).
+		    node()},
+                   [{minor_version, 1}]).

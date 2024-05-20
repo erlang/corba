@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 2000-2017. All Rights Reserved.
+%% Copyright Ericsson AB 2000-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -131,7 +131,8 @@
 init({DefMode, AllowedTypes, AllowedProperties, InitProperties, MyType}) ->
     Key = term_to_binary({{erlang:system_time(), 
 			   erlang:unique_integer()}, 
-			  node()}),
+			  node()},
+                         [{minor_version, 1}]),
     _F = ?write_function(#oe_CosPropertyService{key=Key,
 						properties=InitProperties}),
     write_result(mnesia:transaction(_F)),
