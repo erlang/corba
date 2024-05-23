@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2015. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -292,7 +292,8 @@ makeref(Obj) ->
 %%% is much less obtrusive.
 
 unique() -> term_to_binary({node(), {erlang:system_time(), 
-				     erlang:unique_integer()}}).
+				     erlang:unique_integer()}},
+                           [{minor_version, 1}]).
 
 %%%----------------------------------------------------------------------
 %%% Check for an existing object with the Id of the object which is

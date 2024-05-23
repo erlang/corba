@@ -2,7 +2,7 @@
 %%
 %% %CopyrightBegin%
 %% 
-%% Copyright Ericsson AB 1997-2017. All Rights Reserved.
+%% Copyright Ericsson AB 1997-2024. All Rights Reserved.
 %% 
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -597,7 +597,7 @@ create_nil_objref() ->
 create_subobject_key(Objkey, B) when is_binary(B) ->
     iop_ior:set_privfield(Objkey, B);
 create_subobject_key(Objkey, T) ->
-    create_subobject_key(Objkey, term_to_binary(T)).
+    create_subobject_key(Objkey, term_to_binary(T, [{minor_version, 1}])).
 
 %%----------------------------------------------------------------------
 %% Function   : get_subobject_key
@@ -1882,17 +1882,17 @@ mk_objkey(Mod, Pid, [], _, Flags) when is_pid(Pid) ->
     Key = make_objkey(),
     case orber_objectkeys:register(Key, Pid, false) of
 	ok ->
-	    {Mod, 'key', Key, term_to_binary(undefined), 0, Flags};
+	    {Mod, 'key', Key, term_to_binary(undefined, [{minor_version, 1}]), 0, Flags};
 	R ->
 	    orber:dbg("[~p] corba:mk_objkey(~p);~n"
 		      "unable to store key(~p).", [?LINE, Mod, R], ?DEBUG_LEVEL),
 	    raise(#'INTERNAL'{minor=(?ORBER_VMCID bor 2), completion_status=?COMPLETED_NO})
     end;
 mk_objkey(Mod, Pid, {'global', RegName}, Persitent, Flags) when is_pid(Pid) ->
-    Key = term_to_binary(RegName),
+    Key = term_to_binary(RegName, [{minor_version, 1}]),
     case orber_objectkeys:register(Key, Pid, Persitent) of
 	ok ->
-	    {Mod, 'key', Key, term_to_binary(undefined), 0, Flags};
+	    {Mod, 'key', Key, term_to_binary(undefined, [{minor_version, 1}]), 0, Flags};
 	R ->
 	    orber:dbg("[~p] corba:mk_objkey(~p, ~p);~n"
 		      "unable to store key(~p).", 
@@ -1904,7 +1904,7 @@ mk_objkey(Mod, Pid, {'local', RegName}, Persistent, Flags) when is_pid(Pid) anda
     Key = make_objkey(),
     case orber_objectkeys:register(Key, Pid, Persistent) of
 	ok ->
-	    {Mod, 'registered', RegName, term_to_binary(undefined), 0, Flags};
+	    {Mod, 'registered', RegName, term_to_binary(undefined, [{minor_version, 1}]), 0, Flags};
 	R ->
 	    orber:dbg("[~p] corba:mk_objkey(~p, ~p);~n"
 		      "unable to store key(~p).", 
@@ -1914,18 +1914,19 @@ mk_objkey(Mod, Pid, {'local', RegName}, Persistent, Flags) when is_pid(Pid) anda
 
 
 mk_light_objkey(Mod, RegName) ->
-    {Mod, 'registered', RegName, term_to_binary(undefined), 0, 0}.
+    {Mod, 'registered', RegName, term_to_binary(undefined, [{minor_version, 1}]), 0, 0}.
 
 mk_pseudo_objkey(Mod, Module, Flags) ->
-    {Mod, 'pseudo', Module, term_to_binary(undefined), 0, Flags}.
+    {Mod, 'pseudo', Module, term_to_binary(undefined, [{minor_version, 1}]), 0, Flags}.
 
 mk_passive_objkey(Mod, Module, Flags) ->
-    {Mod, 'passive', Module, term_to_binary(undefined), 0, Flags}.
+    {Mod, 'passive', Module, term_to_binary(undefined, [{minor_version, 1}]), 0, Flags}.
 
 make_objkey() ->
-    term_to_binary({{erlang:system_time(), 
+    term_to_binary({{erlang:system_time(),
 		     erlang:unique_integer()}, 
-		    node()}).
+		    node()},
+                   [{minor_version, 1}]).
 
 objkey_to_string({_Mod, 'registered', 'orber_init', _UserDef, _OrberDef, _Flags}) ->
     "INIT";
@@ -1935,7 +1936,7 @@ objkey_to_string(External_object_key) ->
     External_object_key.
 
 string_to_objkey("INIT") ->
-    {orber_initial_references, 'registered', 'orber_init', term_to_binary(undefined), 0, 0};
+    {orber_initial_references, 'registered', 'orber_init', term_to_binary(undefined, [{minor_version, 1}]), 0, 0};
 string_to_objkey(String) -> 
     case prefix(orber:domain(), String) of
 	[7 | Rest] ->
@@ -1946,7 +1947,7 @@ string_to_objkey(String) ->
 %% This function may only be used when we know it's a local reference (i.e. target
 %% key in a request; IOR's passed as argument or reply doesn't qualify)!
 string_to_objkey_local("INIT") ->
-    {orber_initial_references, 'registered', 'orber_init', term_to_binary(undefined), 0, 0};
+    {orber_initial_references, 'registered', 'orber_init', term_to_binary(undefined, [{minor_version, 1}]), 0, 0};
 string_to_objkey_local(String) -> 
     case prefix(orber:domain(), String) of
 	[7 | Rest] ->
