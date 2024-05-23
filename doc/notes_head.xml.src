@@ -26,6 +26,23 @@
     <file>notes.xml</file>
   </header>
 
+  <section><title>CORBA 5.2.1</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+      <p>
+        The binary format was changed in OTP-26 so that binaries created with
+        term_to_binary() was not compatible with those in OTP-25 (or older).
+        Corba is now updated so term_to_binary() used for object keys are
+        always using minor_version 1 (which is the version used since OTP R11).       
+      </p>  
+      <p>
+        Own Id: OTP-19093, Aux Id(s): ERIERL-1090-</p>
+    </item>
+  </list>
+  </section>
+  </section>
+
   <section><title>CORBA 5.2</title>
   <section><title>Fixed Bugs and Malfunctions</title>
   <list>
