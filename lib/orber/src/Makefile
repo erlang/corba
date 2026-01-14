@@ -1,7 +1,9 @@
 #
 # %CopyrightBegin%
 # 
-# Copyright Ericsson AB 1997-2024. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Copyright Ericsson AB 1997-2026. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -104,22 +106,6 @@ MODULES= \
 	orber_env \
 	orber_tb
 
-ASN_MODULES = OrberCSIv2
-ASN_SET = $(ASN_MODULES:%=%.set.asn)
-ASN_ASNS = $(ASN_MODULES:%=%.asn1)
-GEN_ASN_ERL = $(ASN_MODULES:%=%.erl)
-GEN_ASN_HRL = $(ASN_MODULES:%=%.hrl)
-GEN_ASN_DBS = $(ASN_MODULES:%=%.asn1db)
-GEN_ASN_TABLES = $(ASN_MODULES:%=%.table)
-
-PKIX_FILES = \
-	OrberCSIv2.asn1 \
-	PKIXAttributeCertificate.asn1 \
-	PKIX1Explicit88.asn1 \
-	PKIX1Algorithms88.asn1 \
-	PKIX1Implicit88.asn1 \
-	OrberCSIv2.set.asn
-
 EXTERNAL_HRL_FILES= ../include/corba.hrl \
 	../include/ifr_types.hrl \
 	../include/orber_pi.hrl
@@ -146,8 +132,7 @@ GEN_ERL_FILES3 =  \
 	OrberApp_IFR.erl
 
 GEN_ERL_FILES =  $(GEN_ERL_FILES1) $(GEN_ERL_FILES2) \
-	$(GEN_ERL_FILES3) \
-#	$(GEN_ASN_ERL)
+	$(GEN_ERL_FILES3)
 
 GEN_HRL_FILES1 = \
 	oe_erlang.hrl \
@@ -164,16 +149,13 @@ GEN_HRL_FILES3 = \
 
 GEN_HRL_FILES_EXT = $(GEN_HRL_FILES1)
 
-GEN_HRL_FILES_LOC = $(GEN_HRL_FILES2) $(GEN_HRL_FILES3) \
-#	$(GEN_ASN_HRL)
+GEN_HRL_FILES_LOC = $(GEN_HRL_FILES2) $(GEN_HRL_FILES3)
 
 
 GEN_FILES = \
 	$(GEN_ERL_FILES) \
 	$(GEN_HRL_FILES_LOC) \
-	$(GEN_HRL_FILES_EXT) \
-#	$(GEN_ASN_DBS) \
-#	$(GEN_ASN_TABLES)
+	$(GEN_HRL_FILES_EXT)
 
 TARGET_FILES =  \
 	$(GEN_ERL_FILES:%.erl=$(EBIN)/%.$(EMULATOR)) \
@@ -197,8 +179,6 @@ ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
 	+nowarn_deprecated_catch \
 	+'{parse_transform,sys_pre_attributes}' \
 	+'{attribute,insert,app_vsn,"orber_$(CORBA_VSN)"}'
-
-ASN_FLAGS = -bber +der +compact_bit_string +nowarn_unused_record
 
 # ----------------------------------------------------
 # Targets
@@ -232,10 +212,6 @@ IDL-GENERATED:  $(CORBA_TOP)/lib/ic/include/erlang.idl CORBA.idl OrberIFR.idl
 
 $(GEN_ERL_FILES): IDL-GENERATED
 $(TARGET_FILES): IDL-GENERATED
-
-$(GEN_ASN_ERL) $(GEN_ASN_HRL): OrberCSIv2.asn1 OrberCSIv2.set.asn
-	$(asn_verbose)erlc $(ERL_COMPILE_FLAGS) $(ASN_FLAGS) +'{inline,"OrberCSIv2"}' OrberCSIv2.set.asn
-	$(V_at)rm -f $(GEN_ASN_ERL:%.erl=%.beam)
 
 # ----------------------------------------------------
 # Release Target

@@ -1,8 +1,10 @@
 #
 # %CopyrightBegin%
+# 
+# SPDX-License-Identifier: Apache-2.0
 #
-# Copyright Ericsson AB 2000-2018. All Rights Reserved.
-#
+# Copyright Ericsson AB 2000-2026. All Rights Reserved.
+# 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,10 +16,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+# 
 # %CopyrightEnd%
 #
 #
+
 include $(ERL_TOP)/make/target.mk
 include $(ERL_TOP)/make/$(TARGET)/otp.mk
 
@@ -34,11 +37,12 @@ APPLICATION=cosProperty
 # ----------------------------------------------------
 # Release directory specification
 # ----------------------------------------------------
-RELSYSDIR = $(RELEASE_PATH)/lib/$(APPLICATION)-$(VSN)
+RELSYSDIR = $(RELEASE_PATH)/lib/$(APPLICATION)
 
 # ----------------------------------------------------
 # Target Specs
 # ----------------------------------------------------
+
 XML_APPLICATION_FILES = ref_man.xml
 XML_REF3_FILES = \
 	cosProperty.xml \
@@ -78,8 +82,6 @@ INTERNAL_HTML_FILES = $(TECHNICAL_DESCR_FILES:%.xml=$(HTMLDIR)/%.html)
 HTML_FILES = $(XML_APPLICATION_FILES:%.xml=$(HTMLDIR)/%.html) \
 	$(XML_PART_FILES:%.xml=$(HTMLDIR)/%.html)
 
-INFO_FILE = ../../info
-
 EXTRA_FILES = \
 	$(DEFAULT_GIF_FILES) \
 	$(DEFAULT_HTML_FILES) \
@@ -92,7 +94,8 @@ MAN6_FILES = $(XML_REF6_FILES:%.xml=$(MAN6DIR)/%.6)
 
 HTML_REF_MAN_FILE = $(HTMLDIR)/index.html
 
-TOP_PDF_FILE = $(PDFDIR)/$(APPLICATION)-$(VSN).pdf
+PDFNAME = $(APPLICATION)
+TOP_PDF_FILE = $(PDFDIR)/$(PDFNAME).pdf
 
 # ----------------------------------------------------
 # FLAGS
@@ -145,7 +148,6 @@ release_docs_spec: docs
 	$(INSTALL_DIR) "$(RELSYSDIR)/doc/html"
 	$(INSTALL_DATA) $(HTMLDIR)/* \
 		"$(RELSYSDIR)/doc/html"
-	$(INSTALL_DATA) $(INFO_FILE) "$(RELSYSDIR)"
 	$(INSTALL_DIR) "$(RELEASE_PATH)/man/man3"
 	$(INSTALL_DATA) $(MAN3DIR)/* "$(RELEASE_PATH)/man/man3"
 

@@ -1,7 +1,9 @@
 #
 # %CopyrightBegin%
 # 
-# Copyright Ericsson AB 1998-2016. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Copyright Ericsson AB 1998-2026. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -85,6 +87,7 @@ erlclient:
 
 
 clean: 
-	/bin/rm -f $(GCCLS:=.o) $(GCCLS:=.c) $(GCSRVS:=.o) $(GCSRVS:=.c) $(CCL:=.o) $(CSRV:=.o) *.jam *.beam oe* *.h *.hrl *~ core server client
+	/bin/rm -f $(GCCLS:=.o) $(GCCLS:=.c) $(GCSRVS:=.o) $(GCSRVS:=.c) $(CCL:=.o) $(CSRV:=.o)
+	/bin/rm -f *.jam *.beam oe* *.h *.hrl *~ core server client
 
 

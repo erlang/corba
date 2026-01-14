@@ -1,7 +1,9 @@
 #
 # %CopyrightBegin%
 # 
-# Copyright Ericsson AB 1999-2016. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Copyright Ericsson AB 1999-2026. All Rights Reserved.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -104,7 +106,8 @@ jall:
 
 
 clean: 
-	/bin/rm -rf $(GCCLS:=.o) $(GCCLS:=.c) $(GCSRVS:=.o) $(GCSRVS:=.c) $(CCL:=.o) $(CSRV:=.o) rmod.erl rmod_random.erl *.jam *.beam oe* *.h *.hrl *~ core server client *.class
+	/bin/rm -rf $(GCCLS:=.o) $(GCCLS:=.c) $(GCSRVS:=.o) $(GCSRVS:=.c) $(CCL:=.o) $(CSRV:=.o)
+	/bin/rm -rf rmod.erl rmod_random.erl *.jam *.beam oe* *.h *.hrl *~ core server client *.class
 
 
 

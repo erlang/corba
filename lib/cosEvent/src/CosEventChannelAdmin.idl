@@ -1,3 +1,19 @@
+//
+// %CopyrightBegin%
+//
+// SPDX-License-Identifier: LicenseRef-OMG-Specification
+//
+// SPDX-FileCopyrightText: NOASSERTION
+//
+// License. Nonexclusive, royalty-free, paid up,
+// worldwide license to copy and distribute this document and to modify this document and distribute copies of the modified
+// version. Each of the copyright holders listed above has agreed that no person shall be deemed to have infringed the copyright
+// in the included material of any such copyright holder by reason of having used the specification set forth herein or having
+// conformed any computer software to the specification.
+// More information at https://www.omg.org/spec/CORBA/2.5/PDF
+//
+// %CopyrightEnd%
+//
 #ifndef _COSEVENTCHANELADMIN_IDL
 #define _COSEVENTCHANELADMIN_IDL
 
@@ -13,28 +29,28 @@ module CosEventChannelAdmin
   interface ProxyPushConsumer: CosEventComm::PushConsumer
   {
     void connect_push_supplier(in CosEventComm::
-                               PushSupplier push_supplier) 
+                               PushSupplier push_supplier)
 	                       raises (AlreadyConnected);
   };
 
   interface ProxyPullSupplier: CosEventComm::PullSupplier
   {
     void connect_pull_consumer(in CosEventComm::
-                               PullConsumer pull_consumer) 
+                               PullConsumer pull_consumer)
 			       raises (AlreadyConnected);
   };
 
   interface ProxyPullConsumer: CosEventComm::PullConsumer
   {
     void connect_pull_supplier(in CosEventComm::
-                               PullSupplier pull_supplier) 
+                               PullSupplier pull_supplier)
 			       raises (AlreadyConnected, TypeError);
   };
 
   interface ProxyPushSupplier: CosEventComm::PushSupplier
   {
     void connect_push_consumer(in CosEventComm::
-                               PushConsumer push_consumer) 
+                               PushConsumer push_consumer)
 			       raises (AlreadyConnected, TypeError);
   };
 
@@ -60,7 +76,3 @@ module CosEventChannelAdmin
 };
 
 #endif
-
-
-		
-

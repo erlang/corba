@@ -1,0 +1,6 @@
+License. Nonexclusive, royalty-free, paid up,
+worldwide license to copy and distribute this document and to modify this document and distribute copies of the modified
+version. Each of the copyright holders listed above has agreed that no person shall be deemed to have infringed the copyright
+in the included material of any such copyright holder by reason of having used the specification set forth herein or having
+conformed any computer software to the specification.
+More information at https://www.omg.org/spec/CORBA/2.5/PDF
