@@ -237,6 +237,7 @@ ERL_LOCAL_FLAGS += -pa $(CORBA_TOP)/lib/orber/ebin -pa $(CORBA_TOP)/lib/ic/ebin
 ERL_COMPILE_FLAGS += \
 	$(ERL_LOCAL_FLAGS) \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/orber/include
 
 # ----------------------------------------------------

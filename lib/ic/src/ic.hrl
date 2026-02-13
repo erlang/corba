@@ -143,15 +143,15 @@
 %%
 
 -define(emit_c_enc_rpt(Fd, Fill, Fmt, Vals), 
-	begin
+        fun() ->
 	    CType = ic_cbe:mk_c_type2(G, N, T),
 	    ic_codegen:emit_c_enc_rpt(Fd, Fill, "~s : " ++ Fmt, [CType| Vals])
-	end).
+	end()).
 -define(emit_c_dec_rpt(Fd, Fill, Fmt, Vals), 
-	begin
+        fun() ->
 	    CType = ic_cbe:mk_c_type2(G, N, T),
 	    ic_codegen:emit_c_dec_rpt(Fd, Fill, "~s : " ++ Fmt, [CType| Vals])
-	end).
+	end()).
 
 
 

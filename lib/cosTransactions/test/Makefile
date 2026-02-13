@@ -99,6 +99,7 @@ ERL_COMPILE_FLAGS +=  \
 	-pa $(CORBA_TOP)/lib/cosTransactions/ebin \
 	-pa $(CORBA_TOP)/lib/cosTransactions/test/idl_output \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/orber/include \
 	-I$(CORBA_TOP)/lib/cosTransactions \
 	-I$(CORBA_TOP)/lib/cosTransactions/test/$(IDLOUTDIR)

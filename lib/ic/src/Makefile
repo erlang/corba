@@ -160,6 +160,7 @@ ERL_LOCAL_FLAGS += -pa $(CORBA_TOP)/lib/ic/ebin
 ERL_COMPILE_FLAGS += \
 	$(ERL_LOCAL_FLAGS) \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	+'{parse_transform,sys_pre_attributes}' \
 	+'{attribute,insert,app_vsn,"ic_$(CORBA_VSN)"}' \
 	-D'COMPILERVSN="$(CORBA_VSN)"'

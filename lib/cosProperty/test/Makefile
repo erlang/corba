@@ -88,6 +88,7 @@ ERL_COMPILE_FLAGS +=  \
 	-pa $(CORBA_TOP)/lib/cosProperty/ebin \
 	-pa $(CORBA_TOP)/lib/cosProperty/test/idl_output \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/orber/include \
 	-I$(CORBA_TOP)/lib/cosProperty/src \
 	-I$(CORBA_TOP)/lib/cosProperty \

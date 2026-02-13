@@ -126,6 +126,7 @@ ERL_IDL_FLAGS += \
 	-pa $(CORBA_TOP)/lib/ic/ebin \
 	-pa $(CORBA_TOP)/lib/cosNotification/include \
 	-I$(CORBA_TOP)/lib/cosEvent/src \
+	-I$(CORBA_TOP)/lib/cosNotification/src \
 	-I$(CORBA_TOP)/lib/cosNotification/include \
 
 ERL_COMPILE_FLAGS +=  \
@@ -139,6 +140,7 @@ ERL_COMPILE_FLAGS +=  \
 	-pa $(CORBA_TOP)/lib/cosNotification/include \
 	-pa $(CORBA_TOP)/lib/ic/ebin \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/cosTime/ebin \
 	-I$(CORBA_TOP)/lib/cosTime/include \
 	-I$(CORBA_TOP)/lib/orber/include \
@@ -156,7 +158,7 @@ tests debug opt: $(TARGET_FILES)
 
 clean:
 	rm -f idl_output/*
-	rm -f $(TARGET_FILES) 
+	rm -f $(TARGET_FILES) IDL-GENERATED
 	rm -f errs core *~
 
 docs:
@@ -166,7 +168,7 @@ docs:
 # ----------------------------------------------------
 
 IDL-GENERATED: notify_test_server.idl
-	erlc $(ERL_COMPILE_FLAGS) -o$(IDLOUTDIR) \
+	erlc $(ERL_IDL_FLAGS) -o$(IDLOUTDIR) \
                 +'{cfgfile,"notify_test_server.cfg"}' notify_test_server.idl
 	>IDL-GENERATED
 

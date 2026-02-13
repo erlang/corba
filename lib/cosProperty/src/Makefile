@@ -134,6 +134,7 @@ ERL_COMPILE_FLAGS += \
 	-I$(CORBA_TOP)/lib/cosProperty/include \
 	-I$(CORBA_TOP)/lib/orber/include \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	+'{parse_transform,sys_pre_attributes}' \
 	+'{attribute,insert,app_vsn,"cosProperty_$(VSN)"}' 
 

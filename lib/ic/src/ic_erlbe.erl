@@ -501,7 +501,7 @@ gen_end_of_call(erl_corba, G) ->
 	    emit(Fd, ";\n"),
 	    nl(Fd),
 	    emit(Fd, "handle_call(_, _, State) ->\n"),
-	    emit(Fd, "    {reply, catch corba:raise(#'BAD_OPERATION'{minor=1163001857, completion_status='COMPLETED_NO'}), State}.\n");
+	    emit(Fd, "    {reply, {'EXCEPTION', #'BAD_OPERATION'{minor=1163001857, completion_status='COMPLETED_NO'}}, State}.\n");
 	exit ->
 	    emit(Fd, ".\n"),
 	    nl(Fd),
