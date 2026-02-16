@@ -11,7 +11,7 @@
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.
       You may obtain a copy of the License at
- 
+
           http://www.apache.org/licenses/LICENSE-2.0
 
       Unless required by applicable law or agreed to in writing, software
@@ -19,12 +19,43 @@
       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
       See the License for the specific language governing permissions and
       limitations under the License.
-      
-    </legalnotice>
 
+    </legalnotice>
     <title>CORBA Release Notes</title>
     <file>notes.xml</file>
   </header>
+
+  <section><title>CORBA 5.2.2</title>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+      <p>
+        Removed compiler warnings when compiling with OTP 29:
+      </p>
+      <list>
+        <item>
+          <p>
+            Old style catch: added warning suppression for this but
+            changed the code for the catch that <c>ic</c> added in generated code.
+          </p>
+        </item>
+        <item>
+          <p>
+            Export variable from begin .. end block was corrected
+          </p>
+        </item>
+        <item>
+          <p>
+            Deprecated function lists:zf() was replaced
+          </p>
+        </item>
+      </list>
+      <p>
+      Own Id: OTP-19986</p>
+    </item>
+  </list>
+  </section>
+  </section>
 
   <section><title>CORBA 5.2.1</title>
   <section><title>Fixed Bugs and Malfunctions</title>
@@ -34,8 +65,8 @@
         The binary format was changed in OTP-26 so that binaries created with
         term_to_binary() was not compatible with those in OTP-25 (or older).
         Corba is now updated so term_to_binary() used for object keys are
-        always using minor_version 1 (which is the version used since OTP R11).       
-      </p>  
+        always using minor_version 1 (which is the version used since OTP R11).
+      </p>
       <p>
         Own Id: OTP-19093, Aux Id(s): ERIERL-1090-</p>
     </item>
@@ -61,7 +92,7 @@
         Updated so it can be compiled and used with OTP-27.
         If one want's to build the documentation, that has to be done with
         OTP-26 because the doc is not updated to the new format.
-      </p>  
+      </p>
       <p>
         Own Id: OTP-19084</p>
     </item>
@@ -74,10 +105,10 @@
   <list>
     <item>
       <p>
-        In the README are the OTP requirements for building Corba updated 
+        In the README are the OTP requirements for building Corba updated
 	and the build instructions for installing Corbas documentation
 	into the OTP documentation tree.
-      </p>  
+      </p>
       <p>
       Own Id: OTP-17983 Aux Id(s): ERIERL-766</p>
     </item>
@@ -148,7 +179,7 @@
 
   <section><title>CORBA 4.5.2</title>
   <section><title>Fixed Bugs and Malfunctions</title>
-  <list>	
+  <list>
     <item>
       <p>
 	Fixed install for IC. Headers, libraries, and IDL files
