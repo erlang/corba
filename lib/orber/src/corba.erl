@@ -641,6 +641,8 @@ get_pid(Objkey) ->
 %% Description: 
 %%----------------------------------------------------------------------
 %% To avoid dialyzer warnings due to the use of exit/throw.
+%% If this functions return value is changed,
+%% gen_end_of_call(erl_corba, G) needs to updated.
 -spec raise(term()) -> no_return().
 raise(E) ->
     throw({'EXCEPTION', E}).

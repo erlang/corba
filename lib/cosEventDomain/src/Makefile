@@ -126,6 +126,7 @@ ERL_COMPILE_FLAGS += \
 	-I$(CORBA_TOP)/lib/cosEvent/src \
 	-I$(CORBA_TOP)/lib/cosEvent/include \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	+'{parse_transform,sys_pre_attributes}' \
 	+'{attribute,insert,app_vsn,"cosEventDomain_$(VSN)"}' 
 

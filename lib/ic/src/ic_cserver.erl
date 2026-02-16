@@ -601,8 +601,7 @@ get_all_opnames(G, N, Bodies) ->
 		(_) ->
 		     false
 	     end,
-    %% zf == filtermap
-    lists:flatmap(fun({_, Xs}) -> lists:zf(Filter, Xs) end, Bodies).
+    lists:flatmap(fun({_, Xs}) -> lists:filtermap(Filter, Xs) end, Bodies).
 
 %%------------------------------------------------------------
 %% Emit switch 

@@ -102,6 +102,7 @@ ERL_COMPILE_FLAGS += \
 	$(ERL_IDL_FLAGS) \
 	-I../include \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	+'{parse_transform,sys_pre_attributes}' \
 	+'{attribute,insert,app_vsn,"orber_$(CORBA_VSN)"}' 
 

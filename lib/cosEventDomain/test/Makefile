@@ -69,6 +69,7 @@ ERL_COMPILE_FLAGS += \
 	-pa $(CORBA_TOP)/lib/cosNotification/ebin \
 	-pa $(CORBA_TOP)/lib/cosNotification/include \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/cosEventDomain/include \
 	-I$(CORBA_TOP)/lib/cosNotification/include \
 	-I$(CORBA_TOP)/lib/cosNotification/ebin

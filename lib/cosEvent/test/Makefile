@@ -102,6 +102,7 @@ ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
 	-pa $(CORBA_TOP)/lib/cosEvent/ebin \
 	-pa $(CORBA_TOP)/lib/cosEvent/test/idl_output \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/cosEvent \
 	-I$(CORBA_TOP)/lib/cosEvent/test/$(IDLOUTDIR)
 

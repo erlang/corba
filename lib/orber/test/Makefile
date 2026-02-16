@@ -168,6 +168,7 @@ ERL_COMPILE_FLAGS += $(ERL_IDL_FLAGS) \
 	-pa $(CORBA_TOP)/lib/ic/ebin \
 	-pa $(CORBA_TOP)/lib/orber/ebin \
 	+nowarn_missing_doc +nowarn_missing_spec_documented \
+	+nowarn_deprecated_catch \
 	-I$(CORBA_TOP)/lib/orber \
 	-I$(CORBA_TOP)/lib/orber/test/$(IDLOUTDIR)
 
