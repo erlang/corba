@@ -1,0 +1,55 @@
+.TH CosNotifyFilter_FilterFactory 3 "cosNotification 5.2.3" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+CosNotifyFilter_FilterFactory \- This module implements the OMG CosNotifyFilter::FilterFactory interface.
+.SH DESCRIPTION
+.LP
+To get access to the record definitions for the structures use: 
+.br
+\fI-include_lib("cosNotification/include/*\&.hrl")\&.\fR\&
+.SH EXPORTS
+.LP
+.B
+create_filter(FilterFactory, Grammar) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+FilterFactory = #objref
+.br
+Grammar = string()
+.br
+Reply = Filter | {\&'EXCEPTION\&', #\&'CosNotifyFilter_InvalidGrammar\&'{}}
+.br
+Filter = #objref
+.br
+.RE
+.RE
+.RS
+.LP
+This operation creates a new Filter object, under the condition that Grammar given is supported\&. Currently, only \fI"EXTENDED_TCL"\fR\& is supported\&.
+.RE
+.LP
+.B
+create_mapping_filter(FilterFactory, Grammar) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+FilterFactory = #objref
+.br
+Grammar = string()
+.br
+Reply = MappingFilter | {\&'EXCEPTION\&', #\&'CosNotifyFilter_InvalidGrammar\&'{}}
+.br
+Filter = #objref
+.br
+.RE
+.RE
+.RS
+.LP
+This operation creates a new MappingFilter object, under the condition that Grammar given is supported\&. Currently, only \fI"EXTENDED_TCL"\fR\& is supported\&.
+.RE

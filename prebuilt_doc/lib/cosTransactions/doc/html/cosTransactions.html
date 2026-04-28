@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- cosTransactions</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="cosTransactions">cosTransactions</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosTransactions</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosTransactions.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="loadscrollpos" title="cosTransactions " expanded="true">cosTransactions<ul>
+<li><a href="cosTransactions.html">
+                  Top of manual page
+                </a></li>
+    <li title="start-0"><a href="cosTransactions.html#start-0">start/0</a></li>
+    <li title="start_factory-0"><a href="cosTransactions.html#start_factory-0">start_factory/0</a></li>
+    <li title="start_factory-1"><a href="cosTransactions.html#start_factory-1">start_factory/1</a></li>
+    <li title="stop-0"><a href="cosTransactions.html#stop-0">stop/0</a></li>
+    <li title="stop_factory-1"><a href="cosTransactions.html#stop_factory-1">stop_factory/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_Control " expanded="false">CosTransactions_Control<ul>
+<li><a href="CosTransactions_Control.html">
+                  Top of manual page
+                </a></li>
+    <li title="get_coordinator-1"><a href="CosTransactions_Control.html#get_coordinator-1">get_coordinator/1</a></li>
+    <li title="get_terminator-1"><a href="CosTransactions_Control.html#get_terminator-1">get_terminator/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_Coordinator " expanded="false">CosTransactions_Coordinator<ul>
+<li><a href="CosTransactions_Coordinator.html">
+                  Top of manual page
+                </a></li>
+    <li title="create_subtransaction-1"><a href="CosTransactions_Coordinator.html#create_subtransaction-1">create_subtransaction/1</a></li>
+    <li title="get_parent_status-1"><a href="CosTransactions_Coordinator.html#get_parent_status-1">get_parent_status/1</a></li>
+    <li title="get_status-1"><a href="CosTransactions_Coordinator.html#get_status-1">get_status/1</a></li>
+    <li title="get_top_level_status-1"><a href="CosTransactions_Coordinator.html#get_top_level_status-1">get_top_level_status/1</a></li>
+    <li title="get_transaction_name-1"><a href="CosTransactions_Coordinator.html#get_transaction_name-1">get_transaction_name/1</a></li>
+    <li title="hash_top_level_tran-1"><a href="CosTransactions_Coordinator.html#hash_top_level_tran-1">hash_top_level_tran/1</a></li>
+    <li title="hash_transaction-1"><a href="CosTransactions_Coordinator.html#hash_transaction-1">hash_transaction/1</a></li>
+    <li title="is_descendant_transaction-2"><a href="CosTransactions_Coordinator.html#is_descendant_transaction-2">is_descendant_transaction/2</a></li>
+    <li title="is_same_transaction-2"><a href="CosTransactions_Coordinator.html#is_same_transaction-2">is_same_transaction/2</a></li>
+    <li title="is_top_level_transaction-1"><a href="CosTransactions_Coordinator.html#is_top_level_transaction-1">is_top_level_transaction/1</a></li>
+    <li title="register_resource-2"><a href="CosTransactions_Coordinator.html#register_resource-2">register_resource/2</a></li>
+    <li title="register_subtran_aware-2"><a href="CosTransactions_Coordinator.html#register_subtran_aware-2">register_subtran_aware/2</a></li>
+    <li title="rollback_only-1"><a href="CosTransactions_Coordinator.html#rollback_only-1">rollback_only/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_RecoveryCoordinator " expanded="false">CosTransactions_RecoveryCoordinator<ul>
+<li><a href="CosTransactions_RecoveryCoordinator.html">
+                  Top of manual page
+                </a></li>
+    <li title="replay_completion-3"><a href="CosTransactions_RecoveryCoordinator.html#replay_completion-3">replay_completion/3</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_Resource " expanded="false">CosTransactions_Resource<ul>
+<li><a href="CosTransactions_Resource.html">
+                  Top of manual page
+                </a></li>
+    <li title="commit-1"><a href="CosTransactions_Resource.html#commit-1">commit/1</a></li>
+    <li title="commit_one_phase-1"><a href="CosTransactions_Resource.html#commit_one_phase-1">commit_one_phase/1</a></li>
+    <li title="forget-1"><a href="CosTransactions_Resource.html#forget-1">forget/1</a></li>
+    <li title="prepare-1"><a href="CosTransactions_Resource.html#prepare-1">prepare/1</a></li>
+    <li title="rollback-1"><a href="CosTransactions_Resource.html#rollback-1">rollback/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_SubtransactionAwareResource " expanded="false">CosTransactions_SubtransactionAwareResource<ul>
+<li><a href="CosTransactions_SubtransactionAwareResource.html">
+                  Top of manual page
+                </a></li>
+    <li title="commit_subtransaction-2"><a href="CosTransactions_SubtransactionAwareResource.html#commit_subtransaction-2">commit_subtransaction/2</a></li>
+    <li title="rollback_subtransaction-1"><a href="CosTransactions_SubtransactionAwareResource.html#rollback_subtransaction-1">rollback_subtransaction/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_Terminator " expanded="false">CosTransactions_Terminator<ul>
+<li><a href="CosTransactions_Terminator.html">
+                  Top of manual page
+                </a></li>
+    <li title="commit-2"><a href="CosTransactions_Terminator.html#commit-2">commit/2</a></li>
+    <li title="rollback-1"><a href="CosTransactions_Terminator.html#rollback-1">rollback/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTransactions_TransactionFactory " expanded="false">CosTransactions_TransactionFactory<ul>
+<li><a href="CosTransactions_TransactionFactory.html">
+                  Top of manual page
+                </a></li>
+    <li title="create-2"><a href="CosTransactions_TransactionFactory.html#create-2">create/2</a></li>
+    </ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube"></div>
+<!-- refpage --><div class="innertube"><center><h1>cosTransactions</h1></center></div>
+  
+  <div class="innertube">
+<h3 id="module" class="title-link" onMouseOver="document.getElementById('ghlink-module-id16').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-id16').style.visibility = 'hidden';">
+<div class="title-name">Module</div>
+<div class="title-anchors"><span id="ghlink-module-id16" class="ghlink-after"><a href="#module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-body">cosTransactions</div>
+</div>
+  <div class="innertube">
+<h3 id="module-summary" class="title-link" onMouseOver="document.getElementById('ghlink-module-summary-id17').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-summary-id17').style.visibility = 'hidden';">
+<div class="title-name">Module Summary</div>
+<div class="title-anchors"><span id="ghlink-module-summary-id17" class="ghlink-after"><a href="#module-summary" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-summary-body">The main module of the cosTransactions application.</div>
+</div>
+  <section class="description"><div class="innertube">
+<h3 id="description" class="title-link" onMouseOver="document.getElementById('ghlink-description-id18').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-description-id18').style.visibility = 'hidden';">
+<div class="title-name">Description</div>
+<div class="title-anchors"><span id="ghlink-description-id18" class="ghlink-after"><a href="#description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY description-body"><p>
+    <p>To get access to the record definitions for the structures use:      <br>
+<span class="code">-include_lib("cosTransactions/include/CosTransactions.hrl").</span></p>
+    <p>This module contains the functions for starting and stopping the application.
+      If the application is started using <span class="code">application:start(cosTransactions)</span> the 
+      default configuration is used (see listing below). The Factory reference is stored using the CosNaming Service
+      under the id <span class="code">"oe_cosTransactionsFac_IPNo"</span>.</p>
+    <p>The following application configuration parameters exist:</p>
+    <ul>
+      <li>
+<strong>maxRetries</strong> - default is 40 times, i.e., if a transaction participant is unreachable
+       the application will retry to contact it <span class="code">N</span> times. Reaching the maximum is considered to be a disaster.</li>
+      <li>
+<strong>comFailWait</strong> - default is 5000 milliseconds, i.e., before the application
+       retries to contact unreachable transaction participants the application wait <span class="code">Time</span> milliseconds.</li>
+    </ul>
+  </p></div>
+</div></section>
+  <div class="innertube"><h3 id="export" class="title-link" onMouseOver="document.getElementById('ghlink-export-id19').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-export-id19').style.visibility = 'hidden';">
+<div class="title-name">Exports</div>
+<div class="title-anchors"><span id="ghlink-export-id19" class="ghlink-after"><a href="#export" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3></div>
+<div class="exports-body">
+<article class="func"><div class="bold_code func-head"><h4 id="start-0" class="title-link" onMouseOver="document.getElementById('ghlink-start-0-id20').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-start-0-id20').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-start-0-id20" class="ghlink-before"><a href="#start-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">start() -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = ok | {error, Reason}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation starts the cosTransactions application.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="stop-0" class="title-link" onMouseOver="document.getElementById('ghlink-stop-0-id21').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-stop-0-id21').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-stop-0-id21" class="ghlink-before"><a href="#stop-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">stop() -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = ok | {error, Reason}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation stops the cosTransactions application.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="start_factory-0" class="title-link" onMouseOver="document.getElementById('ghlink-start_factory-0-id22').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-start_factory-0-id22').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-start_factory-0-id22" class="ghlink-before"><a href="#start_factory-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">start_factory() -&gt; TransactionFactory</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TransactionFactory = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation creates a <span class="bold_code bc-19"><a href="CosTransactions_TransactionFactory.html">Transaction Factory</a></span>.
+          The Factory is used to create a new top-level <span class="bold_code bc-19"><a href="CosTransactions_Control.html">transaction</a></span> using default options (see listing below).</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="start_factory-1" class="title-link" onMouseOver="document.getElementById('ghlink-start_factory-1-id23').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-start_factory-1-id23').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-start_factory-1-id23" class="ghlink-before"><a href="#start_factory-1" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">start_factory(FacDef) -&gt; TransactionFactory</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FacDef = [Options], see Option listing below.</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TransactionFactory = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation creates a <span class="bold_code bc-19"><a href="CosTransactions_TransactionFactory.html">Transaction Factory</a></span>.
+          The Factory is used to create a new top-level transaction. </p>
+        <p>The FacDef list must be a list of {Item, Value} tuples, 
+          where the following values are allowed: </p>
+        <ul>
+          <li>{hash_max, HashValue} - 
+           This value denotes the upper bound of the hash value the 
+          <span class="bold_code bc-19"><a href="CosTransactions_Coordinator.html">Coordinator</a></span> uses.
+           Default is <span class="code">1013</span>. HashValue must be an integer.</li>
+          <li>{allow_subtr, Boolean} -
+           If set to true it is possible to create <span class="bold_code bc-19"><a href="CosTransactions_Coordinator.html">subtransactions</a></span>.
+           Default is <span class="code">true</span>.</li>
+          <li>{typecheck, Boolean} -
+           If set to to true all transaction operation's arguments will be type-checked.
+           Default is <span class="code">true</span>.</li>
+          <li>{tty, Boolean} -  
+           Enables or disables error printouts to the tty. 
+           If Flag is false, all text that the error logger would have sent to the terminal is discarded. 
+           If Flag is true, error messages are sent to the terminal screen. </li>
+          <li>{logfile, FileName} -
+           This function makes it possible to store all system information in <span class="code">FileName</span> (string()).
+           It can be used in combination with the tty(false) item in to have a silent system, 
+           where all system information are logged to a file. 
+           As default no logfile is used.</li>
+          <li>
+<span class="code">{maxRetries, Integer}</span> -
+           default is 40 times, i.e., if a transaction participant is unreachable the application will 
+           retry to contact it <span class="code">N</span> times. Reaching the maximum is considered to be a disaster.
+           This option overrides the application configuration parameter.</li>
+          <li>
+<span class="code">{comFailWait, Integer}</span> -
+           default is 5000 milliseconds, i.e., before the application retries to contact unreachable 
+           transaction participants the application wait <span class="code">Time</span> milliseconds.
+           This option overrides the application configuration parameter.</li>
+        </ul>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="stop_factory-1" class="title-link" onMouseOver="document.getElementById('ghlink-stop_factory-1-id24').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-stop_factory-1-id24').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-stop_factory-1-id24" class="ghlink-before"><a href="#stop_factory-1" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">stop_factory(TransactionFactory) -&gt; Reply</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TransactionFactory = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Reply = ok | {'EXCEPTION', E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation stop the target transaction factory.</p>
+      </div>
+</div></article>
+</div>
+  
+<div class="footer">
+<hr>
+<p>Copyright © 1999-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

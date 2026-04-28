@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- Installing cosNotification</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="Installing cosNotification">3 
+                Installing cosNotification</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosNotification</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosNotification.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The cosNotification Application" expanded="false">The cosNotification Application<ul>
+<li><a href="ch-contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch-contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch-contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to cosNotification" expanded="false">Introduction to cosNotification<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="Installing cosNotification" expanded="true">Installing cosNotification<ul>
+<li><a href="ch-install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch-install.html#installation-process-">Installation Process </a></li>
+</ul>
+</li>
+<li id="no" title="The Notification Service Components" expanded="false">The Notification Service Components<ul>
+<li><a href="ch_system.html">
+              Top of chapter
+            </a></li>
+<li title="The Notification Service Components"><a href="ch_system.html#the-notification-service-components">The Notification Service Components</a></li>
+</ul>
+</li>
+<li id="no" title="Filters and the Constraint Language BNF" expanded="false">Filters and the Constraint Language BNF<ul>
+<li><a href="ch_BNF.html">
+              Top of chapter
+            </a></li>
+<li title="Filters and the Constraint Language BNF"><a href="ch_BNF.html#filters-and-the-constraint-language-bnf">Filters and the Constraint Language BNF</a></li>
+</ul>
+</li>
+<li id="no" title="Quality Of Service and Admin Properties" expanded="false">Quality Of Service and Admin Properties<ul>
+<li><a href="ch_QoS.html">
+              Top of chapter
+            </a></li>
+<li title="Quality Of Service and Admin Properties"><a href="ch_QoS.html#quality-of-service-and-admin-properties">Quality Of Service and Admin Properties</a></li>
+</ul>
+</li>
+<li id="no" title="cosNotification Examples" expanded="false">cosNotification Examples<ul>
+<li><a href="ch_example.html">
+              Top of chapter
+            </a></li>
+<li title="A Tutorial on How to Create a Simple Service"><a href="ch_example.html#a-tutorial-on-how-to-create-a-simple-service">A Tutorial on How to Create a Simple Service</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="Installing cosNotification">3 Installing cosNotification</h1>
+  
+
+  <h3 id="installation-process-" class="title-link" onMouseOver="document.getElementById('ghlink-installation-process--id6').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-installation-process--id6').style.visibility = 'hidden';">
+<div class="title-name">3.1 
+        Installation Process </div>
+<div class="title-anchors"><span id="ghlink-installation-process--id6" class="ghlink-after"><a href="#installation-process-" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>This chapter describes how to install <span class="bold_code bc-19"><a href="cosNotificationApp.html">cosNotificationApp</a></span>  
+      in an Erlang Environment.
+      </p>
+
+    <h4 id="preparation" class="title-link" onMouseOver="document.getElementById('ghlink-preparation-id7').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-preparation-id7').style.visibility = 'hidden';">
+<div class="title-name">Preparation</div>
+<div class="title-anchors"><span id="ghlink-preparation-id7" class="ghlink-after"><a href="#preparation" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>Before starting the installation process for cosNotification,
+        the application Orber must be running.</p>
+    
+
+    <h4 id="configuration" class="title-link" onMouseOver="document.getElementById('ghlink-configuration-id8').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-configuration-id8').style.visibility = 'hidden';">
+<div class="title-name">Configuration</div>
+<div class="title-anchors"><span id="ghlink-configuration-id8" class="ghlink-after"><a href="#configuration" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>When using the Notification Service the <span class="code">cosNotification</span> application 
+        first must be installed using <span class="code">cosNotificationApp:install()</span> or 
+        <span class="code">cosNotificationApp:install(Seconds)</span>, followed by <span class="code">cosNotificationApp:start()</span>.</p>
+      <p>Then the <span class="bold_code bc-19"><a href="CosNotifyChannelAdmin_EventChannelFactory.html">Event Channel Factory</a></span>
+        must be started:</p>
+      <ul>
+        <li>
+<span class="code">cosNotificationApp:start_global_factory()</span> - starts and returns a reference to a factory using default configuration parameters.
+         This operation should be used for a multi-node Orber.</li>
+        <li>
+<span class="code">cosNotificationApp:start_global_factory(Options)</span> - starts and returns a reference to a factory using given configuration parameters.
+         This operation should be used for a multi-node Orber.</li>
+        <li>
+<span class="code">cosNotificationApp:start_factory()</span> - starts and returns a reference to a factory using default configuration parameters.</li>
+        <li>
+<span class="code">cosNotificationApp:start_factory(Options)</span> - starts and returns a reference to a factory using given configuration parameters.</li>
+      </ul>
+      <p>The following options exist:</p>
+      <ul>
+        <li>
+<span class="code">{pullInterval, Seconds}</span> - determine how often Proxy Pull 
+         Consumers will check for new events with the client application. The
+         default value is 20 seconds.</li>
+        <li>
+<span class="code">{filterOp, OperationType}</span> - determine which type of Administrator
+         objects should be started, i.e., <span class="code">'OR_OP'</span> or <span class="code">'AND_OP'</span>.
+         The default value is <span class="code">'OR_OP'</span>.</li>
+        <li>
+<span class="code">{timeService, TimeServiceObj | 'undefined'}</span> - to be able to use
+         Start and/or Stop QoS this option must be used. See the function <span class="code">start_time_service/2</span>
+         in the <span class="code">cosTime</span> application. The default value is <span class="code">'undefined'</span>.</li>
+        <li>
+<span class="code">{filterOp, OperationType}</span> - determine which type of Administrator
+         objects should be started, i.e., <span class="code">'OR_OP'</span> or <span class="code">'AND_OP'</span>.
+         The default value is <span class="code">'OR_OP'</span>.</li>
+        <li>
+<span class="code">{gcTime, Seconds}</span> - this option determines how often, for example, proxies
+         will garbage collect expired events. The default value is 60.</li>
+        <li>
+<span class="code">{gcLimit, Amount}</span> - determines how many events will be stored before, for
+         example, proxies will garbage collect expired events. The default value is 50. This
+         option is tightly coupled with the QoS property <span class="code">MaxEventsPerConsumer</span>, i.e.,
+         the <span class="code">gcLimit</span> should be less than <span class="code">MaxEventsPerConsumer</span> and greater than 0.</li>
+      </ul>
+      <p>It is possible to define a set of global configuration parameters:</p>
+      <div class="doc-table-wrapper">
+<table class="doc-table">
+<tr>
+          <td align="left" valign="middle"><strong>Key</strong></td>
+          <td align="left" valign="middle"><strong>Range</strong></td>
+          <td align="left" valign="middle"><strong>Default</strong></td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">type_check</td>
+          <td align="left" valign="middle">true | false</td>
+          <td align="left" valign="middle">true</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">notify</td>
+          <td align="left" valign="middle">atom() | false</td>
+          <td align="left" valign="middle">false</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">max_events</td>
+          <td align="left" valign="middle">integer() &gt; 0</td>
+          <td align="left" valign="middle">50</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">interval_events</td>
+          <td align="left" valign="middle">integer() &gt; 0</td>
+          <td align="left" valign="middle">10000 milliseconds</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">timeout_events</td>
+          <td align="left" valign="middle">integer() &gt; interval_events</td>
+          <td align="left" valign="middle">3000000 milliseconds</td>
+        </tr>
+</table>
+<p class="doc-table-caption">Table
+        3.1:
+         
+        Global Configuration Parameters</p>
+</div>
+      <p><strong>Comments on the table 'Global Configuration Parameters':</strong></p>
+      <dl>
+        <dt class="title-link"><strong><strong>type_check</strong></strong></dt>
+        <dd>Determine if supplied IOR:s shall be type checked, i.e. invoking 
+         corba_object:is_a/2, or not.</dd>
+        <dt class="title-link"><strong><strong>notify</strong></strong></dt>
+        <dd>The given value shall point to an existing module exporting
+         a function (arity 1) called <strong>terminated</strong>. This operation
+         is invoked when a proxy terminates and the argument is a list
+         containing <span class="code">{proxy, IOR}</span>, <span class="code">{client, IOR}</span> and 
+        <span class="code">{reason, term()}</span>. The return value is ignored.</dd>
+        <dt class="title-link"><strong><strong>max_events</strong></strong></dt>
+        <dd>If a supplier proxy has not been able to push events to a
+         consumer and the queue exceeds this limit, then the proxy will
+         terminate. For this option to have any effect, the
+        <span class="code">EventReliability</span> and <span class="code">ConnectionReliability</span> QoS
+         parameters must be set to <span class="code">Persistent</span>. For more information,
+         see also the <span class="bold_code bc-19"><a href="ch_QoS.html">QoS</a></span> chapter.</dd>
+        <dt class="title-link"><strong><strong>interval_events</strong></strong></dt>
+        <dd>The same requirements as for <span class="code">max_events</span>. When a supplier
+         proxy detects problems when trying to push events, this parameter
+         determines how often it should try to call the consumer.</dd>
+        <dt class="title-link"><strong><strong>timeout_events</strong></strong></dt>
+        <dd>The same requirements as for <span class="code">max_events</span>. If the
+         proxy has not been able to contact the consumer and this
+         time-limit is reached, then the proxy will terminate.</dd>
+      </dl>
+      <p>The Factory is now ready to use. For a more detailed description see 
+        <span class="bold_code bc-19"><a href="ch_example.html">Examples</a></span>.</p>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

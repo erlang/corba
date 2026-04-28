@@ -1,0 +1,898 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- CORBA Release Notes</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="CORBA Release Notes">1 
+                CORBA Release Notes</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosTime</p>
+<p class="section-subtitle">Release Notes</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosTime.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu"><li id="loadscrollpos" title="CORBA Release Notes" expanded="true">CORBA Release Notes<ul>
+<li><a href="notes.html">
+              Top of chapter
+            </a></li>
+<li title="CORBA 5.2.3"><a href="notes.html#corba-5.2.3">CORBA 5.2.3</a></li>
+<li title="CORBA 5.2.2"><a href="notes.html#corba-5.2.2">CORBA 5.2.2</a></li>
+<li title="CORBA 5.2.1"><a href="notes.html#corba-5.2.1">CORBA 5.2.1</a></li>
+<li title="CORBA 5.2"><a href="notes.html#corba-5.2">CORBA 5.2</a></li>
+<li title="CORBA 5.1"><a href="notes.html#corba-5.1">CORBA 5.1</a></li>
+<li title="CORBA 5.0.2"><a href="notes.html#corba-5.0.2">CORBA 5.0.2</a></li>
+<li title="CORBA 5.0.1"><a href="notes.html#corba-5.0.1">CORBA 5.0.1</a></li>
+<li title="CORBA 5.0"><a href="notes.html#corba-5.0">CORBA 5.0</a></li>
+<li title="CORBA 4.5.2"><a href="notes.html#corba-4.5.2">CORBA 4.5.2</a></li>
+<li title="CORBA 4.5.1"><a href="notes.html#corba-4.5.1">CORBA 4.5.1</a></li>
+<li title="CORBA 4.5"><a href="notes.html#corba-4.5">CORBA 4.5</a></li>
+<li title="cosTime 1.2.3"><a href="notes.html#costime-1.2.3">cosTime 1.2.3</a></li>
+<li title="cosTime 1.2.2"><a href="notes.html#costime-1.2.2">cosTime 1.2.2</a></li>
+<li title="cosTime 1.2.1"><a href="notes.html#costime-1.2.1">cosTime 1.2.1</a></li>
+<li title="cosTime 1.2"><a href="notes.html#costime-1.2">cosTime 1.2</a></li>
+<li title="cosTime 1.1.14"><a href="notes.html#costime-1.1.14">cosTime 1.1.14</a></li>
+<li title="cosTime 1.1.13"><a href="notes.html#costime-1.1.13">cosTime 1.1.13</a></li>
+<li title="cosTime 1.1.12"><a href="notes.html#costime-1.1.12">cosTime 1.1.12</a></li>
+<li title="cosTime 1.1.11"><a href="notes.html#costime-1.1.11">cosTime 1.1.11</a></li>
+<li title="cosTime 1.1.10"><a href="notes.html#costime-1.1.10">cosTime 1.1.10</a></li>
+<li title="cosTime 1.1.9"><a href="notes.html#costime-1.1.9">cosTime 1.1.9</a></li>
+<li title="cosTime 1.1.8"><a href="notes.html#costime-1.1.8">cosTime 1.1.8</a></li>
+<li title="cosTime 1.1.7"><a href="notes.html#costime-1.1.7">cosTime 1.1.7</a></li>
+<li title="cosTime 1.1.6"><a href="notes.html#costime-1.1.6">cosTime 1.1.6</a></li>
+<li title="cosTime 1.1.5"><a href="notes.html#costime-1.1.5">cosTime 1.1.5</a></li>
+<li title="cosTime 1.1.4"><a href="notes.html#costime-1.1.4">cosTime 1.1.4</a></li>
+<li title="cosTime 1.1.3"><a href="notes.html#costime-1.1.3">cosTime 1.1.3</a></li>
+<li title="cosTime 1.1.2"><a href="notes.html#costime-1.1.2">cosTime 1.1.2</a></li>
+<li title="cosTime 1.1.1"><a href="notes.html#costime-1.1.1">cosTime 1.1.1</a></li>
+<li title="cosTime 1.1"><a href="notes.html#costime-1.1">cosTime 1.1</a></li>
+<li title="cosTime 1.0.1.1"><a href="notes.html#costime-1.0.1.1">cosTime 1.0.1.1</a></li>
+<li title="cosTime 1.0.1"><a href="notes.html#costime-1.0.1">cosTime 1.0.1</a></li>
+</ul>
+</li></ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="CORBA Release Notes">1 CORBA Release Notes</h1>
+  
+
+  <h3 id="corba-5.2.3" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.2.3-id70').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.2.3-id70').style.visibility = 'hidden';">
+<div class="title-name">1.1 
+        CORBA 5.2.3</div>
+<div class="title-anchors"><span id="ghlink-corba-5.2.3-id70" class="ghlink-after"><a href="#corba-5.2.3" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id71').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id71').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id71" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+        Updated license headers and checked in a built version of the
+        documentation under the directory prebuilt_doc.
+      </p>
+      <p>
+      Own Id: OTP-xxx</p>
+    </li>
+  </ul>
+  
+  
+  
+  <h3 id="corba-5.2.2" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.2.2-id72').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.2.2-id72').style.visibility = 'hidden';">
+<div class="title-name">1.2 
+        CORBA 5.2.2</div>
+<div class="title-anchors"><span id="ghlink-corba-5.2.2-id72" class="ghlink-after"><a href="#corba-5.2.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id73').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id73').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id73" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+        Removed compiler warnings when compiling with OTP 29:
+      </p>
+      <ul>
+        <li>
+          <p>
+            Old style catch: added warning suppression for this but
+            changed the code for the catch that <span class="code">ic</span> added in generated code.
+          </p>
+        </li>
+        <li>
+          <p>
+            Export variable from begin .. end block was corrected
+          </p>
+        </li>
+        <li>
+          <p>
+            Deprecated function lists:zf() was replaced
+          </p>
+        </li>
+      </ul>
+      <p>
+      Own Id: OTP-19986</p>
+    </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.2.1" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.2.1-id74').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.2.1-id74').style.visibility = 'hidden';">
+<div class="title-name">1.3 
+        CORBA 5.2.1</div>
+<div class="title-anchors"><span id="ghlink-corba-5.2.1-id74" class="ghlink-after"><a href="#corba-5.2.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id75').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id75').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id75" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+        The binary format was changed in OTP-26 so that binaries created with
+        term_to_binary() was not compatible with those in OTP-25 (or older).
+        Corba is now updated so term_to_binary() used for object keys are
+        always using minor_version 1 (which is the version used since OTP R11).
+      </p>
+      <p>
+        Own Id: OTP-19093, Aux Id(s): ERIERL-1090-</p>
+    </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.2" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.2-id76').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.2-id76').style.visibility = 'hidden';">
+<div class="title-name">1.4 
+        CORBA 5.2</div>
+<div class="title-anchors"><span id="ghlink-corba-5.2-id76" class="ghlink-after"><a href="#corba-5.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id77').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id77').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id77" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+        Cleaned up the code and none of the changes affect the API.
+        Replaced size() with the apropriate calls to byte_size() and tuple_size().
+        Replaced the usage of the slave module with peer, which means that CORBA 5.2
+        must be run on OTP-25 or newer.
+      </p>
+      <p>
+        Own Id: OTP-19083</p>
+    </li>
+    <li>
+      <p>
+        Updated so it can be compiled and used with OTP-27.
+        If one want's to build the documentation, that has to be done with
+        OTP-26 because the doc is not updated to the new format.
+      </p>
+      <p>
+        Own Id: OTP-19084</p>
+    </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.1" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.1-id78').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.1-id78').style.visibility = 'hidden';">
+<div class="title-name">1.5 
+        CORBA 5.1</div>
+<div class="title-anchors"><span id="ghlink-corba-5.1-id78" class="ghlink-after"><a href="#corba-5.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id79').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id79').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id79" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+        In the README are the OTP requirements for building Corba updated
+	and the build instructions for installing Corbas documentation
+	into the OTP documentation tree.
+      </p>
+      <p>
+      Own Id: OTP-17983 Aux Id(s): ERIERL-766</p>
+    </li>
+    <li>
+      <p>
+	Fix error in the ic java backend that could cause faulty encodings.
+      </p>
+      <p>
+      Own Id: OTP-17887 Aux Id(s): ERIERL-750</p>
+    </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.0.2" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.0.2-id80').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.0.2-id80').style.visibility = 'hidden';">
+<div class="title-name">1.6 
+        CORBA 5.0.2</div>
+<div class="title-anchors"><span id="ghlink-corba-5.0.2-id80" class="ghlink-after"><a href="#corba-5.0.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id81').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id81').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id81" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+	Fix dialyzer warnings in the files generated by the noc backend.
+      </p>
+      <p>
+      Own Id: OTP-17309 Aux Id(s): ERIERL-426</p>
+    </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.0.1" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.0.1-id82').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.0.1-id82').style.visibility = 'hidden';">
+<div class="title-name">1.7 
+        CORBA 5.0.1</div>
+<div class="title-anchors"><span id="ghlink-corba-5.0.1-id82" class="ghlink-after"><a href="#corba-5.0.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id83').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id83').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id83" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+	Corrected the unique reference handling when using an IC generated
+	erlang client against a c server.
+      </p>
+      <p>
+      Own Id: OTP-17268 Aux Id(s): ERIERL-615</p>
+    </li>
+     <li>
+       <p>
+	 Corrected the encoding of the unique reference encoding in an
+	 IC generated java client.
+      </p>
+      <p>
+      Own Id: OTP-17269</p>
+     </li>
+  </ul>
+  
+  
+
+  <h3 id="corba-5.0" class="title-link" onMouseOver="document.getElementById('ghlink-corba-5.0-id84').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-5.0-id84').style.visibility = 'hidden';">
+<div class="title-name">1.8 
+        CORBA 5.0</div>
+<div class="title-anchors"><span id="ghlink-corba-5.0-id84" class="ghlink-after"><a href="#corba-5.0" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id85').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id85').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id85" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+	  <p>
+	    Remove old erl_interface dependency and
+            clean up erlang code warnings.
+	    Note this version depends on
+	  erl_interface-4.0 (first satisfied in OTP 23.0)</p>
+          <p>
+	    Own Id: OTP-16855 Aux Id(s): ERIERL-521</p>
+    </li>
+  </ul>
+  
+  
+
+
+  <h3 id="corba-4.5.2" class="title-link" onMouseOver="document.getElementById('ghlink-corba-4.5.2-id86').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-4.5.2-id86').style.visibility = 'hidden';">
+<div class="title-name">1.9 
+        CORBA 4.5.2</div>
+<div class="title-anchors"><span id="ghlink-corba-4.5.2-id86" class="ghlink-after"><a href="#corba-4.5.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+  <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id87').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id87').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id87" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+  <ul>
+    <li>
+      <p>
+	Fixed install for IC. Headers, libraries, and IDL files
+	are now installed under <span class="code">$RELEASE_ROOT/usr</span>
+	regardless of type of install.
+	    </p>
+            <p>
+	    Own Id: OTP-15197 Aux Id(s): ERIERL-202</p>
+    </li>
+  </ul>
+  
+  
+
+   <h3 id="corba-4.5.1" class="title-link" onMouseOver="document.getElementById('ghlink-corba-4.5.1-id88').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-4.5.1-id88').style.visibility = 'hidden';">
+<div class="title-name">1.10 
+        CORBA 4.5.1</div>
+<div class="title-anchors"><span id="ghlink-corba-4.5.1-id88" class="ghlink-after"><a href="#corba-4.5.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id89').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id89').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id89" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	  <p>
+	    Optimize encoding/decoding for pure 7-bit ascii atoms in IC.
+	    </p>
+          <p>
+	    Own Id: OTP-15023 Aux Id(s): ERIERL-150</p>
+        </li>
+        <li>
+	  <p>
+	    Fixed various build issues. Note that you need to build the
+	    <span class="code">corba</span> repo against an OTP of at least version 21.0.3. See
+	    the <span class="code">README.md</span> file for updated build instructions.
+	    </p>
+          <p>
+	    Own Id: OTP-15177 Aux Id(s): OTP-14283, OTP-15176, ERIERL-198, ERIERL-202, ERL-640</p>
+        </li>
+        <li>
+	  <p>  Fixed potential buffer overflow bugs in IC
+               <span class="code">oe_ei_encode_long/ulong/longlong/ulonglong</span> functions
+               on 64-bit architectures. These functions expect 32 bit
+               integers as the IDL type <span class="code">long</span> is defined as 32 bits.
+               But there is nothing preventing user code from
+               "breaking" the interface and pass larger values on
+               64-bit architectures where the C type <span class="code">long</span> is 64
+               bits.
+	    </p>
+          <p>
+	    Own Id: OTP-15179 Aux Id(s): ERIERL-208</p>
+        </li>
+      </ul>
+    
+
+  
+
+  <h3 id="corba-4.5" class="title-link" onMouseOver="document.getElementById('ghlink-corba-4.5-id90').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corba-4.5-id90').style.visibility = 'hidden';">
+<div class="title-name">1.11 
+        CORBA 4.5</div>
+<div class="title-anchors"><span id="ghlink-corba-4.5-id90" class="ghlink-after"><a href="#corba-4.5" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id91').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id91').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id91" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p>
+	      First version of the standalone repository for the corba applications.
+	    </p>
+	    <p>
+	      All corba applications are from version 4.5 handled as one entity.
+	      and all the release notes are handled on the Corba level.
+	    </p>
+          <p>
+	    Own Id: OTP-14283</p>
+        </li>
+      </ul>
+    
+
+  
+
+
+  <h3 id="costime-1.2.3" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.2.3-id92').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.2.3-id92').style.visibility = 'hidden';">
+<div class="title-name">1.12 
+        cosTime 1.2.3</div>
+<div class="title-anchors"><span id="ghlink-costime-1.2.3-id92" class="ghlink-after"><a href="#costime-1.2.3" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id93').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id93').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id93" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p> Removed all old unused files in the documentation.
+	    </p>
+          <p>
+	    Own Id: OTP-14475 Aux Id: ERL-409, PR-1493 </p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.2.2" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.2.2-id94').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.2.2-id94').style.visibility = 'hidden';">
+<div class="title-name">1.13 
+        cosTime 1.2.2</div>
+<div class="title-anchors"><span id="ghlink-costime-1.2.2-id94" class="ghlink-after"><a href="#costime-1.2.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id95').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id95').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id95" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+          <p>
+	    Internal changes</p>
+          <p>
+	    Own Id: OTP-13551</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.2.1" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.2.1-id96').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.2.1-id96').style.visibility = 'hidden';">
+<div class="title-name">1.14 
+        cosTime 1.2.1</div>
+<div class="title-anchors"><span id="ghlink-costime-1.2.1-id96" class="ghlink-after"><a href="#costime-1.2.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id97').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id97').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id97" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p> Suppress Dialyzer warnings. </p>
+          <p>
+	    Own Id: OTP-12862</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.2" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.2-id98').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.2-id98').style.visibility = 'hidden';">
+<div class="title-name">1.15 
+        cosTime 1.2</div>
+<div class="title-anchors"><span id="ghlink-costime-1.2-id98" class="ghlink-after"><a href="#costime-1.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id99').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id99').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id99" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p> Remove the usage of erlang:now() from all Corba
+	    applications and use the new rand module instead of
+	    random. </p>
+          <p>
+	    Own Id: OTP-12687</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.1.14" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.14-id100').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.14-id100').style.visibility = 'hidden';">
+<div class="title-name">1.16 
+        cosTime 1.1.14</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.14-id100" class="ghlink-after"><a href="#costime-1.1.14" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id101').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id101').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id101" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p> The default encoding of Erlang files has been changed
+	    from ISO-8859-1 to UTF-8. </p> <p> The encoding of XML
+	    files has also been changed to UTF-8. </p>
+          <p>
+	    Own Id: OTP-10907</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.1.13" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.13-id102').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.13-id102').style.visibility = 'hidden';">
+<div class="title-name">1.17 
+        cosTime 1.1.13</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.13-id102" class="ghlink-after"><a href="#costime-1.1.13" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id103').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id103').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id103" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+          <p>
+	    Misc build updates</p>
+          <p>
+	    Own Id: OTP-10784</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.1.12" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.12-id104').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.12-id104').style.visibility = 'hidden';">
+<div class="title-name">1.18 
+        cosTime 1.1.12</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.12-id104" class="ghlink-after"><a href="#costime-1.1.12" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id105').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id105').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id105" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      <ul>
+        <li>
+	    <p>Erlang/OTP can now be built using parallel make if you
+	    limit the number of jobs, for instance using '<span class="code">make
+	    -j6</span>' or '<span class="code">make -j10</span>'. '<span class="code">make -j</span>' does not
+	    work at the moment because of some missing
+	    dependencies.</p>
+          <p>
+	    Own Id: OTP-9451</p>
+        </li>
+      </ul>
+    
+
+
+
+<h3 id="costime-1.1.11" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.11-id106').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.11-id106').style.visibility = 'hidden';">
+<div class="title-name">1.19 
+        cosTime 1.1.11</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.11-id106" class="ghlink-after"><a href="#costime-1.1.11" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id107').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id107').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id107" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>
+            Removed superfluous usage of shy in the documentation since it can cause problem if
+            a buggy tool is used.</p>
+          <p>
+            Own Id: OTP-9319 Aux Id:</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.10" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.10-id108').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.10-id108').style.visibility = 'hidden';">
+<div class="title-name">1.20 
+        cosTime 1.1.10</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.10-id108" class="ghlink-after"><a href="#costime-1.1.10" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id109').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id109').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id109" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>
+            Eliminated Dialyzer warnings when using exit or throw.</p>
+          <p>
+            Own Id: OTP-9050 Aux Id:</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.9" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.9-id110').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.9-id110').style.visibility = 'hidden';">
+<div class="title-name">1.21 
+        cosTime 1.1.9</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.9-id110" class="ghlink-after"><a href="#costime-1.1.9" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id111').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id111').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id111" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>
+            Test suites published.</p>
+          <p>
+            Own Id: OTP-8543 Aux Id:</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.8" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.8-id112').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.8-id112').style.visibility = 'hidden';">
+<div class="title-name">1.22 
+        cosTime 1.1.8</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.8-id112" class="ghlink-after"><a href="#costime-1.1.8" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="fixed-bugs-and-malfunctions" class="title-link" onMouseOver="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id113').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fixed-bugs-and-malfunctions-id113').style.visibility = 'hidden';">
+<div class="title-name">Fixed Bugs and Malfunctions</div>
+<div class="title-anchors"><span id="ghlink-fixed-bugs-and-malfunctions-id113" class="ghlink-after"><a href="#fixed-bugs-and-malfunctions" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>The documentation EIX file was not generated.</p>
+          <p>Own id: OTP-8355 Aux Id:</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.7" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.7-id114').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.7-id114').style.visibility = 'hidden';">
+<div class="title-name">1.23 
+        cosTime 1.1.7</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.7-id114" class="ghlink-after"><a href="#costime-1.1.7" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id115').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id115').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id115" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>
+            The documentation is now built with open source tools (xsltproc and fop) 
+            that exists on most platforms. One visible change is that the frames are removed.</p>
+          <p>
+            Own Id: OTP-8201 Aux Id:</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.6" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.6-id116').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.6-id116').style.visibility = 'hidden';">
+<div class="title-name">1.24 
+        cosTime 1.1.6</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.6-id116" class="ghlink-after"><a href="#costime-1.1.6" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id117').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id117').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id117" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>Obsolete guards, e.g. record vs is_record, has been changed
+             to avoid compiler warnings.</p>
+          <p>Own id: OTP-7987</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.5" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.5-id118').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.5-id118').style.visibility = 'hidden';">
+<div class="title-name">1.25 
+        cosTime 1.1.5</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.5-id118" class="ghlink-after"><a href="#costime-1.1.5" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id119').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id119').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id119" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>Updated file headers.</p>
+          <p>Own id: OTP-7837</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.4" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.4-id120').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.4-id120').style.visibility = 'hidden';">
+<div class="title-name">1.26 
+        cosTime 1.1.4</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.4-id120" class="ghlink-after"><a href="#costime-1.1.4" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id121').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id121').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id121" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>Documentation source included in open source releases.</p>
+          <p>Own id: OTP-7595</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.3" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.3-id122').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.3-id122').style.visibility = 'hidden';">
+<div class="title-name">1.27 
+        cosTime 1.1.3</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.3-id122" class="ghlink-after"><a href="#costime-1.1.3" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id123').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id123').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id123" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>Updated file headers.</p>
+          <p>Own id: OTP-7011</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.2" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.2-id124').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.2-id124').style.visibility = 'hidden';">
+<div class="title-name">1.28 
+        cosTime 1.1.2</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.2-id124" class="ghlink-after"><a href="#costime-1.1.2" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id125').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id125').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id125" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>The documentation source has been converted from SGML to XML.</p>
+          <p>Own id: OTP-6754</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1.1" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1.1-id126').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1.1-id126').style.visibility = 'hidden';">
+<div class="title-name">1.29 
+        cosTime 1.1.1</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1.1-id126" class="ghlink-after"><a href="#costime-1.1.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id127').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id127').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id127" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>Minor Makefile changes.</p>
+          <p>Own id: OTP-6701</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.1" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.1-id128').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.1-id128').style.visibility = 'hidden';">
+<div class="title-name">1.30 
+        cosTime 1.1</div>
+<div class="title-anchors"><span id="ghlink-costime-1.1-id128" class="ghlink-after"><a href="#costime-1.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id129').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id129').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id129" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>The stub/skeleton-files generated by IC have been improved,
+            i.e., depending on the IDL-files, reduced the size of the
+            erl- and beam-files and decreased dependencies off Orber's
+            Interface Repository. It is necessary to re-compile all IDL-files
+            and use COS-applications, including Orber, compiled with
+            IC-4.2.</p>
+          <p>Own id: OTP-4576</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.0.1.1" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.0.1.1-id130').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.0.1.1-id130').style.visibility = 'hidden';">
+<div class="title-name">1.31 
+        cosTime 1.0.1.1</div>
+<div class="title-anchors"><span id="ghlink-costime-1.0.1.1-id130" class="ghlink-after"><a href="#costime-1.0.1.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="incompatibilities" class="title-link" onMouseOver="document.getElementById('ghlink-incompatibilities-id131').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-incompatibilities-id131').style.visibility = 'hidden';">
+<div class="title-name">Incompatibilities</div>
+<div class="title-anchors"><span id="ghlink-incompatibilities-id131" class="ghlink-after"><a href="#incompatibilities" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>An includepath in <span class="code">CosTimerEvent.idl</span> have been
+            changed. Hence, if you include this file you should check
+            your include paths for your IDL-file(s), i.e., add 
+            the path to CosEventComm.idl.</p>
+          <p>Own Id: OTP-4093</p>
+        </li>
+      </ul>
+    
+  
+
+  <h3 id="costime-1.0.1" class="title-link" onMouseOver="document.getElementById('ghlink-costime-1.0.1-id132').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-costime-1.0.1-id132').style.visibility = 'hidden';">
+<div class="title-name">1.32 
+        cosTime 1.0.1</div>
+<div class="title-anchors"><span id="ghlink-costime-1.0.1-id132" class="ghlink-after"><a href="#costime-1.0.1" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="improvements-and-new-features" class="title-link" onMouseOver="document.getElementById('ghlink-improvements-and-new-features-id133').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-improvements-and-new-features-id133').style.visibility = 'hidden';">
+<div class="title-name">Improvements and New Features</div>
+<div class="title-anchors"><span id="ghlink-improvements-and-new-features-id133" class="ghlink-after"><a href="#improvements-and-new-features" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ul>
+        <li>
+          <p>First release of the cosTime application.</p>
+          <p>Own Id: -</p>
+        </li>
+      </ul>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

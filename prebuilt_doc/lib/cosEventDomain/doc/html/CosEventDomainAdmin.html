@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- CosEventDomainAdmin</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="CosEventDomainAdmin">CosEventDomainAdmin</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosEventDomain</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosEventDomain.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="no" title="cosEventDomainApp " expanded="false">cosEventDomainApp<ul>
+<li><a href="cosEventDomainApp.html">
+                  Top of manual page
+                </a></li>
+    <li title="install-0"><a href="cosEventDomainApp.html#install-0">install/0</a></li>
+    <li title="start-0"><a href="cosEventDomainApp.html#start-0">start/0</a></li>
+    <li title="start_factory-0"><a href="cosEventDomainApp.html#start_factory-0">start_factory/0</a></li>
+    <li title="start_factory-1"><a href="cosEventDomainApp.html#start_factory-1">start_factory/1</a></li>
+    <li title="start_factory_link-0"><a href="cosEventDomainApp.html#start_factory_link-0">start_factory_link/0</a></li>
+    <li title="start_factory_link-1"><a href="cosEventDomainApp.html#start_factory_link-1">start_factory_link/1</a></li>
+    <li title="stop-0"><a href="cosEventDomainApp.html#stop-0">stop/0</a></li>
+    <li title="stop_factory-1"><a href="cosEventDomainApp.html#stop_factory-1">stop_factory/1</a></li>
+    <li title="uninstall-0"><a href="cosEventDomainApp.html#uninstall-0">uninstall/0</a></li>
+    </ul>
+</li>
+<li id="loadscrollpos" title="CosEventDomainAdmin " expanded="true">CosEventDomainAdmin<ul>
+<li><a href="CosEventDomainAdmin.html">
+                  Top of manual page
+                </a></li>
+    <li title="'AuthorizeCycles'-0"><a href="CosEventDomainAdmin.html#'AuthorizeCycles'-0">'AuthorizeCycles'/0</a></li>
+    <li title="'AuthorizeDiamonds'-0"><a href="CosEventDomainAdmin.html#'AuthorizeDiamonds'-0">'AuthorizeDiamonds'/0</a></li>
+    <li title="'CycleDetection'-0"><a href="CosEventDomainAdmin.html#'CycleDetection'-0">'CycleDetection'/0</a></li>
+    <li title="'DiamondDetection'-0"><a href="CosEventDomainAdmin.html#'DiamondDetection'-0">'DiamondDetection'/0</a></li>
+    <li title="'ForbidCycles'-0"><a href="CosEventDomainAdmin.html#'ForbidCycles'-0">'ForbidCycles'/0</a></li>
+    <li title="'ForbidDiamonds'-0"><a href="CosEventDomainAdmin.html#'ForbidDiamonds'-0">'ForbidDiamonds'/0</a></li>
+    </ul>
+</li>
+<li id="no" title="CosEventDomainAdmin_EventDomainFactory " expanded="false">CosEventDomainAdmin_EventDomainFactory<ul>
+<li><a href="CosEventDomainAdmin_EventDomainFactory.html">
+                  Top of manual page
+                </a></li>
+    <li title="create_event_domain-3"><a href="CosEventDomainAdmin_EventDomainFactory.html#create_event_domain-3">create_event_domain/3</a></li>
+    <li title="get_all_domains-1"><a href="CosEventDomainAdmin_EventDomainFactory.html#get_all_domains-1">get_all_domains/1</a></li>
+    <li title="get_event_domain-2"><a href="CosEventDomainAdmin_EventDomainFactory.html#get_event_domain-2">get_event_domain/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosEventDomainAdmin_EventDomain " expanded="false">CosEventDomainAdmin_EventDomain<ul>
+<li><a href="CosEventDomainAdmin_EventDomain.html">
+                  Top of manual page
+                </a></li>
+    <li title="add_channel-2"><a href="CosEventDomainAdmin_EventDomain.html#add_channel-2">add_channel/2</a></li>
+    <li title="add_connection-2"><a href="CosEventDomainAdmin_EventDomain.html#add_connection-2">add_connection/2</a></li>
+    <li title="connect_pull_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_pull_consumer-2">connect_pull_consumer/2</a></li>
+    <li title="connect_pull_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_pull_consumer_with_id-3">connect_pull_consumer_with_id/3</a></li>
+    <li title="connect_pull_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_pull_supplier-2">connect_pull_supplier/2</a></li>
+    <li title="connect_pull_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_pull_supplier_with_id-3">connect_pull_supplier_with_id/3</a></li>
+    <li title="connect_push_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_push_consumer-2">connect_push_consumer/2</a></li>
+    <li title="connect_push_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_push_consumer_with_id-3">connect_push_consumer_with_id/3</a></li>
+    <li title="connect_push_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_push_supplier-2">connect_push_supplier/2</a></li>
+    <li title="connect_push_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_push_supplier_with_id-3">connect_push_supplier_with_id/3</a></li>
+    <li title="connect_sequence_pull_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_pull_consumer-2">connect_sequence_pull_consumer/2</a></li>
+    <li title="connect_sequence_pull_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_pull_consumer_with_id-3">connect_sequence_pull_consumer_with_id/3</a></li>
+    <li title="connect_sequence_pull_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_pull_supplier-2">connect_sequence_pull_supplier/2</a></li>
+    <li title="connect_sequence_pull_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_pull_supplier_with_id-3">connect_sequence_pull_supplier_with_id/3</a></li>
+    <li title="connect_sequence_push_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_push_consumer-2">connect_sequence_push_consumer/2</a></li>
+    <li title="connect_sequence_push_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_push_consumer_with_id-3">connect_sequence_push_consumer_with_id/3</a></li>
+    <li title="connect_sequence_push_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_push_supplier-2">connect_sequence_push_supplier/2</a></li>
+    <li title="connect_sequence_push_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_sequence_push_supplier_with_id-3">connect_sequence_push_supplier_with_id/3</a></li>
+    <li title="connect_structured_pull_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_pull_consumer-2">connect_structured_pull_consumer/2</a></li>
+    <li title="connect_structured_pull_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_pull_consumer_with_id-3">connect_structured_pull_consumer_with_id/3</a></li>
+    <li title="connect_structured_pull_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_pull_supplier-2">connect_structured_pull_supplier/2</a></li>
+    <li title="connect_structured_pull_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_pull_supplier_with_id-3">connect_structured_pull_supplier_with_id/3</a></li>
+    <li title="connect_structured_push_consumer-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_push_consumer-2">connect_structured_push_consumer/2</a></li>
+    <li title="connect_structured_push_consumer_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_push_consumer_with_id-3">connect_structured_push_consumer_with_id/3</a></li>
+    <li title="connect_structured_push_supplier-2"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_push_supplier-2">connect_structured_push_supplier/2</a></li>
+    <li title="connect_structured_push_supplier_with_id-3"><a href="CosEventDomainAdmin_EventDomain.html#connect_structured_push_supplier_with_id-3">connect_structured_push_supplier_with_id/3</a></li>
+    <li title="destroy-1"><a href="CosEventDomainAdmin_EventDomain.html#destroy-1">destroy/1</a></li>
+    <li title="get_all_channels-1"><a href="CosEventDomainAdmin_EventDomain.html#get_all_channels-1">get_all_channels/1</a></li>
+    <li title="get_all_connections-1"><a href="CosEventDomainAdmin_EventDomain.html#get_all_connections-1">get_all_connections/1</a></li>
+    <li title="get_channel-2"><a href="CosEventDomainAdmin_EventDomain.html#get_channel-2">get_channel/2</a></li>
+    <li title="get_connection-2"><a href="CosEventDomainAdmin_EventDomain.html#get_connection-2">get_connection/2</a></li>
+    <li title="get_cycles-1"><a href="CosEventDomainAdmin_EventDomain.html#get_cycles-1">get_cycles/1</a></li>
+    <li title="get_diamonds-1"><a href="CosEventDomainAdmin_EventDomain.html#get_diamonds-1">get_diamonds/1</a></li>
+    <li title="get_offer_channels-2"><a href="CosEventDomainAdmin_EventDomain.html#get_offer_channels-2">get_offer_channels/2</a></li>
+    <li title="get_subscription_channels-2"><a href="CosEventDomainAdmin_EventDomain.html#get_subscription_channels-2">get_subscription_channels/2</a></li>
+    <li title="remove_channel-2"><a href="CosEventDomainAdmin_EventDomain.html#remove_channel-2">remove_channel/2</a></li>
+    <li title="remove_connection-2"><a href="CosEventDomainAdmin_EventDomain.html#remove_connection-2">remove_connection/2</a></li>
+    <li title="set_default_consumer_channel-2"><a href="CosEventDomainAdmin_EventDomain.html#set_default_consumer_channel-2">set_default_consumer_channel/2</a></li>
+    <li title="set_default_supplier_channel-2"><a href="CosEventDomainAdmin_EventDomain.html#set_default_supplier_channel-2">set_default_supplier_channel/2</a></li>
+    </ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube"></div>
+<!-- refpage --><div class="innertube"><center><h1>CosEventDomainAdmin</h1></center></div>
+  
+  <div class="innertube">
+<h3 id="module" class="title-link" onMouseOver="document.getElementById('ghlink-module-id27').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-id27').style.visibility = 'hidden';">
+<div class="title-name">Module</div>
+<div class="title-anchors"><span id="ghlink-module-id27" class="ghlink-after"><a href="#module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-body">CosEventDomainAdmin</div>
+</div>
+  <div class="innertube">
+<h3 id="module-summary" class="title-link" onMouseOver="document.getElementById('ghlink-module-summary-id28').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-summary-id28').style.visibility = 'hidden';">
+<div class="title-name">Module Summary</div>
+<div class="title-anchors"><span id="ghlink-module-summary-id28" class="ghlink-after"><a href="#module-summary" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-summary-body">This module export functions which return QoS and Admin Properties constants.</div>
+</div>
+  <section class="description"><div class="innertube">
+<h3 id="description" class="title-link" onMouseOver="document.getElementById('ghlink-description-id29').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-description-id29').style.visibility = 'hidden';">
+<div class="title-name">Description</div>
+<div class="title-anchors"><span id="ghlink-description-id29" class="ghlink-after"><a href="#description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY description-body"><p>
+    <p>To get access to all definitions include necessary <span class="code">hrl</span> files by using:<br><span class="code">-include_lib("cosEventDomain/include/*.hrl").</span></p>
+  </p></div>
+</div></section>
+  <div class="innertube"><h3 id="export" class="title-link" onMouseOver="document.getElementById('ghlink-export-id30').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-export-id30').style.visibility = 'hidden';">
+<div class="title-name">Exports</div>
+<div class="title-anchors"><span id="ghlink-export-id30" class="ghlink-after"><a href="#export" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3></div>
+<div class="exports-body">
+<article class="func"><div class="bold_code func-head"><h4 id="'CycleDetection'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'CycleDetection'-0-id31').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'CycleDetection'-0-id31').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'CycleDetection'-0-id31" class="ghlink-before"><a href="#'CycleDetection'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'CycleDetection'() -&gt; string()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the CycleDetection identifier; required when 
+          defining QoS Properties.</p>
+      </div></div></article><article class="func"><div class="bold_code func-head"><h4 id="'AuthorizeCycles'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'AuthorizeCycles'-0-id32').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'AuthorizeCycles'-0-id32').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'AuthorizeCycles'-0-id32" class="ghlink-before"><a href="#'AuthorizeCycles'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'AuthorizeCycles'() -&gt; short()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the AuthorizeCycles value; required when 
+          defining QoS Properties.</p>
+      </div></div></article><article class="func"><div class="bold_code func-head"><h4 id="'ForbidCycles'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'ForbidCycles'-0-id33').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'ForbidCycles'-0-id33').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'ForbidCycles'-0-id33" class="ghlink-before"><a href="#'ForbidCycles'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'ForbidCycles'() -&gt; short()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the ForbidCycles value; required when 
+          defining QoS Properties.</p>
+      </div></div></article><article class="func"><div class="bold_code func-head"><h4 id="'DiamondDetection'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'DiamondDetection'-0-id34').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'DiamondDetection'-0-id34').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'DiamondDetection'-0-id34" class="ghlink-before"><a href="#'DiamondDetection'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'DiamondDetection'() -&gt; string()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the DiamondDetection identifier; required when 
+          defining QoS Properties.</p>
+      </div></div></article><article class="func"><div class="bold_code func-head"><h4 id="'AuthorizeDiamonds'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'AuthorizeDiamonds'-0-id35').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'AuthorizeDiamonds'-0-id35').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'AuthorizeDiamonds'-0-id35" class="ghlink-before"><a href="#'AuthorizeDiamonds'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'AuthorizeDiamonds'() -&gt; short()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the AuthorizeDiamonds value; required when 
+          defining QoS Properties.</p>
+      </div></div></article><article class="func"><div class="bold_code func-head"><h4 id="'ForbidDiamonds'-0" class="title-link" onMouseOver="document.getElementById('ghlink-'ForbidDiamonds'-0-id36').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'ForbidDiamonds'-0-id36').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'ForbidDiamonds'-0-id36" class="ghlink-before"><a href="#'ForbidDiamonds'-0" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'ForbidDiamonds'() -&gt; short()</div>
+</h4></div>
+<div class="exports-tube"><div class="REFBODY rb-7">
+        <p>This function returns the ForbidDiamonds value; required when 
+          defining QoS Properties.</p>
+      </div></div></article>
+</div>
+  
+<div class="footer">
+<hr>
+<p>Copyright © 2001-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

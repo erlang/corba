@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- CosFileTransfer_FileTransferSession</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="CosFileTransfer_FileTransferSession">CosFileTransfer_FileTransferSession</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosFileTransfer</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosFileTransfer.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="no" title="cosFileTransferApp " expanded="false">cosFileTransferApp<ul>
+<li><a href="cosFileTransferApp.html">
+                  Top of manual page
+                </a></li>
+    <li title="create_VFS-4"><a href="cosFileTransferApp.html#create_VFS-4">create_VFS/4</a></li>
+    <li title="install-0"><a href="cosFileTransferApp.html#install-0">install/0</a></li>
+    <li title="ssl_client_certfile-0"><a href="cosFileTransferApp.html#ssl_client_certfile-0">ssl_client_certfile/0</a></li>
+    <li title="ssl_client_depth-0"><a href="cosFileTransferApp.html#ssl_client_depth-0">ssl_client_depth/0</a></li>
+    <li title="ssl_client_verify-0"><a href="cosFileTransferApp.html#ssl_client_verify-0">ssl_client_verify/0</a></li>
+    <li title="ssl_server_certfile-0"><a href="cosFileTransferApp.html#ssl_server_certfile-0">ssl_server_certfile/0</a></li>
+    <li title="ssl_server_depth-0"><a href="cosFileTransferApp.html#ssl_server_depth-0">ssl_server_depth/0</a></li>
+    <li title="ssl_server_verify-0"><a href="cosFileTransferApp.html#ssl_server_verify-0">ssl_server_verify/0</a></li>
+    <li title="start-0"><a href="cosFileTransferApp.html#start-0">start/0</a></li>
+    <li title="stop-0"><a href="cosFileTransferApp.html#stop-0">stop/0</a></li>
+    <li title="uninstall-0"><a href="cosFileTransferApp.html#uninstall-0">uninstall/0</a></li>
+    </ul>
+</li>
+<li id="no" title="CosFileTransfer_File " expanded="false">CosFileTransfer_File<ul>
+<li><a href="CosFileTransfer_File.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_associated_session'-1"><a href="CosFileTransfer_File.html#'_get_associated_session'-1">'_get_associated_session'/1</a></li>
+    <li title="'_get_complete_file_name'-1"><a href="CosFileTransfer_File.html#'_get_complete_file_name'-1">'_get_complete_file_name'/1</a></li>
+    <li title="'_get_name'-1"><a href="CosFileTransfer_File.html#'_get_name'-1">'_get_name'/1</a></li>
+    <li title="'_get_parent'-1"><a href="CosFileTransfer_File.html#'_get_parent'-1">'_get_parent'/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosFileTransfer_Directory " expanded="false">CosFileTransfer_Directory<ul>
+<li><a href="CosFileTransfer_Directory.html">
+                  Top of manual page
+                </a></li>
+    <li title="list-2"><a href="CosFileTransfer_Directory.html#list-2">list/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosFileTransfer_FileIterator " expanded="false">CosFileTransfer_FileIterator<ul>
+<li><a href="CosFileTransfer_FileIterator.html">
+                  Top of manual page
+                </a></li>
+    <li title="destroy-1"><a href="CosFileTransfer_FileIterator.html#destroy-1">destroy/1</a></li>
+    <li title="next_n-2"><a href="CosFileTransfer_FileIterator.html#next_n-2">next_n/2</a></li>
+    <li title="next_one-1"><a href="CosFileTransfer_FileIterator.html#next_one-1">next_one/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosFileTransfer_VirtualFileSystem " expanded="false">CosFileTransfer_VirtualFileSystem<ul>
+<li><a href="CosFileTransfer_VirtualFileSystem.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_file_system_type'-1"><a href="CosFileTransfer_VirtualFileSystem.html#'_get_file_system_type'-1">'_get_file_system_type'/1</a></li>
+    <li title="'_get_supported_content_types'-1"><a href="CosFileTransfer_VirtualFileSystem.html#'_get_supported_content_types'-1">'_get_supported_content_types'/1</a></li>
+    <li title="login-4"><a href="CosFileTransfer_VirtualFileSystem.html#login-4">login/4</a></li>
+    </ul>
+</li>
+<li id="loadscrollpos" title="CosFileTransfer_FileTransferSession " expanded="true">CosFileTransfer_FileTransferSession<ul>
+<li><a href="CosFileTransfer_FileTransferSession.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_protocols_supported'-1"><a href="CosFileTransfer_FileTransferSession.html#'_get_protocols_supported'-1">'_get_protocols_supported'/1</a></li>
+    <li title="append-3"><a href="CosFileTransfer_FileTransferSession.html#append-3">append/3</a></li>
+    <li title="create_directory-2"><a href="CosFileTransfer_FileTransferSession.html#create_directory-2">create_directory/2</a></li>
+    <li title="create_file-2"><a href="CosFileTransfer_FileTransferSession.html#create_file-2">create_file/2</a></li>
+    <li title="delete-2"><a href="CosFileTransfer_FileTransferSession.html#delete-2">delete/2</a></li>
+    <li title="get_file-2"><a href="CosFileTransfer_FileTransferSession.html#get_file-2">get_file/2</a></li>
+    <li title="insert-4"><a href="CosFileTransfer_FileTransferSession.html#insert-4">insert/4</a></li>
+    <li title="logout-1"><a href="CosFileTransfer_FileTransferSession.html#logout-1">logout/1</a></li>
+    <li title="set_directory-2"><a href="CosFileTransfer_FileTransferSession.html#set_directory-2">set_directory/2</a></li>
+    <li title="transfer-3"><a href="CosFileTransfer_FileTransferSession.html#transfer-3">transfer/3</a></li>
+    </ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube"></div>
+<!-- refpage --><div class="innertube"><center><h1>CosFileTransfer_FileTransferSession</h1></center></div>
+  
+  <div class="innertube">
+<h3 id="module" class="title-link" onMouseOver="document.getElementById('ghlink-module-id57').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-id57').style.visibility = 'hidden';">
+<div class="title-name">Module</div>
+<div class="title-anchors"><span id="ghlink-module-id57" class="ghlink-after"><a href="#module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-body">CosFileTransfer_FileTransferSession</div>
+</div>
+  <div class="innertube">
+<h3 id="module-summary" class="title-link" onMouseOver="document.getElementById('ghlink-module-summary-id58').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-summary-id58').style.visibility = 'hidden';">
+<div class="title-name">Module Summary</div>
+<div class="title-anchors"><span id="ghlink-module-summary-id58" class="ghlink-after"><a href="#module-summary" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-summary-body">This module implements the OMG CosFileTransfer::FileTransferSession interface.</div>
+</div>
+  <section class="description"><div class="innertube">
+<h3 id="description" class="title-link" onMouseOver="document.getElementById('ghlink-description-id59').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-description-id59').style.visibility = 'hidden';">
+<div class="title-name">Description</div>
+<div class="title-anchors"><span id="ghlink-description-id59" class="ghlink-after"><a href="#description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY description-body"><p>
+    <p>To get access to the record definitions for the structures use:      <br>
+<span class="code">-include_lib("cosFileTransfer/include/*.hrl").</span></p>
+  </p></div>
+</div></section>
+  <div class="innertube"><h3 id="export" class="title-link" onMouseOver="document.getElementById('ghlink-export-id60').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-export-id60').style.visibility = 'hidden';">
+<div class="title-name">Exports</div>
+<div class="title-anchors"><span id="ghlink-export-id60" class="ghlink-after"><a href="#export" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3></div>
+<div class="exports-body">
+<article class="func"><div class="bold_code func-head"><h4 id="'_get_protocols_supported'-1" class="title-link" onMouseOver="document.getElementById('ghlink-'_get_protocols_supported'-1-id61').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-'_get_protocols_supported'-1-id61').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-'_get_protocols_supported'-1-id61" class="ghlink-before"><a href="#'_get_protocols_supported'-1" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">'_get_protocols_supported'(FTS) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = [#'CosFileTransfer_ProtocolSupport'{protocol_name=Type, addresses=[Address]}]</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Type = Address = string()</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This read only attribute returns the protocols supported by the
+          target object.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="set_directory-2" class="title-link" onMouseOver="document.getElementById('ghlink-set_directory-2-id62').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-set_directory-2-id62').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-set_directory-2-id62" class="ghlink-before"><a href="#set_directory-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">set_directory(FTS, Directory) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = Directory = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = ok | {'EXCEPTION, E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>Invoking this operation will change the current working directory of
+          the target object's associated file system. If fail to do so the
+          appropriate exception is raised. </p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="create_file-2" class="title-link" onMouseOver="document.getElementById('ghlink-create_file-2-id63').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-create_file-2-id63').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-create_file-2-id63" class="ghlink-before"><a href="#create_file-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">create_file(FTS, FileNameList) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FileNameList = [string()]</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = File | {'EXCEPTION, E}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">File = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation creates a <span class="code">File</span> Object representing a file which 
+          may or may not exist. 
+          For this operation to be independent of the working directory the
+          supplied <span class="code">FileNameList</span> must represent the absolute name.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="create_directory-2" class="title-link" onMouseOver="document.getElementById('ghlink-create_directory-2-id64').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-create_directory-2-id64').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-create_directory-2-id64" class="ghlink-before"><a href="#create_directory-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">create_directory(FTS, FileNameList) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FileNameList = [string()]</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = Directory | {'EXCEPTION, E}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Directory = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation creates a new directory in the target objects associated
+          file systems domain. If fail to do so an exception is raised but,
+          if successful, a <span class="code">Directory</span> object representing the new
+          directory is returned.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="get_file-2" class="title-link" onMouseOver="document.getElementById('ghlink-get_file-2-id65').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-get_file-2-id65').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-get_file-2-id65" class="ghlink-before"><a href="#get_file-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">get_file(FTS, FileNameList) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FileNameList = [string()]</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = FileWrapper | {'EXCEPTION, E}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FileWrapper = #'CosFileTransfer_FileWrapper'{the_file = File file_type = Type}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">File = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Type = nfile | ndirectory</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation, creates a <span class="code">FileWrapper</span> which represents a file or directory, and 
+          should be independent of the working Directory,
+          i.e., a full path name must be supplied. Furthermore, the file or
+          directory represented by the <span class="code">FileNameList</span> must exist.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="delete-2" class="title-link" onMouseOver="document.getElementById('ghlink-delete-2-id66').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-delete-2-id66').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-delete-2-id66" class="ghlink-before"><a href="#delete-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">delete(FTS, File) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = File = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = ok | {'EXCEPTION', E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation removes the file or directory, represented by the <span class="code">File</span>
+          object, from the target objects associated file system. If it is a non-empty
+          directory or non-existing file or directory an exception is raised.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="transfer-3" class="title-link" onMouseOver="document.getElementById('ghlink-transfer-3-id67').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-transfer-3-id67').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-transfer-3-id67" class="ghlink-before"><a href="#transfer-3" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">transfer(FTS, SourceFile, DestinationFile) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = SourceFile = DestinationFile = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return = ok | {'EXCEPTION', E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>If the target object's and the <span class="code">DestinationFile's</span> associated
+          <span class="code">FileTransferSession's</span> support the same protocol(s) this operation
+          will copy the file represented by the <span class="code">SourceFile</span> from the target 
+          object's file system to a file in the destination 
+          <span class="code">FileTransferSession's</span> file system. The file is represented by the
+          <span class="code">DestinationFile</span> object and may not exist.
+          This operation must be invoked on the <span class="code">FileTransferSession</span>
+          associated with the <span class="code">SourceFile</span> object.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="append-3" class="title-link" onMouseOver="document.getElementById('ghlink-append-3-id68').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-append-3-id68').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-append-3-id68" class="ghlink-before"><a href="#append-3" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">append(FTS, SourceFile, DestinationFile) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = SourceFile = DestinationFile = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return =  ok | {'EXCEPTION', E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation behaves almost like the <span class="code">transfer/3</span> operation. The
+          difference is that the <span class="code">DestinationFile</span> must exist since the
+          <span class="code">SourceFile</span> will be appended to the <span class="code">DestinationFile</span>.</p>
+        <p>Currently, it is not possible to use this operation when the target 
+          object represents FTP.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="insert-4" class="title-link" onMouseOver="document.getElementById('ghlink-insert-4-id69').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-insert-4-id69').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-insert-4-id69" class="ghlink-before"><a href="#insert-4" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">insert(FTS, SourceFile, DestinationFile, Offset) -&gt; Return</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = SourceFile = DestinationFile = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Offset = long()</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Return =  ok | {'EXCEPTION', E}</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation behaves almost like the <span class="code">append/3</span> operation. The 
+          difference is that the <span class="code">SourceFile</span> will be inserted into the
+          <span class="code">DestinationFile</span> <span class="code">Offset</span> bytes from the start of the file.</p>
+        <p>Currently, it is not possible to use this operation when the target 
+          object represents FTP.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="logout-1" class="title-link" onMouseOver="document.getElementById('ghlink-logout-1-id70').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-logout-1-id70').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-logout-1-id70" class="ghlink-before"><a href="#logout-1" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">logout(FTS) -&gt; ok</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FTS = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation terminates the target object and closes the connection
+          to the file system it represents.</p>
+      </div>
+</div></article>
+</div>
+  
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

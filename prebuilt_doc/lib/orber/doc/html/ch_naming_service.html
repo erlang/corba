@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- CosNaming Service</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="CosNaming Service">7 
+                CosNaming Service</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">orber</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/orber.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to Orber" expanded="false">Introduction to Orber<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_orber_kernel.html">
+              Top of chapter
+            </a></li>
+<li title="ORB Kernel and IIOP "><a href="ch_orber_kernel.html#orb-kernel-and-iiop-">ORB Kernel and IIOP </a></li>
+<li title="The Object Request Broker (ORB)"><a href="ch_orber_kernel.html#the-object-request-broker--orb-">The Object Request Broker (ORB)</a></li>
+<li title="Internet Inter-Object Protocol (IIOP)"><a href="ch_orber_kernel.html#internet-inter-object-protocol--iiop-">Internet Inter-Object Protocol (IIOP)</a></li>
+</ul>
+</li>
+<li id="no" title="Interface Repository" expanded="false">Interface Repository<ul>
+<li><a href="ch_ifr.html">
+              Top of chapter
+            </a></li>
+<li title="Interface Repository(IFR)"><a href="ch_ifr.html#interface-repository-ifr-">Interface Repository(IFR)</a></li>
+</ul>
+</li>
+<li id="no" title="Installing Orber" expanded="false">Installing Orber<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+<li title="Configuration"><a href="ch_install.html#configuration">Configuration</a></li>
+<li title="Firewall Configuration"><a href="ch_install.html#firewall-configuration">Firewall Configuration</a></li>
+<li title="Interface Configuration"><a href="ch_install.html#interface-configuration">Interface Configuration</a></li>
+</ul>
+</li>
+<li id="no" title="OMG IDL to Erlang Mapping" expanded="false">OMG IDL to Erlang Mapping<ul>
+<li><a href="ch_idl_to_erlang_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL to Erlang Mapping - Overview"><a href="ch_idl_to_erlang_mapping.html#omg-idl-to-erlang-mapping---overview">OMG IDL to Erlang Mapping - Overview</a></li>
+<li title="OMG IDL Mapping Elements"><a href="ch_idl_to_erlang_mapping.html#omg-idl-mapping-elements">OMG IDL Mapping Elements</a></li>
+<li title="Getting Started"><a href="ch_idl_to_erlang_mapping.html#getting-started">Getting Started</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Template OMG IDL Types and Complex Declarators"><a href="ch_idl_to_erlang_mapping.html#template-omg-idl-types-and-complex-declarators">Template OMG IDL Types and Complex Declarators</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Scoped Names and Generated Files"><a href="ch_idl_to_erlang_mapping.html#scoped-names-and-generated-files">Scoped Names and Generated Files</a></li>
+<li title="Typecode, Identity and Name Access Functions"><a href="ch_idl_to_erlang_mapping.html#typecode,-identity-and-name-access-functions">Typecode, Identity and Name Access Functions</a></li>
+<li title="References to Constants"><a href="ch_idl_to_erlang_mapping.html#references-to-constants">References to Constants</a></li>
+<li title="References to Objects Defined in OMG IDL"><a href="ch_idl_to_erlang_mapping.html#references-to-objects-defined-in-omg-idl">References to Objects Defined in OMG IDL</a></li>
+<li title="Exceptions"><a href="ch_idl_to_erlang_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_idl_to_erlang_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Invocations of Operations"><a href="ch_idl_to_erlang_mapping.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Implementing the DB Application"><a href="ch_idl_to_erlang_mapping.html#implementing-the-db-application">Implementing the DB Application</a></li>
+<li title="Reserved Compiler Names and Keywords"><a href="ch_idl_to_erlang_mapping.html#reserved-compiler-names-and-keywords">Reserved Compiler Names and Keywords</a></li>
+<li title="Type Code Representation"><a href="ch_idl_to_erlang_mapping.html#type-code-representation">Type Code Representation</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="CosNaming Service" expanded="true">CosNaming Service<ul>
+<li><a href="ch_naming_service.html">
+              Top of chapter
+            </a></li>
+<li title="Overview of the CosNaming Service"><a href="ch_naming_service.html#overview-of-the-cosnaming-service">Overview of the CosNaming Service</a></li>
+<li title="The Basic Use-cases of the Naming Service"><a href="ch_naming_service.html#the-basic-use-cases-of-the-naming-service">The Basic Use-cases of the Naming Service</a></li>
+<li title="Interoperable Naming Service"><a href="ch_naming_service.html#interoperable-naming-service">Interoperable Naming Service</a></li>
+</ul>
+</li>
+<li id="no" title="How to use security in Orber" expanded="false">How to use security in Orber<ul>
+<li><a href="ch_security.html">
+              Top of chapter
+            </a></li>
+<li title="Security in Orber"><a href="ch_security.html#security-in-orber">Security in Orber</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Stubs/Skeletons" expanded="false">Orber Stubs/Skeletons<ul>
+<li><a href="ch_stubs.html">
+              Top of chapter
+            </a></li>
+<li title="Orber Stubs and Skeletons Description"><a href="ch_stubs.html#orber-stubs-and-skeletons-description">Orber Stubs and Skeletons Description</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA System and User Defined Exceptions" expanded="false">CORBA System and User Defined Exceptions<ul>
+<li><a href="ch_exceptions.html">
+              Top of chapter
+            </a></li>
+<li title="System Exceptions"><a href="ch_exceptions.html#system-exceptions">System Exceptions</a></li>
+<li title="User Defined Exceptions"><a href="ch_exceptions.html#user-defined-exceptions">User Defined Exceptions</a></li>
+<li title="Throwing Exceptions"><a href="ch_exceptions.html#throwing-exceptions">Throwing Exceptions</a></li>
+<li title="Catching Exceptions"><a href="ch_exceptions.html#catching-exceptions">Catching Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Interceptors" expanded="false">Orber Interceptors<ul>
+<li><a href="ch_interceptors.html">
+              Top of chapter
+            </a></li>
+<li title="Using Interceptors"><a href="ch_interceptors.html#using-interceptors">Using Interceptors</a></li>
+<li title="Interceptor Example"><a href="ch_interceptors.html#interceptor-example">Interceptor Example</a></li>
+</ul>
+</li>
+<li id="no" title="OrberWeb" expanded="false">OrberWeb<ul>
+<li><a href="ch_orberweb.html">
+              Top of chapter
+            </a></li>
+<li title="Using OrberWeb"><a href="ch_orberweb.html#using-orberweb">Using OrberWeb</a></li>
+<li title="Starting OrberWeb"><a href="ch_orberweb.html#starting-orberweb">Starting OrberWeb</a></li>
+</ul>
+</li>
+<li id="no" title="Debugging" expanded="false">Debugging<ul>
+<li><a href="ch_debugging.html">
+              Top of chapter
+            </a></li>
+<li title="Tools and FAQ"><a href="ch_debugging.html#tools-and-faq">Tools and FAQ</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="CosNaming Service">7 CosNaming Service</h1>
+  
+
+  <h3 id="overview-of-the-cosnaming-service" class="title-link" onMouseOver="document.getElementById('ghlink-overview-of-the-cosnaming-service-id56').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-overview-of-the-cosnaming-service-id56').style.visibility = 'hidden';">
+<div class="title-name">7.1 
+        Overview of the CosNaming Service</div>
+<div class="title-anchors"><span id="ghlink-overview-of-the-cosnaming-service-id56" class="ghlink-after"><a href="#overview-of-the-cosnaming-service" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>The CosNaming Service is a service developed to help users and
+      programmers identify objects by human readable names rather than by a
+      reference.  By  binding a name to a naming context (another object), a
+      contextual reference is formed. This is helpful when navigating in the
+      object space. In addition, identifying objects by name allows you to evolve
+      and/or relocate objects without client code modification.</p>
+    <p>The CosNaming service has some concepts that are important:</p>
+    <ul>
+      <li>
+        <p><strong>name binding</strong> - a name to object association.</p>
+      </li>
+      <li>
+        <p><strong>naming context</strong> - is an object that contains a set of
+          name bindings in which each name is unique. Different names can be
+          bound to the same object.  
+          </p>
+      </li>
+      <li>
+        <p><strong>to bind a name</strong> - is to create a name binding in a given
+          context.</p>
+      </li>
+      <li>
+        <p><strong>to resolve a name</strong> - is to determine the object associated
+          with the name in a given context.</p>
+      </li>
+    </ul>
+    <p>A name is always resolved in a context, there no absolute names exist.
+      Because a context is like any other object, it can also be bound to
+      a name
+      in a naming context. 
+      This will result in a naming graph (a directed graph with notes and 
+      labeled edges). The graph allows more complex names to refer to an
+      object. Given a context, you can use a sequence to reference an object.
+      This sequence is henceforth referred to as <strong>name</strong> and the
+      individual
+      elements in the sequence as <strong>name components</strong>. All but the 
+      last name component are bound to naming contexts.
+      </p>
+    <p>The diagram in figure 1 illustrates how the Naming Service provides a
+      contextual relationship between objects, NamingContexts and
+      NameBindings to create an object locality, as the
+      object itself, has no name.
+      </p>
+    <a name="name"></a>
+    <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="name.gif" class="doc-image">
+      <p class="doc-image-caption">Figure
+        7.1:
+         
+        
+Figure 1: Contextual object relationships using the Naming Service.</p>
+    </div>
+    <p>The naming contexts provide a directory of contextual
+      reference and naming for objects (an object can appear to 
+      have more than one name).
+      </p>
+    <p>In figure 1 the object to the right can either be
+      called <span class="code">alpha</span> from one context or <span class="code">gamma</span> from another.  
+      </p>
+    <p>The Naming Service has an initial naming context, which is shown 
+      in the diagram as the top-most object in the naming graph.
+      It has two names <span class="code">beta</span> and <span class="code">epsilon</span>, which are bound to other
+      naming contexts. The initial naming context is a well known location 
+      used to share a common name space between multiple programs.
+      You can traverse the naming graph until you reach a name, which is
+      bound to an object, which is not a naming context.
+      </p>
+    <p>We recommend reading <strong>chapter 12, CORBA Fundamentals and Programming</strong>, for detailed information regarding the 
+      Naming Service. </p>
+  
+
+  <h3 id="the-basic-use-cases-of-the-naming-service" class="title-link" onMouseOver="document.getElementById('ghlink-the-basic-use-cases-of-the-naming-service-id57').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-basic-use-cases-of-the-naming-service-id57').style.visibility = 'hidden';">
+<div class="title-name">7.2 
+        The Basic Use-cases of the Naming Service</div>
+<div class="title-anchors"><span id="ghlink-the-basic-use-cases-of-the-naming-service-id57" class="ghlink-after"><a href="#the-basic-use-cases-of-the-naming-service" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>The basic use-cases of the Naming Service are:
+      </p>
+    <ul>
+      <li>Fetch initial reference to the naming service.</li>
+      <li>Creating a naming context.</li>
+      <li>Binding and unbinding names to objects.</li>
+      <li>Resolving a name to an object.</li>
+      <li>Listing the bindings of a naming context.</li>
+      <li>Destroying a naming context.</li>
+    </ul>
+
+    <h4 id="fetch-initial-reference-to-the-naming-service" class="title-link" onMouseOver="document.getElementById('ghlink-fetch-initial-reference-to-the-naming-service-id58').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-fetch-initial-reference-to-the-naming-service-id58').style.visibility = 'hidden';">
+<div class="title-name">Fetch Initial Reference to the Naming Service</div>
+<div class="title-anchors"><span id="ghlink-fetch-initial-reference-to-the-naming-service-id58" class="ghlink-after"><a href="#fetch-initial-reference-to-the-naming-service" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>In order to use the naming service you have to fetch an 
+        initial reference to it. This is done with:</p>
+      <div class="example example-erl"><pre>NS = corba:resolve_initial_references("NameService").</pre></div>
+      <div class="note">
+<div class="label">Note</div>
+<div class="content"><p>
+        <p>NS in the other use-cases refers to this initial reference.</p>
+      </p></div>
+</div>
+    
+
+    <h4 id="creating-a-naming-context" class="title-link" onMouseOver="document.getElementById('ghlink-creating-a-naming-context-id59').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-creating-a-naming-context-id59').style.visibility = 'hidden';">
+<div class="title-name">Creating a Naming Context</div>
+<div class="title-anchors"><span id="ghlink-creating-a-naming-context-id59" class="ghlink-after"><a href="#creating-a-naming-context" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>There are two functions for creating a naming context.
+        The first function, which only creates a naming context object is:</p>
+      <div class="example example-erl"><pre>NC = 'CosNaming_NamingContext':new_context(NS).</pre></div>
+      <p>The other function creates a naming context and binds it to a name in 
+        an already existing naming context (the initial context in this 
+        example):
+        </p>
+      <div class="example example-erl"><pre>NC = 'CosNaming_NamingContext':bind_new_context(NS, lname:new(["new"])).</pre></div>
+    
+
+    <h4 id="binding-and-unbinding-names-to-objects" class="title-link" onMouseOver="document.getElementById('ghlink-binding-and-unbinding-names-to-objects-id60').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-binding-and-unbinding-names-to-objects-id60').style.visibility = 'hidden';">
+<div class="title-name">Binding and Unbinding Names to Objects</div>
+<div class="title-anchors"><span id="ghlink-binding-and-unbinding-names-to-objects-id60" class="ghlink-after"><a href="#binding-and-unbinding-names-to-objects" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The following steps illustrate how to bind/unbind an object reference 
+        to/from a name. For the example below, assume that the NamingContexts 
+        in the path are already bound to the name <span class="code">/workgroup/services</span>, 
+        and that reference to the services context are in the variable 
+        <span class="code">Sc</span>.</p>
+      <ol>
+        <li>
+          <p>Use the naming library functions to create a name</p>
+          <div class="example example-erl"><pre>Name = lname:new(["object"]).</pre></div>
+        </li>
+        <li>
+          <p>Use CosNaming::NamingContext::bind() to bind a name to an object</p>
+          <div class="example example-erl"><pre>'CosNaming_NamingContext':bind(Sc, Name, Object).</pre></div>
+        </li>
+        <li>
+          <p>Use CosNaming::NamingContext::unbind() to remove the NameBinding from an object</p>
+          <div class="example example-erl"><pre>'CosNaming_NamingContext':unbind(Sc, Name).</pre></div>
+        </li>
+      </ol>
+      <div class="note">
+<div class="label">Note</div>
+<div class="content"><p>
+        <p>Objects can have more than one name, to indicate different paths to 
+          the same object.</p>
+      </p></div>
+</div>
+    
+
+    <h4 id="resolving-a-name-to-an-object" class="title-link" onMouseOver="document.getElementById('ghlink-resolving-a-name-to-an-object-id61').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-resolving-a-name-to-an-object-id61').style.visibility = 'hidden';">
+<div class="title-name">Resolving a Name to an Object</div>
+<div class="title-anchors"><span id="ghlink-resolving-a-name-to-an-object-id61" class="ghlink-after"><a href="#resolving-a-name-to-an-object" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The following steps show how to  retrieve the object reference to the service context 
+        above (/workgroup/services).    </p>
+      <ol>
+        <li>
+          <p>Use the naming library functions to create a name path:</p>
+          <div class="example example-erl"><pre>Name = lname:new(["workgroup", "services"]).</pre></div>
+        </li>
+        <li>
+          <p>Use CosNaming::NamingContext::resolve() to to resolve the name to an object</p>
+          <div class="example example-erl"><pre>Sc = 'CosNaming_NamingContext':resolve(NS, Name).</pre></div>
+        </li>
+      </ol>
+      <p>An alternative is to use:</p>
+      <div class="example example-erl"><pre>Sc = corba:string_to_object("corbaname:rir:/NameService#workgroup/services/").</pre></div>
+      <p>The <span class="code">corbaname</span> schema is described further in the Interoperable
+        Naming Service section.</p>
+    
+
+    <h4 id="listing-the-bindings-in-a-namingcontext" class="title-link" onMouseOver="document.getElementById('ghlink-listing-the-bindings-in-a-namingcontext-id62').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-listing-the-bindings-in-a-namingcontext-id62').style.visibility = 'hidden';">
+<div class="title-name">Listing the Bindings in a NamingContext</div>
+<div class="title-anchors"><span id="ghlink-listing-the-bindings-in-a-namingcontext-id62" class="ghlink-after"><a href="#listing-the-bindings-in-a-namingcontext" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <ol>
+        <li>
+          <p>Use CosNaming::NamingContext::list() to list all the bindings in a context</p>
+          <p>The following code retrieves and lists up to 10 bindings from a context.</p>
+          <div class="example example-erl"><pre>{BList, BIterator} = 'CosNaming_NamingContext':list(Sc, 10).
+
+lists:foreach(fun({{Id, Kind},BindingType}) -&gt; case BindingType of 
+    nobject -&gt;
+        io:format("id: %s, kind: %s, type: object~n", [Id, Kind]);
+    _ -&gt;
+        io:format("id: %s, kind: %s, type: ncontext~n", [Id, Kind])
+    end end,
+    Blist).</pre></div>
+        </li>
+      </ol>
+      <div class="note">
+<div class="label">Note</div>
+<div class="content"><p>
+        <p>Normally a The binding iterator (Like a book mark) indicates which objects have been read from the list.is helpful in situations where you have a large number of objects 
+          in a list, as the programmer then can traverse it more easily.
+          In Erlang it is not needed, because lists are easily handled in the 
+          language itself.</p>
+      </p></div>
+</div>
+      <div class="warning">
+<div class="label">Warning</div>
+<div class="content"><p>
+        <p>Remember that the BindingIterator (BIterator in the example) is an object and therefore
+          <strong>must be removed</strong> otherwise dangling processes will occur.
+          Use <span class="code">CosNaming::BindingIterator::destroy()</span> to remove it.</p>
+      </p></div>
+</div>
+      <div class="example example-erl"><pre>'CosNaming_NamingContext':destroy(BIterator).</pre></div>
+    
+
+    <h4 id="destroying-a-naming-context" class="title-link" onMouseOver="document.getElementById('ghlink-destroying-a-naming-context-id63').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-destroying-a-naming-context-id63').style.visibility = 'hidden';">
+<div class="title-name">Destroying a Naming Context</div>
+<div class="title-anchors"><span id="ghlink-destroying-a-naming-context-id63" class="ghlink-after"><a href="#destroying-a-naming-context" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The naming contexts are persistent and must be explicitly removed.
+        (they are also removed if all Orber nodes in the domain are stopped).</p>
+      <ol>
+        <li>
+          <p>Use CosNaming::NamingContext::destroy() to remove a NamingContext</p>
+          <div class="example example-erl"><pre>'CosNaming_NamingContext':destroy(Sc).</pre></div>
+        </li>
+      </ol>
+    
+  
+
+  <h3 id="interoperable-naming-service" class="title-link" onMouseOver="document.getElementById('ghlink-interoperable-naming-service-id64').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-interoperable-naming-service-id64').style.visibility = 'hidden';">
+<div class="title-name">7.3 
+        Interoperable Naming Service</div>
+<div class="title-anchors"><span id="ghlink-interoperable-naming-service-id64" class="ghlink-after"><a href="#interoperable-naming-service" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <a name="interop_ns"></a>
+    <p>The OMG specifies URL schemes, which represent a CORBA object and a CORBA object
+      bound in a NamingContext, for resolving references from other ORB:s. As of today,
+      three schemes are defined:</p>
+    <ul>
+      <li>IOR</li>
+      <li>corbaloc</li>
+      <li>corbaname</li>
+    </ul>
+
+    <h4 id="ior" class="title-link" onMouseOver="document.getElementById('ghlink-ior-id65').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-ior-id65').style.visibility = 'hidden';">
+<div class="title-name">IOR</div>
+<div class="title-anchors"><span id="ghlink-ior-id65" class="ghlink-after"><a href="#ior" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>A stringified IOR is a valid URL format but difficult for humans to handle
+        through non-electronic means. This URL format does not depend on a specific
+        Name Service and, thus, is robust and insulates the client from the encapsulated
+        transport information and object key used to reference the object.</p>
+    
+
+    <h4 id="corbaloc" class="title-link" onMouseOver="document.getElementById('ghlink-corbaloc-id66').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corbaloc-id66').style.visibility = 'hidden';">
+<div class="title-name">corbaloc</div>
+<div class="title-anchors"><span id="ghlink-corbaloc-id66" class="ghlink-after"><a href="#corbaloc" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The notation of this scheme is similar to the more well known URL <span class="code">HTTP</span>, and
+        the full <span class="code">corbaloc</span> BNF is:</p>
+      <div class="example example-none"><pre>&lt;corbaloc&gt;            =  "corbaloc:"&lt;obj_addr_list&gt;["/"&lt;key_string&gt;] 
+&lt;obj_addr_list&gt;       = [&lt;obj_addr&gt;","]*&lt;obj_addr&gt; 
+&lt;obj_addr&gt;            = &lt;prot_addr&gt; | &lt;future_prot_addr&gt; 
+&lt;prot_addr&gt;           = &lt;rir_prot_addr&gt; | &lt;iiop_prot_addr&gt; 
+&lt;rir_prot_addr&gt;       = &lt;rir_prot_token&gt;":"  
+&lt;rir_prot_token&gt;      = rir  
+&lt;future_prot_addr&gt;    = &lt;future_prot_id&gt;&lt;future_prot_addr&gt;
+&lt;future_prot_id&gt;      = &lt;future_prot_token&gt;":" 
+&lt;iiop_prot_addr&gt;      = &lt;iiop_id&gt;&lt;iiop_addr&gt;
+&lt;iiop_id&gt;             = &lt;iiop_default&gt; | &lt;iiop_prot_token&gt;":"  
+&lt;iiop_default&gt;        = ":"  
+&lt;iiop_prot_token&gt;     = "iiop"  
+&lt;iiop_addr&gt;           = &lt;version&gt;&lt;host&gt;[":"&lt;port&gt;] 
+&lt;host&gt;                = &lt;DNS-style Host Name&gt; | &lt;ip_v4_address&gt; | "["&lt;ip_v6_address&gt;"]"
+&lt;version&gt;             = &lt;major&gt;"."&lt;minor&gt;"@"  | empty_string 
+&lt;port&gt;                = number 
+&lt;major&gt;               = number 
+&lt;minor&gt;               = number
+&lt;DNS-style Host Name&gt; = string
+&lt;ip_v4_address&gt;       = string
+&lt;ip_v6_address&gt;       = string
+&lt;key_string&gt;          = for example NameService</pre></div>
+      <p>The <span class="code">corbaloc</span> scheme consists of 3 parts:</p>
+      <ul>
+        <li>Protocol - as of today <span class="code">iiop</span> or <span class="code">rir</span> is supported.
+         Using <span class="code">rir</span> means that we will resolve the given Key locally, i.e.,
+         the same as using <span class="code">corba:resolve_initial_references("NameService").</span>
+</li>
+        <li>IIOP address - this address can be divided into <span class="code">Version</span>, <span class="code">Host</span> 
+         and <span class="code">Port</span>. If the version or port are left out they will be set to the default
+         values <span class="code">1.0</span> and <span class="code">2809</span> respectively.</li>
+        <li>KeyString - an object key, e.g., "NameService". If no Key is 
+         supplied the default value "NameService" will be used.</li>
+      </ul>
+      <p>A <span class="code">corbaloc</span> can be passed used together with 
+        <span class="code">corba:string_to_object("corbaloc::1.0@erlang.org:4001/NameService")</span> or set as the 
+        configuration variables <span class="code">orbInitilRef</span> or <span class="code">orbDefaultInitilRef</span> and calling
+        <span class="code">corba:resolve_initial_references("NameService")</span>. For more information see the Orber
+        installation chapter. <span class="code">corbaloc</span> can also be used together with <span class="code">corbaname</span>
+        to gain an easy access to a Name Service.</p>
+      <p>Currently, the OMG defines a set of reserved keys and the type of object,
+        listed below, they should be associated with. The <span class="code">NameService</span>
+        key may <strong>not</strong> be changed in Orber. If you want to add one of the
+        reserved keys as an initial service, simply use:</p>
+      <div class="example example-erl"><pre>1&gt; Factory = cosNotificationApp:start_global_factory().
+2&gt; corba:add_initial_service("NotificationService", Factory).</pre></div>
+      <p>This object can then be easily resolved by any other ORB, supporting 
+        the Interoperable Naming Service, by using:</p>
+      <div class="example example-erl"><pre>3&gt; NF = corba:string_to_object("corbaloc::1.0@erlang.org:4001/NotificationService").</pre></div>
+      <div class="doc-table-wrapper">
+<table class="doc-table">
+<tr>
+          <td align="left" valign="middle"><strong>String Name</strong></td>
+          <td align="left" valign="middle"><strong>Object Type</strong></td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">RootPOA</td>
+          <td align="left" valign="middle">PortableServer::POA</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">POACurrent</td>
+          <td align="left" valign="middle">PortableServer::Current</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">InterfaceRepository</td>
+          <td align="left" valign="middle">CORBA::Repository</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">NameService</td>
+          <td align="left" valign="middle">CosNaming::NamingContext</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">TradingService</td>
+          <td align="left" valign="middle">CosTrading::Lookup</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">SecurityCurrent</td>
+          <td align="left" valign="middle">SecurityLevel1::Current/SecurityLevel2::Current</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">TransactionCurrent</td>
+          <td align="left" valign="middle">CosTransaction::Current</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">DynAnyFactory</td>
+          <td align="left" valign="middle">DynamicAny::DynAnyFactory</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">ORBPolicyManager</td>
+          <td align="left" valign="middle">CORBA::PolicyManager</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">PolicyCurrent</td>
+          <td align="left" valign="middle">CORBA::PolicyCurrent</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">NotificationService</td>
+          <td align="left" valign="middle">CosNotifyChannelAdmin::EventChannelFactory</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">TypedNotificationService</td>
+          <td align="left" valign="middle">CosTypedNotifyChannelAdmin::TypedEventChannelFactory</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">CodecFactory</td>
+          <td align="left" valign="middle">IOP::CodecFactory</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">PICurrent</td>
+          <td align="left" valign="middle">PortableInterceptors::Current</td>
+        </tr>
+</table>
+<p class="doc-table-caption">Table
+        7.1:
+         
+        Currently reserved key strings</p>
+</div>
+    
+
+    <h4 id="corbaname" class="title-link" onMouseOver="document.getElementById('ghlink-corbaname-id67').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-corbaname-id67').style.visibility = 'hidden';">
+<div class="title-name">corbaname</div>
+<div class="title-anchors"><span id="ghlink-corbaname-id67" class="ghlink-after"><a href="#corbaname" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The <span class="code">corbaname</span> URL scheme is an extension of the <span class="code">corbaloc</span> scheme, and
+        the full <span class="code">corbaname</span> BNF is:</p>
+      <div class="example example-none"><pre>&lt;corbaname&gt;     = "corbaname:"&lt;obj_addr_list&gt;["/"&lt;key_string&gt;]["#"&lt;string_name&gt;] 
+&lt;obj_addr_list&gt; = as described above.
+&lt;key_string&gt;    = as described above.</pre></div>
+      <p>The <span class="code">string_name</span>, concatenated to the <span class="code">corbaloc</span> string, identifies
+        a binding in a naming context. A name component consists of two parts, i.e.,
+        <span class="code">id</span> and <span class="code">kind</span>, which is represented as follows:</p>
+      <div class="doc-table-wrapper">
+<table class="doc-table">
+<tr>
+          <td align="left" valign="middle"><strong>String Name</strong></td>
+          <td align="left" valign="middle"><strong>Name Sequence</strong></td>
+          <td align="left" valign="middle"><strong>Comment</strong></td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">"id1/./id3.kind3"</td>
+          <td align="left" valign="middle">[{"id1",""},{"",""},{"id3","kind3"}]</td>
+          <td align="left" valign="middle">The first component has no kind defined while the second component's both fields are empty.</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">"id1//id3.kind3"</td>
+          <td align="left" valign="middle">ERROR</td>
+          <td align="left" valign="middle">Not allowed, must insert a '.' between the '//'.</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">"id1.kind1/."</td>
+          <td align="left" valign="middle">[{"id1","kind1"},{"",""}]</td>
+          <td align="left" valign="middle">The first component's fields are both set while the second component's both fields are empty.</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">"id1.kind1/id2."</td>
+          <td align="left" valign="middle">ERROR</td>
+          <td align="left" valign="middle">An Id with a trailing '.' is not allowed.</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">"i\\/d1/i\\.d2"</td>
+          <td align="left" valign="middle">[{"i/d1",""},{"i.d2",""}]</td>
+          <td align="left" valign="middle">Since '.' and '/' are used to separate the components, these tokens must be escaped to be correctly converted.</td>
+        </tr>
+</table>
+<p class="doc-table-caption">Table
+        7.2:
+         
+        Stringified Name representation</p>
+</div>
+      <p>After creating a stringified Name we can either use:</p>
+      <div class="example example-erl"><pre>NameStr = "org.erlang",
+NS      = corba:resolve_initial_references("NameService"),
+Obj     = 'CosNaming_NamingContextExt':resolve_str(NS, NameStr),</pre></div>
+      <p>or concatenate the Name String using:</p>
+      <div class="example example-erl"><pre>NameStr = "Swedish/Soccer/Champions",
+Address = "corbaname:iiop:1.0@www.aik.se:2000/NameService",
+NS      = corba:resolve_initial_references("NameService"),
+URLStr  = 'CosNaming_NamingContextExt':to_url(NS, Address, NameStr),
+Obj     = corba:string_to_object(URLStr),</pre></div>
+      <p>Using the first alternative, the configuration variables <span class="code">orbInitilRef</span> and
+        <span class="code">orbDefaultInitilRef</span>, will determine which other ORB's or the local
+        Name Service Orber will try to resolve the given string from. The second
+        alternative allows us to override any settings of the configuration variables.</p>
+      <p>The function <span class="code">to_url/3</span> will perform any necessary escapes compliant with
+        IETF/RFC 2396. US-ASCII alphanumeric characters and 
+        <span class="code">"," | "/" | ":" | "?" | "@" | "&amp;" | "=" | "+" | "$" | ";" | "-" | "_" | "." | "!" | "~" | "*" | "'" | "(" | ")"</span>
+        are not escaped.</p>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1997-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>
