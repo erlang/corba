@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- OrberWeb</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="OrberWeb">12 
+                OrberWeb</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">orber</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/orber.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to Orber" expanded="false">Introduction to Orber<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_orber_kernel.html">
+              Top of chapter
+            </a></li>
+<li title="ORB Kernel and IIOP "><a href="ch_orber_kernel.html#orb-kernel-and-iiop-">ORB Kernel and IIOP </a></li>
+<li title="The Object Request Broker (ORB)"><a href="ch_orber_kernel.html#the-object-request-broker--orb-">The Object Request Broker (ORB)</a></li>
+<li title="Internet Inter-Object Protocol (IIOP)"><a href="ch_orber_kernel.html#internet-inter-object-protocol--iiop-">Internet Inter-Object Protocol (IIOP)</a></li>
+</ul>
+</li>
+<li id="no" title="Interface Repository" expanded="false">Interface Repository<ul>
+<li><a href="ch_ifr.html">
+              Top of chapter
+            </a></li>
+<li title="Interface Repository(IFR)"><a href="ch_ifr.html#interface-repository-ifr-">Interface Repository(IFR)</a></li>
+</ul>
+</li>
+<li id="no" title="Installing Orber" expanded="false">Installing Orber<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+<li title="Configuration"><a href="ch_install.html#configuration">Configuration</a></li>
+<li title="Firewall Configuration"><a href="ch_install.html#firewall-configuration">Firewall Configuration</a></li>
+<li title="Interface Configuration"><a href="ch_install.html#interface-configuration">Interface Configuration</a></li>
+</ul>
+</li>
+<li id="no" title="OMG IDL to Erlang Mapping" expanded="false">OMG IDL to Erlang Mapping<ul>
+<li><a href="ch_idl_to_erlang_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL to Erlang Mapping - Overview"><a href="ch_idl_to_erlang_mapping.html#omg-idl-to-erlang-mapping---overview">OMG IDL to Erlang Mapping - Overview</a></li>
+<li title="OMG IDL Mapping Elements"><a href="ch_idl_to_erlang_mapping.html#omg-idl-mapping-elements">OMG IDL Mapping Elements</a></li>
+<li title="Getting Started"><a href="ch_idl_to_erlang_mapping.html#getting-started">Getting Started</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Template OMG IDL Types and Complex Declarators"><a href="ch_idl_to_erlang_mapping.html#template-omg-idl-types-and-complex-declarators">Template OMG IDL Types and Complex Declarators</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Scoped Names and Generated Files"><a href="ch_idl_to_erlang_mapping.html#scoped-names-and-generated-files">Scoped Names and Generated Files</a></li>
+<li title="Typecode, Identity and Name Access Functions"><a href="ch_idl_to_erlang_mapping.html#typecode,-identity-and-name-access-functions">Typecode, Identity and Name Access Functions</a></li>
+<li title="References to Constants"><a href="ch_idl_to_erlang_mapping.html#references-to-constants">References to Constants</a></li>
+<li title="References to Objects Defined in OMG IDL"><a href="ch_idl_to_erlang_mapping.html#references-to-objects-defined-in-omg-idl">References to Objects Defined in OMG IDL</a></li>
+<li title="Exceptions"><a href="ch_idl_to_erlang_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_idl_to_erlang_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Invocations of Operations"><a href="ch_idl_to_erlang_mapping.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Implementing the DB Application"><a href="ch_idl_to_erlang_mapping.html#implementing-the-db-application">Implementing the DB Application</a></li>
+<li title="Reserved Compiler Names and Keywords"><a href="ch_idl_to_erlang_mapping.html#reserved-compiler-names-and-keywords">Reserved Compiler Names and Keywords</a></li>
+<li title="Type Code Representation"><a href="ch_idl_to_erlang_mapping.html#type-code-representation">Type Code Representation</a></li>
+</ul>
+</li>
+<li id="no" title="CosNaming Service" expanded="false">CosNaming Service<ul>
+<li><a href="ch_naming_service.html">
+              Top of chapter
+            </a></li>
+<li title="Overview of the CosNaming Service"><a href="ch_naming_service.html#overview-of-the-cosnaming-service">Overview of the CosNaming Service</a></li>
+<li title="The Basic Use-cases of the Naming Service"><a href="ch_naming_service.html#the-basic-use-cases-of-the-naming-service">The Basic Use-cases of the Naming Service</a></li>
+<li title="Interoperable Naming Service"><a href="ch_naming_service.html#interoperable-naming-service">Interoperable Naming Service</a></li>
+</ul>
+</li>
+<li id="no" title="How to use security in Orber" expanded="false">How to use security in Orber<ul>
+<li><a href="ch_security.html">
+              Top of chapter
+            </a></li>
+<li title="Security in Orber"><a href="ch_security.html#security-in-orber">Security in Orber</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Stubs/Skeletons" expanded="false">Orber Stubs/Skeletons<ul>
+<li><a href="ch_stubs.html">
+              Top of chapter
+            </a></li>
+<li title="Orber Stubs and Skeletons Description"><a href="ch_stubs.html#orber-stubs-and-skeletons-description">Orber Stubs and Skeletons Description</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA System and User Defined Exceptions" expanded="false">CORBA System and User Defined Exceptions<ul>
+<li><a href="ch_exceptions.html">
+              Top of chapter
+            </a></li>
+<li title="System Exceptions"><a href="ch_exceptions.html#system-exceptions">System Exceptions</a></li>
+<li title="User Defined Exceptions"><a href="ch_exceptions.html#user-defined-exceptions">User Defined Exceptions</a></li>
+<li title="Throwing Exceptions"><a href="ch_exceptions.html#throwing-exceptions">Throwing Exceptions</a></li>
+<li title="Catching Exceptions"><a href="ch_exceptions.html#catching-exceptions">Catching Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Interceptors" expanded="false">Orber Interceptors<ul>
+<li><a href="ch_interceptors.html">
+              Top of chapter
+            </a></li>
+<li title="Using Interceptors"><a href="ch_interceptors.html#using-interceptors">Using Interceptors</a></li>
+<li title="Interceptor Example"><a href="ch_interceptors.html#interceptor-example">Interceptor Example</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="OrberWeb" expanded="true">OrberWeb<ul>
+<li><a href="ch_orberweb.html">
+              Top of chapter
+            </a></li>
+<li title="Using OrberWeb"><a href="ch_orberweb.html#using-orberweb">Using OrberWeb</a></li>
+<li title="Starting OrberWeb"><a href="ch_orberweb.html#starting-orberweb">Starting OrberWeb</a></li>
+</ul>
+</li>
+<li id="no" title="Debugging" expanded="false">Debugging<ul>
+<li><a href="ch_debugging.html">
+              Top of chapter
+            </a></li>
+<li title="Tools and FAQ"><a href="ch_debugging.html#tools-and-faq">Tools and FAQ</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="OrberWeb">12 OrberWeb</h1>
+  
+
+  <h3 id="using-orberweb" class="title-link" onMouseOver="document.getElementById('ghlink-using-orberweb-id88').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-using-orberweb-id88').style.visibility = 'hidden';">
+<div class="title-name">12.1 
+        Using OrberWeb</div>
+<div class="title-anchors"><span id="ghlink-using-orberweb-id88" class="ghlink-after"><a href="#using-orberweb" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p><span class="code">OrberWeb</span> is intended to make things easier when developing and 
+      testing applications using <span class="code">Orber</span>. The user is able to interact
+      with <span class="code">Orber</span> via a GUI by using a web browser.</p>
+    <p><span class="code">OrberWeb</span> requires that the application <span class="code">WebTool</span> is available and
+      started on at least one node; if so <span class="code">OrberWeb</span> can usually be used to
+      to access <span class="code">Orber</span> nodes supporting the Interoperable Naming 
+      Service. How to start OrberWeb is described in
+      <span class="bold_code bc-15"><a href="ch_orberweb.html#startorberweb">Starting OrberWeb</a></span></p>
+    <p>The <span class="code">OrberWeb</span> GUI consists of a <strong>Menu Frame</strong> and a 
+      <strong>Data Frames</strong>.</p>
+
+    <h4 id="the-menu-frame" class="title-link" onMouseOver="document.getElementById('ghlink-the-menu-frame-id89').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-menu-frame-id89').style.visibility = 'hidden';">
+<div class="title-name">The Menu Frame</div>
+<div class="title-anchors"><span id="ghlink-the-menu-frame-id89" class="ghlink-after"><a href="#the-menu-frame" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The menu frame consists of:</p>
+      <ul>
+        <li>
+<strong>Node List</strong> - which node to access.</li>
+        <li>
+<strong>Configuration</strong> - see how Orber on the current node is configured.</li>
+        <li>
+<strong>Name Service</strong> - browse the NameService and add/remove a Context/Object.</li>
+        <li>
+<strong>IFR Types</strong> - see which types are registered in IFR.</li>
+        <li>
+<strong>Create Object</strong> - create a new object and, possibly, store it in the NameService.</li>
+      </ul>
+      <p></p>
+      <a name="menuframe"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="menuframe.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.1:
+         
+        The Menu Frame.</p>
+      </div>
+      <p>Which nodes we can access is determined by what is returned when invoking <span class="code">[node()|nodes()]</span>.
+        If you cannot see a desired node in the list, you have to call <span class="code">net_adm:ping(Node)</span>.
+        But this requires that the node is started with the distribution switched on
+        (e.g. <span class="code">erl -sname myNode</span>); this also goes for the node <span class="code">OrberWeb</span> is running on.</p>
+    
+
+    <h4 id="the-configuration-data-frame" class="title-link" onMouseOver="document.getElementById('ghlink-the-configuration-data-frame-id90').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-configuration-data-frame-id90').style.visibility = 'hidden';">
+<div class="title-name">The Configuration Data Frame</div>
+<div class="title-anchors"><span id="ghlink-the-configuration-data-frame-id90" class="ghlink-after"><a href="#the-configuration-data-frame" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>When accessing the <strong>Configuration</strong> page OrberWeb presents a table containing the
+        <span class="bold_code bc-15"><a href="ch_install.html#config">configuration settings</a></span> for the target node.</p>
+      <p></p>
+      <a name="dataframe3"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe3.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.2:
+         
+        Configuration Settings.</p>
+      </div>
+      <p>It is also possible to change those configuration parameters which can be changed when Orber
+        is already started. The Key-Value pairs is given as a list of tuples, e.g.,
+        <strong>[{orber_debug_level, 5}, {iiop_timeout, 60}, {giop_version, {1,2}}]</strong>. If one tries to update a parameter
+        which may not be changed an error message will be displayed.</p>
+    
+
+    <h4 id="the-ifr-data-frame" class="title-link" onMouseOver="document.getElementById('ghlink-the-ifr-data-frame-id91').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-ifr-data-frame-id91').style.visibility = 'hidden';">
+<div class="title-name">The IFR Data Frame</div>
+<div class="title-anchors"><span id="ghlink-the-ifr-data-frame-id91" class="ghlink-after"><a href="#the-ifr-data-frame" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>All types registered in the IFR (Interface Repository) which have an associated IFR-id
+        can be viewed via the IFR Data Frame. This gives the user an easy way to confirm that
+        all necessary IDL-specifications have been properly registered. All available types are
+        listed when choosing <span class="code">IFR Types</span> in the menu frame:</p>
+      <p></p>
+      <a name="dataframe1"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe1.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.3:
+         
+        Select Type.</p>
+      </div>
+      <p>After selecting a type all definitions of that particular type will be displayed. If no such
+        bindings exists the table will be empty.</p>
+      <p>Since Orber adds definitions to the IFR when it is installed (e.g. CosNaming), not only
+        types defined by the user will show up in the table. In the figure below you find the
+        the NameService exceptions listed.</p>
+      <p></p>
+      <a name="dataframe2"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe2.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.4:
+         
+        List Registered Exceptions.</p>
+      </div>
+    
+
+    <h4 id="the-nameservice-data-frame" class="title-link" onMouseOver="document.getElementById('ghlink-the-nameservice-data-frame-id92').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-nameservice-data-frame-id92').style.visibility = 'hidden';">
+<div class="title-name">The NameService Data Frame</div>
+<div class="title-anchors"><span id="ghlink-the-nameservice-data-frame-id92" class="ghlink-after"><a href="#the-nameservice-data-frame" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The NameService main purpose is to make possible to bind object references, which
+        can client applications can resolve and invoke operations on. Initially, the NameService
+        is empty. The most common scenario, is that user applications create Contexts and add objects
+        in the NameService. OrberWeb allows the user to do the very same thing.</p>
+      <p>When referencing an object or context you must use stringified NameComponents.
+        For more information see the <span class="bold_code bc-19"><a href="ch_naming_service.html">Interoperable Naming Service</a></span>.
+        In the following example we will use the string <strong>org/erlang/TheObjectName</strong>, where
+        <strong>org</strong> and <strong>erlang</strong> will be contexts and <strong>TheObjectName</strong>
+        the name the object will be bound to.</p>
+      <p>Since the NameService is empty in the beginning, the only thing we can do is creating
+        a new context. Simply write <strong>org</strong> in the input field and press <span class="code">New Context</span>.
+        If OrberWeb was able to create the context or not, is shown in the completion message. 
+        If successful, just press the <span class="code">Go Back</span> button. Now, a link named <strong>org</strong> should
+        be listed in the table. In the right column the context type is displayed. Contexts are
+        associated with <strong>ncontext</strong> and objects with <strong>nobject</strong>.</p>
+      <p></p>
+      <a name="dataframe5"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe5.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.5:
+         
+        Add a New Context.</p>
+      </div>
+      <p>To create the next level context (i.e. erlang), simply follow the link and repeat the procedure.
+        If done correctly, a table containing the same data as the following figure should be the result 
+        if you follow the <strong>erlang</strong> link. Note, that the path is displayed in the yellow
+        field.</p>
+      <p></p>
+      <p>If a context does not contain any sub-contexts or object bindings, it is possible to
+        delete the context. If these requirements are met, a <span class="code">Delete Context</span> button will appear.
+        A completion status message will be displayed after deleting the context.</p>
+      <p></p>
+      <a name="dataframe6"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe6.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.6:
+         
+        Delete Context.</p>
+      </div>
+      <p>Now it is possible to bind an object using the complete name string. To find out how this is
+        done using OrberWeb see <span class="bold_code bc-15"><a href="ch_orberweb.html#create">Object Creation</a></span>.
+        For now, we will just assume that an object have been created and bound as <strong>TheObjectName</strong>. </p>
+      <p></p>
+      <a name="dataframe7"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe7.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.7:
+         
+        Object Stored in the NameService.</p>
+      </div>
+      <p>If you follow the <strong>TheObjectName</strong> link, data about the bound object will be
+        presented. Note, depending on which type of object it is, the information given differs.
+        It would, for example, not be possible to display a Pid for all types of objects since
+        it might reside on a Java-ORB. In the figure below a CosNotification FilterFactory have
+        been bound under the name <strong>org/erlang/TheObjectName</strong>.</p>
+      <p></p>
+      <a name="dataframe8"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe8.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.8:
+         
+        Object Data.</p>
+      </div>
+      <p>OrberWeb also makes it possible to remove a binding and dispose the associated object.
+        Pressing <strong>Unbind</strong> the binding will be removed but the object will still exist. 
+        But, if the <strong>Unbind and Dispose</strong> button is pressed, the binding will be removed
+        and the object terminated.</p>
+    
+
+    <h4 id="the-object-creation-data-frame" class="title-link" onMouseOver="document.getElementById('ghlink-the-object-creation-data-frame-id93').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-the-object-creation-data-frame-id93').style.visibility = 'hidden';">
+<div class="title-name">The Object Creation Data Frame</div>
+<div class="title-anchors"><span id="ghlink-the-object-creation-data-frame-id93" class="ghlink-after"><a href="#the-object-creation-data-frame" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <a name="create"></a>
+      <p>This part makes it possible to create a new object and, if wanted, store it the
+        NameService.</p>
+      <p></p>
+      <a name="dataframe4"></a>
+      <div class="doc-image-wrapper">
+<img alt="IMAGE MISSING" src="dataframe4.gif" class="doc-image">
+        <p class="doc-image-caption">Figure
+        12.9:
+         
+        Create a New Object.</p>
+      </div>
+      <ul>
+        <li>
+<strong>Module</strong> - simply type the name of the module of the object type
+         you want to create. If the module begins with a capital letter, we normally must
+         write <span class="code">'Module_Interface'</span>. But, when using OrberWeb, you shall <strong>NOT</strong>.
+         Since we cannot create linked objects this is not an option.</li>
+        <li>
+<strong>Arguments</strong> - the supplied arguments must be written as a single Erlang term.
+         That is, as a list or tuple containing other Erlang terms. The arguments will be 
+         passed to the <span class="code">init</span> function of the object. It is, however, not possible
+         to use Erlang records. If OrberWeb is not able to parse the arguments, an error message
+         will be displayed. If left empty, an empty list will be passed.</li>
+        <li>
+<strong>Options</strong> - the options can be the ones listed under 
+        <span class="bold_code bc-19"><a href="Module_Interface.html">Module_Interface</a></span> in Orber's Reference manual.
+         Hence, they are not further described here. But, as an example, in the figure above
+         we started the object as globally registered. If no options supplied the object
+         will be started as default.</li>
+        <li>
+<strong>Name String</strong> - if left empty the object will <strong>not</strong> be registered in the 
+         NameService. Hence, it is important that you can access the object in another way,
+         otherwise a zombie process is created. In the previous section we used the name string
+        <strong>org/erlang/TheObjectName</strong>. If we choose the same name here, the listed contexts
+         (i.e. <strong>org</strong> and <strong>erlang</strong>) must be created <strong>before</strong> we can create
+         and bind the object to <strong>TheObjectName</strong>. If this requirement is not met, OrberWeb
+         cannot bind the object. Hence, the object will be terminated and an error message
+         displayed.</li>
+        <li>
+<strong>Operation to use</strong> - which option choosed will determine the behavior of OrberWeb.
+         If you choose <strong>bind</strong> and a binding already exists an error message will be 
+         displayed and the newly started object terminated. But if you choose <strong>rebind</strong>
+         any existing binding will over-written.</li>
+      </ul>
+    
+  
+
+  <h3 id="starting-orberweb" class="title-link" onMouseOver="document.getElementById('ghlink-starting-orberweb-id94').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-starting-orberweb-id94').style.visibility = 'hidden';">
+<div class="title-name">12.2 
+        Starting OrberWeb</div>
+<div class="title-anchors"><span id="ghlink-starting-orberweb-id94" class="ghlink-after"><a href="#starting-orberweb" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <a name="startorberweb"></a>
+    <p>You may choose to start OrberWeb on node, on which Orber is running or not. But
+      the Erlang distribution must be started (e.g. by using -sname aNodeName). Now, all 
+      you have to do is to invoke:</p>
+    <div class="example example-none"><pre>erl&gt; webtool:start().
+WebTool is available at http://localhost:8888/
+Or  http://127.0.0.1:8888/</pre></div>
+    <p>Type one of the URL:s in your web-browser. If you want to access the WebTool application
+      from different machine, just replace <span class="code">localhost</span> with its name. For more information,
+      see the WebTool documentation.</p>
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1997-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

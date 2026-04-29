@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- OMG IDL</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="OMG IDL">2 
+                OMG IDL</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">ic</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/ic.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="Using the IC Compiler" expanded="false">Using the IC Compiler<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_introduction.html#introduction">Introduction</a></li>
+<li title="Compilation of IDL Files"><a href="ch_introduction.html#compilation-of-idl-files">Compilation of IDL Files</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="OMG IDL" expanded="true">OMG IDL<ul>
+<li><a href="ch_basic_idl.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL - Overview"><a href="ch_basic_idl.html#omg-idl---overview">OMG IDL - Overview</a></li>
+</ul>
+</li>
+<li id="no" title="IC Protocol" expanded="false">IC Protocol<ul>
+<li><a href="ch_ic_protocol.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_ic_protocol.html#introduction">Introduction</a></li>
+<li title="Language mappings and IDL operations"><a href="ch_ic_protocol.html#language-mappings-and-idl-operations">Language mappings and IDL operations</a></li>
+<li title="IC Protocol"><a href="ch_ic_protocol.html#ic-protocol">IC Protocol</a></li>
+<li title="Gen_server Protocol"><a href="ch_ic_protocol.html#gen_server-protocol">Gen_server Protocol</a></li>
+<li title="Erlang Distribution Protocol"><a href="ch_ic_protocol.html#erlang-distribution-protocol">Erlang Distribution Protocol</a></li>
+</ul>
+</li>
+<li id="no" title="Using the Plain Erlang Back-end" expanded="false">Using the Plain Erlang Back-end<ul>
+<li><a href="ch_erl_plain.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_erl_plain.html#introduction">Introduction</a></li>
+<li title="Compiling the Code"><a href="ch_erl_plain.html#compiling-the-code">Compiling the Code</a></li>
+<li title="Writing the Implementation File"><a href="ch_erl_plain.html#writing-the-implementation-file">Writing the Implementation File</a></li>
+<li title="An Example"><a href="ch_erl_plain.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="Using the Erlang Generic Server Back-end" expanded="false">Using the Erlang Generic Server Back-end<ul>
+<li><a href="ch_erl_genserver.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_erl_genserver.html#introduction">Introduction</a></li>
+<li title="Compiling the Code"><a href="ch_erl_genserver.html#compiling-the-code">Compiling the Code</a></li>
+<li title="Writing the Implementation File"><a href="ch_erl_genserver.html#writing-the-implementation-file">Writing the Implementation File</a></li>
+<li title="An Example"><a href="ch_erl_genserver.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="IDL to C mapping" expanded="false">IDL to C mapping<ul>
+<li><a href="ch_c_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_mapping.html#introduction">Introduction</a></li>
+<li title="C Mapping Characteristics"><a href="ch_c_mapping.html#c-mapping-characteristics">C Mapping Characteristics</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_c_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_c_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="OMG IDL Constants"><a href="ch_c_mapping.html#omg-idl-constants">OMG IDL Constants</a></li>
+<li title="OMG IDL Operations"><a href="ch_c_mapping.html#omg-idl-operations">OMG IDL Operations</a></li>
+<li title="Exceptions"><a href="ch_c_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_c_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Summary of Argument/Result Passing for the C-client"><a href="ch_c_mapping.html#summary-of-argument-result-passing-for-the-c-client">Summary of Argument/Result Passing for the C-client</a></li>
+<li title="Supported Memory Allocation Functions"><a href="ch_c_mapping.html#supported-memory-allocation-functions">Supported Memory Allocation Functions</a></li>
+<li title="Special Memory Deallocation Functions"><a href="ch_c_mapping.html#special-memory-deallocation-functions">Special Memory Deallocation Functions</a></li>
+<li title="Exception Access Functions"><a href="ch_c_mapping.html#exception-access-functions">Exception Access Functions</a></li>
+<li title="Special Types"><a href="ch_c_mapping.html#special-types">Special Types</a></li>
+<li title="A Mapping Example"><a href="ch_c_mapping.html#a-mapping-example">A Mapping Example</a></li>
+</ul>
+</li>
+<li id="no" title="The C Client Back-end" expanded="false">The C Client Back-end<ul>
+<li><a href="ch_c_client.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_client.html#introduction">Introduction</a></li>
+<li title="Generated Stub Files"><a href="ch_c_client.html#generated-stub-files">Generated Stub Files</a></li>
+<li title="C Interface Functions"><a href="ch_c_client.html#c-interface-functions">C Interface Functions</a></li>
+<li title="Generating, Compiling and Linking"><a href="ch_c_client.html#generating,-compiling-and-linking">Generating, Compiling and Linking</a></li>
+<li title="An Example"><a href="ch_c_client.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="The C Server Back-end" expanded="false">The C Server Back-end<ul>
+<li><a href="ch_c_server.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_server.html#introduction">Introduction</a></li>
+<li title="Generated Stub Files"><a href="ch_c_server.html#generated-stub-files">Generated Stub Files</a></li>
+<li title="C Skeleton Functions"><a href="ch_c_server.html#c-skeleton-functions">C Skeleton Functions</a></li>
+<li title="The Server Loop"><a href="ch_c_server.html#the-server-loop">The Server Loop</a></li>
+<li title="Generating, Compiling and Linking"><a href="ch_c_server.html#generating,-compiling-and-linking">Generating, Compiling and Linking</a></li>
+<li title="An Example"><a href="ch_c_server.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA_Environment C Structure" expanded="false">CORBA_Environment C Structure<ul>
+<li><a href="ch_c_corba_env.html">
+              Top of chapter
+            </a></li>
+<li title="C Structure"><a href="ch_c_corba_env.html#c-structure">C Structure</a></li>
+<li title="The CORBA Compatibility Part"><a href="ch_c_corba_env.html#the-corba-compatibility-part">The CORBA Compatibility Part</a></li>
+<li title="The External Part"><a href="ch_c_corba_env.html#the-external-part">The External Part</a></li>
+<li title="The Internal Part"><a href="ch_c_corba_env.html#the-internal-part">The Internal Part</a></li>
+<li title="Creating and Initiating the CORBA_Environment Structure"><a href="ch_c_corba_env.html#creating-and-initiating-the-corba_environment-structure">Creating and Initiating the CORBA_Environment Structure</a></li>
+<li title="Setting System Exceptions"><a href="ch_c_corba_env.html#setting-system-exceptions">Setting System Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="IDL to Java language Mapping" expanded="false">IDL to Java language Mapping<ul>
+<li><a href="ch_java.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_java.html#introduction">Introduction</a></li>
+<li title="Specialties in the Mapping"><a href="ch_java.html#specialties-in-the-mapping">Specialties in the Mapping</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_java.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_java.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Mapping for Constants"><a href="ch_java.html#mapping-for-constants">Mapping for Constants</a></li>
+<li title="Invocations of Operations"><a href="ch_java.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Exceptions"><a href="ch_java.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_java.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Summary of Argument/Result Passing for Java"><a href="ch_java.html#summary-of-argument-result-passing-for-java">Summary of Argument/Result Passing for Java</a></li>
+<li title="Communication Toolbox"><a href="ch_java.html#communication-toolbox">Communication Toolbox</a></li>
+<li title="The Package com.ericsson.otp.ic"><a href="ch_java.html#the-package-com.ericsson.otp.ic">The Package com.ericsson.otp.ic</a></li>
+<li title="The Term Class"><a href="ch_java.html#the-term-class">The Term Class</a></li>
+<li title="Stub File Types"><a href="ch_java.html#stub-file-types">Stub File Types</a></li>
+<li title="Client Stub Initialization, Methods Exported"><a href="ch_java.html#client-stub-initialization,-methods-exported">Client Stub Initialization, Methods Exported</a></li>
+<li title="Server Skeleton Initialization, Server Stub Implementation, Methods Exported"><a href="ch_java.html#server-skeleton-initialization,-server-stub-implementation,-methods-exported">Server Skeleton Initialization, Server Stub Implementation, Methods Exported</a></li>
+<li title="A Mapping Example"><a href="ch_java.html#a-mapping-example">A Mapping Example</a></li>
+<li title="Running the Compiled Code"><a href="ch_java.html#running-the-compiled-code">Running the Compiled Code</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="OMG IDL">2 OMG IDL</h1>
+  
+
+  <h3 id="omg-idl---overview" class="title-link" onMouseOver="document.getElementById('ghlink-omg-idl---overview-id3').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-omg-idl---overview-id3').style.visibility = 'hidden';">
+<div class="title-name">2.1 
+        OMG IDL - Overview</div>
+<div class="title-anchors"><span id="ghlink-omg-idl---overview-id3" class="ghlink-after"><a href="#omg-idl---overview" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>The purpose of OMG IDL, <strong>Interface Definition Language</strong>, mapping
+      is to act as translator between platforms and languages. An IDL 
+      specification is supposed to describe data types, object types etc.</p>
+    <p>Since the <span class="code">C</span> and <span class="code">Java</span> IC backends only supports a subset of the
+      IDL types supported by the other backends, the mapping is divided into
+      different parts. For more information about IDL to Erlang mapping,
+      i.e., <span class="code">CORBA</span>, plain Erlang and generic Erlang Server, see the Orber
+      User's Guide. How to use the plain Erlang and generic Erlang Server is
+      found in this User's Guide.</p>
+
+    <h4 id="reserved-compiler-names-and-keywords" class="title-link" onMouseOver="document.getElementById('ghlink-reserved-compiler-names-and-keywords-id4').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-reserved-compiler-names-and-keywords-id4').style.visibility = 'hidden';">
+<div class="title-name">Reserved Compiler Names and Keywords</div>
+<div class="title-anchors"><span id="ghlink-reserved-compiler-names-and-keywords-id4" class="ghlink-after"><a href="#reserved-compiler-names-and-keywords" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>The use of some names is  strongly discouraged due to 
+        ambiguities. However, the use of some names is prohibited 
+        when using the Erlang mapping , as they are strictly reserved for IC.</p>
+      <p>IC reserves all identifiers starting with <span class="code">OE_</span> and <span class="code">oe_</span> 
+        for internal use.</p>
+      <p>Note also, that an identifier in IDL can  contain alphabetic,
+        digits and underscore characters, but the first character 
+        <strong>must</strong> be alphabetic.
+        </p>
+      <p>Using underscores in IDL names can lead to ambiguities
+        due to the name mapping described above. It is advisable to 
+        avoid the use of underscores in identifiers.</p>
+      <p>The OMG defines a set of reserved words, shown below, for use as keywords. 
+        These may <strong>not</strong> be used as, for example, identifiers.</p>
+      <div class="doc-table-wrapper">
+<table class="doc-table">
+<tr>
+          <td align="left" valign="middle">abstract</td>
+          <td align="left" valign="middle">double</td>
+          <td align="left" valign="middle">local</td>
+          <td align="left" valign="middle">raises</td>
+          <td align="left" valign="middle">typedef</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">any</td>
+          <td align="left" valign="middle">exception</td>
+          <td align="left" valign="middle">long</td>
+          <td align="left" valign="middle">readonly</td>
+          <td align="left" valign="middle">unsigned</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">attribute</td>
+          <td align="left" valign="middle">enum</td>
+          <td align="left" valign="middle">module</td>
+          <td align="left" valign="middle">sequence</td>
+          <td align="left" valign="middle">union</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">boolean</td>
+          <td align="left" valign="middle">factory</td>
+          <td align="left" valign="middle">native</td>
+          <td align="left" valign="middle">short</td>
+          <td align="left" valign="middle">ValueBase</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">case</td>
+          <td align="left" valign="middle">FALSE</td>
+          <td align="left" valign="middle">Object</td>
+          <td align="left" valign="middle">string</td>
+          <td align="left" valign="middle">valuetype</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">char</td>
+          <td align="left" valign="middle">fixed</td>
+          <td align="left" valign="middle">octet</td>
+          <td align="left" valign="middle">struct</td>
+          <td align="left" valign="middle">void</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">const</td>
+          <td align="left" valign="middle">float</td>
+          <td align="left" valign="middle">oneway</td>
+          <td align="left" valign="middle">supports</td>
+          <td align="left" valign="middle">wchar</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">context</td>
+          <td align="left" valign="middle">in</td>
+          <td align="left" valign="middle">out</td>
+          <td align="left" valign="middle">switch</td>
+          <td align="left" valign="middle">wstring</td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">custom</td>
+          <td align="left" valign="middle">inout</td>
+          <td align="left" valign="middle">private</td>
+          <td align="left" valign="middle">TRUE</td>
+          <td align="left" valign="middle"></td>
+        </tr>
+<tr>
+          <td align="left" valign="middle">default</td>
+          <td align="left" valign="middle">interface</td>
+          <td align="left" valign="middle">public</td>
+          <td align="left" valign="middle">truncatable</td>
+          <td align="left" valign="middle"></td>
+        </tr>
+</table>
+<p class="doc-table-caption">Table
+        2.1:
+         
+        OMG IDL keywords</p>
+</div>
+      <p>The keywords listed above must be written exactly as shown. Any usage
+        of identifiers that collide with a keyword is illegal. For example,
+        <strong>long</strong> is a valid keyword; <strong>Long</strong> and <strong>LONG</strong> are
+        illegal as keywords and identifiers. But, since the OMG must be able
+        to expand the IDL grammar, it is possible to use <strong>Escaped  Identifiers</strong>. For example, it is not unlikely that <span class="code">native</span>
+        have been used in IDL-specifications as identifiers. One option is to
+        change all occurrences to <span class="code">myNative</span>. Usually, it is necessary
+        to change programming language code that depends upon that IDL as well.
+        Since Escaped Identifiers just disable type checking (i.e. if it is a reserved
+        word or not) and leaves everything else unchanged, it is only necessary to
+        update the IDL-specification. To escape an identifier, simply prefix it
+        with <span class="code">_</span>. The following IDL-code is illegal:</p>
+      <div class="example example-none"><pre>typedef string native;
+interface i {
+   void foo(in native Arg);
+   };
+};</pre></div>
+      <p>With Escaped Identifiers the code will look like:</p>
+      <div class="example example-none"><pre>typedef string _native;
+interface i {
+   void foo(in _native Arg);
+   };
+};</pre></div>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1998-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

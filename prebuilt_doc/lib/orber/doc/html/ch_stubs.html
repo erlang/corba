@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- Orber Stubs/Skeletons</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="Orber Stubs/Skeletons">9 
+                Orber Stubs/Skeletons</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">orber</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/orber.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to Orber" expanded="false">Introduction to Orber<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_orber_kernel.html">
+              Top of chapter
+            </a></li>
+<li title="ORB Kernel and IIOP "><a href="ch_orber_kernel.html#orb-kernel-and-iiop-">ORB Kernel and IIOP </a></li>
+<li title="The Object Request Broker (ORB)"><a href="ch_orber_kernel.html#the-object-request-broker--orb-">The Object Request Broker (ORB)</a></li>
+<li title="Internet Inter-Object Protocol (IIOP)"><a href="ch_orber_kernel.html#internet-inter-object-protocol--iiop-">Internet Inter-Object Protocol (IIOP)</a></li>
+</ul>
+</li>
+<li id="no" title="Interface Repository" expanded="false">Interface Repository<ul>
+<li><a href="ch_ifr.html">
+              Top of chapter
+            </a></li>
+<li title="Interface Repository(IFR)"><a href="ch_ifr.html#interface-repository-ifr-">Interface Repository(IFR)</a></li>
+</ul>
+</li>
+<li id="no" title="Installing Orber" expanded="false">Installing Orber<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+<li title="Configuration"><a href="ch_install.html#configuration">Configuration</a></li>
+<li title="Firewall Configuration"><a href="ch_install.html#firewall-configuration">Firewall Configuration</a></li>
+<li title="Interface Configuration"><a href="ch_install.html#interface-configuration">Interface Configuration</a></li>
+</ul>
+</li>
+<li id="no" title="OMG IDL to Erlang Mapping" expanded="false">OMG IDL to Erlang Mapping<ul>
+<li><a href="ch_idl_to_erlang_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL to Erlang Mapping - Overview"><a href="ch_idl_to_erlang_mapping.html#omg-idl-to-erlang-mapping---overview">OMG IDL to Erlang Mapping - Overview</a></li>
+<li title="OMG IDL Mapping Elements"><a href="ch_idl_to_erlang_mapping.html#omg-idl-mapping-elements">OMG IDL Mapping Elements</a></li>
+<li title="Getting Started"><a href="ch_idl_to_erlang_mapping.html#getting-started">Getting Started</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Template OMG IDL Types and Complex Declarators"><a href="ch_idl_to_erlang_mapping.html#template-omg-idl-types-and-complex-declarators">Template OMG IDL Types and Complex Declarators</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Scoped Names and Generated Files"><a href="ch_idl_to_erlang_mapping.html#scoped-names-and-generated-files">Scoped Names and Generated Files</a></li>
+<li title="Typecode, Identity and Name Access Functions"><a href="ch_idl_to_erlang_mapping.html#typecode,-identity-and-name-access-functions">Typecode, Identity and Name Access Functions</a></li>
+<li title="References to Constants"><a href="ch_idl_to_erlang_mapping.html#references-to-constants">References to Constants</a></li>
+<li title="References to Objects Defined in OMG IDL"><a href="ch_idl_to_erlang_mapping.html#references-to-objects-defined-in-omg-idl">References to Objects Defined in OMG IDL</a></li>
+<li title="Exceptions"><a href="ch_idl_to_erlang_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_idl_to_erlang_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Invocations of Operations"><a href="ch_idl_to_erlang_mapping.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Implementing the DB Application"><a href="ch_idl_to_erlang_mapping.html#implementing-the-db-application">Implementing the DB Application</a></li>
+<li title="Reserved Compiler Names and Keywords"><a href="ch_idl_to_erlang_mapping.html#reserved-compiler-names-and-keywords">Reserved Compiler Names and Keywords</a></li>
+<li title="Type Code Representation"><a href="ch_idl_to_erlang_mapping.html#type-code-representation">Type Code Representation</a></li>
+</ul>
+</li>
+<li id="no" title="CosNaming Service" expanded="false">CosNaming Service<ul>
+<li><a href="ch_naming_service.html">
+              Top of chapter
+            </a></li>
+<li title="Overview of the CosNaming Service"><a href="ch_naming_service.html#overview-of-the-cosnaming-service">Overview of the CosNaming Service</a></li>
+<li title="The Basic Use-cases of the Naming Service"><a href="ch_naming_service.html#the-basic-use-cases-of-the-naming-service">The Basic Use-cases of the Naming Service</a></li>
+<li title="Interoperable Naming Service"><a href="ch_naming_service.html#interoperable-naming-service">Interoperable Naming Service</a></li>
+</ul>
+</li>
+<li id="no" title="How to use security in Orber" expanded="false">How to use security in Orber<ul>
+<li><a href="ch_security.html">
+              Top of chapter
+            </a></li>
+<li title="Security in Orber"><a href="ch_security.html#security-in-orber">Security in Orber</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="Orber Stubs/Skeletons" expanded="true">Orber Stubs/Skeletons<ul>
+<li><a href="ch_stubs.html">
+              Top of chapter
+            </a></li>
+<li title="Orber Stubs and Skeletons Description"><a href="ch_stubs.html#orber-stubs-and-skeletons-description">Orber Stubs and Skeletons Description</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA System and User Defined Exceptions" expanded="false">CORBA System and User Defined Exceptions<ul>
+<li><a href="ch_exceptions.html">
+              Top of chapter
+            </a></li>
+<li title="System Exceptions"><a href="ch_exceptions.html#system-exceptions">System Exceptions</a></li>
+<li title="User Defined Exceptions"><a href="ch_exceptions.html#user-defined-exceptions">User Defined Exceptions</a></li>
+<li title="Throwing Exceptions"><a href="ch_exceptions.html#throwing-exceptions">Throwing Exceptions</a></li>
+<li title="Catching Exceptions"><a href="ch_exceptions.html#catching-exceptions">Catching Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Interceptors" expanded="false">Orber Interceptors<ul>
+<li><a href="ch_interceptors.html">
+              Top of chapter
+            </a></li>
+<li title="Using Interceptors"><a href="ch_interceptors.html#using-interceptors">Using Interceptors</a></li>
+<li title="Interceptor Example"><a href="ch_interceptors.html#interceptor-example">Interceptor Example</a></li>
+</ul>
+</li>
+<li id="no" title="OrberWeb" expanded="false">OrberWeb<ul>
+<li><a href="ch_orberweb.html">
+              Top of chapter
+            </a></li>
+<li title="Using OrberWeb"><a href="ch_orberweb.html#using-orberweb">Using OrberWeb</a></li>
+<li title="Starting OrberWeb"><a href="ch_orberweb.html#starting-orberweb">Starting OrberWeb</a></li>
+</ul>
+</li>
+<li id="no" title="Debugging" expanded="false">Debugging<ul>
+<li><a href="ch_debugging.html">
+              Top of chapter
+            </a></li>
+<li title="Tools and FAQ"><a href="ch_debugging.html#tools-and-faq">Tools and FAQ</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="Orber Stubs/Skeletons">9 Orber Stubs/Skeletons</h1>
+  
+
+  <h3 id="orber-stubs-and-skeletons-description" class="title-link" onMouseOver="document.getElementById('ghlink-orber-stubs-and-skeletons-description-id73').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-orber-stubs-and-skeletons-description-id73').style.visibility = 'hidden';">
+<div class="title-name">9.1 
+        Orber Stubs and Skeletons Description</div>
+<div class="title-anchors"><span id="ghlink-orber-stubs-and-skeletons-description-id73" class="ghlink-after"><a href="#orber-stubs-and-skeletons-description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>This example describes the API and behavior of Orber stubs and skeletons.
+      </p>
+
+    <h4 id="server-start" class="title-link" onMouseOver="document.getElementById('ghlink-server-start-id74').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-server-start-id74').style.visibility = 'hidden';">
+<div class="title-name">Server Start</div>
+<div class="title-anchors"><span id="ghlink-server-start-id74" class="ghlink-after"><a href="#server-start" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>Orber servers can be started in several ways. The chosen start functions determines
+        how the server can be accessed and its behavior.
+        </p>
+      <p>Using <span class="code">Module_Interface:oe_create()</span> or <span class="code">oe_create_link()</span>:
+        </p>
+      <ul>
+        <li>No initial data can be passed.</li>
+        <li>Cannot be used as a supervisor child start function.</li>
+        <li>Only accessible through the object reference returned by the start function.
+         The object reference is no longer valid if the server dies and is restarted.</li>
+      </ul>
+      <p>Using <span class="code">Module_Interface:oe_create(Env)</span> or <span class="code">oe_create_link(Env)</span>:</p>
+      <ul>
+        <li>Initial data can be passed using <span class="code">Env</span>.</li>
+        <li>Cannot be used as a supervisor child start function.</li>
+        <li>Only accessible through the object reference returned by the start function.
+         The object reference is no longer valid if the server dies and is restarted.</li>
+      </ul>
+      <p>Using <span class="code">Module_Interface:oe_create(Env, Options)</span>:</p>
+      <ul>
+        <li>Initial data can be passed using <span class="code">Env</span>.</li>
+        <li>Cannot be used as a supervisor child start function.</li>
+        <li>Accessible through the object reference returned by the start function. If the option 
+        <span class="code">{regname, RegName}</span> is used the object reference stays valid even if the 
+         server has been restarted.</li>
+        <li>If the options <span class="code">{persistent, true}</span> and <span class="code">{regname, {global, Name}}</span> is used, 
+         the result from an object invocation will be the exception 'OBJECT_NOT_EXIST' 
+         only if the object has terminated with reason 
+        <span class="code">normal</span> or <span class="code">shutdown</span>. If the object is in the process of restarting, the result 
+         will be <span class="code">{error, Reason}</span> or a system exception is raised.</li>
+        <li>The option <span class="code">{pseudo, true}</span> makes it possible to start create non-server objects.
+         There are, however, some limitations, which are further described in the
+        <span class="code">Pseudo objects</span> section.</li>
+      </ul>
+      <p>Using <span class="code">Module_Interface:oe_create_link(Env, Options)</span>:</p>
+      <ul>
+        <li>Initial data can be passed using <span class="code">Env</span>.</li>
+        <li>Can be used as a supervisor child start function if the option <span class="code">{sup_child, true}</span> used.</li>
+        <li>Accessible through the object reference returned by the start function. If the option 
+        <span class="code">{regname, RegName}</span> is used the object reference stays valid even if the 
+         server has been restarted.</li>
+        <li>If the options <span class="code">{persistent, true}</span> and <span class="code">{regname, {global, Name}}</span> is used, 
+         the result from an object invocation will be the exception 'OBJECT_NOT_EXIST' 
+         only if the object has terminated with reason 
+        <span class="code">normal</span> or <span class="code">shutdown</span>. If the object is in the process of restarting, the result 
+         will be <span class="code">{error, Reason}</span> or a system exception is raised.</li>
+        <li>For starting a server as a supervisor child you should use the options 
+        <span class="code">[{persistent, true}, {regname, {global, Name}}, {sup_child, true}]</span> and of type <strong>transient</strong>.
+         This configuration allows you to delegate restarts to the supervisor and still be able to
+         use the same object reference and be able to see if the server is permanently terminated.
+         Please note you must use <strong>supervisor/stdlib-1.7</strong> or later and that the it returns 
+        <span class="code">{ok, Pid, Object}</span> instead of just <span class="code">Object</span>.</li>
+        <li>Using the option <span class="code">{pseudo, true}</span> have the same effect as using
+        <span class="code">oe_create/2</span>.</li>
+      </ul>
+      <div class="warning">
+<div class="label">Warning</div>
+<div class="content"><p>
+        <p>To avoid flooding Orber with old object references start erlang using the flag 
+          <strong>-orber objectkeys_gc_time Time</strong>, which will remove all object references
+          related to servers being dead for Time seconds. To avoid extra overhead, i.e., performing
+          garbage collect if no persistent objects are started, the objectkeys_gc_time default value 
+          is <strong>infinity</strong>. For more information, see the orber and corba documentation.</p>
+      </p></div>
+</div>
+      <div class="warning">
+<div class="label">Warning</div>
+<div class="content"><p>
+        <p>Orber still allow <span class="code">oe_create(Env, {Type,RegName})</span> and <span class="code">oe_create_link(Env, {Type,RegName})</span> to be used,
+          but may not in future releases.</p>
+      </p></div>
+</div>
+    
+
+    <h4 id="pseudo-objects" class="title-link" onMouseOver="document.getElementById('ghlink-pseudo-objects-id75').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-pseudo-objects-id75').style.visibility = 'hidden';">
+<div class="title-name">Pseudo Objects</div>
+<div class="title-anchors"><span id="ghlink-pseudo-objects-id75" class="ghlink-after"><a href="#pseudo-objects" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>This section describes Orber pseudo objects.
+        </p>
+      <p>The Orber stub can be used to start a <span class="code">pseudo object</span>, which will create a non-server implementation.
+        A pseudo object introduce some limitations:</p>
+      <ul>
+        <li>The functions <span class="code">oe_create_link/2</span> is equal to <span class="code">oe_create/2</span>, i.e.,
+         no link can or will be created.</li>
+        <li>The <span class="code">BIF:s self()</span> and <span class="code">process_flag(trap_exit,true)</span> behaves incorrectly.</li>
+        <li>The <span class="code">IC</span> option <span class="code">{{impl, "M::I"}, "other_impl"}</span> has no effect. The call-back
+         functions must be implemented in a file called <span class="code">M_I_impl.erl</span>
+</li>
+        <li>The call-back functions must be implemented as if the <span class="code">IC</span> option 
+        <span class="code">{this, "M::I"}</span> was used.</li>
+        <li>The gen_server <span class="code">State</span> changes have no effect. The user can provide information via
+         the <span class="code">Env</span> start parameter and the State returned from <span class="code">init/2</span> will be the State
+         passed in following invocations.</li>
+        <li>The server reply <span class="code">Timeout</span> has no effect.</li>
+        <li>The compile option <span class="code">from</span> has no effect.</li>
+        <li>The option <span class="code">{pseudo, true}</span> overrides all other start options.</li>
+        <li>Only the functions, besides own definitions, <span class="code">init/2</span> (called via oe_create*/2) and 
+        <span class="code">terminate/2</span> (called via corba:dispose/1) must be implemented.</li>
+      </ul>
+      <p>By adopting the rules for <span class="code">pseudo</span> objects described above we can use <span class="code">oe_create/2</span>
+        to create <span class="code">server</span> or <span class="code">pseudo</span> objects, by excluding or including the 
+        option <span class="code">{pseudo, true}</span>, without changing the call-back module.</p>
+      <p>To create a pseudo object do the following:</p>
+      <div class="example example-none"><pre>fingolfin 127&gt; erl 
+Erlang (BEAM) emulator version 4.9
+ 
+Eshell V4.9  (abort with ^G)
+1&gt; ic:gen(myDefinition, [{this, "MyModule::MyInterface"}]).
+Erlang IDL compiler version 20
+ok
+2&gt; make:all().
+Recompile: oe_MyDefinition
+Recompile: MyModule_MyInterface
+Recompile: MyModule_MyInterface_impl
+up_to_date
+3&gt; PseudoObj = MyModule_MyInterface:oe_create(Env, [{pseudo, true}]).</pre></div>
+      <p>The call-back functions must be implemented as <span class="code">MyFunction(OE_THIS, State, Args)</span>,
+        and called by <span class="code">MyModule_MyInterface:MyFunction(PseudoObj, Args)</span>.</p>
+    
+
+    <h4 id="call-back-module" class="title-link" onMouseOver="document.getElementById('ghlink-call-back-module-id76').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-call-back-module-id76').style.visibility = 'hidden';">
+<div class="title-name">Call-back Module</div>
+<div class="title-anchors"><span id="ghlink-call-back-module-id76" class="ghlink-after"><a href="#call-back-module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>This section provides an example of how a call-back module may be implemented.</p>
+      <div class="note">
+<div class="label">Note</div>
+<div class="content"><p>
+        <p>Arguments and Replies are determined by the IDL-code and, hence, not
+          further described here.</p>
+      </p></div>
+</div>
+      <div class="example example-erl"><pre>%%%-----------------------------------------------------------
+%%% File    : Module_Interface_impl.erl
+%%% Author  : 
+%%% Purpose : 
+%%% Created : 
+%%%-----------------------------------------------------------
+ 
+-module('Module_Interface_impl').
+ 
+%%--------------- INCLUDES -----------------------------------
+-include_lib("orber/include/corba.hrl").
+-include_lib(".. ..").
+ 
+%%--------------- EXPORTS-------------------------------------
+%% Arity depends on IC configuration parameters and the IDL
+%% specification.
+-export([own_function/X]).
+ 
+ 
+%%--------------- gen_server specific ------------------------
+-export([init/1, terminate/2, code_change/3, handle_info/2]).
+ 
+%%------------------------------------------------------------
+%% function : server specific
+%%------------------------------------------------------------
+init(InitialData) -&gt;
+    %% 'trap_exit' optional (have no effect if pseudo object).
+    process_flag(trap_exit,true),
+
+    %%--- Possible replies ---
+    %% Reply and await next request
+    {ok, State}.
+
+    %% Reply and if no more requests within Time the special 
+    %% timeout message should be handled in the 
+    %% Module_Interface_impl:handle_info/2 call-back function (use the 
+    %% IC option {{handle_info, "Module::Interface"}, true}).
+    {ok, State, Timeout} 
+
+    %% Return ignore in order to inform the parent, especially if it is a 
+    %% supervisor, that the server, as an example, did not start in 
+    %% accordance with the configuration data. 
+    ignore 
+    %% If the initializing procedure fails, the reason 
+    %% is supplied as StopReason.
+    {stop, StopReason}
+
+terminate(Reason, State) -&gt;
+    ok.
+
+code_change(OldVsn, State, Extra) -&gt;
+    {ok, NewState}.
+
+%% If use IC option {{handle_info, "Module::Interface"}, true}. 
+%% (have no effect if pseudo object).
+handle_info(Info, State) -&gt;
+    %%--- Possible replies ---
+    %% Await the next invocation.
+    {noreply, State}.
+    %% Stop with Reason.
+    {stop, Reason, State}.
+
+%%--- two-way ------------------------------------------------
+%% If use IC option {this, "Module:Interface"} 
+%% (Required for pseudo objects)
+own_function(This, State, .. Arguments ..) -&gt;
+%% IC options this and from
+own_function(This, From, State, .. Arguments ..) -&gt;
+%% IC option from
+own_function(From, State, .. Arguments ..) -&gt;
+    %% Send explicit reply to client.
+    corba:reply(From, Reply),
+    %%--- Possible replies ---
+    {noreply, State}
+    {noreply, State, Timeout}
+
+ 
+%% If not use IC option {this, "Module:Interface"}
+own_function(State, .. Arguments ..) -&gt;
+    %%--- Possible replies ---
+    %% Reply and await next request
+    {reply, Reply, State}
+
+    %% Reply and if no more requests within Time the special 
+    %% timeout message should be handled in the 
+    %% Module_Interface_impl:handle_info/2 call-back function (use the
+    %% IC option {{handle_info, "Module::Interface"}, true}).
+    {reply, Reply, State, Timeout}
+
+    %% Stop the server and send Reply to invoking object.
+    {stop, StopReason, Reply, State}
+
+    %% Stop the server and send no reply to invoking object.
+    {stop, StopReason, State}
+
+    %% Raise exception. Any changes to the internal State is lost.
+    corba:raise(Exception).
+
+%%--- one-way ------------------------------------------------
+%% If use IC option {this, "Module:Interface"}
+%% (Required for pseudo objects)
+own_function(This, State, .. Arguments ..) -&gt;
+
+%% If not use IC option {this, "Module:Interface"}
+own_function(State, .. Arguments ..) -&gt;
+    %%--- Possible results ---
+    {noreply, State}
+
+    %% Release and if no more requests within Time the special 
+    %% timeout message should be handled in the 
+    %% Module_Interface_impl:handle_info/2 call-back function (use the
+    %%  IC option {{handle_info, "Module::Interface"}, true}).
+    {noreply, State, Timeout}
+
+    %% Stop the server with StopReason.
+    {stop, StopReason, State}
+
+%%--------------- END OF MODULE ------------------------------</pre></div>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1997-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

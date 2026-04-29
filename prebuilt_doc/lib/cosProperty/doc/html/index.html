@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- cosProperty Reference Manual</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand show show-permanent"><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="cosProperty Reference Manual">cosProperty Reference Manual</h1></div>
+<div class="search-expand show show-permanent"></div>
+</div>
+<aside class="show show-permanent" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosProperty</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosProperty.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="no" title="cosProperty " expanded="false">cosProperty<ul>
+<li><a href="cosProperty.html">
+                  Top of manual page
+                </a></li>
+    <li title="install-0"><a href="cosProperty.html#install-0">install/0</a></li>
+    <li title="install_db-0"><a href="cosProperty.html#install_db-0">install_db/0</a></li>
+    <li title="start-0"><a href="cosProperty.html#start-0">start/0</a></li>
+    <li title="start_SetDefFactory-0"><a href="cosProperty.html#start_SetDefFactory-0">start_SetDefFactory/0</a></li>
+    <li title="start_SetFactory-0"><a href="cosProperty.html#start_SetFactory-0">start_SetFactory/0</a></li>
+    <li title="stop-0"><a href="cosProperty.html#stop-0">stop/0</a></li>
+    <li title="stop_SetDefFactory-1"><a href="cosProperty.html#stop_SetDefFactory-1">stop_SetDefFactory/1</a></li>
+    <li title="stop_SetFactory-1"><a href="cosProperty.html#stop_SetFactory-1">stop_SetFactory/1</a></li>
+    <li title="uninstall-0"><a href="cosProperty.html#uninstall-0">uninstall/0</a></li>
+    <li title="uninstall_db-0"><a href="cosProperty.html#uninstall_db-0">uninstall_db/0</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertySetFactory " expanded="false">CosPropertyService_PropertySetFactory<ul>
+<li><a href="CosPropertyService_PropertySetFactory.html">
+                  Top of manual page
+                </a></li>
+    <li title="create_constrained_propertyset-3"><a href="CosPropertyService_PropertySetFactory.html#create_constrained_propertyset-3">create_constrained_propertyset/3</a></li>
+    <li title="create_initial_propertyset-2"><a href="CosPropertyService_PropertySetFactory.html#create_initial_propertyset-2">create_initial_propertyset/2</a></li>
+    <li title="create_propertyset-1"><a href="CosPropertyService_PropertySetFactory.html#create_propertyset-1">create_propertyset/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertySetDefFactory " expanded="false">CosPropertyService_PropertySetDefFactory<ul>
+<li><a href="CosPropertyService_PropertySetDefFactory.html">
+                  Top of manual page
+                </a></li>
+    <li title="create_constrained_propertysetdef-3"><a href="CosPropertyService_PropertySetDefFactory.html#create_constrained_propertysetdef-3">create_constrained_propertysetdef/3</a></li>
+    <li title="create_initial_propertysetdef-2"><a href="CosPropertyService_PropertySetDefFactory.html#create_initial_propertysetdef-2">create_initial_propertysetdef/2</a></li>
+    <li title="create_propertysetdef-1"><a href="CosPropertyService_PropertySetDefFactory.html#create_propertysetdef-1">create_propertysetdef/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertySet " expanded="false">CosPropertyService_PropertySet<ul>
+<li><a href="CosPropertyService_PropertySet.html">
+                  Top of manual page
+                </a></li>
+    <li title="define_properties-2"><a href="CosPropertyService_PropertySet.html#define_properties-2">define_properties/2</a></li>
+    <li title="define_property-3"><a href="CosPropertyService_PropertySet.html#define_property-3">define_property/3</a></li>
+    <li title="delete_all_properties-1"><a href="CosPropertyService_PropertySet.html#delete_all_properties-1">delete_all_properties/1</a></li>
+    <li title="delete_properties-2"><a href="CosPropertyService_PropertySet.html#delete_properties-2">delete_properties/2</a></li>
+    <li title="delete_property-2"><a href="CosPropertyService_PropertySet.html#delete_property-2">delete_property/2</a></li>
+    <li title="get_all_properties-2"><a href="CosPropertyService_PropertySet.html#get_all_properties-2">get_all_properties/2</a></li>
+    <li title="get_all_property_names-2"><a href="CosPropertyService_PropertySet.html#get_all_property_names-2">get_all_property_names/2</a></li>
+    <li title="get_number_of_properties-1"><a href="CosPropertyService_PropertySet.html#get_number_of_properties-1">get_number_of_properties/1</a></li>
+    <li title="get_properties-2"><a href="CosPropertyService_PropertySet.html#get_properties-2">get_properties/2</a></li>
+    <li title="get_property_value-2"><a href="CosPropertyService_PropertySet.html#get_property_value-2">get_property_value/2</a></li>
+    <li title="is_property_defined-2"><a href="CosPropertyService_PropertySet.html#is_property_defined-2">is_property_defined/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertySetDef " expanded="false">CosPropertyService_PropertySetDef<ul>
+<li><a href="CosPropertyService_PropertySetDef.html">
+                  Top of manual page
+                </a></li>
+    <li title="define_properties_with_modes-2"><a href="CosPropertyService_PropertySetDef.html#define_properties_with_modes-2">define_properties_with_modes/2</a></li>
+    <li title="define_property_with_mode-4"><a href="CosPropertyService_PropertySetDef.html#define_property_with_mode-4">define_property_with_mode/4</a></li>
+    <li title="get_allowed_properties-1"><a href="CosPropertyService_PropertySetDef.html#get_allowed_properties-1">get_allowed_properties/1</a></li>
+    <li title="get_allowed_property_types-1"><a href="CosPropertyService_PropertySetDef.html#get_allowed_property_types-1">get_allowed_property_types/1</a></li>
+    <li title="get_property_mode-2"><a href="CosPropertyService_PropertySetDef.html#get_property_mode-2">get_property_mode/2</a></li>
+    <li title="get_property_modes-2"><a href="CosPropertyService_PropertySetDef.html#get_property_modes-2">get_property_modes/2</a></li>
+    <li title="set_property_mode-3"><a href="CosPropertyService_PropertySetDef.html#set_property_mode-3">set_property_mode/3</a></li>
+    <li title="set_property_modes-2"><a href="CosPropertyService_PropertySetDef.html#set_property_modes-2">set_property_modes/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertiesIterator " expanded="false">CosPropertyService_PropertiesIterator<ul>
+<li><a href="CosPropertyService_PropertiesIterator.html">
+                  Top of manual page
+                </a></li>
+    <li title="destroy-1"><a href="CosPropertyService_PropertiesIterator.html#destroy-1">destroy/1</a></li>
+    <li title="next_n-2"><a href="CosPropertyService_PropertiesIterator.html#next_n-2">next_n/2</a></li>
+    <li title="next_one-1"><a href="CosPropertyService_PropertiesIterator.html#next_one-1">next_one/1</a></li>
+    <li title="reset-1"><a href="CosPropertyService_PropertiesIterator.html#reset-1">reset/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosPropertyService_PropertyNamesIterator " expanded="false">CosPropertyService_PropertyNamesIterator<ul>
+<li><a href="CosPropertyService_PropertyNamesIterator.html">
+                  Top of manual page
+                </a></li>
+    <li title="destroy-1"><a href="CosPropertyService_PropertyNamesIterator.html#destroy-1">destroy/1</a></li>
+    <li title="next_n-2"><a href="CosPropertyService_PropertyNamesIterator.html#next_n-2">next_n/2</a></li>
+    <li title="next_one-1"><a href="CosPropertyService_PropertyNamesIterator.html#next_one-1">next_one/1</a></li>
+    <li title="reset-1"><a href="CosPropertyService_PropertyNamesIterator.html#reset-1">reset/1</a></li>
+    </ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<div class="frontpage"></div>
+<center><h1>cosProperty Reference Manual</h1></center>
+<center><h4>Version 5.2.3</h4></center>
+<center><h4>april 28, 2026</h4></center>
+<div class="extrafrontpageinfo"><center></center></div>
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

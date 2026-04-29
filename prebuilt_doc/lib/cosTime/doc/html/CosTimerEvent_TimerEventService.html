@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- CosTimerEvent_TimerEventService</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="CosTimerEvent_TimerEventService">CosTimerEvent_TimerEventService</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosTime</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosTime.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="no" title="cosTime " expanded="false">cosTime<ul>
+<li><a href="cosTime.html">
+                  Top of manual page
+                </a></li>
+    <li title="install_time-0"><a href="cosTime.html#install_time-0">install_time/0</a></li>
+    <li title="install_timerevent-0"><a href="cosTime.html#install_timerevent-0">install_timerevent/0</a></li>
+    <li title="start-0"><a href="cosTime.html#start-0">start/0</a></li>
+    <li title="start_time_service-2"><a href="cosTime.html#start_time_service-2">start_time_service/2</a></li>
+    <li title="start_timerevent_service-1"><a href="cosTime.html#start_timerevent_service-1">start_timerevent_service/1</a></li>
+    <li title="stop-0"><a href="cosTime.html#stop-0">stop/0</a></li>
+    <li title="stop_time_service-1"><a href="cosTime.html#stop_time_service-1">stop_time_service/1</a></li>
+    <li title="stop_timerevent_service-1"><a href="cosTime.html#stop_timerevent_service-1">stop_timerevent_service/1</a></li>
+    <li title="uninstall_time-0"><a href="cosTime.html#uninstall_time-0">uninstall_time/0</a></li>
+    <li title="uninstall_timerevent-0"><a href="cosTime.html#uninstall_timerevent-0">uninstall_timerevent/0</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTime_TIO " expanded="false">CosTime_TIO<ul>
+<li><a href="CosTime_TIO.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_time_interval'-1"><a href="CosTime_TIO.html#'_get_time_interval'-1">'_get_time_interval'/1</a></li>
+    <li title="overlaps-2"><a href="CosTime_TIO.html#overlaps-2">overlaps/2</a></li>
+    <li title="spans-2"><a href="CosTime_TIO.html#spans-2">spans/2</a></li>
+    <li title="time-1"><a href="CosTime_TIO.html#time-1">time/1</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTime_TimeService " expanded="false">CosTime_TimeService<ul>
+<li><a href="CosTime_TimeService.html">
+                  Top of manual page
+                </a></li>
+    <li title="new_interval-3"><a href="CosTime_TimeService.html#new_interval-3">new_interval/3</a></li>
+    <li title="new_universal_time-4"><a href="CosTime_TimeService.html#new_universal_time-4">new_universal_time/4</a></li>
+    <li title="universal_time-1"><a href="CosTime_TimeService.html#universal_time-1">universal_time/1</a></li>
+    <li title="uto_from_utc-2"><a href="CosTime_TimeService.html#uto_from_utc-2">uto_from_utc/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTime_UTO " expanded="false">CosTime_UTO<ul>
+<li><a href="CosTime_UTO.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_inaccuracy'-1"><a href="CosTime_UTO.html#'_get_inaccuracy'-1">'_get_inaccuracy'/1</a></li>
+    <li title="'_get_tdf'-1"><a href="CosTime_UTO.html#'_get_tdf'-1">'_get_tdf'/1</a></li>
+    <li title="'_get_time'-1"><a href="CosTime_UTO.html#'_get_time'-1">'_get_time'/1</a></li>
+    <li title="'_get_utc_time'-1"><a href="CosTime_UTO.html#'_get_utc_time'-1">'_get_utc_time'/1</a></li>
+    <li title="absolute_time-1"><a href="CosTime_UTO.html#absolute_time-1">absolute_time/1</a></li>
+    <li title="compare_time-3"><a href="CosTime_UTO.html#compare_time-3">compare_time/3</a></li>
+    <li title="interval-1"><a href="CosTime_UTO.html#interval-1">interval/1</a></li>
+    <li title="time_to_interval-2"><a href="CosTime_UTO.html#time_to_interval-2">time_to_interval/2</a></li>
+    </ul>
+</li>
+<li id="no" title="CosTimerEvent_TimerEventHandler " expanded="false">CosTimerEvent_TimerEventHandler<ul>
+<li><a href="CosTimerEvent_TimerEventHandler.html">
+                  Top of manual page
+                </a></li>
+    <li title="'_get_status'-1"><a href="CosTimerEvent_TimerEventHandler.html#'_get_status'-1">'_get_status'/1</a></li>
+    <li title="cancel_timer-1"><a href="CosTimerEvent_TimerEventHandler.html#cancel_timer-1">cancel_timer/1</a></li>
+    <li title="set_data-2"><a href="CosTimerEvent_TimerEventHandler.html#set_data-2">set_data/2</a></li>
+    <li title="set_timer-3"><a href="CosTimerEvent_TimerEventHandler.html#set_timer-3">set_timer/3</a></li>
+    <li title="time_set-1"><a href="CosTimerEvent_TimerEventHandler.html#time_set-1">time_set/1</a></li>
+    </ul>
+</li>
+<li id="loadscrollpos" title="CosTimerEvent_TimerEventService " expanded="true">CosTimerEvent_TimerEventService<ul>
+<li><a href="CosTimerEvent_TimerEventService.html">
+                  Top of manual page
+                </a></li>
+    <li title="event_time-2"><a href="CosTimerEvent_TimerEventService.html#event_time-2">event_time/2</a></li>
+    <li title="register-3"><a href="CosTimerEvent_TimerEventService.html#register-3">register/3</a></li>
+    <li title="unregister-2"><a href="CosTimerEvent_TimerEventService.html#unregister-2">unregister/2</a></li>
+    </ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube"></div>
+<!-- refpage --><div class="innertube"><center><h1>CosTimerEvent_TimerEventService</h1></center></div>
+  
+  <div class="innertube">
+<h3 id="module" class="title-link" onMouseOver="document.getElementById('ghlink-module-id63').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-id63').style.visibility = 'hidden';">
+<div class="title-name">Module</div>
+<div class="title-anchors"><span id="ghlink-module-id63" class="ghlink-after"><a href="#module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-body">CosTimerEvent_TimerEventService</div>
+</div>
+  <div class="innertube">
+<h3 id="module-summary" class="title-link" onMouseOver="document.getElementById('ghlink-module-summary-id64').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-summary-id64').style.visibility = 'hidden';">
+<div class="title-name">Module Summary</div>
+<div class="title-anchors"><span id="ghlink-module-summary-id64" class="ghlink-after"><a href="#module-summary" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-summary-body">This module implements the OMG CosTimerEvent::TimerEventService interface.</div>
+</div>
+  <section class="description"><div class="innertube">
+<h3 id="description" class="title-link" onMouseOver="document.getElementById('ghlink-description-id65').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-description-id65').style.visibility = 'hidden';">
+<div class="title-name">Description</div>
+<div class="title-anchors"><span id="ghlink-description-id65" class="ghlink-after"><a href="#description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY description-body"><p>
+    <p>To get access to the record definitions for the structures use:      <br>
+<span class="code">-include_lib("cosTime/include/*.hrl").</span></p>
+  </p></div>
+</div></section>
+  <div class="innertube"><h3 id="export" class="title-link" onMouseOver="document.getElementById('ghlink-export-id66').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-export-id66').style.visibility = 'hidden';">
+<div class="title-name">Exports</div>
+<div class="title-anchors"><span id="ghlink-export-id66" class="ghlink-after"><a href="#export" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3></div>
+<div class="exports-body">
+<article class="func"><div class="bold_code func-head"><h4 id="register-3" class="title-link" onMouseOver="document.getElementById('ghlink-register-3-id67').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-register-3-id67').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-register-3-id67" class="ghlink-before"><a href="#register-3" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">register(TimerEventService, CosEventCommPushConsumer, Data) -&gt; TimerEventHandler</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TimerEventService = CosEventCommPushConsumer = TimerEventHandler = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Data = #any</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation will create a new <span class="code">TimerEventHandler</span> object which
+          will push given <span class="code">Data</span> to given <span class="code">CosEventCommPushConsumer</span> after
+          the timer have been set.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="unregister-2" class="title-link" onMouseOver="document.getElementById('ghlink-unregister-2-id68').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-unregister-2-id68').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-unregister-2-id68" class="ghlink-before"><a href="#unregister-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">unregister(TimerEventService, TimerEventHandler) -&gt; ok</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TimerEventService = TimerEventHandler = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation will terminate the given TimerEventHandler.</p>
+      </div>
+</div></article><article class="func"><div class="bold_code func-head"><h4 id="event_time-2" class="title-link" onMouseOver="document.getElementById('ghlink-event_time-2-id69').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-event_time-2-id69').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-event_time-2-id69" class="ghlink-before"><a href="#event_time-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">event_time(TimerEventService, TimerEvent) -&gt; UTO</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TimerEventService = #objref</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">TimerEvent = #'CosTimerEvent_TimerEvent'{utc, event_data}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">utc = </span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">event_data = #any}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">UTO = #objref</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>This operation returns a UTO containing the time at which the associated
+          event was triggered.</p>
+      </div>
+</div></article>
+</div>
+  
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

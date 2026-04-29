@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- Installing cosTransactions</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="Installing cosTransactions">3 
+                Installing cosTransactions</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosTransactions</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosTransactions.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The cosTransactions Application" expanded="false">The cosTransactions Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to cosTransactions" expanded="false">Introduction to cosTransactions<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="Installing cosTransactions" expanded="true">Installing cosTransactions<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+</ul>
+</li>
+<li id="no" title="cosTransactions Examples" expanded="false">cosTransactions Examples<ul>
+<li><a href="ch_example.html">
+              Top of chapter
+            </a></li>
+<li title="A Tutorial on How to Create a Simple Service"><a href="ch_example.html#a-tutorial-on-how-to-create-a-simple-service">A Tutorial on How to Create a Simple Service</a></li>
+</ul>
+</li>
+<li id="no" title="Resource Skeletons" expanded="false">Resource Skeletons<ul>
+<li><a href="ch_skeletons.html">
+              Top of chapter
+            </a></li>
+<li title="Resource Skeletons"><a href="ch_skeletons.html#resource-skeletons">Resource Skeletons</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="Installing cosTransactions">3 Installing cosTransactions</h1>
+  
+
+  <h3 id="installation-process-" class="title-link" onMouseOver="document.getElementById('ghlink-installation-process--id6').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-installation-process--id6').style.visibility = 'hidden';">
+<div class="title-name">3.1 
+        Installation Process </div>
+<div class="title-anchors"><span id="ghlink-installation-process--id6" class="ghlink-after"><a href="#installation-process-" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>This chapter describes how to install 
+      <span class="bold_code bc-19"><a href="cosTransactions.html">cosTransactions</a></span> 
+      in an Erlang Environment.
+      </p>
+
+    <h4 id="preparation" class="title-link" onMouseOver="document.getElementById('ghlink-preparation-id7').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-preparation-id7').style.visibility = 'hidden';">
+<div class="title-name">Preparation</div>
+<div class="title-anchors"><span id="ghlink-preparation-id7" class="ghlink-after"><a href="#preparation" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>Before starting the installation process for cosTransactions,
+        the application Orber must be running.</p>
+      <p>The cosTransactions application must be able to log progress to disk. The log files are
+        created in the current directory as "oe_name@machine_type_timestamp". Hence, <span class="code">read</span> and 
+        <span class="code">write</span> rights must be granted. If the transaction completes in an orderly fashion the 
+        logfiles are removed, but not if an error, which demands human intervention, occur.</p>
+    
+
+    <h4 id="configuration" class="title-link" onMouseOver="document.getElementById('ghlink-configuration-id8').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-configuration-id8').style.visibility = 'hidden';">
+<div class="title-name">Configuration</div>
+<div class="title-anchors"><span id="ghlink-configuration-id8" class="ghlink-after"><a href="#configuration" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>When using the Transaction Service the <span class="code">cosTransactions</span> application 
+        must be started using either <span class="code">cosTransactions:start()</span> or 
+        <span class="code">application:start(cosTransactions)</span>.
+        </p>
+      <p>The following application configuration parameters exist:</p>
+      <ul>
+        <li>
+<span class="code">maxRetries</span> - default is 40 times, i.e., if a transaction participant is unreachable
+         the application will retry to contact it <span class="code">N</span> times. Reaching the maximum is considered to be a disaster.</li>
+        <li>
+<span class="code">comFailWait</span> - default is 5000 milliseconds, i.e., before the application
+         retries to contact unreachable transaction participants the application wait <span class="code">Time</span> milliseconds.</li>
+      </ul>
+      <p>Then the <span class="bold_code bc-19"><a href="CosTransactions_TransactionFactory.html">Transaction Factory</a></span>
+        must be started:</p>
+      <ul>
+        <li>
+<span class="code">cosTransactions:start_factory()</span> - starts and returns a reference to a factory using default configuration parameters.</li>
+        <li>
+<span class="code">cosTransactions:start_factory(Options)</span> - starts and returns a reference to a factory using given configuration parameters.</li>
+      </ul>
+      <p>The following options exist:
+        </p>
+      <ul>
+        <li>
+<span class="code">{hash_max, HashValue}</span> - 
+         This value denotes the upper bound of the hash value the <span class="bold_code bc-19"><a href="CosTransactions_Coordinator.html">Coordinator</a></span>  uses.
+         Default is <span class="code">1013</span>. HashValue must be an integer.</li>
+        <li>
+<span class="code">{allow_subtr, Boolean}</span> -
+         If set to true it is possible to create <span class="bold_code bc-19"><a href="CosTransactions_Coordinator.html">subtransactions</a></span>.
+         Default is <span class="code">true</span>.</li>
+        <li>
+<span class="code">{typecheck, Boolean}</span> -
+         If set to to true all transaction operation's arguments will be type-checked.
+         Default is <span class="code">true</span>.</li>
+        <li>
+<span class="code">{tty, Boolean}</span> -  
+         Enables or disables error printouts to the tty. 
+         If Flag is false, all text that the error logger would have sent to the terminal is discarded. 
+         If Flag is true, error messages are sent to the terminal screen. </li>
+        <li>
+<span class="code">{logfile, FileName}</span> -
+         This function makes it possible to store all system information in <span class="code">FileName</span> (string()).
+         It can be used in combination with the tty(false) item to have a silent system, 
+         where all system information are logged to a file. 
+         As default no logfile is used.</li>
+        <li>
+<span class="code">{maxRetries, Integer}</span> -
+         default is 40 times, i.e., if a transaction participant is unreachable the application will 
+         retry to contact it <span class="code">N</span> times. Reaching the maximum is considered to be a disaster.
+         This option overrides the application configuration parameter.</li>
+        <li>
+<span class="code">{comFailWait, Integer}</span> -
+         default is 5000 milliseconds, i.e., before the application retries to contact unreachable 
+         transaction participants the application wait <span class="code">Time</span> milliseconds.
+         This option overrides the application configuration parameter.</li>
+      </ul>
+      <p>The Factory is now ready to use. For a more detailed description see <span class="bold_code bc-19"><a href="ch_example.html">Examples</a></span>.
+        </p>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1999-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

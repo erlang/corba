@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- Resource Skeletons</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="Resource Skeletons">5 
+                Resource Skeletons</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosTransactions</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosTransactions.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The cosTransactions Application" expanded="false">The cosTransactions Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to cosTransactions" expanded="false">Introduction to cosTransactions<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="Installing cosTransactions" expanded="false">Installing cosTransactions<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+</ul>
+</li>
+<li id="no" title="cosTransactions Examples" expanded="false">cosTransactions Examples<ul>
+<li><a href="ch_example.html">
+              Top of chapter
+            </a></li>
+<li title="A Tutorial on How to Create a Simple Service"><a href="ch_example.html#a-tutorial-on-how-to-create-a-simple-service">A Tutorial on How to Create a Simple Service</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="Resource Skeletons" expanded="true">Resource Skeletons<ul>
+<li><a href="ch_skeletons.html">
+              Top of chapter
+            </a></li>
+<li title="Resource Skeletons"><a href="ch_skeletons.html#resource-skeletons">Resource Skeletons</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="Resource Skeletons">5 Resource Skeletons</h1>
+  
+
+  <h3 id="resource-skeletons" class="title-link" onMouseOver="document.getElementById('ghlink-resource-skeletons-id15').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-resource-skeletons-id15').style.visibility = 'hidden';">
+<div class="title-name">5.1 
+        Resource Skeletons</div>
+<div class="title-anchors"><span id="ghlink-resource-skeletons-id15" class="ghlink-after"><a href="#resource-skeletons" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>This chapter provides a skeleton for application Resources. For more information
+      see the Orber documentation.</p>
+    <div class="example example-none"><pre>%%%-----------------------------------------------------------
+%%% File    : Module_Interface_impl.erl
+%%% Author  : 
+%%% Purpose : 
+%%% Created : 
+%%%-----------------------------------------------------------
+ 
+-module('Module_Interface_impl').
+ 
+%%--------------- INCLUDES -----------------------------------
+-include_lib("orber/include/corba.hrl").
+-include_lib("cosTransactions/include/CosTransactions.hrl").
+
+%%--------------- EXPORTS-------------------------------------
+%%- Inherit from CosTransactions::Resource -------------------
+-export([prepare/2, 
+         rollback/2, 
+         commit/2, 
+         commit_one_phase/2, 
+         forget/2]).
+
+%%- Inherit from CosTransactions::SubtransactionAwareResource 
+-export([commit_subtransaction/3,
+         rollback_subtransaction/2]).
+ 
+%%--------------- gen_server specific ------------------------
+-export([init/1, terminate/2, code_change/3, handle_info/2]).
+ 
+%%------------------------------------------------------------
+%% function : gen_server specific
+%%------------------------------------------------------------
+init(Env) -&gt;
+    %% 'trap_exit' optional
+    process_flag(trap_exit,true),
+
+    %%--- Possible replies ---
+    %% Reply and await next request
+    {ok, State}.
+
+    %% Reply and if no more requests within Time the special 
+    %% timeout message should be handled in the 
+    %% Module_Interface_impl:handle_info/2 call-back function (use the 
+    %% IC option {{handle_info, "Module::Interface"}, true}).
+    {ok, State, TimeOut}.
+
+     %% Return ignore in order to inform the parent, especially if it is a 
+     %% supervisor, that the server, as an example, did not start in 
+     %% accordance with the configuration data. 
+     ignore.
+
+     %% If the initializing procedure fails, the reason 
+     %% is supplied as StopReason.
+     {stop, StopReason}.
+
+
+terminate(Reason, State) -&gt;
+    ok.
+
+code_change(OldVsn, State, Extra) -&gt;
+    {ok, NewState}.
+
+%% If use IC option {{handle_info, "Module::Interface"}, true}
+handle_info(Info, State) -&gt;
+     %%--- Possible replies ---
+     %% Await the next invocation.
+     {noreply, State}.
+     %% Stop with Reason.
+     {stop, Reason, State}.
+
+ 
+%%- Inherit from CosTransactions::Resource -------------------
+prepare(State) -&gt;
+
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    %% If no data related to the transaction changed.
+    {reply, 'VoteReadOnly', State}
+    %% .. or (for example): 
+    {stop, normal, 'VoteReadOnly', State}.
+
+    %% If able to commit
+    {reply, 'VoteCommit', State}
+
+    %% If not able to commit
+    {reply, 'VoteRollback', State}
+    %% .. or (for example): 
+    {stop, normal, 'VoteRollback', State}.
+
+rollback(State) -&gt;
+
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    %% If able to rollback successfully
+    {reply, ok, State}
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+
+    %% If Heuristic Decision. Raise exception:
+    corba:raise(#'CosTransactions_HeuristicMixed' {})
+    corba:raise(#'CosTransactions_HeuristicHazard' {})
+    corba:raise(#'CosTransactions_HeuristicCommit'{})
+
+
+commit(State) -&gt;
+
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    %% If able to commit successfully
+    {reply, ok, State}
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+
+    %% If the prepare operation never been invoked:
+    corba:raise(#'CosTransactions_NotPrepared'{})
+
+    %% If Heuristic Decision. Raise exception:
+    corba:raise(#'CosTransactions_HeuristicMixed' {})
+    corba:raise(#'CosTransactions_HeuristicHazard' {})
+    corba:raise(#'CosTransactions_HeuristicRollback'{})
+
+ 
+commit_one_phase(State) -&gt;
+
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    %% If able to commit successfully
+    {reply, ok, State}
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+
+    %% If fails. Raise exception:
+    corba:raise(#'CosTransactions_HeuristicHazard' {})
+
+    %% If able to rollback successfully
+    corba:raise(#'CosTransactions_TransactionRolledBack' {})
+
+ 
+forget(State) -&gt;
+
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    {reply, ok, State}.
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+  
+
+
+%%%%%% If the Resource is also supposed to be a     %%%%%%
+%%%%%% SubtransactionAwareResource implement these. %%%%%%
+
+%%- Inherit from CosTransactions::SubtransactionAwareResource
+commit_subtransaction(State, Parent) -&gt;
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    {reply, ok, State}.
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+
+rollback_subtransaction(State) -&gt;
+    %%% Do application specific actions here %%%
+
+    %%-- Reply: --
+    {reply, ok, State}.
+    %% .. or (for example): 
+    {stop, normal, ok, State}.
+ 
+%%--------------- END OF MODULE ------------------------------</pre></div>
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1999-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

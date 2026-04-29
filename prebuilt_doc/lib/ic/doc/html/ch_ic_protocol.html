@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- IC Protocol</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="IC Protocol">3 
+                IC Protocol</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">ic</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/ic.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="Using the IC Compiler" expanded="false">Using the IC Compiler<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_introduction.html#introduction">Introduction</a></li>
+<li title="Compilation of IDL Files"><a href="ch_introduction.html#compilation-of-idl-files">Compilation of IDL Files</a></li>
+</ul>
+</li>
+<li id="no" title="OMG IDL" expanded="false">OMG IDL<ul>
+<li><a href="ch_basic_idl.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL - Overview"><a href="ch_basic_idl.html#omg-idl---overview">OMG IDL - Overview</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="IC Protocol" expanded="true">IC Protocol<ul>
+<li><a href="ch_ic_protocol.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_ic_protocol.html#introduction">Introduction</a></li>
+<li title="Language mappings and IDL operations"><a href="ch_ic_protocol.html#language-mappings-and-idl-operations">Language mappings and IDL operations</a></li>
+<li title="IC Protocol"><a href="ch_ic_protocol.html#ic-protocol">IC Protocol</a></li>
+<li title="Gen_server Protocol"><a href="ch_ic_protocol.html#gen_server-protocol">Gen_server Protocol</a></li>
+<li title="Erlang Distribution Protocol"><a href="ch_ic_protocol.html#erlang-distribution-protocol">Erlang Distribution Protocol</a></li>
+</ul>
+</li>
+<li id="no" title="Using the Plain Erlang Back-end" expanded="false">Using the Plain Erlang Back-end<ul>
+<li><a href="ch_erl_plain.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_erl_plain.html#introduction">Introduction</a></li>
+<li title="Compiling the Code"><a href="ch_erl_plain.html#compiling-the-code">Compiling the Code</a></li>
+<li title="Writing the Implementation File"><a href="ch_erl_plain.html#writing-the-implementation-file">Writing the Implementation File</a></li>
+<li title="An Example"><a href="ch_erl_plain.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="Using the Erlang Generic Server Back-end" expanded="false">Using the Erlang Generic Server Back-end<ul>
+<li><a href="ch_erl_genserver.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_erl_genserver.html#introduction">Introduction</a></li>
+<li title="Compiling the Code"><a href="ch_erl_genserver.html#compiling-the-code">Compiling the Code</a></li>
+<li title="Writing the Implementation File"><a href="ch_erl_genserver.html#writing-the-implementation-file">Writing the Implementation File</a></li>
+<li title="An Example"><a href="ch_erl_genserver.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="IDL to C mapping" expanded="false">IDL to C mapping<ul>
+<li><a href="ch_c_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_mapping.html#introduction">Introduction</a></li>
+<li title="C Mapping Characteristics"><a href="ch_c_mapping.html#c-mapping-characteristics">C Mapping Characteristics</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_c_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_c_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="OMG IDL Constants"><a href="ch_c_mapping.html#omg-idl-constants">OMG IDL Constants</a></li>
+<li title="OMG IDL Operations"><a href="ch_c_mapping.html#omg-idl-operations">OMG IDL Operations</a></li>
+<li title="Exceptions"><a href="ch_c_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_c_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Summary of Argument/Result Passing for the C-client"><a href="ch_c_mapping.html#summary-of-argument-result-passing-for-the-c-client">Summary of Argument/Result Passing for the C-client</a></li>
+<li title="Supported Memory Allocation Functions"><a href="ch_c_mapping.html#supported-memory-allocation-functions">Supported Memory Allocation Functions</a></li>
+<li title="Special Memory Deallocation Functions"><a href="ch_c_mapping.html#special-memory-deallocation-functions">Special Memory Deallocation Functions</a></li>
+<li title="Exception Access Functions"><a href="ch_c_mapping.html#exception-access-functions">Exception Access Functions</a></li>
+<li title="Special Types"><a href="ch_c_mapping.html#special-types">Special Types</a></li>
+<li title="A Mapping Example"><a href="ch_c_mapping.html#a-mapping-example">A Mapping Example</a></li>
+</ul>
+</li>
+<li id="no" title="The C Client Back-end" expanded="false">The C Client Back-end<ul>
+<li><a href="ch_c_client.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_client.html#introduction">Introduction</a></li>
+<li title="Generated Stub Files"><a href="ch_c_client.html#generated-stub-files">Generated Stub Files</a></li>
+<li title="C Interface Functions"><a href="ch_c_client.html#c-interface-functions">C Interface Functions</a></li>
+<li title="Generating, Compiling and Linking"><a href="ch_c_client.html#generating,-compiling-and-linking">Generating, Compiling and Linking</a></li>
+<li title="An Example"><a href="ch_c_client.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="The C Server Back-end" expanded="false">The C Server Back-end<ul>
+<li><a href="ch_c_server.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_c_server.html#introduction">Introduction</a></li>
+<li title="Generated Stub Files"><a href="ch_c_server.html#generated-stub-files">Generated Stub Files</a></li>
+<li title="C Skeleton Functions"><a href="ch_c_server.html#c-skeleton-functions">C Skeleton Functions</a></li>
+<li title="The Server Loop"><a href="ch_c_server.html#the-server-loop">The Server Loop</a></li>
+<li title="Generating, Compiling and Linking"><a href="ch_c_server.html#generating,-compiling-and-linking">Generating, Compiling and Linking</a></li>
+<li title="An Example"><a href="ch_c_server.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA_Environment C Structure" expanded="false">CORBA_Environment C Structure<ul>
+<li><a href="ch_c_corba_env.html">
+              Top of chapter
+            </a></li>
+<li title="C Structure"><a href="ch_c_corba_env.html#c-structure">C Structure</a></li>
+<li title="The CORBA Compatibility Part"><a href="ch_c_corba_env.html#the-corba-compatibility-part">The CORBA Compatibility Part</a></li>
+<li title="The External Part"><a href="ch_c_corba_env.html#the-external-part">The External Part</a></li>
+<li title="The Internal Part"><a href="ch_c_corba_env.html#the-internal-part">The Internal Part</a></li>
+<li title="Creating and Initiating the CORBA_Environment Structure"><a href="ch_c_corba_env.html#creating-and-initiating-the-corba_environment-structure">Creating and Initiating the CORBA_Environment Structure</a></li>
+<li title="Setting System Exceptions"><a href="ch_c_corba_env.html#setting-system-exceptions">Setting System Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="IDL to Java language Mapping" expanded="false">IDL to Java language Mapping<ul>
+<li><a href="ch_java.html">
+              Top of chapter
+            </a></li>
+<li title="Introduction"><a href="ch_java.html#introduction">Introduction</a></li>
+<li title="Specialties in the Mapping"><a href="ch_java.html#specialties-in-the-mapping">Specialties in the Mapping</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_java.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_java.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Mapping for Constants"><a href="ch_java.html#mapping-for-constants">Mapping for Constants</a></li>
+<li title="Invocations of Operations"><a href="ch_java.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Exceptions"><a href="ch_java.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_java.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Summary of Argument/Result Passing for Java"><a href="ch_java.html#summary-of-argument-result-passing-for-java">Summary of Argument/Result Passing for Java</a></li>
+<li title="Communication Toolbox"><a href="ch_java.html#communication-toolbox">Communication Toolbox</a></li>
+<li title="The Package com.ericsson.otp.ic"><a href="ch_java.html#the-package-com.ericsson.otp.ic">The Package com.ericsson.otp.ic</a></li>
+<li title="The Term Class"><a href="ch_java.html#the-term-class">The Term Class</a></li>
+<li title="Stub File Types"><a href="ch_java.html#stub-file-types">Stub File Types</a></li>
+<li title="Client Stub Initialization, Methods Exported"><a href="ch_java.html#client-stub-initialization,-methods-exported">Client Stub Initialization, Methods Exported</a></li>
+<li title="Server Skeleton Initialization, Server Stub Implementation, Methods Exported"><a href="ch_java.html#server-skeleton-initialization,-server-stub-implementation,-methods-exported">Server Skeleton Initialization, Server Stub Implementation, Methods Exported</a></li>
+<li title="A Mapping Example"><a href="ch_java.html#a-mapping-example">A Mapping Example</a></li>
+<li title="Running the Compiled Code"><a href="ch_java.html#running-the-compiled-code">Running the Compiled Code</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="IC Protocol">3 IC Protocol</h1>
+  
+  <p>The purpose of this chapter is to explain the bits and bytes of the
+    IC protocol, which is a composition of the Erlang distribution protocol
+    and the Erlang/OTP gen_server protocol. If you do not intend to replace
+    the Erlang distribution protocol, or replace the gen_server protocol, 
+    skip over this chapter. 
+    </p>
+
+  <h3 id="introduction" class="title-link" onMouseOver="document.getElementById('ghlink-introduction-id5').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-introduction-id5').style.visibility = 'hidden';">
+<div class="title-name">3.1 
+        Introduction</div>
+<div class="title-anchors"><span id="ghlink-introduction-id5" class="ghlink-after"><a href="#introduction" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>The IDL Compiler (IC) transforms Interface Definition Language
+      (IDL) specifications files to interface code for Erlang, C, and
+      Java. The Erlang language mapping is described in the Orber
+      documentation, while the other mappings are described in the IC
+      documentation (they are of course in accordance with the CORBA C
+      and Java language mapping specifications, with some restrictions).
+      </p>
+    <p>The most important parts of an IDL specification are the operation
+      declarations. An operation defines what information a client
+      provides to a server, and what information (if any) the client
+      gets back from the server. We consider IDL operations and language
+      mappings in section 2.
+      </p>
+    <p>What we here call the IC protocol, is the description of messages
+      exchanged between IC end-points (client and servers). It is valid
+      for all IC back-ends, except the 'erl_plain' and 'erl_corba'
+      back-ends. 
+      The IC protocol is in turn embedded into the Erlang gen_server
+      protocol, which is described below.
+      Finally, the gen_server protocol is embedded in the Erlang
+      distribution protocol. Pertinent parts of that protocol is
+      described further below.
+      </p>
+  
+
+  <h3 id="language-mappings-and-idl-operations" class="title-link" onMouseOver="document.getElementById('ghlink-language-mappings-and-idl-operations-id6').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-language-mappings-and-idl-operations-id6').style.visibility = 'hidden';">
+<div class="title-name">3.2 
+        Language mappings and IDL operations</div>
+<div class="title-anchors"><span id="ghlink-language-mappings-and-idl-operations-id6" class="ghlink-after"><a href="#language-mappings-and-idl-operations" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="idl-operations" class="title-link" onMouseOver="document.getElementById('ghlink-idl-operations-id7').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-idl-operations-id7').style.visibility = 'hidden';">
+<div class="title-name">IDL Operations</div>
+<div class="title-anchors"><span id="ghlink-idl-operations-id7" class="ghlink-after"><a href="#idl-operations" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>An IDL operation is declared as follows:</p>
+      <div class="example example-none"><pre>    [oneway] RetType Op(in IType1 I1, in IType2 I2, ..., in ITypeN IN,
+    out OType1 O1, out OType2 O2, ..., out OTypeM OM)
+    N, M = 0, 1, 2, ...        (2.1.1)</pre></div>
+      <p>`Op' is the operation name, RetType is the return type, and ITypei, 
+        i = 1, 2, ..., N, and OTypej, j = 1, 2, ..., M, are the `in' types
+        and `out' types, respectively. The values I1, I2, ..., IN are 
+        provided by the caller, and the value of RetType, and the values
+        O1, O2, ..., OM, are provided as results to the caller. 
+        </p>
+      <p>The types can be any basic types or derived types declared in the
+        IDL specification of which the operation declaration is a part.
+        </p>
+      <p>If the RetType has the special name `void' there is no return
+        value (but there might still be result values O1, 02, ..., OM).
+        </p>
+      <p>The `in' and `out' parameters can be declared in any order, but
+        for clarity we have listed all `in' parameters before the `out'
+        parameters in the declaration above.
+        </p>
+      <p>If the keyword `oneway' is present, the operation is a cast, i.e.
+        there is no confirmation of the operation, and consequently there
+        must be no result values: RetType must be equal to `void', and M =
+        0 must hold.
+        </p>
+      <p>Otherwise the operation is a call, i.e. it is confirmed (or else
+        an exception is raised). 
+        </p>
+      <p>Note carefully that an operation declared without `oneway' is
+        always a call, even if RetType is `void' and M = 0.
+        </p>
+    
+
+    <h4 id="language-mappings" class="title-link" onMouseOver="document.getElementById('ghlink-language-mappings-id8').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-language-mappings-id8').style.visibility = 'hidden';">
+<div class="title-name">Language Mappings</div>
+<div class="title-anchors"><span id="ghlink-language-mappings-id8" class="ghlink-after"><a href="#language-mappings" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>There are several CORBA Language Mapping specifications. These are
+        about mapping interfaces to various programming languages. IC
+        supports the CORBA C and Java mapping specifications, and the
+        Erlang language mapping specified in the Orber documentation. 
+        </p>
+      <p>Excerpt from "6.4 Basic OMG IDL Types" in the Orber User's Guide:
+        </p>
+      <ul>
+        <li>
+          <p>Functions with return type void will return the atom ok.</p>
+        </li>
+      </ul>
+      <p>Excerpt from "6.13 Invocations of Operations" in the Orber User's 
+        Guide:
+        </p>
+      <ul>
+        <li>
+          <p>A function call will invoke an operation. The first parameter
+            of the function should be the object reference and then all in
+            and inout parameters follow in the same order as specified in
+            the IDL specification. The result will be a return value
+            unless the function has inout or out parameters specified; in
+            which case, a tuple of the return value, followed by the
+            parameters will be returned.</p>
+        </li>
+      </ul>
+      <p>Hence the function that is mapped from an IDL operation to Erlang
+        always have a return value (an Erlang function always has). That
+        fact has influenced the IC protocol, in that there is always a
+        return value (which is 'ok' if the return type was declared 'void'). </p>
+    
+  
+
+  <h3 id="ic-protocol" class="title-link" onMouseOver="document.getElementById('ghlink-ic-protocol-id9').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-ic-protocol-id9').style.visibility = 'hidden';">
+<div class="title-name">3.3 
+        IC Protocol</div>
+<div class="title-anchors"><span id="ghlink-ic-protocol-id9" class="ghlink-after"><a href="#ic-protocol" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>Given the operation declaration (2.1.1) the IC protocol maps to
+      messages as follows, defined in terms of Erlang terms.
+      </p>
+
+    <h4 id="call--request-reply,-i.e.-not-oneway-" class="title-link" onMouseOver="document.getElementById('ghlink-call--request-reply,-i.e.-not-oneway--id10').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-call--request-reply,-i.e.-not-oneway--id10').style.visibility = 'hidden';">
+<div class="title-name">Call (Request/Reply, i.e. not oneway)</div>
+<div class="title-anchors"><span id="ghlink-call--request-reply,-i.e.-not-oneway--id10" class="ghlink-after"><a href="#call--request-reply,-i.e.-not-oneway-" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <div class="example example-none"><pre>    request:         Op                      atom()     N = 0    
+                    {Op, I1, I2, ..., IN}    tuple()    N &gt; 0
+                                                        (3.1.1)
+
+    reply:         Ret                                  M = 0
+                   {Ret, O1, O2, ..., OM}               M &gt; 0
+                                                        (3.1.2)</pre></div>
+      <p><strong>Notice:</strong> Even if the RetType of the operation Op is 
+        declared to be 'void', a return value 'ok' is returned in 
+        the reply message. That
+        return value is of no significance, and is therefore ignored (note
+        however that a C server back-end returns the atom 'void' instead
+        of 'ok'). 
+        </p>
+    
+
+    <h4 id="cast--oneway-" class="title-link" onMouseOver="document.getElementById('ghlink-cast--oneway--id11').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-cast--oneway--id11').style.visibility = 'hidden';">
+<div class="title-name">Cast (oneway)</div>
+<div class="title-anchors"><span id="ghlink-cast--oneway--id11" class="ghlink-after"><a href="#cast--oneway-" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <div class="example example-none"><pre>    notification:    Op                      atom()     N = 0
+                     {Op, I1, I2, ..., IN}   tuple()    N &gt; 0
+                                                        (3.2.1)</pre></div>
+      <p>(There is of course no return message).
+        </p>
+    
+  
+
+  <h3 id="gen_server-protocol" class="title-link" onMouseOver="document.getElementById('ghlink-gen_server-protocol-id12').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-gen_server-protocol-id12').style.visibility = 'hidden';">
+<div class="title-name">3.4 
+        Gen_server Protocol</div>
+<div class="title-anchors"><span id="ghlink-gen_server-protocol-id12" class="ghlink-after"><a href="#gen_server-protocol" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>Most of the IC generated code deals with encoding and decoding the
+      gen_server protocol. 
+      </p>
+
+    <h4 id="call" class="title-link" onMouseOver="document.getElementById('ghlink-call-id13').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-call-id13').style.visibility = 'hidden';">
+<div class="title-name">Call</div>
+<div class="title-anchors"><span id="ghlink-call-id13" class="ghlink-after"><a href="#call" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <div class="example example-none"><pre>    request:    {'$gen_call', {self(), Ref}, Request}   (4.1.1)
+
+    reply:      {Ref, Reply}                            (4.1.2)</pre></div>
+      <p>where Request and Reply are the messages defined in the previous
+        chapter.
+        </p>
+    
+
+    <h4 id="cast" class="title-link" onMouseOver="document.getElementById('ghlink-cast-id14').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-cast-id14').style.visibility = 'hidden';">
+<div class="title-name">Cast</div>
+<div class="title-anchors"><span id="ghlink-cast-id14" class="ghlink-after"><a href="#cast" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <div class="example example-none"><pre>    notification:    {'$gen_cast', Notification}        (4.2.1)      </pre></div>
+      <p>where Notification is the message defined in the previous chapter.
+        </p>
+    
+  
+
+  <h3 id="erlang-distribution-protocol" class="title-link" onMouseOver="document.getElementById('ghlink-erlang-distribution-protocol-id15').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-erlang-distribution-protocol-id15').style.visibility = 'hidden';">
+<div class="title-name">3.5 
+        Erlang Distribution Protocol</div>
+<div class="title-anchors"><span id="ghlink-erlang-distribution-protocol-id15" class="ghlink-after"><a href="#erlang-distribution-protocol" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>Messages (of interest here) between Erlang nodes are of the form: </p>
+    <div class="example example-none"><pre>        Len(4), Type(1), CtrlBin(N), MsgBin(M)          (5.1)    </pre></div>
+    <p>Type is equal to 112 = PASS_THROUGH. 
+      </p>
+    <p>CtrlBin and MsgBin are Erlang terms in binary form (as if created
+      by term_to_binary/1), whence for each of them the first byte is
+      equal to 131 = VERSION_MAGIC.
+      </p>
+    <p>CtrlBin (of interest here) contains the SEND and REG_SEND control
+      messages, which are binary forms of the Erlang terms</p>
+    <div class="example example-none"><pre>        {2, Cookie, ToPid} ,                            (5.2)    </pre></div>
+    <p>and</p>
+    <div class="example example-none"><pre>        {6, FromPid, Cookie, ToName} ,                  (5.3)    </pre></div>
+    <p>respectively.
+      </p>
+    <p>The CtrlBin(N) message is read and written by erl_interface code
+      (C), j_interface code (Java), or the Erlang distribution
+      implementation, which are invoked from IC generated code. 
+      </p>
+    <p>The MsgBin(N) is the "real" message, i.e. of the form described
+      in the previous section.
+      </p>
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1998-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- cosNotification Examples</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="cosNotification Examples">7 
+                cosNotification Examples</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">cosNotification</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/cosNotification.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The cosNotification Application" expanded="false">The cosNotification Application<ul>
+<li><a href="ch-contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch-contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch-contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to cosNotification" expanded="false">Introduction to cosNotification<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="Installing cosNotification" expanded="false">Installing cosNotification<ul>
+<li><a href="ch-install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch-install.html#installation-process-">Installation Process </a></li>
+</ul>
+</li>
+<li id="no" title="The Notification Service Components" expanded="false">The Notification Service Components<ul>
+<li><a href="ch_system.html">
+              Top of chapter
+            </a></li>
+<li title="The Notification Service Components"><a href="ch_system.html#the-notification-service-components">The Notification Service Components</a></li>
+</ul>
+</li>
+<li id="no" title="Filters and the Constraint Language BNF" expanded="false">Filters and the Constraint Language BNF<ul>
+<li><a href="ch_BNF.html">
+              Top of chapter
+            </a></li>
+<li title="Filters and the Constraint Language BNF"><a href="ch_BNF.html#filters-and-the-constraint-language-bnf">Filters and the Constraint Language BNF</a></li>
+</ul>
+</li>
+<li id="no" title="Quality Of Service and Admin Properties" expanded="false">Quality Of Service and Admin Properties<ul>
+<li><a href="ch_QoS.html">
+              Top of chapter
+            </a></li>
+<li title="Quality Of Service and Admin Properties"><a href="ch_QoS.html#quality-of-service-and-admin-properties">Quality Of Service and Admin Properties</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="cosNotification Examples" expanded="true">cosNotification Examples<ul>
+<li><a href="ch_example.html">
+              Top of chapter
+            </a></li>
+<li title="A Tutorial on How to Create a Simple Service"><a href="ch_example.html#a-tutorial-on-how-to-create-a-simple-service">A Tutorial on How to Create a Simple Service</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="cosNotification Examples">7 cosNotification Examples</h1>
+  
+
+  <h3 id="a-tutorial-on-how-to-create-a-simple-service" class="title-link" onMouseOver="document.getElementById('ghlink-a-tutorial-on-how-to-create-a-simple-service-id21').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-a-tutorial-on-how-to-create-a-simple-service-id21').style.visibility = 'hidden';">
+<div class="title-name">7.1 
+        A Tutorial on How to Create a Simple Service</div>
+<div class="title-anchors"><span id="ghlink-a-tutorial-on-how-to-create-a-simple-service-id21" class="ghlink-after"><a href="#a-tutorial-on-how-to-create-a-simple-service" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+
+    <h4 id="interface-design" class="title-link" onMouseOver="document.getElementById('ghlink-interface-design-id22').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-interface-design-id22').style.visibility = 'hidden';">
+<div class="title-name">Interface Design</div>
+<div class="title-anchors"><span id="ghlink-interface-design-id22" class="ghlink-after"><a href="#interface-design" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>To use the cosNotification application <strong>clients</strong> must be implemented. 
+        There are twelve types of clients: </p>
+      <ul>
+        <li>Structured Push Consumer</li>
+        <li>Sequence Push Consumer </li>
+        <li>Any Push Consumer</li>
+        <li>Structured Pull Consumer</li>
+        <li>Sequence Pull Consumer</li>
+        <li>Any Pull Consumer</li>
+        <li>Structured Push Supplier</li>
+        <li>Sequence Push Supplier</li>
+        <li>Any Push Supplier</li>
+        <li>Structured Pull Supplier</li>
+        <li>Sequence Pull Supplier</li>
+        <li>Any Pull Supplier</li>
+      </ul>
+      <p>The interfaces for these participants are defined in <strong>CosNotification.idl</strong>
+        and <strong>CosNotifyComm.idl</strong>.</p>
+    
+
+    <h4 id="generating-a-client-interface" class="title-link" onMouseOver="document.getElementById('ghlink-generating-a-client-interface-id23').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-generating-a-client-interface-id23').style.visibility = 'hidden';">
+<div class="title-name">Generating a Client Interface</div>
+<div class="title-anchors"><span id="ghlink-generating-a-client-interface-id23" class="ghlink-after"><a href="#generating-a-client-interface" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>We start by creating an interface which inherits from the correct interface, e.g., <strong>CosNotifyComm::SequencePushConsumer</strong>. Hence, 
+        we must also implement all operations defined in the SequencePushConsumer interface. The IDL-file could look like: </p>
+      <div class="example example-c"><pre>#ifndef _MYCLIENT_IDL
+#define _MYCLIENT_IDL
+#include &lt;CosNotification.idl&gt;
+#include &lt;CosNotifyComm.idl&gt;
+ 
+module myClientImpl {
+ 
+  interface ownInterface:CosNotifyComm::SequencePushConsumer {
+ 
+    void ownFunctions(in any NeededArguments)
+       raises(Systemexceptions,OwnExceptions);
+ 
+  };
+};
+ 
+#endif</pre></div>
+      <p>Run the IDL compiler on this file by calling the <span class="code">ic:gen/1</span> function. 
+        This will produce the API named <span class="code">myClientImpl_ownInterface.erl</span>.
+        After generating the API stubs and the server skeletons it is time to 
+        implement the servers and if no special options are sent 
+        to the IDl compiler the file name is <span class="code">myClientImpl_ownInterface_impl.erl</span>.</p>
+      <p>The callback module must contain the necessary functions inherited from 
+        <strong>CosNotification.idl</strong> and <strong>CosNotifyComm.idl</strong>.</p>
+    
+
+    <h4 id="how-to-run-everything" class="title-link" onMouseOver="document.getElementById('ghlink-how-to-run-everything-id24').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-how-to-run-everything-id24').style.visibility = 'hidden';">
+<div class="title-name">How to Run Everything</div>
+<div class="title-anchors"><span id="ghlink-how-to-run-everything-id24" class="ghlink-after"><a href="#how-to-run-everything" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>Below is a short transcript on how to run cosNotification. </p>
+      <div class="example example-none"><pre>%% Start Mnesia and Orber
+mnesia:delete_schema([node()]),
+mnesia:create_schema([node()]),
+orber:install([node()]),
+mnesia:start(),
+orber:start(),
+ 
+%% If cosEvent not installed before it is necessary to do it now.
+cosEventApp:install(), 
+
+%% Install cosNotification in the IFR.
+cosNotificationApp:install(30), 
+ 
+%% Register the application specific Client implementations
+%% in the IFR.
+'oe_myClientImpl':'oe_register'(), 
+ 
+%% Start the cosNotification application.
+cosNotificationApp:start(), 
+ 
+%% Start a factory using the default configuration
+ChFac = cosNotificationApp:start_factory(),
+%% ... or use configuration parameters.
+ChFac = cosNotificationApp:start_factory([]),
+ 
+%% Create a new event channel. Note, if no QoS- anr/or Admin-properties
+%% are supplied (i.e. empty list) the default settings are used.
+{Ch, ChID} = 'CosNotifyChannelAdmin_EventChannelFactory':
+          create_channel(ChFac, DefaultQoS, DefaultAdmin),
+ 
+%% Retrieve a SupplierAdmin and a Consumer Admin.
+{AdminSupplier, ASID}=
+         'CosNotifyChannelAdmin_EventChannel':new_for_suppliers(Ch, 'OR_OP'),
+{AdminConsumer, ACID}= 
+         'CosNotifyChannelAdmin_EventChannel':new_for_consumers(Ch,'OR_OP'),
+
+%% Use the corresponding Admin object to get access to wanted Proxies
+
+%% Create a Push Consumer Proxie, i.e., the Client Push Supplier will
+%% push events to this Proxy.
+{StructuredProxyPushConsumer,ID11}= 'CosNotifyChannelAdmin_SupplierAdmin':
+     obtain_notification_push_consumer(AdminSupplier, 'STRUCTURED_EVENT')),
+
+%% Create Push Suppliers Proxies, i.e., the Proxy will push events to the
+%% registered Push Consumers.
+{ProxyPushSupplier,I4D}='CosNotifyChannelAdmin_ConsumerAdmin':
+      obtain_notification_push_supplier(AdminConsumer, 'ANY_EVENT'),
+{StructuredProxyPushSupplier,ID5}='CosNotifyChannelAdmin_ConsumerAdmin':
+      obtain_notification_push_supplier(AdminConsumer, 'STRUCTURED_EVENT'),
+{SequenceProxyPushSupplier,ID6}='CosNotifyChannelAdmin_ConsumerAdmin':
+      obtain_notification_push_supplier(AdminConsumer, 'SEQUENCE_EVENT'),
+
+%% Create application Clients. We can, for example, start the Clients 
+%% our selves or look them up in the naming service. This is application
+%% specific.
+SupplierClient  = ...
+ConsumerClient1 = ...
+ConsumerClient2 = ...
+ConsumerClient3 = ...
+
+%% Connect each Client to corresponding Proxy.
+'CosNotifyChannelAdmin_StructuredProxyPushConsumer':
+  connect_structured_push_supplier(StructuredProxyPushConsumer, SupplierClient),
+'CosNotifyChannelAdmin_ProxyPushSupplier':
+  connect_any_push_consumer(ProxyPushSupplier, ConsumerClient1),
+'CosNotifyChannelAdmin_StructuredProxyPushSupplier':
+  connect_structured_push_consumer(StructuredProxyPushSupplier, ConsumerClient2),
+'CosNotifyChannelAdmin_SequenceProxyPushSupplier':
+  connect_sequence_push_consumer(SequenceProxyPushSupplier, ConsumerClient3),</pre></div>
+      <p>The example above, exemplifies a notification system where the SupplierClient
+        in some way generates event and pushes them to the proxy. The push supplier
+        proxies will eventually push the events to each ConsumerClient.</p>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 2000-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

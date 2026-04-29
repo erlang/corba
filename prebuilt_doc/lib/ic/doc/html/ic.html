@@ -1,0 +1,711 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- ic</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="ic">ic</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">ic</p>
+<p class="section-subtitle">Reference Manual</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/ic.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="toc">Table of Contents</h3>
+<ul class="flipMenu">
+<li id="loadscrollpos" title="ic " expanded="true">ic<ul>
+<li><a href="ic.html">
+                  Top of manual page
+                </a></li>
+    <li title="ic:gen-1"><a href="ic.html#ic:gen-1">ic:gen/1</a></li>
+    <li title="ic:gen-2"><a href="ic.html#ic:gen-2">ic:gen/2</a></li>
+    </ul>
+</li>
+<li id="no" title="ic_clib " expanded="false">ic_clib<ul>
+<li><a href="ic_clib.html">
+                  Top of manual page
+                </a></li>
+    <li title="ic_free_erlang_term"><a href="ic_clib.html#ic_free_erlang_term">ic_free_erlang_term()
+                </a></li>
+<li title="ic_list_add_elem"><a href="ic_clib.html#ic_list_add_elem">ic_list_add_elem()
+                </a></li>
+<li title="ic_mk_atom_term"><a href="ic_clib.html#ic_mk_atom_term">ic_mk_atom_term()
+                </a></li>
+<li title="ic_mk_binary_term"><a href="ic_clib.html#ic_mk_binary_term">ic_mk_binary_term()
+                </a></li>
+<li title="ic_mk_float_term"><a href="ic_clib.html#ic_mk_float_term">ic_mk_float_term()
+                </a></li>
+<li title="ic_mk_int_term"><a href="ic_clib.html#ic_mk_int_term">ic_mk_int_term()
+                </a></li>
+<li title="ic_mk_list_term"><a href="ic_clib.html#ic_mk_list_term">ic_mk_list_term()
+                </a></li>
+<li title="ic_mk_list_term_from_string"><a href="ic_clib.html#ic_mk_list_term_from_string">ic_mk_list_term_from_string()
+                </a></li>
+<li title="ic_mk_pid_term"><a href="ic_clib.html#ic_mk_pid_term">ic_mk_pid_term()
+                </a></li>
+<li title="ic_mk_port_term"><a href="ic_clib.html#ic_mk_port_term">ic_mk_port_term()
+                </a></li>
+<li title="ic_mk_ref_term"><a href="ic_clib.html#ic_mk_ref_term">ic_mk_ref_term()
+                </a></li>
+<li title="ic_mk_tuple_term"><a href="ic_clib.html#ic_mk_tuple_term">ic_mk_tuple_term()
+                </a></li>
+<li title="ic_print_erlang_term"><a href="ic_clib.html#ic_print_erlang_term">ic_print_erlang_term()
+                </a></li>
+<li title="ic_tuple_add_elem"><a href="ic_clib.html#ic_tuple_add_elem">ic_tuple_add_elem()
+                </a></li>
+<li title="oe_exec_switch"><a href="ic_clib.html#oe_exec_switch">oe_exec_switch()
+                </a></li>
+<li title="oe_merge_maps"><a href="ic_clib.html#oe_merge_maps">oe_merge_maps()
+                </a></li>
+<li title="oe_server_receive"><a href="ic_clib.html#oe_server_receive">oe_server_receive()
+                </a></li>
+<li title="oe_server_receive_tmo"><a href="ic_clib.html#oe_server_receive_tmo">oe_server_receive_tmo()
+                </a></li>
+<li title="CORBA_Environment_alloc"><a href="ic_clib.html#CORBA_Environment_alloc">CORBA_Environment_alloc()
+                </a></li>
+<li title="CORBA_exc_set"><a href="ic_clib.html#CORBA_exc_set">CORBA_exc_set()
+                </a></li>
+<li title="CORBA_exception_id"><a href="ic_clib.html#CORBA_exception_id">CORBA_exception_id()
+                </a></li>
+<li title="CORBA_exception_value"><a href="ic_clib.html#CORBA_exception_value">CORBA_exception_value()
+                </a></li>
+<li title="CORBA_free"><a href="ic_clib.html#CORBA_free">CORBA_free()
+                </a></li>
+<li title="CORBA_string_alloc"><a href="ic_clib.html#CORBA_string_alloc">CORBA_string_alloc()
+                </a></li>
+<li title="CORBA_wstring_alloc"><a href="ic_clib.html#CORBA_wstring_alloc">CORBA_wstring_alloc()
+                </a></li>
+</ul>
+</li>
+<li id="no" title="ic_c_protocol " expanded="false">ic_c_protocol<ul>
+<li><a href="ic_c_protocol.html">
+                  Top of manual page
+                </a></li>
+    <li title="oe_prepare_notification_encoding"><a href="ic_c_protocol.html#oe_prepare_notification_encoding">oe_prepare_notification_encoding()
+                </a></li>
+<li title="oe_prepare_reply_decoding"><a href="ic_c_protocol.html#oe_prepare_reply_decoding">oe_prepare_reply_decoding()
+                </a></li>
+<li title="oe_prepare_reply_encoding"><a href="ic_c_protocol.html#oe_prepare_reply_encoding">oe_prepare_reply_encoding()
+                </a></li>
+<li title="oe_prepare_request_decoding"><a href="ic_c_protocol.html#oe_prepare_request_decoding">oe_prepare_request_decoding()
+                </a></li>
+<li title="oe_prepare_request_encoding"><a href="ic_c_protocol.html#oe_prepare_request_encoding">oe_prepare_request_encoding()
+                </a></li>
+<li title="oe_send_notification"><a href="ic_c_protocol.html#oe_send_notification">oe_send_notification()
+                </a></li>
+<li title="oe_send_notification_tmo"><a href="ic_c_protocol.html#oe_send_notification_tmo">oe_send_notification_tmo()
+                </a></li>
+<li title="oe_send_request_and_receive_reply"><a href="ic_c_protocol.html#oe_send_request_and_receive_reply">oe_send_request_and_receive_reply()
+                </a></li>
+<li title="oe_send_request_and_receive_reply_tmo"><a href="ic_c_protocol.html#oe_send_request_and_receive_reply_tmo">oe_send_request_and_receive_reply_tmo()
+                </a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube"></div>
+<!-- refpage --><div class="innertube"><center><h1>ic</h1></center></div>
+  
+  <div class="innertube">
+<h3 id="module" class="title-link" onMouseOver="document.getElementById('ghlink-module-id81').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-id81').style.visibility = 'hidden';">
+<div class="title-name">Module</div>
+<div class="title-anchors"><span id="ghlink-module-id81" class="ghlink-after"><a href="#module" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-body">ic</div>
+</div>
+  <div class="innertube">
+<h3 id="module-summary" class="title-link" onMouseOver="document.getElementById('ghlink-module-summary-id82').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-module-summary-id82').style.visibility = 'hidden';">
+<div class="title-name">Module Summary</div>
+<div class="title-anchors"><span id="ghlink-module-summary-id82" class="ghlink-after"><a href="#module-summary" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY module-summary-body">The Erlang IDL Compiler</div>
+</div>
+  <section class="description"><div class="innertube">
+<h3 id="description" class="title-link" onMouseOver="document.getElementById('ghlink-description-id83').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-description-id83').style.visibility = 'hidden';">
+<div class="title-name">Description</div>
+<div class="title-anchors"><span id="ghlink-description-id83" class="ghlink-after"><a href="#description" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY description-body"><p>
+    <p>The ic module is an Erlang implementation of an OMG IDL
+      compiler. Depending on the choice of back-end the code will map
+      to Erlang, C, or Java. The compiler generates client stubs and
+      server skeletons.</p>
+    <p>Two kinds of files are generated for each scope: Ordinary code
+      files and header files. The latter are used for defining record
+      definitions, while the ordinary files contain the object
+      interface functions.</p>
+  </p></div>
+</div></section>
+  <div class="innertube"><h3 id="export" class="title-link" onMouseOver="document.getElementById('ghlink-export-id84').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-export-id84').style.visibility = 'hidden';">
+<div class="title-name">Exports</div>
+<div class="title-anchors"><span id="ghlink-export-id84" class="ghlink-after"><a href="#export" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3></div>
+<div class="exports-body"><article class="func"><div class="bold_code func-head"><h4 id="ic:gen-1" class="title-link" onMouseOver="document.getElementById('ghlink-ic:gen-1-id85').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-ic:gen-1-id85').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-ic:gen-1-id85" class="ghlink-before"><a href="#ic:gen-1" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">ic:gen(FileName) -&gt; Result</div>
+</h4></div>
+<div class="bold_code func-head"><h4 id="ic:gen-2" class="title-link" onMouseOver="document.getElementById('ghlink-ic:gen-2-id86').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-ic:gen-2-id86').style.visibility = 'hidden';">
+<div class="title-anchors"><span id="ghlink-ic:gen-2-id86" class="ghlink-before"><a href="#ic:gen-2" title="Link to this place!"><span class="paperclip-before"></span></a></span></div>
+<div class="title-name">ic:gen(FileName, [Option]) -&gt; Result</div>
+</h4></div>
+<div class="exports-tube">
+<div class="REFBODY rb-5">
+<h3 id="types" class="func-types-title">Types</h3>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Result = ok | error | {ok, [Warning]} | {error, [Warning], [Error]}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Option = [ GeneralOption | CodeOption | WarningOption | BackendOption]</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">GeneralOption = </span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{outdir, String()} | {cfgfile, String()} | {use_preproc, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{preproc_cmd, String()} | {preproc_flags, String()}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">CodeOption =</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{gen_hrl, bool()} | {serv_last_call, exception | exit} | {{impl, String()}, String()} | {light_ifr, bool()}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">this | {this, String()} | {{this, String()}, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">from | {from, String()} | {{from, String()}, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">handle_info | {handle_info, String()} | {{handle_info, String()}, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">timeout | {timeout, String()} | {{timeout, String()}, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{scoped_op_calls, bool()} | {scl, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{user_protocol, Prefix} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{c_timeout, {SendTimeout, RecvTimeout}} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{c_report, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{precond, {atom(), atom()}} | {{precond, String()} {atom(), atom()}} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{postcond, {atom(), atom()}} | {{postcond, String()} {atom(), atom()}}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">WarningOption =</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{'Wall', bool()} | {maxerrs, int() | infinity} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{maxwarns, int() | infinity} | {nowarn, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{warn_name_shadow, bool()} | {pedantic, bool()} |</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">{silent, bool()}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">BackendOption = {be, Backend}</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">Backend = erl_corba | erl_template | erl_plain | erl_genserv | c_client | c_server | java</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type"></span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">DirNAme = string() | atom()</span><br>
+</div>
+        <div class="REFTYPES rt-4">
+<span class="bold_code fun-param-type">FileName = string() | atom()</span><br>
+</div>
+      </div>
+<div class="REFBODY rb-7">
+        <p>The tuple <span class="code">{Option, true}</span> can be replaced by
+          <span class="code">Option</span> for boolean values.</p>
+        <p>The <span class="code">ic:gen/2</span> function can be called from the command 
+          line as follows:</p>
+        <p><span class="code">erlc "+Option" ... File.idl</span></p>
+        <p>Example:</p>
+        <p><span class="code">erlc "+{be,c_client}"  '+{outdir, "../out"}' File.idl</span></p>
+      </div>
+</div></article></div>
+
+  <section class="innertube"><h3 id="general-options" class="title-link" onMouseOver="document.getElementById('ghlink-general-options-id87').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-general-options-id87').style.visibility = 'hidden';">
+<div class="title-name">General options</div>
+<div class="title-anchors"><span id="ghlink-general-options-id87" class="ghlink-after"><a href="#general-options" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <dl>
+      <dt class="title-link"><strong><strong>outdir</strong></strong></dt>
+      <dd>
+        <p>Places all output files in the directory given by the option.
+          The directory will be created if it does not already exist.</p>
+        <p>Example option: <span class="code">{outdir, "output/generated"}</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>cfgfile</strong></strong></dt>
+      <dd>
+        <p>Uses <strong>FileName</strong> as configuration file. Options will
+          override compiler defaults but can be overridden by command line
+          options. Default value is <span class="code">".ic_config"</span>.</p>
+        <p>Example option: <span class="code">{cfgfile, "special.cfg"}</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>use_preproc</strong></strong></dt>
+      <dd>
+        <p>Uses a preprocessor. Default value is true.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>preproc_cmd</strong></strong></dt>
+      <dd>
+        <p>Command string to invoke the preprocessor. The actual
+          command will be built as
+          <span class="code">preproc_cmd++preproc_flags++FileName</span></p>
+        <p>Example option: <span class="code">{preproc_cmd, "erl"})</span>.</p>
+        <p>Example option: <span class="code">{preproc_cmd, "gcc -x c++ -E"}</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>preproc_flags</strong></strong></dt>
+      <dd>
+        <p>Flags given to the preprocessor.</p>
+        <p>Example option: <span class="code">{preproc_flags, "-I../include"}</span>.</p>
+      </dd>
+    </dl>
+  </div></section>
+
+  <section class="innertube"><h3 id="code-options" class="title-link" onMouseOver="document.getElementById('ghlink-code-options-id88').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-code-options-id88').style.visibility = 'hidden';">
+<div class="title-name">Code options</div>
+<div class="title-anchors"><span id="ghlink-code-options-id88" class="ghlink-after"><a href="#code-options" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <dl>
+      <dt class="title-link"><strong><strong>light_ifr</strong></strong></dt>
+      <dd>
+        <p>Currently, the default setting is <span class="code">false</span>. To be able to
+          use this option Orber must be configured to use Light IFR (see
+          Orber's User's Guide). When this options is used, the size of the
+          generated files used to register the API in the IFR DB are minimized.</p>
+        <p>Example option: <span class="code">{light_ifr, true}</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>gen_hrl</strong></strong></dt>
+      <dd>
+        <p>Generate header files. Default is true.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>serv_last_call</strong></strong></dt>
+      <dd>
+        <p>Makes the last <span class="code">gen_server handle_call</span> either raise a
+          CORBA exception or just  exit plainly. Default is the exception.
+          </p>
+      </dd>
+      <dt class="title-link"><strong><strong>{{impl, IntfName}, ModName}</strong></strong></dt>
+      <dd>
+        <p>Assumes that the interface with name <strong>IntfName</strong> is
+          implemented by the module with name <strong>ModName</strong> and
+          will generate calls to the <strong>ModName</strong> module in the
+          server behavior.  Note that the <strong>IntfName</strong> must be a
+          fully scoped name as in <span class="code">"M1::I1"</span>.</p>
+        <p></p>
+      </dd>
+      <dt class="title-link"><strong><strong>this</strong></strong></dt>
+      <dd>
+        <p>Adds the object reference as the first parameter to the
+          object implementation functions. This makes the
+          implementation aware of its own object reference. 
+                    <br>
+The option
+          comes in three varieties: <span class="code">this</span> which activates the
+          parameter for all interfaces in the source file, <span class="code">{this, IntfName}</span> which activates the parameter for a specified
+          interface and <span class="code">{{this, IntfName}, false}</span> which
+          deactivates the parameter for a specified
+          interface.</p>
+        <p>Example option: <span class="code">this)</span> activates the parameter for
+          all interfaces.</p>
+        <p>Example option: <span class="code">{this, "M1::I1"}</span> activates the
+          parameter for all functions of <span class="code">M1::I1</span>.</p>
+        <p>Example options: <span class="code">[this, {{this, "M1::I2"}, false}]</span>
+          activates the parameter for all interfaces except
+          <span class="code">M1::I2</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>from</strong></strong></dt>
+      <dd>
+        <p>Adds the invokers reference as the first parameter to the
+          object implementation two-way functions. If both
+          <span class="code">from</span> and <span class="code">this</span> options are used the invokers
+          reference parameter will be passed as the second
+          parameter. This makes it possible for the implementation to
+          respond to a request and continue executing
+          afterwards. Consult the <span class="code">gen_server</span> and <span class="code">Orber</span>
+          documentation how this option may be used.            <br>
+The option
+          comes in three varieties: <span class="code">from</span> which activates the
+          parameter for all interfaces in the source file, <span class="code">{from, IntfName}</span> which activates the parameter for a specified
+          interface and <span class="code">{{from, IntfName}, false}</span> which
+          deactivates the parameter for a specified interface.</p>
+        <p>Example option: <span class="code">from)</span> activates the parameter for
+          all interfaces.</p>
+        <p>Example options: <span class="code">[{from, "M1::I1"}]</span> activates the
+          parameter for all functions of <span class="code">M1::I1</span>.</p>
+        <p>Example options: <span class="code">[from, {{from, "M1::I2"}, false}]</span>
+          activates the parameter for all interfaces except
+          <span class="code">M1::I2</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>handle_info</strong></strong></dt>
+      <dd>
+        <p>Makes the object server call a function <span class="code">handle_info</span>
+          in the object implementation module on all unexpected
+          messages. Useful if the object implementation need to trap
+          exits.</p>
+        <p>Example option: <span class="code">handle_info</span> will activates module
+          implementation <span class="code">handle_info</span> for all interfaces in the
+          source file.</p>
+        <p>Example option: <span class="code">{{handle_info, "M1::I1"}, true}</span>
+          will activates module implementation <span class="code">handle_info</span> for
+          the specified interface.</p>
+        <p>Example options: <span class="code">[handle_info, {{handle_info, "M1::I1"}, false}]</span> will generate the <span class="code">handle_info</span>
+          call for all interfaces except <span class="code">M1::I1</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>timeout</strong></strong></dt>
+      <dd>
+        <p>Used to allow a server response time limit to be set by the user. 
+          This should be a string that represents the scope for the interface 
+          which should have an extra variable for wait time initialization.</p>
+        <p>Example option: <span class="code">{timeout,"M::I"})</span> produces server
+          stub which will has an extra timeout parameter in the initialization 
+          function for that interface.</p>
+        <p>Example option: <span class="code">timeout</span> produces server
+          stub which will has an extra timeout parameter in the initialization 
+          function for all interfaces in the source file.</p>
+        <p>Example options: <span class="code">[timeout, {{timeout,"M::I"}, false}]</span>
+          produces server stub which will has an extra timeout
+          parameter in the initialization function for all interfaces
+          except <span class="code">M1::I1</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>scoped_op_calls</strong></strong></dt>
+      <dd>
+        <p>Used to produce more refined request calls to server. When
+          this option is set to true, the operation name which was
+          mentioned in the call is scoped. This is essential to avoid
+          name clashes when communicating with c-servers. This option
+          is available for the c-client, c-server and the Erlang
+          gen_server back ends. <span class="code">All</span> of the parts generated by ic
+          have to agree in the use of this option. Default is
+          <span class="code">false</span>.  </p>
+        <p>Example options:
+          <span class="code">[{be,c_genserv},{scoped_op_calls,true}])</span> produces
+          client stubs which sends "scoped" requests to a gen_server
+          or a c-server.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>user_protocol</strong></strong></dt>
+      <dd>
+        <p>Used to define a own protocol different from the default
+          Erlang distribution + gen_server protocol. Currently only
+          valid for C back-ends. For further details see <span class="bold_code bc-19"><a href="ic_c_protocol.html">IC C protocol</a></span>.</p>
+        <p>Example options:
+          <span class="code">[{be,c_client},{user_protocol, "my_special"}])</span> produces
+          client stubs which use C protocol functions with the prefix 
+          "my_special".</p>
+      </dd>
+      <dt class="title-link"><strong><strong>c_timeout</strong></strong></dt>
+      <dd>
+        <p>Makes sends and receives to have timeouts (C back-ends only).  These
+          timeouts are specified in milliseconds. </p>
+        <p>Example options:
+          <span class="code">[{be,c_client},{c_timeout, {10000, 20000}}])</span> produces
+          client stubs which use a 10 seconds send timeout, and a
+          20 seconds receive timeout.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>c_report</strong></strong></dt>
+      <dd>
+        <p>Generates code for writing encode/decode errors to <span class="code">stderr</span> (C back-ends only).
+          timeouts are specified in milliseconds. </p>
+        <p>Example options:
+          <span class="code">[{be,c_client}, c_report])</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>scl</strong></strong></dt>
+      <dd>
+        <p>Used for compatibility with previous compiler versions up
+          to <span class="code">3.3</span>.  Due to better semantic checks on enumerants,
+          the compiler discovers name clashes between user defined
+          types and enumerant values in the same name space. By
+          enabling this option the compiler turns off the extended
+          semantic check on enumerant values.  Default is
+          <span class="code">false</span>.  </p>
+        <p>Example option: <span class="code">{scl,true}</span></p>
+      </dd>
+      <dt class="title-link"><strong><strong>precond</strong></strong></dt>
+      <dd>
+        <p>Adds a precondition call before the call to the operation
+          implementation on the server side.</p>
+        <p>The option comes in three varieties: <span class="code">{precond, {M, F}}</span> which activates the call for operations in all
+          interfaces in the source file, <span class="code">{{precond, IntfName}, {M, F}}</span> which activates the call for all operations in a
+          specific interface and <span class="code">{{precond, OpName}, {M, F}}</span>
+          which activates the call for a specific operation.</p>
+        <p>The precondition function has the following signature
+          <span class="code">m:f(Module, Function, Args)</span>.</p>
+        <p>Example option: <span class="code">{precond, {mod, fun}}</span> adds the call
+          of m:f for all operations in the idl file.</p>
+        <p>Example options: <span class="code">[{{precond, "M1::I"}, {mod, fun}}]</span>
+          adds the call of <span class="code">m:f</span> for all operations in the
+          interface <span class="code">M1::I1</span>.</p>
+        <p>Example options: <span class="code">[{{precond, "M1::I::Op"}, {mod, fun}}]</span> adds the call of <span class="code">m:f</span> for the operation
+          <span class="code">M1::I::Op</span>.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>postcond</strong></strong></dt>
+      <dd>
+        <p>Adds a postcondition call after the call to the operation
+          implementation on the server side. </p>
+        <p>The option comes in three varieties: <span class="code">{postcond, {M, F}}</span> which activates the call for operations in all
+          interfaces in the source file, <span class="code">{{postcond, IntfName}, {M, F}}</span> which activates the call for all operations in a
+          specific interface and <span class="code">{{postcond, OpName}, {M, F}}</span>
+          which activates the call for a specific operation.</p>
+        <p>The postcondition function has the following signature
+          <span class="code">m:f(Module, Function, Args, Result)</span>.</p>
+        <p>Example option: <span class="code">{postcond, {mod, fun}}</span> adds the call
+          of m:f for all operations in the idl file.</p>
+        <p>Example options: <span class="code">[{{postcond, "M1::I"}, {mod, fun}}]</span>
+          adds the call of <span class="code">m:f</span> for all operations in the
+          interface <span class="code">M1::I1</span>.</p>
+        <p>Example options: <span class="code">[{{postcond, "M1::I::Op"}, {mod, fun}}]</span> adds the call of <span class="code">m:f</span> for the operation
+          <span class="code">M1::I::Op</span>.</p>
+      </dd>
+    </dl>
+  </div></section>
+
+  <section class="innertube"><h3 id="warning-options" class="title-link" onMouseOver="document.getElementById('ghlink-warning-options-id89').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-warning-options-id89').style.visibility = 'hidden';">
+<div class="title-name">Warning options</div>
+<div class="title-anchors"><span id="ghlink-warning-options-id89" class="ghlink-after"><a href="#warning-options" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <dl>
+      <dt class="title-link"><strong><strong>'Wall'</strong></strong></dt>
+      <dd>
+        <p>The option activates all reasonable warning messages  in
+          analogy with the gcc -Wall option. Default value is true.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>maxerrs</strong></strong></dt>
+      <dd>
+        <p>The maximum numbers of errors that can be detected before
+          the compiler gives up. The option can either have an integer
+          value or the atom <span class="code">infinity</span>. Default number is 10.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>maxwarns</strong></strong></dt>
+      <dd>
+        <p>The maximum numbers of warnings that can be detected before
+          the compiler gives up. The option can either have an integer
+          value or the atom <span class="code">infinity</span>. Default value is
+          infinity.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>nowarn</strong></strong></dt>
+      <dd>
+        <p>Suppresses all warnings. Default value is false.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>warn_name_shadow</strong></strong></dt>
+      <dd>
+        <p>Warning appears whenever names are shadowed due to
+          inheritance; for example, if a type name is redefined from a
+          base interface. Note that it is illegal to overload 
+          operation and attribute names as this causes an error to be
+          produced. Default value is true. </p>
+      </dd>
+      <dt class="title-link"><strong><strong>pedantic</strong></strong></dt>
+      <dd>
+        <p>Activates all warning options. Default value is false.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>silent</strong></strong></dt>
+      <dd>
+        <p>Suppresses compiler printed output. Default value is false.</p>
+      </dd>
+    </dl>
+  </div></section>
+
+  <section class="innertube"><h3 id="back-end-options" class="title-link" onMouseOver="document.getElementById('ghlink-back-end-options-id90').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-back-end-options-id90').style.visibility = 'hidden';">
+<div class="title-name">Back-End options</div>
+<div class="title-anchors"><span id="ghlink-back-end-options-id90" class="ghlink-after"><a href="#back-end-options" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <p>Which back-end IC will generate code for is determined by the supplied
+      <span class="code">{be,atom()}</span> option. If left out, <span class="code">erl_corba</span> is used.
+      Currently, IC support the following back-ends:</p>
+    <dl>
+      <dt class="title-link"><strong><strong>erl_corba</strong></strong></dt>
+      <dd>
+        <p>This option switches to the IDL generation for CORBA.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>erl_template</strong></strong></dt>
+      <dd>
+        <p>Generate CORBA call-back module templates for each interface in the target
+          IDL file. Note, will overwrite existing files.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>erl_plain</strong></strong></dt>
+      <dd>
+        <p>Will produce plain Erlang modules which contain functions that
+          map to the corresponding interface functions on the input file.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>erl_genserv</strong></strong></dt>
+      <dd>
+        <p>This is an IDL to Erlang generic server generation option.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>c_client</strong></strong></dt>
+      <dd>
+        <p>Will produce a C client to the generic Erlang server.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>c_server</strong></strong></dt>
+      <dd>
+        <p>Will produce a C server switch with functionality of a
+          generic Erlang server.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>java</strong></strong></dt>
+      <dd>
+        <p>Will produce Java client stubs with
+          functionality of a generic Erlang server.</p>
+      </dd>
+      <dt class="title-link"><strong><strong>c_genserv</strong></strong></dt>
+      <dd>
+        <p>Deprecated. Use <span class="code">c_client</span> instead.</p>
+      </dd>
+    </dl>
+  </div></section>
+
+  <section class="innertube"><h3 id="preprocessor" class="title-link" onMouseOver="document.getElementById('ghlink-preprocessor-id91').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-preprocessor-id91').style.visibility = 'hidden';">
+<div class="title-name">Preprocessor</div>
+<div class="title-anchors"><span id="ghlink-preprocessor-id91" class="ghlink-after"><a href="#preprocessor" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <p>The IDL compiler allows several preprocessors to be used, the
+      <span class="code">Erlang IDL preprocessor</span> or other standard <span class="code">C</span> preprocessors.
+      Options can  be used to provide extra flags such as include
+      directories to the preprocessor.  The build in the Erlang IDL
+      preprocessor is used by default, but any standard  C preprocessor
+      such as <span class="code">gcc</span> is adequate.</p>
+    <p>The preprocessor command is formed by appending the prepoc_cmd
+      to the preproc_flags option and then appending the input IDL
+      file name.</p>
+  </div></section>
+
+  <section class="innertube"><h3 id="configuration" class="title-link" onMouseOver="document.getElementById('ghlink-configuration-id92').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-configuration-id92').style.visibility = 'hidden';">
+<div class="title-name">Configuration</div>
+<div class="title-anchors"><span id="ghlink-configuration-id92" class="ghlink-after"><a href="#configuration" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <p>The compiler can be configured in two ways:</p>
+    <ol>
+      <li>
+        <p>Configuration file</p>
+      </li>
+      <li>
+        <p>Command line options</p>
+      </li>
+    </ol>
+    <p>The configuration file is optional and overrides the compiler
+      defaults and is in turn overridden by the command line options.
+      The configuration file shall contain options in the form of
+      Erlang terms. The configuration file is read using
+      <span class="code">file:consult</span>.</p>
+    <p>An example of a configuration file, note the "." after each
+      line.</p>
+    <div class="example example-none"><pre>{outdir, gen_dir}.
+{{impl, "M1::M2::object"}, "obj"}.</pre></div>
+  </div></section>
+
+  <section class="innertube"><h3 id="output-files" class="title-link" onMouseOver="document.getElementById('ghlink-output-files-id93').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-output-files-id93').style.visibility = 'hidden';">
+<div class="title-name">Output files</div>
+<div class="title-anchors"><span id="ghlink-output-files-id93" class="ghlink-after"><a href="#output-files" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+<div class="REFBODY rb-3">
+    
+    <p>The compiler will produce output in several files depending on
+      scope declarations found in the IDL file. At most
+      three file types will be generated for each scope (including the top scope), 
+      depending on the compiler back-end and the compiled interface.
+      Generally, the output per interface will be a header file (<span class="code">.hrl</span>/
+      <span class="code">.h</span>) and one or more Erlang/C files (<span class="code">.erl</span>/<span class="code">.c</span>).
+      Please look at the language mapping for each back-end for details.</p>
+    <p>There will be at least one set of files for an IDL file, for the
+      file level scope. Modules and interfaces also have their own set
+      of  generated files.</p>
+  </div></section>
+  
+<div class="footer">
+<hr>
+<p>Copyright © 1998-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>

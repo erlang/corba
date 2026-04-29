@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:erl="http://erlang.org" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../doc/otp_doc.css" type="text/css">
+<title>Erlang -- Debugging</title>
+</head>
+<body>
+<div id="container">
+<script id="js" type="text/javascript" language="JavaScript" src="../../../../doc/js/flipmenu/flipmenu.js"></script><script id="js2" type="text/javascript" src="../../../../doc/js/erlresolvelinks.js"></script><script id="js3" type="text/javascript" src="../../../../doc/js/topbar.js"></script><script language="JavaScript" type="text/javascript">
+            <!--
+              function setscrollpos() {
+                var objf = document.getElementById('loadscrollpos');
+                if (objf) {
+                  document.getElementById("leftnav").firstChild.scrollTop = objf.offsetTop - 10;
+                }
+              }
+
+              function addEvent(obj, evType, fn){
+                if (obj.addEventListener){
+                obj.addEventListener(evType, fn, true);
+                return true;
+              } else if (obj.attachEvent){
+                var r = obj.attachEvent("on"+evType, fn);
+                return r;
+              } else {
+                return false;
+              }
+             }
+
+             addEvent(window, 'load', setscrollpos);
+
+             //-->
+</script><div class="topbar">
+<div class="topbar-expand "><button onclick="toggleDisplay();"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 54 54" width="24" height="24"><g><path style="fill:#000000;" d="M27,54c-0.552,0-1-0.448-1-1V8c0-0.552,0.448-1,1-1s1,0.448,1,1v45C28,53.552,27.552,54,27,54z"></path><path style="fill:#000000;" d="M11,25c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l16-16                                      c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-16,16C11.512,24.902,11.256,25,11,25z"></path><path style="fill:#000000;" d="M43,25c-0.256,0-0.512-0.098-0.707-0.293l-16-16c-0.391-0.391-0.391-1.023,0-1.414                                      s1.023-0.391,1.414,0l16,16c0.391,0.391,0.391,1.023,0,1.414C43.512,24.902,43.256,25,43,25z"></path><path style="fill:#000000;" d="M43,2H11c-0.552,0-1-0.448-1-1s0.448-1,1-1h32c0.552,0,1,0.448,1,1S43.552,2,43,2z"></path></g></svg></button></div>
+<div class="topbar-title"><h1 id="Debugging">13 
+                Debugging</h1></div>
+<div class="search-expand "></div>
+</div>
+<aside class="hide-mobile" id="leftnav"><nav class="leftnav-tube"><div class="erlang-logo-wrapper"><a href="../../../../doc/index.html"><img alt="Erlang Logo" src="../../../../doc/erlang-logo.png" class="erlang-logo"></a></div>
+<p class="section-title">orber</p>
+<p class="section-subtitle">User's Guide</p>
+<p class="section-version">Version 5.2.3</p>
+<ul class="panel-sections">
+<li><a href="users_guide.html">User's Guide</a></li>
+<li><a href="index.html">Reference Manual</a></li>
+<li><a href="notes.html">Release Notes</a></li>
+<li><a href="../pdf/orber.pdf">PDF</a></li>
+<li><a href="../../../../doc/index.html">Top</a></li>
+</ul>
+<ul class="expand-collapse-items">
+<li><a href="javascript:openAllFlips()">Expand All</a></li>
+<li><a href="javascript:closeAllFlips()">Contract All</a></li>
+</ul>
+<h3 id="chapters">Chapters</h3>
+<ul class="flipMenu" imagepath="../../../../doc/js/flipmenu">
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_contents.html">
+              Top of chapter
+            </a></li>
+<li title="Content Overview"><a href="ch_contents.html#content-overview">Content Overview</a></li>
+<li title="Brief Description of the User's Guide"><a href="ch_contents.html#brief-description-of-the-user's-guide">Brief Description of the User's Guide</a></li>
+</ul>
+</li>
+<li id="no" title="Introduction to Orber" expanded="false">Introduction to Orber<ul>
+<li><a href="ch_introduction.html">
+              Top of chapter
+            </a></li>
+<li title="Overview"><a href="ch_introduction.html#overview">Overview</a></li>
+</ul>
+</li>
+<li id="no" title="The Orber Application" expanded="false">The Orber Application<ul>
+<li><a href="ch_orber_kernel.html">
+              Top of chapter
+            </a></li>
+<li title="ORB Kernel and IIOP "><a href="ch_orber_kernel.html#orb-kernel-and-iiop-">ORB Kernel and IIOP </a></li>
+<li title="The Object Request Broker (ORB)"><a href="ch_orber_kernel.html#the-object-request-broker--orb-">The Object Request Broker (ORB)</a></li>
+<li title="Internet Inter-Object Protocol (IIOP)"><a href="ch_orber_kernel.html#internet-inter-object-protocol--iiop-">Internet Inter-Object Protocol (IIOP)</a></li>
+</ul>
+</li>
+<li id="no" title="Interface Repository" expanded="false">Interface Repository<ul>
+<li><a href="ch_ifr.html">
+              Top of chapter
+            </a></li>
+<li title="Interface Repository(IFR)"><a href="ch_ifr.html#interface-repository-ifr-">Interface Repository(IFR)</a></li>
+</ul>
+</li>
+<li id="no" title="Installing Orber" expanded="false">Installing Orber<ul>
+<li><a href="ch_install.html">
+              Top of chapter
+            </a></li>
+<li title="Installation Process "><a href="ch_install.html#installation-process-">Installation Process </a></li>
+<li title="Configuration"><a href="ch_install.html#configuration">Configuration</a></li>
+<li title="Firewall Configuration"><a href="ch_install.html#firewall-configuration">Firewall Configuration</a></li>
+<li title="Interface Configuration"><a href="ch_install.html#interface-configuration">Interface Configuration</a></li>
+</ul>
+</li>
+<li id="no" title="OMG IDL to Erlang Mapping" expanded="false">OMG IDL to Erlang Mapping<ul>
+<li><a href="ch_idl_to_erlang_mapping.html">
+              Top of chapter
+            </a></li>
+<li title="OMG IDL to Erlang Mapping - Overview"><a href="ch_idl_to_erlang_mapping.html#omg-idl-to-erlang-mapping---overview">OMG IDL to Erlang Mapping - Overview</a></li>
+<li title="OMG IDL Mapping Elements"><a href="ch_idl_to_erlang_mapping.html#omg-idl-mapping-elements">OMG IDL Mapping Elements</a></li>
+<li title="Getting Started"><a href="ch_idl_to_erlang_mapping.html#getting-started">Getting Started</a></li>
+<li title="Basic OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#basic-omg-idl-types">Basic OMG IDL Types</a></li>
+<li title="Template OMG IDL Types and Complex Declarators"><a href="ch_idl_to_erlang_mapping.html#template-omg-idl-types-and-complex-declarators">Template OMG IDL Types and Complex Declarators</a></li>
+<li title="Constructed OMG IDL Types"><a href="ch_idl_to_erlang_mapping.html#constructed-omg-idl-types">Constructed OMG IDL Types</a></li>
+<li title="Scoped Names and Generated Files"><a href="ch_idl_to_erlang_mapping.html#scoped-names-and-generated-files">Scoped Names and Generated Files</a></li>
+<li title="Typecode, Identity and Name Access Functions"><a href="ch_idl_to_erlang_mapping.html#typecode,-identity-and-name-access-functions">Typecode, Identity and Name Access Functions</a></li>
+<li title="References to Constants"><a href="ch_idl_to_erlang_mapping.html#references-to-constants">References to Constants</a></li>
+<li title="References to Objects Defined in OMG IDL"><a href="ch_idl_to_erlang_mapping.html#references-to-objects-defined-in-omg-idl">References to Objects Defined in OMG IDL</a></li>
+<li title="Exceptions"><a href="ch_idl_to_erlang_mapping.html#exceptions">Exceptions</a></li>
+<li title="Access to Attributes"><a href="ch_idl_to_erlang_mapping.html#access-to-attributes">Access to Attributes</a></li>
+<li title="Invocations of Operations"><a href="ch_idl_to_erlang_mapping.html#invocations-of-operations">Invocations of Operations</a></li>
+<li title="Implementing the DB Application"><a href="ch_idl_to_erlang_mapping.html#implementing-the-db-application">Implementing the DB Application</a></li>
+<li title="Reserved Compiler Names and Keywords"><a href="ch_idl_to_erlang_mapping.html#reserved-compiler-names-and-keywords">Reserved Compiler Names and Keywords</a></li>
+<li title="Type Code Representation"><a href="ch_idl_to_erlang_mapping.html#type-code-representation">Type Code Representation</a></li>
+</ul>
+</li>
+<li id="no" title="CosNaming Service" expanded="false">CosNaming Service<ul>
+<li><a href="ch_naming_service.html">
+              Top of chapter
+            </a></li>
+<li title="Overview of the CosNaming Service"><a href="ch_naming_service.html#overview-of-the-cosnaming-service">Overview of the CosNaming Service</a></li>
+<li title="The Basic Use-cases of the Naming Service"><a href="ch_naming_service.html#the-basic-use-cases-of-the-naming-service">The Basic Use-cases of the Naming Service</a></li>
+<li title="Interoperable Naming Service"><a href="ch_naming_service.html#interoperable-naming-service">Interoperable Naming Service</a></li>
+</ul>
+</li>
+<li id="no" title="How to use security in Orber" expanded="false">How to use security in Orber<ul>
+<li><a href="ch_security.html">
+              Top of chapter
+            </a></li>
+<li title="Security in Orber"><a href="ch_security.html#security-in-orber">Security in Orber</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Stubs/Skeletons" expanded="false">Orber Stubs/Skeletons<ul>
+<li><a href="ch_stubs.html">
+              Top of chapter
+            </a></li>
+<li title="Orber Stubs and Skeletons Description"><a href="ch_stubs.html#orber-stubs-and-skeletons-description">Orber Stubs and Skeletons Description</a></li>
+</ul>
+</li>
+<li id="no" title="CORBA System and User Defined Exceptions" expanded="false">CORBA System and User Defined Exceptions<ul>
+<li><a href="ch_exceptions.html">
+              Top of chapter
+            </a></li>
+<li title="System Exceptions"><a href="ch_exceptions.html#system-exceptions">System Exceptions</a></li>
+<li title="User Defined Exceptions"><a href="ch_exceptions.html#user-defined-exceptions">User Defined Exceptions</a></li>
+<li title="Throwing Exceptions"><a href="ch_exceptions.html#throwing-exceptions">Throwing Exceptions</a></li>
+<li title="Catching Exceptions"><a href="ch_exceptions.html#catching-exceptions">Catching Exceptions</a></li>
+</ul>
+</li>
+<li id="no" title="Orber Interceptors" expanded="false">Orber Interceptors<ul>
+<li><a href="ch_interceptors.html">
+              Top of chapter
+            </a></li>
+<li title="Using Interceptors"><a href="ch_interceptors.html#using-interceptors">Using Interceptors</a></li>
+<li title="Interceptor Example"><a href="ch_interceptors.html#interceptor-example">Interceptor Example</a></li>
+</ul>
+</li>
+<li id="no" title="OrberWeb" expanded="false">OrberWeb<ul>
+<li><a href="ch_orberweb.html">
+              Top of chapter
+            </a></li>
+<li title="Using OrberWeb"><a href="ch_orberweb.html#using-orberweb">Using OrberWeb</a></li>
+<li title="Starting OrberWeb"><a href="ch_orberweb.html#starting-orberweb">Starting OrberWeb</a></li>
+</ul>
+</li>
+<li id="loadscrollpos" title="Debugging" expanded="true">Debugging<ul>
+<li><a href="ch_debugging.html">
+              Top of chapter
+            </a></li>
+<li title="Tools and FAQ"><a href="ch_debugging.html#tools-and-faq">Tools and FAQ</a></li>
+</ul>
+</li>
+</ul></nav></aside><div id="content">
+<div class="innertube">
+<h1 id="Debugging">13 Debugging</h1>
+  
+
+  <h3 id="tools-and-faq" class="title-link" onMouseOver="document.getElementById('ghlink-tools-and-faq-id95').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-tools-and-faq-id95').style.visibility = 'hidden';">
+<div class="title-name">13.1 
+        Tools and FAQ</div>
+<div class="title-anchors"><span id="ghlink-tools-and-faq-id95" class="ghlink-after"><a href="#tools-and-faq" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h3>
+    
+    <p>Persons who use Orber for the first time may find it hard to tell what goes
+      wrong when trying to setup communication between an Orber-ORB and ORB:s supplied
+      by another vendor or another Orber-ORB. The purpose of this chapter is to inform
+      about the most common mistakes and what tools one can use to overcome these 
+      problems. </p>
+
+    <h4 id="tools" class="title-link" onMouseOver="document.getElementById('ghlink-tools-id96').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-tools-id96').style.visibility = 'hidden';">
+<div class="title-name">Tools</div>
+<div class="title-anchors"><span id="ghlink-tools-id96" class="ghlink-after"><a href="#tools" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p>To begin with, Orber can be configured to run in debug mode. There are four ways
+        to set this parameter:</p>
+      <ul>
+        <li>
+<strong>erl -orber orber_debug_level 10</strong> - can be added to a start-script.</li>
+        <li>
+<strong>corba:orb_init([{orber_debug_level, 10}])</strong> - this operation must
+         be invoked <strong>before</strong> starting Orber.</li>
+        <li>
+<strong>orber:configure(orber_debug_level, 10)</strong> - this operation can
+         be invoked at any time.</li>
+        <li>
+<strong>OrberWeb</strong> - via the <span class="code">Configuration</span> menu one can easily change
+         the configuration. For more information, see the OrberWeb chapter in this
+         User's Guide.</li>
+      </ul>
+      <p>When Orber runs i debug mode, printouts will be generated if anything abnormal occurs
+        (not necessarily an error). An error message typically looks like:</p>
+      <div class="example example-none"><pre>=ERROR REPORT==== 29-Nov-2001::14:09:55 ===
+=================== Orber =================
+[410] corba:common_create(orber_test_server, [{pseudo,truce}]); 
+not a boolean(truce).
+===========================================</pre></div>
+      <p>In the example above, we tried to create an object with an incorrect option (i.e. should
+        have been <span class="code">{pseudo,true}</span>).</p>
+      <p>If you are not able to solve the problem, you should include all generated reports when
+        contacting support or using the erlang-questions mailing list.</p>
+      <p>It is easy to forget to, for example, set all fields in a struct, which
+        one may not discover when developing an application using Orber. When using
+        a typed language, such faults would cause a compile time error. To avoid
+        these mistakes, Orber allows the user to activate automatic typechecking
+        of all local invocations of CORBA Objects. For this feature to be really
+        useful, the user must create test suites which cover as much as 
+        possible. For example, invoking an operation with invalid or incorrect
+        arguments should also be tested. This option can be activated for one object
+        or all object via:</p>
+      <ul>
+        <li>
+<strong>'MyModuyle_MyInterface':oe_create(Env, [{local_typecheck, true}])</strong> - 
+         This approach will only activate, or deactivate, typechecking for
+         the returned instance. Naturally, this option can also be passed
+         to <span class="code">oe_create_link/2</span>, <span class="code">corba:create/4</span> and 
+        <span class="code">corba:create_link/4</span>.</li>
+        <li>
+<strong>erl -orber flags 2</strong> - can be added to a start-script.
+         All object invocations will be typechecked, unless overridden by the
+         previous option.</li>
+        <li>
+<strong>corba:orb_init([{flags, 16#0002}])</strong> - this operation must
+         be invoked <strong>before</strong> starting Orber. Behaves as the previous
+         option.</li>
+      </ul>
+      <p>If incorrect data is passed or returned, Orber uses the <span class="code">error_logger</span>
+        to generate logs, which can look like:</p>
+      <div class="example example-none"><pre>=ERROR REPORT==== 10-Jul-2002::12:36:09 ===
+========= Orber Typecheck Request =========
+Invoked......: MyModule_MyInterface:foo/1
+Typecode.....: [{tk_enum,"IDL:MyModule/enumerant:1.0",
+                         "enumerant",
+                         ["one","two"]}]
+Arguments....: [three]
+Result.......: {'EXCEPTION',{'MARSHAL',[],102,'COMPLETED_NO'}}
+===========================================</pre></div>
+      <p>Note, that the arity is equivalent to the IDL-file. In the example above,
+        an undefined enumerant was used. In most cases, it is useful to set the
+        configuration parameter <span class="code">orber_debug_level 10</span> as well. Due to the
+        extra overhead, this option <strong>MAY ONLY</strong> be used during testing and
+        development.
+        For more information, see also
+        <span class="bold_code bc-15"><a href="ch_install.html#config">configuration settings</a></span>.</p>
+      <p>It is also possible to trace all communication between an Orber-ORB and, for example,
+        a Java-ORB, communicating via IIOP. All you need to do is to activate an 
+        <span class="bold_code bc-19"><a href="ch_interceptors.html">interceptor</a></span>. Normally, the users must
+        implement the interceptor themselves, but for your convenience Orber includes three
+        pre-compiled interceptors called <span class="code">orber_iiop_tracer</span>,
+        <span class="code">orber_iiop_tracer_silent</span> and <span class="code">orber_iiop_tracer_stealth</span>.</p>
+      <div class="warning">
+<div class="label">Warning</div>
+<div class="content"><p>
+        <p>Logging all traffic is <strong>expensive</strong>. Hence, only use the supplied 
+          interceptors during test and development.</p>
+      </p></div>
+</div>
+      <p>The <span class="code">orber_iiop_tracer</span> and <span class="code">orber_iiop_tracer_silent</span> interceptors
+        uses the <span class="code">error_logger</span> module to generate the logs. If the traffic 
+        is intense you probably want to write the reports to a log-file. 
+        This is done by, for example, invoking:</p>
+      <div class="example example-erl"><pre>erl&gt; error_logger:tty(false). 
+erl&gt; error_logger:logfile({open, "/tmp/IIOPTrace"}). </pre></div>
+      <p>The <span class="code">IIOPTrace</span> file will contain, if you use the <span class="code">orber_iiop_tracer</span> 
+        interceptor, reports which looks like:</p>
+      <div class="example example-none"><pre>=INFO REPORT==== 13-Jul-2005::18:22:39 ===
+=============== new_out_connection =======
+Node      : myNode@myHost
+From      : 192.0.0.10:47987
+To        : 192.0.0.20:4001
+==========================================
+
+=INFO REPORT==== 29-Nov-2001::15:26:28 ===
+=============== out_request ==============
+Connection: {"192.0.0.20",4001,"192.0.0.10",47987}
+Operation : resolve
+Parameters: [[{'CosNaming_NameComponent',
+                "AIK","SwedishIcehockeyChampions"}]]
+Context   : [{'IOP_ServiceContext',1,
+               {'CONV_FRAME_CodeSetContext',65537,65801}}]
+==========================================</pre></div>
+      <p>The <span class="code">orber_iiop_tracer_silent</span> will not log GIOP encoded data. To activate
+        one the interceptors, you have two options:</p>
+      <ul>
+        <li>
+<strong>erl -orber interceptors "{native,[orber_iiop_tracer]}"</strong> - can be added to a start-script.</li>
+        <li>
+<strong>corba:orb_init([{interceptors, {native, [orber_iiop_tracer_silent]}}])</strong> - this operation must
+         be invoked <strong>before</strong> starting Orber.</li>
+      </ul>
+      <p>It is also possible to active and deactivate an interceptor during
+        run-time, but this will only affect currently existing connections. 
+        For more information, consult Orber's Reference Manual regarding the
+        operations <span class="code">orber:activate_audit_trail/0/1</span> and
+        <span class="code">orber:activate_audit_trail/0/1.</span></p>
+    
+
+    <h4 id="faq" class="title-link" onMouseOver="document.getElementById('ghlink-faq-id97').style.visibility = 'visible';" onMouseOut="document.getElementById('ghlink-faq-id97').style.visibility = 'hidden';">
+<div class="title-name">FAQ</div>
+<div class="title-anchors"><span id="ghlink-faq-id97" class="ghlink-after"><a href="#faq" title="Link to this place!"><span class="paperclip-after"></span></a></span></div>
+</h4>
+      
+      <p><strong>Q: When my client, typically written in C++ or Java, invoke narrow on an Orber  object reference it fails?</strong></p>
+      <p>A: You must register your application in the IFR by invoking <span class="code">oe_register()</span>. 
+        If the object was created by a COS-application, you must run install 
+        (e.g. <span class="code">cosEventApp:install()</span>).</p>
+      <p>A: Confirm, by consulting the IDL specifications, that the received object reference really
+        inherit from the interface you are trying to narrow it to.</p>
+      <br>
+      <p><strong>Q: I am trying to register my application in the IFR but it fails. Why?</strong></p>
+      <p>A: If one, or more, interface in your IDL-specification inherits from
+        other interface(s), you must register them before registering your
+        application. Note, this also apply when you inherit interfaces
+        supported by a COS-application. Hence, they must be installed prior to
+        registration of your application.</p>
+      <br>
+      <p><strong>Q: I have a Orber client and server residing on two different Orber instances but I only get the 'OBJECT_NOT_EXIST' exception, even though I am sure that the object is still alive?</strong></p>
+      <p>A: If the two Orber-ORB's are not intended to be a part of multi-node ORB, make sure that the
+        two Orber-ORB's have different <strong>domain</strong> names set (see
+        <span class="bold_code bc-15"><a href="ch_install.html#config">configuration settings</a></span>). The easiest way
+        to confirm this is to invoke <span class="code">orber:info()</span> on each node.</p>
+      <br>
+      <p><strong>Q: When I'm trying to install and/or start Orber it fails?</strong></p>
+      <p>A: Make sure that no other Orber-ORB is already running on the same node. If so,
+        change the <span class="code">iiop_port</span> configuration parameter (see
+        <span class="bold_code bc-15"><a href="ch_install.html#config">configuration settings</a></span>).</p>
+      <br>
+      <p><strong>Q: My Orber server is invoked via IIOP but Orber cannot marshal the  reply?</strong></p>
+      <p>A: Consult your IDL file to confirm that your replies are of the correct
+        type. If it is correct and the return type is, for example,
+        a struct, make sure you have set every field in the struct. If
+        you do not do that it will be set to the atom 'undefined', which
+        most certainly is not correct.</p>
+      <br>
+      <p>A: Check that you handle <span class="code">inout</span> and <span class="code">out</span> parameters correctly
+        (see the IDL specification). For example, a function which have one
+        out-parameter and should return void, then your call-back module
+        should return <span class="code">{reply, {ok, OutParam}, State}</span>. Note, even though
+        the return value is void (IDL) you must reply with ok.</p>
+      <br>
+      <p><strong>Q: I cannot run Orber as a multi-node ORB?</strong></p>
+      <p>A: Make sure that the Erlang distribution have been started for each
+        node and the <span class="code">cookies</span> are correct. For more information,
+        consult the <span class="code">System Documentation</span></p>
+      <br>
+    
+  
+</div>
+<div class="footer">
+<hr>
+<p>Copyright © 1997-2026 Ericsson AB. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<script type="text/javascript">window.__otpTopDocDir = '../../../../doc/js/';</script><script type="text/javascript" src="../../../../doc/js/highlight.js"></script>
+</body>
+</html>
