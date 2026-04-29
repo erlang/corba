@@ -40,3 +40,13 @@ Technical Detail
 	Q. When trying to access a node I get no valid response?
 
 	A. Make sure that Orber is running on the node.
+
+
+
+# %CopyrightBegin%
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Copyright Ericsson AB 1997-2026. All Rights Reserved.
+#
+# %CopyrightEnd%

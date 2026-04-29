@@ -1,7 +1,10 @@
+%%--------------------------------------------------------------------
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 2017-2023. All Rights Reserved.
+%% SPDX-License-Identifier: Apache-2.0
+%%
+%% Copyright Ericsson AB 2017-2026. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -17,9 +20,7 @@
 %%
 %% %CopyrightEnd%
 %%
-
-%%
-
+%%--------------------------------------------------------------------
 -module(cert_gen).
 
 -include_lib("public_key/include/public_key.hrl").

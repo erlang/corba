@@ -1,3 +1,23 @@
+> %CopyrightBegin%
+>
+> SPDX-License-Identifier: Apache-2.0
+>
+> Copyright Ericsson AB 2010-2026. All Rights Reserved.
+>
+> Licensed under the Apache License, Version 2.0 (the "License");
+> you may not use this file except in compliance with the License.
+> You may obtain a copy of the License at
+>
+>     http://www.apache.org/licenses/LICENSE-2.0
+>
+> Unless required by applicable law or agreed to in writing, software
+> distributed under the License is distributed on an "AS IS" BASIS,
+> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+> See the License for the specific language governing permissions and
+> limitations under the License.
+>
+> %CopyrightEnd%
+
 # [Erlang Corba](https://www.erlang.org)
 
 The corba repository contains a set of Erlang applications, that implements a CORBA compliant
@@ -16,6 +36,13 @@ The following applications are a part of the corba package.
 * CosTransaction  - transaction service
 * CosProperty     - property service
 * CosFileTransfer - file transfer service
+
+
+## The documentation
+
+A prebuilt version of the documentation is checked in under the directory
+prebuilt_doc. If you want to build it by yourself instructions are in the
+Build chapter. 
 
 ## Build
 ### Prerequisites
@@ -149,20 +176,4 @@ We appreciate your help!
 
 Erlang/Corba is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-> %CopyrightBegin%
->
-> Copyright Ericsson AB 2018-2022. All Rights Reserved.
->
-> Licensed under the Apache License, Version 2.0 (the "License");
-> you may not use this file except in compliance with the License.
-> You may obtain a copy of the License at
->
->     http://www.apache.org/licenses/LICENSE-2.0
->
-> Unless required by applicable law or agreed to in writing, software
-> distributed under the License is distributed on an "AS IS" BASIS,
-> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-> See the License for the specific language governing permissions and
-> limitations under the License.
->
-> %CopyrightEnd%
+For any license inquiry, please send an email to opensource@ericsson.com

@@ -1,9 +1,11 @@
 %%--------------------------------------------------------------------
 %%
 %% %CopyrightBegin%
-%% 
-%% Copyright Ericsson AB 1997-2016. All Rights Reserved.
-%% 
+%%
+%% SPDX-License-Identifier: Apache-2.0
+%%
+%% Copyright Ericsson AB 1997-2026. All Rights Reserved.
+%%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
 %% You may obtain a copy of the License at
@@ -18,8 +20,7 @@
 %%
 %% %CopyrightEnd%
 %%
-%%
-%%----------------------------------------------------------------------
+%%--------------------------------------------------------------------
 %% File    : ifr_types.hrl
 %% Purpose : Record definitions for structs used in the interface repository
 %%----------------------------------------------------------------------
