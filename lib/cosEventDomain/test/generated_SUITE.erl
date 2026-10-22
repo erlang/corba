@@ -32,7 +32,7 @@
 
 -define(default_timeout, test_server:minutes(3)).
 
--define(match(ExpectedRes, Expr),lib/cosEventDomain/test/generated_SUITE.erl
+-define(match(ExpectedRes, Expr),
         fun() ->
 		AcTuAlReS = (catch (Expr)),
 		case AcTuAlReS of
