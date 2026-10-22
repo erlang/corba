@@ -32,7 +32,7 @@
 	 string3_test/2, string4_test/2, pid_test/2, port_test/2,
 	 ref_test/2, term_test/2, typedef_test/2,
 	 inline_sequence_test/2, term_sequence_test/2,
-	 term_struct_test/2
+	 term_struct_test/2, send_arbitrary_message_test/2
 
 ]).
 
@@ -301,6 +301,14 @@ term_struct_test(Node, Timeout) ->
     (Ret == In) and (Out == In).
 %%e
 
+%%b
+send_arbitrary_message_test(Node, Timeout) ->
+    Msg = {longerthancheckedatom, 1, 2},
+    {olsson, Node} ! Msg,
+    Ret = m_i:void_test({olsson, Node}, Timeout),
+    Ret == void.
+   
+%%e
 
 %% Locals
 

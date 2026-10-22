@@ -107,7 +107,8 @@ int main(int argc, char **argv)
     char host[HOSTNAMESZ + 1];
     char this_node[NODENAMESZ + 1];
     erlang_msg msg;
-    int status, loop;
+    int status,
+       loop = 1;
     ei_cnode ec;
 
 #ifdef __WIN32__
@@ -145,6 +146,9 @@ int main(int argc, char **argv)
 	} else if (strcmp(argv[i], "-cookie") == 0) {
 	    i++;
 	    cookie = argv[i];
+	} else if (strcmp(argv[i], "-two-messages") == 0) {
+	    i++;
+	    loop = 2;
 	} else {
 	    fprintf(stderr, "Error : invalid argument \"%s\"\n", argv[i]);
 	    usage();
@@ -193,7 +197,7 @@ int main(int argc, char **argv)
     env->_ec = &ec;
 
     status = 1;
-    loop = 1;
+    /* loop = 1; */
     my_gettimeofday(&start);
     while (status >= 0 && loop > 0) {
         status = ei_receive_encoded(env->_fd, &env->_inbuf, &env->_inbufsz,
@@ -219,7 +223,7 @@ int main(int argc, char **argv)
 	    if (env->_iout > 0)
 		ei_send_encoded(env->_fd, &env->_caller, env->_outbuf,
 				env->_iout);
-	    loop = 0;
+	    loop--;
 	    break;
 	case ERL_TICK:
 	    break;
