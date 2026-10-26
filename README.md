@@ -41,8 +41,11 @@ The following applications are a part of the corba package.
 ## The documentation
 
 A prebuilt version of the documentation is checked in under the directory
-prebuilt_doc. If you want to build it by yourself instructions are in the
-Build chapter. 
+prebuilt_doc. The documentation top file is `prebuilt_doc/doc/index.html`.
+If you instead want to build it by yourself, instructions are below in the
+Build chapter.
+This is done due to that the Corba documentation is written
+in the old format and therefor needs OTP 26 to build the documentation.
 
 ## Build
 ### Prerequisites

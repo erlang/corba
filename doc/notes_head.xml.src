@@ -47,17 +47,44 @@ limitations under the License.
   </header>
 
   <section><title>CORBA 5.2.3</title>
-  <section><title>Fixed Bugs and Malfunctions</title>
+
+  <section><title>Improvements and New Features</title>
   <list>
     <item>
       <p>
-        Updated license headers and checked in a built version of the
-        documentation under the directory prebuilt_doc.
+	A prebuilt version of the documentation is checked in under the directory
+        prebuilt_doc. The top index file is prebuilt_doc/doc/index.html.
+        This is done due to that the Corba documentation is still in the old format
+        and therefor needs to be built with OTP 26.
       </p>
       <p>
-      Own Id: OTP-xxx</p>
+      Own Id: OTP-20122</p>
     </item>
   </list>
+  </section>
+  <section><title>Fixed Bugs and Malfunctions</title>
+  <list>
+    <item>
+       <p>
+         SPDX license headers are added to the source files and
+         complete license headers have been added to some files
+         that was missing them.
+       </p>
+       <p>
+       Own Id: OTP-20121</p>
+    </item>
+    <item>
+       <p>
+         A buffer overflow problem was fixed in oe_prepare_request_decoding()
+         in IC C library. The function is designed just to handle calls from
+         a gen_server and therefor only handles "$gen_call" and "$gen_cast".
+         The problem was that it didn't take care if an atom longer than it's
+         buffer came instead of these two atoms.         
+       </p>
+       <p>
+       Own Id: OTP-20521 Aux Id(s): ERIERL-1377</p>
+    </item>
+   </list>
   </section>
   </section>
   
