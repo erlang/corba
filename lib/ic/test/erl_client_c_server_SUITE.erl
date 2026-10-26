@@ -28,7 +28,8 @@
 -module(erl_client_c_server_SUITE).
 -include_lib("common_test/include/ct.hrl").
 
--export([init_per_testcase/2, end_per_testcase/2,all/0, suite/0,groups/0,init_per_suite/1, end_per_suite/1, init_per_group/2,end_per_group/2, void_test/1,
+-export([init_per_testcase/2, end_per_testcase/2,all/0, suite/0,groups/0,init_per_suite/1,
+         end_per_suite/1, init_per_group/2,end_per_group/2, void_test/1,
 	 long_test/1, longlong_test/1, ushort_test/1, ulong_test/1,
 	 ulonglong_test/1, double_test/1, char_test/1, wchar_test/1,
 	 octet_test/1, bool_test/1, struct_test/1, struct2_test/1,
@@ -37,7 +38,8 @@
 	 string1_test/1, string2_test/1, string3_test/1,
 	 string4_test/1, pid_test/1, port_test/1, ref_test/1,
 	 term_test/1, typedef_test/1, inline_sequence_test/1,
-	 term_sequence_test/1, term_struct_test/1, wstring1_test/1]).
+	 term_sequence_test/1, term_struct_test/1, wstring1_test/1,
+         send_arbitrary_message_test/1]).
 
 -define(DEFAULT_TIMEOUT, 20000).
 -define(PORT_TIMEOUT, 15000).
@@ -76,7 +78,7 @@ all() ->
  enum_test, string1_test, string2_test, string3_test,
  string4_test, pid_test, port_test, ref_test, term_test,
  typedef_test, inline_sequence_test, term_sequence_test,
- term_struct_test, wstring1_test].
+ term_struct_test, wstring1_test, send_arbitrary_message_test].
 
 groups() -> 
     [].
@@ -196,8 +198,13 @@ wchar_test(Config) ->
 wstring1_test(Config) ->
     do_test(wstring1_test, Config).
 
+send_arbitrary_message_test(Config) ->
+    do_test(send_arbitrary_message_test, true, Config). 
 
 do_test(Case, Config) ->
+    do_test(Case, false, Config).
+
+do_test(Case, TwoMessages, Config) ->
     %% Trap exits
     process_flag(trap_exit, true),
     Node = atom_to_list(node()),
@@ -208,10 +215,16 @@ do_test(Case, Config) ->
     ServerNodeName = atom_to_list(?C_SERVER_NODE_NAME), 
     %% Start C-server node as a port program. We wait for the node
     %% to connect to us.
-    Cmd = filename:join([DataDir, "c_server"]) ++
+    Cmd0 = filename:join([DataDir, "c_server"]) ++
 	" -this-node-name " ++ ServerNodeName ++ 
 	" -peer-node " ++ Node ++
 	" -cookie " ++ Cookie, 
+    Cmd = case TwoMessages of
+              true ->
+                  Cmd0 ++ " -two-messages";
+              _ ->
+                  Cmd0
+          end,
     Port = open_port({spawn, Cmd}, [exit_status, eof, stderr_to_stdout]),
     ServerNode = list_to_atom(ServerNodeName ++ "@" ++ HostName),
     Res = case wait_for_hidden_node(ServerNode) of
